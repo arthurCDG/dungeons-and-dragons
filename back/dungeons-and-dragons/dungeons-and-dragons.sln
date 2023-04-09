@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33516.290
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dungeons-and-dragons", "dungeons-and-dragons\dungeons-and-dragons.csproj", "{EA33B0E9-FC8B-4554-8ECF-5C6CB937A964}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dnd-web", "dungeons-and-dragons\dnd-web.csproj", "{EA33B0E9-FC8B-4554-8ECF-5C6CB937A964}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dnd-infra", "dnd-infra\dnd-infra.csproj", "{BB18971F-D629-4E01-BF36-C015D69360B8}"
 EndProject
