@@ -17,12 +17,15 @@ internal sealed class GlobalDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.ApplyConfiguration(new ArtefactDalConfiguration());
-        modelBuilder.ApplyConfiguration(new ArtefactEffectDalConfiguration());
+        modelBuilder.ApplyItemConfigurations();
 
         modelBuilder.SeedArtefacts();
+        modelBuilder.SeedChestTraps();
+        modelBuilder.SeedPotions();
     }
 
     public DbSet<ArtefactDal> Artefacts { get; set; }
     public DbSet<ArtefactEffectDal> ArtefactEffects { get; set; }
+    public DbSet<ChestTrapDal> ChestTraps { get; set; }
+    public DbSet<ChestTrapEffectDal> ChestTrapEffects { get; set; }
 }

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace dnd_infra.Seeder;
 
-public static class ModelBuilderExtensions
+internal static class ModelBuilderExtensions
 {
     public static void SeedArtefacts(this ModelBuilder modelBuilder)
     {

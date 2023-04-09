@@ -12,8 +12,8 @@ using dnd_infra;
 namespace dnd_infra.Migrations
 {
     [DbContext(typeof(GlobalDbContext))]
-    [Migration("20230409152228_SeedArtefacts")]
-    partial class SeedArtefacts
+    [Migration("20230409155440_ChestTraps")]
+    partial class ChestTraps
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -336,6 +336,98 @@ namespace dnd_infra.Migrations
                         });
                 });
 
+            modelBuilder.Entity("dnd_infra.Items.DALs.ChestTrapDal", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Explanation")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImageUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Level")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ChestTraps", "Items");
+                });
+
+            modelBuilder.Entity("dnd_infra.Items.DALs.ChestTrapEffectDal", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<bool?>("AttackRandomHeroNearBy")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("ChestTrapId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("DecreaseAllCreaturesLifePoints")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("DecreaseHeroLifePoints")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("DecreaseHeroManaPoints")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("DecreaseRandomMonsterLifePoints")
+                        .HasColumnType("int");
+
+                    b.Property<bool?>("DoesNotAffectHeroes")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("DoesNotAffectLivingCreatures")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("DoesNotAffectMonsters")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("DoesNotAffectUndeads")
+                        .HasColumnType("bit");
+
+                    b.Property<int?>("IncreaseAllMonstersLifePoints")
+                        .HasColumnType("int");
+
+                    b.Property<bool?>("Lose5LifePointsOrRandomHeroLoses3LifePoints")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("MoveToRandomHero")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("ReviveLastDeadMonster")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("SkipNextTurn")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ChestTrapId");
+
+                    b.ToTable("ChestTrapEffects", "Items");
+                });
+
             modelBuilder.Entity("dnd_infra.Items.DALs.ArtefactEffectDal", b =>
                 {
                     b.HasOne("dnd_infra.Items.DALs.ArtefactDal", null)
@@ -345,7 +437,21 @@ namespace dnd_infra.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("dnd_infra.Items.DALs.ChestTrapEffectDal", b =>
+                {
+                    b.HasOne("dnd_infra.Items.DALs.ChestTrapDal", null)
+                        .WithMany("Effects")
+                        .HasForeignKey("ChestTrapId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("dnd_infra.Items.DALs.ArtefactDal", b =>
+                {
+                    b.Navigation("Effects");
+                });
+
+            modelBuilder.Entity("dnd_infra.Items.DALs.ChestTrapDal", b =>
                 {
                     b.Navigation("Effects");
                 });
