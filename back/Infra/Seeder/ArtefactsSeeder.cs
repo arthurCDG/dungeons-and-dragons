@@ -1,4 +1,5 @@
-﻿using dnd_infra.Items.DALs;
+﻿using dnd_domain.Items.Enums;
+using dnd_infra.Items.DALs;
 using Microsoft.EntityFrameworkCore;
 
 namespace dnd_infra.Seeder;
@@ -122,26 +123,26 @@ internal static class ModelBuilderExtensions
 
         modelBuilder.Entity<ArtefactEffectDal>().HasData(
             // Amulette de Yondalla
-            new ArtefactEffectDal { Id = 1, ArtefactId = 1, CanDiscardChestItemToPickAnotherOneOneTime = true },
+            new ArtefactEffectDal { Id = 1, ArtefactId = 1, Effect = ArtefactEffect.CanDiscardChestItemToPickAnotherOneOneTime },
             // Fortune de Yondalla
-            new ArtefactEffectDal { Id = 2, ArtefactId = 2, PicksTwoOutOfFourChestItems = true },
-            new ArtefactEffectDal { Id = 3, ArtefactId = 2, NotAffectedByTrapsWhilePickingChestItems = true },
+            new ArtefactEffectDal { Id = 2, ArtefactId = 2, Effect = ArtefactEffect.PicksTwoOutOfFourChestItems },
+            new ArtefactEffectDal { Id = 3, ArtefactId = 2, Effect = ArtefactEffect.NotAffectedByTrapsWhilePickingChestItems },
             // Anneau des ombres
-            new ArtefactEffectDal { Id = 4, ArtefactId = 3, IsUndetectableInNextRound = true },
+            new ArtefactEffectDal { Id = 4, ArtefactId = 3, Effect = ArtefactEffect.IsUndetectableInNextRound },
             // Cape en peau d'écorce
-            new ArtefactEffectDal { Id = 5, ArtefactId = 4, DismissAllAttacks = true },
+            new ArtefactEffectDal { Id = 5, ArtefactId = 4, Effect = ArtefactEffect.DismissAllAttacks },
             // Bouclier du chaos
-            new ArtefactEffectDal { Id = 6, ArtefactId = 5, ReflectsBackToAttacker = true },
+            new ArtefactEffectDal { Id = 6, ArtefactId = 5, Effect = ArtefactEffect.AttackReflectsBackToAttacker },
             // Amulette d'Olidammara
-            new ArtefactEffectDal { Id = 7, ArtefactId = 6, CanCastTrapFinderDie = true },
+            new ArtefactEffectDal { Id = 7, ArtefactId = 6, Effect = ArtefactEffect.CanCastTrapFinderDie },
             // Orbre de vision lucide
-            new ArtefactEffectDal { Id = 8, ArtefactId = 7, RevealRoomTraps = true },
+            new ArtefactEffectDal { Id = 8, ArtefactId = 7, Effect = ArtefactEffect.RevealRoomTraps },
             // Bouclier miroir elfe
-            new ArtefactEffectDal { Id = 9, ArtefactId = 8, ReflectsBackToAttacker = true },
+            new ArtefactEffectDal { Id = 9, ArtefactId = 8, Effect = ArtefactEffect.AttackReflectsBackToAttacker },
             // Cape de Boccob
-            new ArtefactEffectDal { Id = 10, ArtefactId = 9, ShieldIncrease = 1 },
+            new ArtefactEffectDal { Id = 10, ArtefactId = 9, Effect = ArtefactEffect.IncreaseHeroShieldBy1 },
             // Cor de l'invocateur
-            new ArtefactEffectDal { Id = 11, ArtefactId = 10, CanInvokeHeroNearBy = true }
+            new ArtefactEffectDal { Id = 11, ArtefactId = 10, Effect = ArtefactEffect.CanInvokeHeroNearBy }
         );
     }
 }

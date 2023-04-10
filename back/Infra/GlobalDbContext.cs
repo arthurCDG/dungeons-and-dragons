@@ -1,4 +1,5 @@
-﻿using dnd_infra.Items.Configurations;
+﻿using dnd_infra.Dice;
+using dnd_infra.Items.Configurations;
 using dnd_infra.Items.DALs;
 using dnd_infra.Seeder;
 using Microsoft.EntityFrameworkCore;
@@ -18,6 +19,7 @@ internal sealed class GlobalDbContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyItemConfigurations();
+        modelBuilder.ApplyConfiguration(new DieDalConfiguration());
 
         modelBuilder.SeedArtefacts();
         modelBuilder.SeedChestTraps();
@@ -25,7 +27,6 @@ internal sealed class GlobalDbContext : DbContext
     }
 
     public DbSet<ArtefactDal> Artefacts { get; set; }
-    public DbSet<ArtefactEffectDal> ArtefactEffects { get; set; }
     public DbSet<ChestTrapDal> ChestTraps { get; set; }
-    public DbSet<ChestTrapEffectDal> ChestTrapEffects { get; set; }
+    public DbSet<PotionDal> Potions { get; set; }
 }

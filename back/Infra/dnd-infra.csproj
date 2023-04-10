@@ -19,4 +19,8 @@
     <Folder Include="Migrations\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Domain\dnd-domain\dnd-domain.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "dnd-infra", "Infra\dnd-infr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "dnd-web", "Web\dnd-web.csproj", "{06E9A54D-972A-4760-9DB0-8A72D9597C11}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dnd-domain", "Domain\dnd-domain\dnd-domain.csproj", "{666A4EA0-2764-4677-A8C0-4C55A3383E6D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{06E9A54D-972A-4760-9DB0-8A72D9597C11}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{06E9A54D-972A-4760-9DB0-8A72D9597C11}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{06E9A54D-972A-4760-9DB0-8A72D9597C11}.Release|Any CPU.Build.0 = Release|Any CPU
+		{666A4EA0-2764-4677-A8C0-4C55A3383E6D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{666A4EA0-2764-4677-A8C0-4C55A3383E6D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{666A4EA0-2764-4677-A8C0-4C55A3383E6D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{666A4EA0-2764-4677-A8C0-4C55A3383E6D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

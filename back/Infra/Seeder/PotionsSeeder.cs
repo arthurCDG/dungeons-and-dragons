@@ -1,4 +1,5 @@
-﻿using dnd_infra.Items.DALs;
+﻿using dnd_domain.Items.Enums;
+using dnd_infra.Items.DALs;
 using Microsoft.EntityFrameworkCore;
 
 namespace dnd_infra.Seeder;
@@ -183,43 +184,43 @@ internal static class PotionsSeeder
 
         modelBuilder.Entity<PotionEffectDal>().HasData(
             // Potion de faiblesse
-            new PotionEffectDal { Id = 1, PotionId = 1, DecreaseMonsterShieldUntilNextDMTurn = 2 },
+            new PotionEffectDal { Id = 1, PotionId = 1, Effect = PotionEffect.DecreaseMonsterShieldUntilNextDMTurnBy2 },
             // Potion de soins importants
-            new PotionEffectDal { Id = 2, PotionId = 2, IncreaseLifePoints = 5 },
+            new PotionEffectDal { Id = 2, PotionId = 2, Effect = PotionEffect.IncreaseHeroLifePointsBy5 },
             // Potion de soins légers
-            new PotionEffectDal { Id = 3, PotionId = 3, IncreaseLifePoints = 3 },
+            new PotionEffectDal { Id = 3, PotionId = 3, Effect = PotionEffect.IncreaseHeroLifePointsBy3 },
             // Potion de soins modérés
-            new PotionEffectDal { Id = 4, PotionId = 4, IncreaseLifePoints = 4 },
+            new PotionEffectDal { Id = 4, PotionId = 4, Effect = PotionEffect.IncreaseHeroLifePointsBy4 },
             // Potion de cercle de guérison
-            new PotionEffectDal { Id = 5, PotionId = 5, IncreaseLifePoints = 2, AffectsAllHeroes = true },
+            new PotionEffectDal { Id = 5, PotionId = 5, Effect = PotionEffect.IncreaseAllHeroesLifePointsBy2 },
             // Potion de restauration suprême
-            new PotionEffectDal { Id = 6, PotionId = 6, IncreaseManaPoints = 5 },
+            new PotionEffectDal { Id = 6, PotionId = 6, Effect = PotionEffect.IncreaseHeroManaPointsBy5 },
             // Potion de restauration partielle
-            new PotionEffectDal { Id = 7, PotionId = 7, IncreaseManaPoints = 3 },
+            new PotionEffectDal { Id = 7, PotionId = 7, Effect = PotionEffect.IncreaseHeroManaPointsBy3 },
             // Potion de restauration
-            new PotionEffectDal { Id = 8, PotionId = 8, IncreaseManaPoints = 4 },
+            new PotionEffectDal { Id = 8, PotionId = 8, Effect = PotionEffect.IncreaseHeroManaPointsBy4 },
             // Potion d'ombre fumigène
-            new PotionEffectDal { Id = 9, PotionId = 9, IncreaseFootSteps = 1, AffectsAllHeroes = true },
+            new PotionEffectDal { Id = 9, PotionId = 9, Effect = PotionEffect.IncreaseAllHeroesFootStepsBy1 },
             // Potion de restauration suprême
-            new PotionEffectDal { Id = 10, PotionId = 10, ReviveHeroWith4LPAnd4MP = true },
+            new PotionEffectDal { Id = 10, PotionId = 10, Effect = PotionEffect.ReviveHeroWith4LPAnd4MP },
             // Potion de faiblesse suprême
-            new PotionEffectDal { Id = 11, PotionId = 11, DecreaseMonsterShieldUntilNextDMTurn = 2, AffectsAllMonsters = true },
+            new PotionEffectDal { Id = 11, PotionId = 11, Effect = PotionEffect.DecreaseAllMonstersShieldsUntilNextDMTurnBy2 },
             // Potion de main impérieuse
-            new PotionEffectDal { Id = 12, PotionId = 12, MoveMonsterToChosenSquare = true },
+            new PotionEffectDal { Id = 12, PotionId = 12, Effect = PotionEffect.MoveMonsterToChosenSquare },
             // Potion d'attaque soudaine
-            new PotionEffectDal { Id = 13, PotionId = 13, DecreaseMonsterLifePoints = 2 },
+            new PotionEffectDal { Id = 13, PotionId = 13, Effect = PotionEffect.DecreaseMonsterLifePointsBy2 },
             // Potion de montée d'adrénaline
-            new PotionEffectDal { Id = 14, PotionId = 14, CanAttackImmediatly = true },
+            new PotionEffectDal { Id = 14, PotionId = 14, Effect = PotionEffect.HeroCanAttackImmediatly },
             // Potion de la sagesse d'Olidammara
-            new PotionEffectDal { Id = 15, PotionId = 15, CanDismissTrapEffect = true },
+            new PotionEffectDal { Id = 15, PotionId = 15, Effect = PotionEffect.HeroCanDismissTrapEffect },
             // Potion de bénédiction de Kord
-            new PotionEffectDal { Id = 16, PotionId = 16, DoublesWeaponStrength = true },
+            new PotionEffectDal { Id = 16, PotionId = 16, Effect = PotionEffect.DoubleWeaponStrengthForNextAttack },
             // Potion d'introspection
-            new PotionEffectDal { Id = 17, PotionId = 17, RerollLastCastDie = true },
+            new PotionEffectDal { Id = 17, PotionId = 17, Effect = PotionEffect.RerollLastCastDie },
             // Potion de fou rire
-            new PotionEffectDal { Id = 18, PotionId = 18, DismissesNextTurnOfMonster = true },
+            new PotionEffectDal { Id = 18, PotionId = 18, Effect = PotionEffect.DismissesNextTurnOfMonster },
             // Potion d'arrêt du temps
-            new PotionEffectDal { Id = 19, PotionId = 19, DismissesNextTurnOfMonster = true, AffectsAllMonsters = true }
+            new PotionEffectDal { Id = 19, PotionId = 19, Effect = PotionEffect.DismissesNextTurnOfAllMonsters }
         );
     }
 }

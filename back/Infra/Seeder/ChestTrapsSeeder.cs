@@ -1,4 +1,5 @@
-﻿using dnd_infra.Items.DALs;
+﻿using dnd_domain.Items.Enums;
+using dnd_infra.Items.DALs;
 using Microsoft.EntityFrameworkCore;
 
 namespace dnd_infra.Seeder;
@@ -75,22 +76,22 @@ internal static class ChestTrapsSeeder
 
         modelBuilder.Entity<ChestTrapEffectDal>().HasData(
             // Brume étouffante
-            new ChestTrapEffectDal { Id = 1, ChestTrapId = 1, DecreaseAllCreaturesLifePoints = 1 },
-            new ChestTrapEffectDal { Id = 2, ChestTrapId = 1, DoesNotAffectUndeads = true },
+            new ChestTrapEffectDal { Id = 1, ChestTrapId = 1, Effect = ChestTrapEffect.DecreaseAllCreaturesLifePointsBy1 },
+            new ChestTrapEffectDal { Id = 2, ChestTrapId = 1, Effect = ChestTrapEffect.DoesNotAffectUndeads },
             // Couverture de flammes
-            new ChestTrapEffectDal { Id = 3, ChestTrapId = 2, DecreaseHeroLifePoints = 2 },
-            new ChestTrapEffectDal { Id = 4, ChestTrapId = 2, DecreaseHeroNearByLifePoints = 2 },
+            new ChestTrapEffectDal { Id = 3, ChestTrapId = 2, Effect = ChestTrapEffect.DecreaseHeroLifePointsBy2 },
+            new ChestTrapEffectDal { Id = 4, ChestTrapId = 2, Effect = ChestTrapEffect.DecreaseHeroNearByLifePointsBy2 },
             // Voix des damnés
-            new ChestTrapEffectDal { Id = 5, ChestTrapId = 3, MoveToRandomHero = true },
-            new ChestTrapEffectDal { Id = 6, ChestTrapId = 3, AttackRandomHeroNearBy = true },
+            new ChestTrapEffectDal { Id = 5, ChestTrapId = 3, Effect = ChestTrapEffect.MoveToRandomHero },
+            new ChestTrapEffectDal { Id = 6, ChestTrapId = 3, Effect = ChestTrapEffect.AttackRandomHeroNearBy },
             // Lumière aveuglante
-            new ChestTrapEffectDal { Id = 7, ChestTrapId = 4, SkipNextTurn = true },
+            new ChestTrapEffectDal { Id = 7, ChestTrapId = 4, Effect = ChestTrapEffect.SkipNextTurn },
             // Appel de la tombe
-            new ChestTrapEffectDal { Id = 8, ChestTrapId = 5, ReviveLastDeadMonster = true },
+            new ChestTrapEffectDal { Id = 8, ChestTrapId = 5, Effect = ChestTrapEffect.ReviveLastDeadMonster },
             // Trahison brutale
-            new ChestTrapEffectDal { Id = 9, ChestTrapId = 6, Lose5LifePointsOrRandomHeroLoses3LifePoints = true },
+            new ChestTrapEffectDal { Id = 9, ChestTrapId = 6, Effect = ChestTrapEffect.Lose5LifePointsOrRandomHeroLoses3LifePoints },
             // Perte de magie
-            new ChestTrapEffectDal { Id = 10, ChestTrapId = 7, DecreaseHeroManaPoints = 4 }
+            new ChestTrapEffectDal { Id = 10, ChestTrapId = 7, Effect = ChestTrapEffect.DecreaseHeroManaPointsBy4 }
         );
     }
 }

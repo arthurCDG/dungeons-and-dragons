@@ -12,5 +12,9 @@ internal static class ItemConfigurations
         modelBuilder.ApplyConfiguration(new ChestTrapEffectDalConfiguration());
         modelBuilder.ApplyConfiguration(new PotionDalConfiguration());
         modelBuilder.ApplyConfiguration(new PotionEffectDalConfiguration());
+        modelBuilder.ApplyConfiguration(new WeaponDalConfiguration());
+        modelBuilder.ApplyConfiguration(new WeaponEffectDalConfiguration());
+        modelBuilder.ApplyConfiguration(new SpellDalConfiguration());
+        modelBuilder.ApplyConfiguration(new SpellEffectDalConfiguration());
     }
 }
