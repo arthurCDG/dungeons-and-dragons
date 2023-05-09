@@ -1,4 +1,5 @@
 ﻿using dnd_infra.Items.DALs;
+using dnd_infra.Sessions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -10,6 +11,11 @@ internal sealed class ChestTrapDalConfiguration : IEntityTypeConfiguration<Chest
     {
         builder.ToTable("ChestTraps", "Items");
 
-        builder.HasKey(a => a.Id);
+        builder.HasKey(chestTtap => chestTtap.Id);
+
+        builder.HasOne<SessionDal>()
+            .WithMany()
+            .HasForeignKey(chestTtap => chestTtap.SessionId)
+            .OnDelete(DeleteBehavior.Restrict);
     }
 }

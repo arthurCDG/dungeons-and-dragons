@@ -1,6 +1,6 @@
 ﻿namespace dnd_domain.Items.Enums;
 
-public enum SpellEffect
+public enum SpellEffectType
 {
     ReviveAnHeroWith4LifePointsAnd4ManaPoints = 0,
     IncreaseHeroLifePointsBy1 = 1,

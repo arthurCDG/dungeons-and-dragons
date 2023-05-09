@@ -1,6 +1,6 @@
 ﻿namespace dnd_domain.Items.Enums;
 
-public enum ChestTrapEffect
+public enum ChestTrapEffectType
 {
     DecreaseAllCreaturesLifePointsBy1,
     DecreaseAllCreaturesLifePointsBy2,

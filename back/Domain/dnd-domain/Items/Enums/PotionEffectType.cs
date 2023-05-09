@@ -1,6 +1,6 @@
 ﻿namespace dnd_domain.Items.Enums;
 
-public enum PotionEffect
+public enum PotionEffectType
 {
     IncreaseHeroLifePointsBy1,
     IncreaseHeroLifePointsBy2,

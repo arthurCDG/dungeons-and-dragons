@@ -8,6 +8,6 @@ public enum DieType
     PurpleDie = 3,
     StarDie = 4,
     TurnUndeadDie = 5,
-    FindTrapsDie = 6,
+    RevealTrapsDie = 6,
     DismissTrapsDie = 7
 }

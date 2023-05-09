@@ -6,5 +6,5 @@ internal sealed class ArtefactEffectDal
 {
     public int Id { get; set; }
     public int ArtefactId { get; set; }
-    public ArtefactEffect Effect { get; set; }
+    public ArtefactEffectType Effect { get; set; }
 }

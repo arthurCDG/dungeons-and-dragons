@@ -1,6 +1,6 @@
 ﻿namespace dnd_domain.Items.Enums;
 
-public enum StarDieEffect
+public enum StarDieEffectType
 {
     IncreaseHeroLifePointsBy1,
     IncreaseHeroLifePointsBy2,

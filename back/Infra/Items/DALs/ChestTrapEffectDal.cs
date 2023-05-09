@@ -6,5 +6,5 @@ internal sealed class ChestTrapEffectDal
 {
     public int Id { get; set; }
     public int ChestTrapId { get; set; }
-    public ChestTrapEffect Effect { get; set; }
+    public ChestTrapEffectType Effect { get; set; }
 }

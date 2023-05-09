@@ -10,7 +10,7 @@ internal sealed class WeaponSuperAttackDal
     public int WeaponId { get; set; }
     public WeaponSuperAttackType Type { get; set; }
 
-    public List<DieDal>? Dice { get; set; }
+    public List<DieAssociationDal>? Dice { get; set; }
     public bool? LosesWeaponAfterSuperAttack { get; set; }
     public bool? LosesWeaponIfStarDieReturnsStar { get; set; }
 }

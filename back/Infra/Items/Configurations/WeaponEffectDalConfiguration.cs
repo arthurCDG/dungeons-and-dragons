@@ -10,11 +10,11 @@ internal class WeaponEffectDalConfiguration : IEntityTypeConfiguration<WeaponEff
     {
         builder.ToTable("WeaponEffects", "Items");
 
-        builder.HasKey(a => a.Id);
+        builder.HasKey(weaponEffect => weaponEffect.Id);
 
         builder.HasOne<WeaponDal>()
-            .WithMany(weapon => weapon.Effects)
-            .HasForeignKey(effect => effect.WeaponId)
+            .WithMany()
+            .HasForeignKey(weaponEffect => weaponEffect.WeaponId)
             .OnDelete(DeleteBehavior.Restrict);
     }
 }

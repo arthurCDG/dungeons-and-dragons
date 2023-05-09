@@ -1,6 +1,6 @@
 ﻿namespace dnd_domain.Items.Enums;
 
-public enum ArtefactEffect
+public enum ArtefactEffectType
 {
     IncreaseHeroLifePointsBy1,
     IncreaseHeroLifePointsBy2,

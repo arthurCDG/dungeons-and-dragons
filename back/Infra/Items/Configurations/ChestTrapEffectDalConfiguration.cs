@@ -10,11 +10,11 @@ internal sealed class ChestTrapEffectDalConfiguration : IEntityTypeConfiguration
     {
         builder.ToTable("ChestTrapEffects", "Items");
 
-        builder.HasKey(a => a.Id);
+        builder.HasKey(chestTrapEffect => chestTrapEffect.Id);
 
         builder.HasOne<ChestTrapDal>()
-            .WithMany(chestTrap => chestTrap.Effects)
-            .HasForeignKey(effect => effect.ChestTrapId)
+            .WithMany()
+            .HasForeignKey(chestTrapEffect => chestTrapEffect.ChestTrapId)
             .OnDelete(DeleteBehavior.Restrict);
     }
 }

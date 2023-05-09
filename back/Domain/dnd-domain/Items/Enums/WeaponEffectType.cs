@@ -1,6 +1,6 @@
 ﻿namespace dnd_domain.Items.Enums;
 
-public enum WeaponEffect
+public enum WeaponEffectType
 {
     ProtectsHeroAgainstParalysisWhenUsed = 0,
     IgnoresMonsterShield = 1,

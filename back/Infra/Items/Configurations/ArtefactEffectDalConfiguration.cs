@@ -9,11 +9,12 @@ internal class ArtefactEffectDalConfiguration : IEntityTypeConfiguration<Artefac
     public void Configure(EntityTypeBuilder<ArtefactEffectDal> builder)
     {
         builder.ToTable("ArtefactEffects", "Items");
-        builder.HasKey(a => a.Id);
+
+        builder.HasKey(artefactEffect => artefactEffect.Id);
 
         builder.HasOne<ArtefactDal>()
-            .WithMany(artefact => artefact.Effects)
-            .HasForeignKey(effect => effect.ArtefactId)
+            .WithMany()
+            .HasForeignKey(artefactEffect => artefactEffect.ArtefactId)
             .OnDelete(DeleteBehavior.Restrict);
     }
 }

@@ -22,6 +22,92 @@ namespace dnd_infra.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("dnd_infra.Dice.DieAssociationDal", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int?>("ArtefactId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ChestTrapId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("DieType")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("HeroId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("MonsterDalId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("MonsterDalId1")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("MonsterId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("PotionId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SessionId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("SpellDalId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("SpellId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("WeaponDalId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("WeaponId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("WeaponSuperAttackDalId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("WeaponSuperAttackId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ArtefactId");
+
+                    b.HasIndex("ChestTrapId");
+
+                    b.HasIndex("HeroId");
+
+                    b.HasIndex("MonsterDalId");
+
+                    b.HasIndex("MonsterDalId1");
+
+                    b.HasIndex("MonsterId");
+
+                    b.HasIndex("PotionId");
+
+                    b.HasIndex("SessionId");
+
+                    b.HasIndex("SpellDalId");
+
+                    b.HasIndex("SpellId");
+
+                    b.HasIndex("WeaponDalId");
+
+                    b.HasIndex("WeaponId");
+
+                    b.HasIndex("WeaponSuperAttackDalId");
+
+                    b.HasIndex("WeaponSuperAttackId");
+
+                    b.ToTable("DieAssociations", "Dice");
+                });
+
             modelBuilder.Entity("dnd_infra.Items.DALs.ArtefactDal", b =>
                 {
                     b.Property<int>("Id")
@@ -37,7 +123,7 @@ namespace dnd_infra.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool?>("DiscardAfterUsage")
+                    b.Property<bool>("DiscardAfterUsage")
                         .HasColumnType("bit");
 
                     b.Property<string>("Explanation")
@@ -55,121 +141,14 @@ namespace dnd_infra.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("SessionId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
-                    b.ToTable("Artefacts", "Items");
+                    b.HasIndex("SessionId");
 
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            CastDieToDiscardAfterUsage = false,
-                            Description = "Couverte de symboles magiques.",
-                            DiscardAfterUsage = false,
-                            Explanation = "Quand vous ouvrez un coffre, vous pouvez garder l'objet trouvé, ou vous en défausser et en choisir un autre.",
-                            ImageUrl = "",
-                            Level = 1,
-                            Name = "Amulette de Yondalla"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            CastDieToDiscardAfterUsage = true,
-                            Description = "Des runes de protection sont serties dans sa pierre.",
-                            DiscardAfterUsage = false,
-                            Explanation = "Quand vous ouvrez un coffre, vous avez le choix entre 4 objets. Choisissez en deux que vous gardez. Par ailleurs, les pièges ne vous infligent pas de dégât. Après avoir fait votre choix, lancez le dé de hasard pour savoir si vous gardez ou non l'artefact.",
-                            ImageUrl = "",
-                            Level = 3,
-                            Name = "Fortune de Yondalla"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            CastDieToDiscardAfterUsage = true,
-                            Description = "Passez cet anneau à votre doigt pour disparaître dans les ténèbres du donjon.",
-                            DiscardAfterUsage = false,
-                            Explanation = "Déplacez vous où vous le désirez dans la pièce sans être détecté. Lancez ensuite le dé de hasard pour savoir si vous gardez ou non l'artefact.",
-                            ImageUrl = "",
-                            Level = 1,
-                            Name = "Anneau des ombres"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            CastDieToDiscardAfterUsage = true,
-                            Description = "Composée de l'écorce des arbres magiques de Arnholm, cette cape légère vous protège.",
-                            DiscardAfterUsage = false,
-                            Explanation = "Portez cette cape pour ne pas subir de dégâts lors d'une attaque ou d'un événement. Lancez ensuite le dé de hasard pour savoir si vous gardez ou non l'artefact.",
-                            ImageUrl = "",
-                            Level = 1,
-                            Name = "Cape en peau d'écorce"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            CastDieToDiscardAfterUsage = true,
-                            Description = "Forgé dans un moment de rage par les nains, ce bouclier agit de manière imprévisible.",
-                            DiscardAfterUsage = false,
-                            Explanation = "Redirigez les dégâts que vous devez subir sur les points de vie d'un autre héros. Lancez ensuite le dé de hasard pour savoir si vous gardez ou non l'artefact.",
-                            ImageUrl = "",
-                            Level = 2,
-                            Name = "Bouclier du chaos"
-                        },
-                        new
-                        {
-                            Id = 6,
-                            CastDieToDiscardAfterUsage = false,
-                            Description = "Elle renferme la sagesse de nombreux anciens.",
-                            DiscardAfterUsage = false,
-                            Explanation = "Permet au porteur de chercher des pièges dans la salle.",
-                            ImageUrl = "",
-                            Level = 1,
-                            Name = "Amulette d'Olidammara"
-                        },
-                        new
-                        {
-                            Id = 7,
-                            CastDieToDiscardAfterUsage = false,
-                            Description = "Il appartenait autrefois à de sages seigneurs à qui il offrait ses dons de vision.",
-                            DiscardAfterUsage = true,
-                            Explanation = "Révelez tous les pièges dans la pièce. L'artefact disparaît après son utilisation.",
-                            ImageUrl = "",
-                            Level = 1,
-                            Name = "Orbe de vision lucide"
-                        },
-                        new
-                        {
-                            Id = 8,
-                            CastDieToDiscardAfterUsage = true,
-                            Description = "Découvert au fond d'une fontaine elfe, il réfléchit l'image de tout ce qu'il voit.",
-                            DiscardAfterUsage = false,
-                            Explanation = "L'attaquant subit les dégâts du jet de dé à votre place. Lancez ensuite le dé de hasard pour savoir si vous gardez ou non l'artefact.",
-                            ImageUrl = "",
-                            Level = 3,
-                            Name = "Bouclier miroir elfe"
-                        },
-                        new
-                        {
-                            Id = 9,
-                            CastDieToDiscardAfterUsage = true,
-                            Description = "Les enchantements tissés dans cette cape permettent d'absorber les attaques physiques.",
-                            DiscardAfterUsage = false,
-                            Explanation = "Augmente la classe d'armure de 1 pour ce tour. Lancez ensuite le dé de hasard pour savoir si vous gardez ou non l'artefact.",
-                            ImageUrl = "",
-                            Level = 1,
-                            Name = "Cape de Boccob"
-                        },
-                        new
-                        {
-                            Id = 10,
-                            CastDieToDiscardAfterUsage = true,
-                            Description = "Soufflez fort pour appeler de l'aide.",
-                            DiscardAfterUsage = false,
-                            Explanation = "Déplacez n'importe quel héros sur une case près de vous. Lancez ensuite le dé de hasard pour savoir si vous gardez ou non l'artefact.",
-                            ImageUrl = "",
-                            Level = 1,
-                            Name = "Cor de l'invocateur"
-                        });
+                    b.ToTable("Artefacts", "Items");
                 });
 
             modelBuilder.Entity("dnd_infra.Items.DALs.ArtefactEffectDal", b =>
@@ -180,157 +159,22 @@ namespace dnd_infra.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int?>("ArtefactDalId")
+                        .HasColumnType("int");
+
                     b.Property<int>("ArtefactId")
                         .HasColumnType("int");
 
-                    b.Property<bool?>("CanCastTrapFinderDie")
-                        .HasColumnType("bit");
-
-                    b.Property<bool?>("CanDiscardChestItemToPickAnotherOneOneTime")
-                        .HasColumnType("bit");
-
-                    b.Property<bool?>("CanDiscardChestItemToPickAnotherOneThreeTimes")
-                        .HasColumnType("bit");
-
-                    b.Property<bool?>("CanDiscardChestItemToPickAnotherOneTwoTimes")
-                        .HasColumnType("bit");
-
-                    b.Property<bool?>("CanInvokeHeroNearBy")
-                        .HasColumnType("bit");
-
-                    b.Property<bool?>("DismissAllAttacks")
-                        .HasColumnType("bit");
-
-                    b.Property<int?>("FootStepsDecrease")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("FootStepsIncrease")
-                        .HasColumnType("int");
-
-                    b.Property<bool?>("IsUndetectableInNextRound")
-                        .HasColumnType("bit");
-
-                    b.Property<int?>("LifeDecrease")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("LifeIncrease")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("ManaDecrease")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("ManaIncrease")
-                        .HasColumnType("int");
-
-                    b.Property<bool?>("NotAffectedByTraps")
-                        .HasColumnType("bit");
-
-                    b.Property<bool?>("NotAffectedByTrapsWhilePickingChestItems")
-                        .HasColumnType("bit");
-
-                    b.Property<bool?>("PicksTwoOutOfFourChestItems")
-                        .HasColumnType("bit");
-
-                    b.Property<bool?>("ReflectsBackToAnotherHero")
-                        .HasColumnType("bit");
-
-                    b.Property<bool?>("ReflectsBackToAttacker")
-                        .HasColumnType("bit");
-
-                    b.Property<bool?>("ReflectsBackToRandomTarget")
-                        .HasColumnType("bit");
-
-                    b.Property<bool?>("RerollDice")
-                        .HasColumnType("bit");
-
-                    b.Property<bool?>("RevealRoomTraps")
-                        .HasColumnType("bit");
-
-                    b.Property<int?>("ShieldDecrease")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("ShieldIncrease")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("StorageDecrease")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("StorageIncrease")
+                    b.Property<int>("Effect")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ArtefactDalId");
+
                     b.HasIndex("ArtefactId");
 
                     b.ToTable("ArtefactEffects", "Items");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            ArtefactId = 1,
-                            CanDiscardChestItemToPickAnotherOneOneTime = true
-                        },
-                        new
-                        {
-                            Id = 2,
-                            ArtefactId = 2,
-                            PicksTwoOutOfFourChestItems = true
-                        },
-                        new
-                        {
-                            Id = 3,
-                            ArtefactId = 2,
-                            NotAffectedByTrapsWhilePickingChestItems = true
-                        },
-                        new
-                        {
-                            Id = 4,
-                            ArtefactId = 3,
-                            IsUndetectableInNextRound = true
-                        },
-                        new
-                        {
-                            Id = 5,
-                            ArtefactId = 4,
-                            DismissAllAttacks = true
-                        },
-                        new
-                        {
-                            Id = 6,
-                            ArtefactId = 5,
-                            ReflectsBackToAttacker = true
-                        },
-                        new
-                        {
-                            Id = 7,
-                            ArtefactId = 6,
-                            CanCastTrapFinderDie = true
-                        },
-                        new
-                        {
-                            Id = 8,
-                            ArtefactId = 7,
-                            RevealRoomTraps = true
-                        },
-                        new
-                        {
-                            Id = 9,
-                            ArtefactId = 8,
-                            ReflectsBackToAttacker = true
-                        },
-                        new
-                        {
-                            Id = 10,
-                            ArtefactId = 9,
-                            ShieldIncrease = 1
-                        },
-                        new
-                        {
-                            Id = 11,
-                            ArtefactId = 10,
-                            CanInvokeHeroNearBy = true
-                        });
                 });
 
             modelBuilder.Entity("dnd_infra.Items.DALs.ChestTrapDal", b =>
@@ -360,74 +204,14 @@ namespace dnd_infra.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("SessionId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
-                    b.ToTable("ChestTraps", "Items");
+                    b.HasIndex("SessionId");
 
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Description = "Une brume qui rend la respiration difficile.",
-                            Explanation = "Toutes les créatures vivantes situées dans la pièce perdent 1 point de vie. N'affecte pas les morts-vivants.",
-                            ImageUrl = "",
-                            Level = 1,
-                            Name = "Brume étouffante"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Description = "Une intense chaleur vous encercle.",
-                            Explanation = "Vous perdez 2 points de vie et le Héros le plus proche de vous perd 2 points de vie aussi.",
-                            ImageUrl = "",
-                            Level = 3,
-                            Name = "Couverture de flammes"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Description = "Des forces invisibles contrôlent votre esprit.",
-                            Explanation = "Vous vous déplacez près du Héros le plus proche et attaquez avec votre arme équipée.",
-                            ImageUrl = "",
-                            Level = 1,
-                            Name = "Voix des damnés"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Description = "Vous êtes aveuglé par un flash de lumière intense.",
-                            Explanation = "Vous passez votre prochain tour.",
-                            ImageUrl = "",
-                            Level = 1,
-                            Name = "Lumière aveuglante"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Description = "Un pouvoir fantomatique.",
-                            Explanation = "Vous ranimez le dernier monstre vaincu.",
-                            ImageUrl = "",
-                            Level = 1,
-                            Name = "Appel de la tombe"
-                        },
-                        new
-                        {
-                            Id = 6,
-                            Description = "Un terrible sortilège est lancé.",
-                            Explanation = "Choisissez de subir 5 points de dégâts ou de faire subir 3 points de dégâts à un autre Héros aléatoirement choisi.",
-                            ImageUrl = "",
-                            Level = 2,
-                            Name = "Trahison brutale"
-                        },
-                        new
-                        {
-                            Id = 7,
-                            Description = "Vous avez pénétré dans un champ de faiblesse magique.",
-                            Explanation = "Vous perdez 4 points de sort.",
-                            ImageUrl = "",
-                            Level = 3,
-                            Name = "Perte de magie"
-                        });
+                    b.ToTable("ChestTraps", "Items");
                 });
 
             modelBuilder.Entity("dnd_infra.Items.DALs.ChestTrapEffectDal", b =>
@@ -438,121 +222,22 @@ namespace dnd_infra.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<bool?>("AttackRandomHeroNearBy")
-                        .HasColumnType("bit");
+                    b.Property<int?>("ChestTrapDalId")
+                        .HasColumnType("int");
 
                     b.Property<int>("ChestTrapId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("DecreaseAllCreaturesLifePoints")
+                    b.Property<int>("Effect")
                         .HasColumnType("int");
-
-                    b.Property<int?>("DecreaseHeroLifePoints")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("DecreaseHeroManaPoints")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("DecreaseHeroNearByLifePoints")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("DecreaseRandomMonsterLifePoints")
-                        .HasColumnType("int");
-
-                    b.Property<bool?>("DoesNotAffectHeroes")
-                        .HasColumnType("bit");
-
-                    b.Property<bool?>("DoesNotAffectLivingCreatures")
-                        .HasColumnType("bit");
-
-                    b.Property<bool?>("DoesNotAffectMonsters")
-                        .HasColumnType("bit");
-
-                    b.Property<bool?>("DoesNotAffectUndeads")
-                        .HasColumnType("bit");
-
-                    b.Property<int?>("IncreaseAllMonstersLifePoints")
-                        .HasColumnType("int");
-
-                    b.Property<bool?>("Lose5LifePointsOrRandomHeroLoses3LifePoints")
-                        .HasColumnType("bit");
-
-                    b.Property<bool?>("MoveToRandomHero")
-                        .HasColumnType("bit");
-
-                    b.Property<bool?>("ReviveLastDeadMonster")
-                        .HasColumnType("bit");
-
-                    b.Property<bool?>("SkipNextTurn")
-                        .HasColumnType("bit");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ChestTrapDalId");
 
                     b.HasIndex("ChestTrapId");
 
                     b.ToTable("ChestTrapEffects", "Items");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            ChestTrapId = 1,
-                            DecreaseAllCreaturesLifePoints = 1
-                        },
-                        new
-                        {
-                            Id = 2,
-                            ChestTrapId = 1,
-                            DoesNotAffectUndeads = true
-                        },
-                        new
-                        {
-                            Id = 3,
-                            ChestTrapId = 2,
-                            DecreaseHeroLifePoints = 2
-                        },
-                        new
-                        {
-                            Id = 4,
-                            ChestTrapId = 2,
-                            DecreaseHeroNearByLifePoints = 2
-                        },
-                        new
-                        {
-                            Id = 5,
-                            ChestTrapId = 3,
-                            MoveToRandomHero = true
-                        },
-                        new
-                        {
-                            Id = 6,
-                            AttackRandomHeroNearBy = true,
-                            ChestTrapId = 3
-                        },
-                        new
-                        {
-                            Id = 7,
-                            ChestTrapId = 4,
-                            SkipNextTurn = true
-                        },
-                        new
-                        {
-                            Id = 8,
-                            ChestTrapId = 5,
-                            ReviveLastDeadMonster = true
-                        },
-                        new
-                        {
-                            Id = 9,
-                            ChestTrapId = 6,
-                            Lose5LifePointsOrRandomHeroLoses3LifePoints = true
-                        },
-                        new
-                        {
-                            Id = 10,
-                            ChestTrapId = 7,
-                            DecreaseHeroManaPoints = 4
-                        });
                 });
 
             modelBuilder.Entity("dnd_infra.Items.DALs.PotionDal", b =>
@@ -562,6 +247,235 @@ namespace dnd_infra.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("DiscardAfterUsage")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Explanation")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImageUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Level")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("SessionId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SessionId");
+
+                    b.ToTable("Potions", "Items");
+                });
+
+            modelBuilder.Entity("dnd_infra.Items.DALs.PotionEffectDal", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("Effect")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("PotionDalId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PotionId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PotionDalId");
+
+                    b.HasIndex("PotionId");
+
+                    b.ToTable("PotionEffects", "Items");
+                });
+
+            modelBuilder.Entity("dnd_infra.Items.DALs.SpellDal", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Explanation")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImageUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDistantSpell")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsMeleeSpell")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("Level")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ManaCost")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("SessionId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("StarDieEffect")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SessionId");
+
+                    b.ToTable("Spells", "Items");
+                });
+
+            modelBuilder.Entity("dnd_infra.Items.DALs.SpellEffectDal", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("Effect")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("SpellDalId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SpellId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SpellDalId");
+
+                    b.HasIndex("SpellId");
+
+                    b.ToTable("SpellEffects", "Items");
+                });
+
+            modelBuilder.Entity("dnd_infra.Items.DALs.StoredItemDal", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int?>("ArtefactId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ArtefactId1")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("HeroDalId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("HeroId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsDiscarded")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsEquiped")
+                        .HasColumnType("bit");
+
+                    b.Property<int?>("PotionId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("PotionId1")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SessionId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("SpellId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("SpellId1")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("WeaponId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("WeaponId1")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ArtefactId")
+                        .IsUnique()
+                        .HasFilter("[ArtefactId] IS NOT NULL");
+
+                    b.HasIndex("ArtefactId1");
+
+                    b.HasIndex("HeroDalId");
+
+                    b.HasIndex("HeroId");
+
+                    b.HasIndex("PotionId")
+                        .IsUnique()
+                        .HasFilter("[PotionId] IS NOT NULL");
+
+                    b.HasIndex("PotionId1");
+
+                    b.HasIndex("SessionId");
+
+                    b.HasIndex("SpellId")
+                        .IsUnique()
+                        .HasFilter("[SpellId] IS NOT NULL");
+
+                    b.HasIndex("SpellId1");
+
+                    b.HasIndex("WeaponId")
+                        .IsUnique()
+                        .HasFilter("[WeaponId] IS NOT NULL");
+
+                    b.HasIndex("WeaponId1");
+
+                    b.ToTable("StoredItems", "Items");
+                });
+
+            modelBuilder.Entity("dnd_infra.Items.DALs.WeaponDal", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<bool?>("CanRerollOneDie")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -582,185 +496,28 @@ namespace dnd_infra.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("SessionId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("StarDieEffect")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("SuperAttackId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("WeaponType")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
-                    b.ToTable("Potions", "Items");
+                    b.HasIndex("SessionId");
 
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Description = "Buvez cette potion pour affaiblir un monstre.",
-                            Explanation = "Réduisez la classe d'armure d'un monstre de 2 jusqu'au début du prochain tour du Maître du Donjon.",
-                            ImageUrl = "",
-                            Level = 1,
-                            Name = "Potion de faiblesse"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Description = "Buvez cette potion pour raviver vos forces.",
-                            Explanation = "Récupérez un maximum de 5 points de vie.",
-                            ImageUrl = "",
-                            Level = 3,
-                            Name = "Potion de soins importants"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Description = "Buvez cette potion pour raviver vos forces.",
-                            Explanation = "Récupérez un maximum de 3 points de vie.",
-                            ImageUrl = "",
-                            Level = 1,
-                            Name = "Potion de soins légers"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Description = "Buvez cette potion pour raviver vos forces.",
-                            Explanation = "Récupérez un maximum de 4 points de vie.",
-                            ImageUrl = "",
-                            Level = 2,
-                            Name = "Potion de soins modérés"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Description = "Buvez cette potion pour former un cercle de guérison autour de tous les Héros.",
-                            Explanation = "Faites récupérer un maximum de 2 points de vie à chaque Héros.",
-                            ImageUrl = "",
-                            Level = 3,
-                            Name = "Potion de cercle de guérison"
-                        },
-                        new
-                        {
-                            Id = 6,
-                            Description = "Buvez cette potion pour raviver vos pouvoirs magiques.",
-                            Explanation = "Récupérez un maximum de 5 points de mana.",
-                            ImageUrl = "",
-                            Level = 3,
-                            Name = "Potion de restauration suprême"
-                        },
-                        new
-                        {
-                            Id = 7,
-                            Description = "Buvez cette potion pour raviver vos pouvoirs magiques.",
-                            Explanation = "Récupérez un maximum de 3 points de mana.",
-                            ImageUrl = "",
-                            Level = 1,
-                            Name = "Potion de restauration partielle"
-                        },
-                        new
-                        {
-                            Id = 8,
-                            Description = "Buvez cette potion pour raviver vos pouvoirs magiques.",
-                            Explanation = "Récupérez un maximum de 4 points de mana.",
-                            ImageUrl = "",
-                            Level = 2,
-                            Name = "Potion de restauration"
-                        },
-                        new
-                        {
-                            Id = 9,
-                            Description = "Buvez cette potion pour matérialiser un nuage épais autour de tous les monstres de la pièce.",
-                            Explanation = "Chaque héros présent dans la pièce peut effectuer un déplacement gratuit immédiatement.",
-                            ImageUrl = "",
-                            Level = 1,
-                            Name = "Potion d'ombre fumigène"
-                        },
-                        new
-                        {
-                            Id = 10,
-                            Description = "Ramenez un Héros à la vie et redonnez lui 4 points de vie et 4 points de sort, si possible.",
-                            Explanation = "Vous devez être à côté du Héros mort pour utiliser cette potion.",
-                            ImageUrl = "",
-                            Level = 1,
-                            Name = "Potion de restauration suprême"
-                        },
-                        new
-                        {
-                            Id = 11,
-                            Description = "Buvez cette potion pour affaiblir les monstres.",
-                            Explanation = "Réduisez de 2 la classe d'armure de tous les monstres situés dans la pièce jusqu'au début du prochain tour du Maître du Donjon.",
-                            ImageUrl = "",
-                            Level = 3,
-                            Name = "Potion de faiblesse suprême"
-                        },
-                        new
-                        {
-                            Id = 12,
-                            Description = "Buvez cette potion pour appeler de l'aide.",
-                            Explanation = "Déplacez n'importe quel monstre à l'endroit de votre choix, dans la pièce où il se trouve.",
-                            ImageUrl = "",
-                            Level = 1,
-                            Name = "Potion de main impérieuse"
-                        },
-                        new
-                        {
-                            Id = 13,
-                            Description = "Buvez cette potion pour accroître la force de tous les Héros pendant un tour.",
-                            Explanation = "Infligez 2 points de dégâts à n'importe quel monstre dans la pièce.",
-                            ImageUrl = "",
-                            Level = 2,
-                            Name = "Potion d'attaque soudaine"
-                        },
-                        new
-                        {
-                            Id = 14,
-                            Description = "Buvez cette potion pour accélérer vos réactions.",
-                            Explanation = "Vous attaquez immédiatement, même si ce n'est pas votre tour.",
-                            ImageUrl = "",
-                            Level = 2,
-                            Name = "Potion de montée d'adrénaline"
-                        },
-                        new
-                        {
-                            Id = 15,
-                            Description = "Buvez cette potion quand un piège se déclenche.",
-                            Explanation = "Le piège n'a aucun effet.",
-                            ImageUrl = "",
-                            Level = 1,
-                            Name = "Potion de la sagesse d'Olidammara"
-                        },
-                        new
-                        {
-                            Id = 16,
-                            Description = "Buvez cette potion pour bénir l'une de vos armes.",
-                            Explanation = "Double la puissance de l'arme choisie lors de sa prochaine attaque.",
-                            ImageUrl = "",
-                            Level = 1,
-                            Name = "Potion de bénédiction de Kord"
-                        },
-                        new
-                        {
-                            Id = 17,
-                            Description = "Buvez cette potion pour revenir en arrière dans le temps.",
-                            Explanation = "Relancez le dernier dé joué.",
-                            ImageUrl = "",
-                            Level = 3,
-                            Name = "Potion d'introspection"
-                        },
-                        new
-                        {
-                            Id = 18,
-                            Description = "Buvez cette potion pour provoquer la chute d'un monstre situé dans la pièce.",
-                            Explanation = "Le monstre passe son prochain tour.",
-                            ImageUrl = "",
-                            Level = 1,
-                            Name = "Potion de fou rire"
-                        },
-                        new
-                        {
-                            Id = 19,
-                            Description = "Buvez cette potion pour arrêter le temps pour vos ennemis.",
-                            Explanation = "Tous les monstres situés dans la pièce passent leur prochain tour.",
-                            ImageUrl = "",
-                            Level = 2,
-                            Name = "Potion d'arrêt du temps"
-                        });
+                    b.HasIndex("SuperAttackId");
+
+                    b.ToTable("Weapons", "Items");
                 });
 
-            modelBuilder.Entity("dnd_infra.Items.DALs.PotionEffectDal", b =>
+            modelBuilder.Entity("dnd_infra.Items.DALs.WeaponEffectDal", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -768,220 +525,258 @@ namespace dnd_infra.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<bool>("AffectsAllHeroes")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("AffectsAllMonsters")
-                        .HasColumnType("bit");
-
-                    b.Property<bool?>("CanAttackImmediatly")
-                        .HasColumnType("bit");
-
-                    b.Property<bool?>("CanDismissTrapEffect")
-                        .HasColumnType("bit");
-
-                    b.Property<int?>("DecreaseMonsterLifePoints")
+                    b.Property<int>("Effect")
                         .HasColumnType("int");
 
-                    b.Property<int?>("DecreaseMonsterShieldUntilNextDMTurn")
+                    b.Property<int?>("WeaponDalId")
                         .HasColumnType("int");
 
-                    b.Property<bool?>("DismissesNextTurnOfMonster")
-                        .HasColumnType("bit");
-
-                    b.Property<bool?>("DoublesWeaponStrength")
-                        .HasColumnType("bit");
-
-                    b.Property<int?>("IncreaseFootSteps")
+                    b.Property<int>("WeaponId")
                         .HasColumnType("int");
-
-                    b.Property<int?>("IncreaseLifePoints")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("IncreaseManaPoints")
-                        .HasColumnType("int");
-
-                    b.Property<bool?>("MoveMonsterToChosenSquare")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("PotionId")
-                        .HasColumnType("int");
-
-                    b.Property<bool?>("RequiresHeroToBeNearBy")
-                        .HasColumnType("bit");
-
-                    b.Property<bool?>("RerollLastCastDie")
-                        .HasColumnType("bit");
-
-                    b.Property<bool?>("ReviveHeroWith4LPAnd4MP")
-                        .HasColumnType("bit");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("PotionId");
+                    b.HasIndex("WeaponDalId");
 
-                    b.ToTable("PotionEffects", "Items");
+                    b.HasIndex("WeaponId");
 
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            AffectsAllHeroes = false,
-                            AffectsAllMonsters = false,
-                            DecreaseMonsterShieldUntilNextDMTurn = 2,
-                            PotionId = 1
-                        },
-                        new
-                        {
-                            Id = 2,
-                            AffectsAllHeroes = false,
-                            AffectsAllMonsters = false,
-                            IncreaseLifePoints = 5,
-                            PotionId = 2
-                        },
-                        new
-                        {
-                            Id = 3,
-                            AffectsAllHeroes = false,
-                            AffectsAllMonsters = false,
-                            IncreaseLifePoints = 3,
-                            PotionId = 3
-                        },
-                        new
-                        {
-                            Id = 4,
-                            AffectsAllHeroes = false,
-                            AffectsAllMonsters = false,
-                            IncreaseLifePoints = 4,
-                            PotionId = 4
-                        },
-                        new
-                        {
-                            Id = 5,
-                            AffectsAllHeroes = true,
-                            AffectsAllMonsters = false,
-                            IncreaseLifePoints = 2,
-                            PotionId = 5
-                        },
-                        new
-                        {
-                            Id = 6,
-                            AffectsAllHeroes = false,
-                            AffectsAllMonsters = false,
-                            IncreaseManaPoints = 5,
-                            PotionId = 6
-                        },
-                        new
-                        {
-                            Id = 7,
-                            AffectsAllHeroes = false,
-                            AffectsAllMonsters = false,
-                            IncreaseManaPoints = 3,
-                            PotionId = 7
-                        },
-                        new
-                        {
-                            Id = 8,
-                            AffectsAllHeroes = false,
-                            AffectsAllMonsters = false,
-                            IncreaseManaPoints = 4,
-                            PotionId = 8
-                        },
-                        new
-                        {
-                            Id = 9,
-                            AffectsAllHeroes = true,
-                            AffectsAllMonsters = false,
-                            IncreaseFootSteps = 1,
-                            PotionId = 9
-                        },
-                        new
-                        {
-                            Id = 10,
-                            AffectsAllHeroes = false,
-                            AffectsAllMonsters = false,
-                            PotionId = 10,
-                            ReviveHeroWith4LPAnd4MP = true
-                        },
-                        new
-                        {
-                            Id = 11,
-                            AffectsAllHeroes = false,
-                            AffectsAllMonsters = true,
-                            DecreaseMonsterShieldUntilNextDMTurn = 2,
-                            PotionId = 11
-                        },
-                        new
-                        {
-                            Id = 12,
-                            AffectsAllHeroes = false,
-                            AffectsAllMonsters = false,
-                            MoveMonsterToChosenSquare = true,
-                            PotionId = 12
-                        },
-                        new
-                        {
-                            Id = 13,
-                            AffectsAllHeroes = false,
-                            AffectsAllMonsters = false,
-                            DecreaseMonsterLifePoints = 2,
-                            PotionId = 13
-                        },
-                        new
-                        {
-                            Id = 14,
-                            AffectsAllHeroes = false,
-                            AffectsAllMonsters = false,
-                            CanAttackImmediatly = true,
-                            PotionId = 14
-                        },
-                        new
-                        {
-                            Id = 15,
-                            AffectsAllHeroes = false,
-                            AffectsAllMonsters = false,
-                            CanDismissTrapEffect = true,
-                            PotionId = 15
-                        },
-                        new
-                        {
-                            Id = 16,
-                            AffectsAllHeroes = false,
-                            AffectsAllMonsters = false,
-                            DoublesWeaponStrength = true,
-                            PotionId = 16
-                        },
-                        new
-                        {
-                            Id = 17,
-                            AffectsAllHeroes = false,
-                            AffectsAllMonsters = false,
-                            PotionId = 17,
-                            RerollLastCastDie = true
-                        },
-                        new
-                        {
-                            Id = 18,
-                            AffectsAllHeroes = false,
-                            AffectsAllMonsters = false,
-                            DismissesNextTurnOfMonster = true,
-                            PotionId = 18
-                        },
-                        new
-                        {
-                            Id = 19,
-                            AffectsAllHeroes = false,
-                            AffectsAllMonsters = true,
-                            DismissesNextTurnOfMonster = true,
-                            PotionId = 19
-                        });
+                    b.ToTable("WeaponEffects", "Items");
+                });
+
+            modelBuilder.Entity("dnd_infra.Items.DALs.WeaponSuperAttackDal", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<bool?>("LosesWeaponAfterSuperAttack")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("LosesWeaponIfStarDieReturnsStar")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
+
+                    b.Property<int>("WeaponId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("WeaponId")
+                        .IsUnique();
+
+                    b.ToTable("WeaponSuperAttacks", "Items");
+                });
+
+            modelBuilder.Entity("dnd_infra.Players.DALs.HeroDal", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("Class")
+                        .HasColumnType("int");
+
+                    b.Property<int>("FootSteps")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ImageUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDead")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("LifePoints")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ManaPoints")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Race")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SessionId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Shield")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SessionId");
+
+                    b.ToTable("Heroes", "Players");
+                });
+
+            modelBuilder.Entity("dnd_infra.Players.DALs.MonsterDal", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("FootSteps")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ImageUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDead")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("LifePoints")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ManaPoints")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("SessionId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Shield")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SessionId");
+
+                    b.ToTable("Monsters", "Players");
+                });
+
+            modelBuilder.Entity("dnd_infra.Sessions.SessionDal", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime?>("EndsAt")
+                        .HasColumnType("datetime2(2)");
+
+                    b.Property<DateTime>("StartsAt")
+                        .HasColumnType("datetime2(2)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Sessions", "dbo");
+                });
+
+            modelBuilder.Entity("dnd_infra.Dice.DieAssociationDal", b =>
+                {
+                    b.HasOne("dnd_infra.Items.DALs.ArtefactDal", null)
+                        .WithMany()
+                        .HasForeignKey("ArtefactId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("dnd_infra.Items.DALs.ChestTrapDal", null)
+                        .WithMany()
+                        .HasForeignKey("ChestTrapId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("dnd_infra.Players.DALs.HeroDal", null)
+                        .WithMany()
+                        .HasForeignKey("HeroId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("dnd_infra.Players.DALs.MonsterDal", null)
+                        .WithMany("MeleeAttackDice")
+                        .HasForeignKey("MonsterDalId");
+
+                    b.HasOne("dnd_infra.Players.DALs.MonsterDal", null)
+                        .WithMany("RangeAttackDice")
+                        .HasForeignKey("MonsterDalId1");
+
+                    b.HasOne("dnd_infra.Players.DALs.MonsterDal", null)
+                        .WithMany()
+                        .HasForeignKey("MonsterId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("dnd_infra.Items.DALs.PotionDal", null)
+                        .WithMany()
+                        .HasForeignKey("PotionId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("dnd_infra.Sessions.SessionDal", null)
+                        .WithMany()
+                        .HasForeignKey("SessionId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("dnd_infra.Items.DALs.SpellDal", null)
+                        .WithMany("Dice")
+                        .HasForeignKey("SpellDalId");
+
+                    b.HasOne("dnd_infra.Items.DALs.SpellDal", null)
+                        .WithMany()
+                        .HasForeignKey("SpellId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("dnd_infra.Items.DALs.WeaponDal", null)
+                        .WithMany("Dice")
+                        .HasForeignKey("WeaponDalId");
+
+                    b.HasOne("dnd_infra.Items.DALs.WeaponDal", null)
+                        .WithMany()
+                        .HasForeignKey("WeaponId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("dnd_infra.Items.DALs.WeaponSuperAttackDal", null)
+                        .WithMany("Dice")
+                        .HasForeignKey("WeaponSuperAttackDalId");
+
+                    b.HasOne("dnd_infra.Items.DALs.WeaponSuperAttackDal", null)
+                        .WithMany()
+                        .HasForeignKey("WeaponSuperAttackId")
+                        .OnDelete(DeleteBehavior.Restrict);
+                });
+
+            modelBuilder.Entity("dnd_infra.Items.DALs.ArtefactDal", b =>
+                {
+                    b.HasOne("dnd_infra.Sessions.SessionDal", null)
+                        .WithMany()
+                        .HasForeignKey("SessionId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("dnd_infra.Items.DALs.ArtefactEffectDal", b =>
                 {
                     b.HasOne("dnd_infra.Items.DALs.ArtefactDal", null)
                         .WithMany("Effects")
+                        .HasForeignKey("ArtefactDalId");
+
+                    b.HasOne("dnd_infra.Items.DALs.ArtefactDal", null)
+                        .WithMany()
                         .HasForeignKey("ArtefactId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("dnd_infra.Items.DALs.ChestTrapDal", b =>
+                {
+                    b.HasOne("dnd_infra.Sessions.SessionDal", null)
+                        .WithMany()
+                        .HasForeignKey("SessionId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
@@ -990,7 +785,20 @@ namespace dnd_infra.Migrations
                 {
                     b.HasOne("dnd_infra.Items.DALs.ChestTrapDal", null)
                         .WithMany("Effects")
+                        .HasForeignKey("ChestTrapDalId");
+
+                    b.HasOne("dnd_infra.Items.DALs.ChestTrapDal", null)
+                        .WithMany()
                         .HasForeignKey("ChestTrapId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("dnd_infra.Items.DALs.PotionDal", b =>
+                {
+                    b.HasOne("dnd_infra.Sessions.SessionDal", null)
+                        .WithMany()
+                        .HasForeignKey("SessionId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
@@ -999,7 +807,147 @@ namespace dnd_infra.Migrations
                 {
                     b.HasOne("dnd_infra.Items.DALs.PotionDal", null)
                         .WithMany("Effects")
+                        .HasForeignKey("PotionDalId");
+
+                    b.HasOne("dnd_infra.Items.DALs.PotionDal", null)
+                        .WithMany()
                         .HasForeignKey("PotionId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("dnd_infra.Items.DALs.SpellDal", b =>
+                {
+                    b.HasOne("dnd_infra.Sessions.SessionDal", null)
+                        .WithMany()
+                        .HasForeignKey("SessionId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("dnd_infra.Items.DALs.SpellEffectDal", b =>
+                {
+                    b.HasOne("dnd_infra.Items.DALs.SpellDal", null)
+                        .WithMany("Effects")
+                        .HasForeignKey("SpellDalId");
+
+                    b.HasOne("dnd_infra.Items.DALs.SpellDal", null)
+                        .WithMany()
+                        .HasForeignKey("SpellId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("dnd_infra.Items.DALs.StoredItemDal", b =>
+                {
+                    b.HasOne("dnd_infra.Items.DALs.ArtefactDal", null)
+                        .WithOne()
+                        .HasForeignKey("dnd_infra.Items.DALs.StoredItemDal", "ArtefactId");
+
+                    b.HasOne("dnd_infra.Items.DALs.ArtefactDal", "Artefact")
+                        .WithMany()
+                        .HasForeignKey("ArtefactId1");
+
+                    b.HasOne("dnd_infra.Players.DALs.HeroDal", null)
+                        .WithMany("StoredItems")
+                        .HasForeignKey("HeroDalId");
+
+                    b.HasOne("dnd_infra.Players.DALs.HeroDal", null)
+                        .WithMany()
+                        .HasForeignKey("HeroId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("dnd_infra.Items.DALs.PotionDal", null)
+                        .WithOne()
+                        .HasForeignKey("dnd_infra.Items.DALs.StoredItemDal", "PotionId");
+
+                    b.HasOne("dnd_infra.Items.DALs.PotionDal", "Potion")
+                        .WithMany()
+                        .HasForeignKey("PotionId1");
+
+                    b.HasOne("dnd_infra.Sessions.SessionDal", null)
+                        .WithMany()
+                        .HasForeignKey("SessionId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("dnd_infra.Items.DALs.SpellDal", null)
+                        .WithOne()
+                        .HasForeignKey("dnd_infra.Items.DALs.StoredItemDal", "SpellId");
+
+                    b.HasOne("dnd_infra.Items.DALs.SpellDal", "Spell")
+                        .WithMany()
+                        .HasForeignKey("SpellId1");
+
+                    b.HasOne("dnd_infra.Items.DALs.WeaponDal", null)
+                        .WithOne()
+                        .HasForeignKey("dnd_infra.Items.DALs.StoredItemDal", "WeaponId");
+
+                    b.HasOne("dnd_infra.Items.DALs.WeaponDal", "Weapon")
+                        .WithMany()
+                        .HasForeignKey("WeaponId1");
+
+                    b.Navigation("Artefact");
+
+                    b.Navigation("Potion");
+
+                    b.Navigation("Spell");
+
+                    b.Navigation("Weapon");
+                });
+
+            modelBuilder.Entity("dnd_infra.Items.DALs.WeaponDal", b =>
+                {
+                    b.HasOne("dnd_infra.Sessions.SessionDal", null)
+                        .WithMany()
+                        .HasForeignKey("SessionId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("dnd_infra.Items.DALs.WeaponSuperAttackDal", "SuperAttack")
+                        .WithMany()
+                        .HasForeignKey("SuperAttackId");
+
+                    b.Navigation("SuperAttack");
+                });
+
+            modelBuilder.Entity("dnd_infra.Items.DALs.WeaponEffectDal", b =>
+                {
+                    b.HasOne("dnd_infra.Items.DALs.WeaponDal", null)
+                        .WithMany("Effects")
+                        .HasForeignKey("WeaponDalId");
+
+                    b.HasOne("dnd_infra.Items.DALs.WeaponDal", null)
+                        .WithMany()
+                        .HasForeignKey("WeaponId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("dnd_infra.Items.DALs.WeaponSuperAttackDal", b =>
+                {
+                    b.HasOne("dnd_infra.Items.DALs.WeaponDal", null)
+                        .WithOne()
+                        .HasForeignKey("dnd_infra.Items.DALs.WeaponSuperAttackDal", "WeaponId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("dnd_infra.Players.DALs.HeroDal", b =>
+                {
+                    b.HasOne("dnd_infra.Sessions.SessionDal", null)
+                        .WithMany()
+                        .HasForeignKey("SessionId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("dnd_infra.Players.DALs.MonsterDal", b =>
+                {
+                    b.HasOne("dnd_infra.Sessions.SessionDal", null)
+                        .WithMany()
+                        .HasForeignKey("SessionId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
@@ -1017,6 +965,37 @@ namespace dnd_infra.Migrations
             modelBuilder.Entity("dnd_infra.Items.DALs.PotionDal", b =>
                 {
                     b.Navigation("Effects");
+                });
+
+            modelBuilder.Entity("dnd_infra.Items.DALs.SpellDal", b =>
+                {
+                    b.Navigation("Dice");
+
+                    b.Navigation("Effects");
+                });
+
+            modelBuilder.Entity("dnd_infra.Items.DALs.WeaponDal", b =>
+                {
+                    b.Navigation("Dice");
+
+                    b.Navigation("Effects");
+                });
+
+            modelBuilder.Entity("dnd_infra.Items.DALs.WeaponSuperAttackDal", b =>
+                {
+                    b.Navigation("Dice");
+                });
+
+            modelBuilder.Entity("dnd_infra.Players.DALs.HeroDal", b =>
+                {
+                    b.Navigation("StoredItems");
+                });
+
+            modelBuilder.Entity("dnd_infra.Players.DALs.MonsterDal", b =>
+                {
+                    b.Navigation("MeleeAttackDice");
+
+                    b.Navigation("RangeAttackDice");
                 });
 #pragma warning restore 612, 618
         }

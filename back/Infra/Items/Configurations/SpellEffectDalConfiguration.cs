@@ -10,11 +10,11 @@ internal sealed class SpellEffectDalConfiguration : IEntityTypeConfiguration<Spe
     {
         builder.ToTable("SpellEffects", "Items");
 
-        builder.HasKey(a => a.Id);
+        builder.HasKey(spellEffect => spellEffect.Id);
 
         builder.HasOne<SpellDal>()
-            .WithMany(spell => spell.Effects)
-            .HasForeignKey(effect => effect.SpellId)
+            .WithMany()
+            .HasForeignKey(spellEffect => spellEffect.SpellId)
             .OnDelete(DeleteBehavior.Restrict);
     }
 }

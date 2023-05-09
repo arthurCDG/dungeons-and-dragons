@@ -6,5 +6,5 @@ internal sealed class PotionEffectDal
 {
     public int Id { get; set; }
     public int PotionId { get; set; }
-    public PotionEffect Effect { get; set; }
+    public PotionEffectType Effect { get; set; }
 }

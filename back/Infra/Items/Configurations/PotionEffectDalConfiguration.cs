@@ -10,11 +10,11 @@ internal sealed class PotionEffectDalConfiguration : IEntityTypeConfiguration<Po
     {
         builder.ToTable("PotionEffects", "Items");
 
-        builder.HasKey(a => a.Id);
+        builder.HasKey(potionEffect => potionEffect.Id);
 
         builder.HasOne<PotionDal>()
-            .WithMany(potion => potion.Effects)
-            .HasForeignKey(effect => effect.PotionId)
+            .WithMany()
+            .HasForeignKey(potionEffect => potionEffect.PotionId)
             .OnDelete(DeleteBehavior.Restrict);
     }
 }
