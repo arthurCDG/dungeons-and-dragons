@@ -3,7 +3,6 @@
 internal sealed class StoredItemDal
 {
     public int Id { get; set; }
-    public int SessionId { get; set; }
     public bool IsEquiped { get; set; } = false;
     public bool IsDiscarded { get; set; } = false;
 

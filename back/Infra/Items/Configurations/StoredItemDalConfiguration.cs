@@ -24,11 +24,6 @@ internal sealed class StoredItemDalConfiguration : IEntityTypeConfiguration<Stor
             .HasForeignKey(storedItem => storedItem.MonsterId)
             .OnDelete(DeleteBehavior.Restrict);
 
-        builder.HasOne<SessionDal>()
-            .WithMany()
-            .HasForeignKey(storedItem => storedItem.SessionId)
-            .OnDelete(DeleteBehavior.Restrict);
-
         builder.HasOne<SpellDal>()
             .WithOne()
             .HasForeignKey<StoredItemDal>(storedItem => storedItem.SpellId);

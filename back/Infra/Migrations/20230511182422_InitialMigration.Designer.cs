@@ -12,7 +12,7 @@ using dnd_infra;
 namespace dnd_infra.Migrations
 {
     [DbContext(typeof(GlobalDbContext))]
-    [Migration("20230511181034_InitialMigration")]
+    [Migration("20230511182422_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
@@ -45,9 +45,6 @@ namespace dnd_infra.Migrations
                     b.Property<int?>("PotionId")
                         .HasColumnType("int");
 
-                    b.Property<int>("SessionId")
-                        .HasColumnType("int");
-
                     b.Property<int?>("SpellId")
                         .HasColumnType("int");
 
@@ -64,8 +61,6 @@ namespace dnd_infra.Migrations
                     b.HasIndex("ChestTrapId");
 
                     b.HasIndex("PotionId");
-
-                    b.HasIndex("SessionId");
 
                     b.HasIndex("SpellId");
 
@@ -362,9 +357,6 @@ namespace dnd_infra.Migrations
                     b.Property<int?>("PotionId")
                         .HasColumnType("int");
 
-                    b.Property<int>("SessionId")
-                        .HasColumnType("int");
-
                     b.Property<int?>("SpellId")
                         .HasColumnType("int");
 
@@ -384,8 +376,6 @@ namespace dnd_infra.Migrations
                     b.HasIndex("PotionId")
                         .IsUnique()
                         .HasFilter("[PotionId] IS NOT NULL");
-
-                    b.HasIndex("SessionId");
 
                     b.HasIndex("SpellId")
                         .IsUnique()
@@ -626,12 +616,6 @@ namespace dnd_infra.Migrations
                         .HasForeignKey("PotionId")
                         .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("dnd_infra.Sessions.SessionDal", null)
-                        .WithMany()
-                        .HasForeignKey("SessionId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
                     b.HasOne("dnd_infra.Items.DALs.SpellDal", null)
                         .WithMany("Dice")
                         .HasForeignKey("SpellId")
@@ -741,12 +725,6 @@ namespace dnd_infra.Migrations
                         .WithOne()
                         .HasForeignKey("dnd_infra.Items.DALs.StoredItemDal", "PotionId")
                         .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("dnd_infra.Sessions.SessionDal", null)
-                        .WithMany()
-                        .HasForeignKey("SessionId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
 
                     b.HasOne("dnd_infra.Items.DALs.SpellDal", "Spell")
                         .WithOne()

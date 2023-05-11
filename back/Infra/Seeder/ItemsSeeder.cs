@@ -22,8 +22,8 @@ internal sealed class ItemsSeeder
         await SeedArtefactsAsync(sessionId);
         await SeedChestTrapsAsync(sessionId);
         await SeedPotionsAsync(sessionId);
-        await SeedSpellsAsync(sessionId);
         await SeedWeaponsAsync(sessionId);
+        await SeedSpellsAsync(sessionId);
     }
 
     private async Task SeedArtefactsAsync(int sessionId)
@@ -548,7 +548,7 @@ internal sealed class ItemsSeeder
         await _context.SaveChangesAsync();
     }
 
-    private async Task SeedSpellsAsync(int sessionId)
+    private async Task SeedWeaponsAsync(int sessionId)
     {
         List<WeaponDal> weapons = new()
         {
@@ -624,26 +624,30 @@ internal sealed class ItemsSeeder
                 {
                     new DieAssociationDal() { DieType = DieType.YellowDie },
                     new DieAssociationDal() { DieType = DieType.YellowDie }
-                },
-                SuperAttack = new()
-                {
-                    Type = WeaponSuperAttackType.CastDice,
-                    LosesWeaponIfStarDieReturnsStar = true,
-                    Dice = new()
-                    {
-                    new DieAssociationDal() { DieType = DieType.OrangeDie },
-                    new DieAssociationDal() { DieType = DieType.OrangeDie },
-                    new DieAssociationDal() { DieType = DieType.StarDie }
-                    }
                 }
             }
         };
 
         _context.Weapons.AddRange(weapons);
         await _context.SaveChangesAsync();
+
+        WeaponSuperAttackDal superAttackDal = new()
+        {
+            Type = WeaponSuperAttackType.CastDice,
+            LosesWeaponIfStarDieReturnsStar = true,
+            Dice = new()
+            {
+            new DieAssociationDal() { DieType = DieType.OrangeDie },
+            new DieAssociationDal() { DieType = DieType.OrangeDie },
+            new DieAssociationDal() { DieType = DieType.StarDie }
+            }
+        };
+
+        _context.Add(superAttackDal);
+        await _context.SaveChangesAsync();
     }
 
-    private async Task SeedWeaponsAsync(int sessionId)
+    private async Task SeedSpellsAsync(int sessionId)
     {
         List<SpellDal> spells = new()
         {

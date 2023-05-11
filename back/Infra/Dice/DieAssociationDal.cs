@@ -5,7 +5,6 @@ namespace dnd_infra.Dice;
 internal sealed class DieAssociationDal
 {
     public int Id { get; set; }
-    public int SessionId { get; set; }
     public DieType DieType { get; set; }
 
     public int? ArtefactId { get; set; }

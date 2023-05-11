@@ -304,7 +304,6 @@ namespace dnd_infra.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    SessionId = table.Column<int>(type: "int", nullable: false),
                     DieType = table.Column<int>(type: "int", nullable: false),
                     ArtefactId = table.Column<int>(type: "int", nullable: true),
                     ChestTrapId = table.Column<int>(type: "int", nullable: true),
@@ -338,13 +337,6 @@ namespace dnd_infra.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_DieAssociations_Sessions_SessionId",
-                        column: x => x.SessionId,
-                        principalSchema: "dbo",
-                        principalTable: "Sessions",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
                         name: "FK_DieAssociations_Spells_SpellId",
                         column: x => x.SpellId,
                         principalSchema: "Items",
@@ -360,7 +352,6 @@ namespace dnd_infra.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    SessionId = table.Column<int>(type: "int", nullable: false),
                     IsEquiped = table.Column<bool>(type: "bit", nullable: false),
                     IsDiscarded = table.Column<bool>(type: "bit", nullable: false),
                     HeroId = table.Column<int>(type: "int", nullable: true),
@@ -399,13 +390,6 @@ namespace dnd_infra.Migrations
                         column: x => x.PotionId,
                         principalSchema: "Items",
                         principalTable: "Potions",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_StoredItems_Sessions_SessionId",
-                        column: x => x.SessionId,
-                        principalSchema: "dbo",
-                        principalTable: "Sessions",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
@@ -529,12 +513,6 @@ namespace dnd_infra.Migrations
                 column: "PotionId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_DieAssociations_SessionId",
-                schema: "Dice",
-                table: "DieAssociations",
-                column: "SessionId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_DieAssociations_SpellId",
                 schema: "Dice",
                 table: "DieAssociations",
@@ -615,12 +593,6 @@ namespace dnd_infra.Migrations
                 column: "PotionId",
                 unique: true,
                 filter: "[PotionId] IS NOT NULL");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_StoredItems_SessionId",
-                schema: "Items",
-                table: "StoredItems",
-                column: "SessionId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_StoredItems_SpellId",

@@ -13,11 +13,6 @@ internal sealed class DieAssociationDalConfiguration : IEntityTypeConfiguration<
 
         builder.HasKey(dieAssociation => dieAssociation.Id);
 
-        builder.HasOne<SessionDal>()
-            .WithMany()
-            .HasForeignKey(dieAssociation => dieAssociation.SessionId)
-            .OnDelete(DeleteBehavior.Restrict);
-
         builder.HasOne<ArtefactDal>()
             .WithMany()
             .HasForeignKey(dieAssociation => dieAssociation.ArtefactId)
