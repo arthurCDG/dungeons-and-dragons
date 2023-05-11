@@ -4,6 +4,7 @@ using dnd_infra.Dice;
 using dnd_infra.Items.DALs;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace dnd_infra.Seeder;
@@ -633,6 +634,7 @@ internal sealed class ItemsSeeder
 
         WeaponSuperAttackDal superAttackDal = new()
         {
+            WeaponId = weapons.Where(w => w.Name == "Dague de lancer équilibrée").Select(w => w.Id).Single(),
             Type = WeaponSuperAttackType.CastDice,
             LosesWeaponIfStarDieReturnsStar = true,
             Dice = new()
