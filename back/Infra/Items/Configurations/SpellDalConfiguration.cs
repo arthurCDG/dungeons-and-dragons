@@ -17,5 +17,10 @@ internal sealed class SpellDalConfiguration : IEntityTypeConfiguration<SpellDal>
             .WithMany()
             .HasForeignKey(spell => spell.SessionId)
             .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasOne<StoredItemDal>()
+            .WithOne(storedItem => storedItem.Spell)
+            .HasForeignKey<StoredItemDal>(storedItem => storedItem.SpellId)
+            .OnDelete(DeleteBehavior.Restrict);
     }
 }

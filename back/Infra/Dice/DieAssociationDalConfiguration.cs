@@ -1,5 +1,4 @@
 ﻿using dnd_infra.Items.DALs;
-using dnd_infra.Players.DALs;
 using dnd_infra.Sessions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -35,28 +34,18 @@ internal sealed class DieAssociationDalConfiguration : IEntityTypeConfiguration<
             .OnDelete(DeleteBehavior.Restrict);
 
         builder.HasOne<SpellDal>()
-            .WithMany()
+            .WithMany(spell => spell.Dice)
             .HasForeignKey(dieAssociation => dieAssociation.SpellId)
             .OnDelete(DeleteBehavior.Restrict);
 
         builder.HasOne<WeaponDal>()
-            .WithMany()
+            .WithMany(weapon => weapon.Dice)
             .HasForeignKey(dieAssociation => dieAssociation.WeaponId)
             .OnDelete(DeleteBehavior.Restrict);
 
         builder.HasOne<WeaponSuperAttackDal>()
-            .WithMany()
+            .WithMany(weaponSuperAttack => weaponSuperAttack.Dice)
             .HasForeignKey(dieAssociation => dieAssociation.WeaponSuperAttackId)
-            .OnDelete(DeleteBehavior.Restrict);
-
-        builder.HasOne<HeroDal>()
-            .WithMany()
-            .HasForeignKey(dieAssociation => dieAssociation.HeroId)
-            .OnDelete(DeleteBehavior.Restrict);
-
-        builder.HasOne<MonsterDal>()
-            .WithMany()
-            .HasForeignKey(dieAssociation => dieAssociation.MonsterId)
             .OnDelete(DeleteBehavior.Restrict);
     }
 }

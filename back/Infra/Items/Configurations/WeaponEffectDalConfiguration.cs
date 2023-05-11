@@ -1,6 +1,8 @@
-﻿using dnd_infra.Items.DALs;
+﻿using dnd_domain.Items.Enums;
+using dnd_infra.Items.DALs;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace dnd_infra.Items.Configurations;
 
@@ -12,9 +14,11 @@ internal class WeaponEffectDalConfiguration : IEntityTypeConfiguration<WeaponEff
 
         builder.HasKey(weaponEffect => weaponEffect.Id);
 
+        builder.Property(weaponEffect => weaponEffect.Effect).HasConversion(new EnumToStringConverter<WeaponEffectType>());
+
         builder.HasOne<WeaponDal>()
-            .WithMany()
-            .HasForeignKey(weaponEffect => weaponEffect.WeaponId)
+            .WithMany(weapon => weapon.Effects)
+            .HasForeignKey(spellEffect => spellEffect.WeaponId)
             .OnDelete(DeleteBehavior.Restrict);
     }
 }

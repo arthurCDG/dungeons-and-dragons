@@ -1,10 +1,11 @@
-﻿using dnd_infra.Sessions;
+﻿using dnd_domain.Seeder;
+using dnd_infra.Sessions;
 using System;
 using System.Threading.Tasks;
 
 namespace dnd_infra.Seeder;
 
-internal sealed class SessionSeeder
+internal sealed class SessionSeeder : ISessionSeeder
 {
     private readonly GlobalDbContext _context;
     private readonly ItemsSeeder _itemsSeeder;

@@ -11,5 +11,10 @@ internal sealed class WeaponSuperAttackDalConfiguration : IEntityTypeConfigurati
         builder.ToTable("WeaponSuperAttacks", "Items");
 
         builder.HasKey(weaponSuperAttack => weaponSuperAttack.Id);
+
+        builder.HasOne<WeaponSuperAttackDal>()
+            .WithOne()
+            .HasForeignKey<WeaponSuperAttackDal>(weaponSuperAttack => weaponSuperAttack.WeaponId)
+            .OnDelete(DeleteBehavior.Restrict);
     }
 }

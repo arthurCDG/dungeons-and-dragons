@@ -13,19 +13,14 @@ internal sealed class WeaponDalConfiguration : IEntityTypeConfiguration<WeaponDa
 
         builder.HasKey(weapon => weapon.Id);
 
-        builder.HasMany<WeaponEffectDal>()
-            .WithOne()
-            .HasForeignKey(weaponEffect => weaponEffect.WeaponId)
-            .OnDelete(DeleteBehavior.Restrict);
-
-        builder.HasOne<WeaponSuperAttackDal>()
-            .WithOne()
-            .HasForeignKey<WeaponSuperAttackDal>(weaponSuperAttack => weaponSuperAttack.WeaponId)
-            .OnDelete(DeleteBehavior.Restrict);
-
         builder.HasOne<SessionDal>()
             .WithMany()
             .HasForeignKey(weapon => weapon.SessionId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasOne<StoredItemDal>()
+            .WithOne(storedItem => storedItem.Weapon)
+            .HasForeignKey<StoredItemDal>(storedItem => storedItem.WeaponId)
             .OnDelete(DeleteBehavior.Restrict);
     }
 }

@@ -14,6 +14,4 @@ internal sealed class DieAssociationDal
     public int? SpellId { get; set; }
     public int? WeaponId { get; set; }
     public int? WeaponSuperAttackId { get; set; }
-    public int? HeroId { get; set; }
-    public int? MonsterId { get; set; }
 }

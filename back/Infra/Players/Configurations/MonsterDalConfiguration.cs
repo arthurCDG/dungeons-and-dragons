@@ -1,4 +1,5 @@
-﻿using dnd_infra.Players.DALs;
+﻿using dnd_infra.Dice;
+using dnd_infra.Players.DALs;
 using dnd_infra.Sessions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;

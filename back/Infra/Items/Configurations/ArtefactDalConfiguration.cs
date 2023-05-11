@@ -17,5 +17,10 @@ internal sealed class ArtefactDalConfiguration : IEntityTypeConfiguration<Artefa
             .WithMany()
             .HasForeignKey(artefact => artefact.SessionId)
             .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasOne<StoredItemDal>()
+            .WithOne(storedItem => storedItem.Artefact)
+            .HasForeignKey<StoredItemDal>(storedItem => storedItem.ArtefactId)
+            .OnDelete(DeleteBehavior.Restrict);
     }
 }

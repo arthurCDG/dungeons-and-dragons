@@ -39,37 +39,16 @@ namespace dnd_infra.Migrations
                     b.Property<int>("DieType")
                         .HasColumnType("int");
 
-                    b.Property<int?>("HeroId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("MonsterDalId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("MonsterDalId1")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("MonsterId")
-                        .HasColumnType("int");
-
                     b.Property<int?>("PotionId")
                         .HasColumnType("int");
 
                     b.Property<int>("SessionId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("SpellDalId")
-                        .HasColumnType("int");
-
                     b.Property<int?>("SpellId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("WeaponDalId")
-                        .HasColumnType("int");
-
                     b.Property<int?>("WeaponId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("WeaponSuperAttackDalId")
                         .HasColumnType("int");
 
                     b.Property<int?>("WeaponSuperAttackId")
@@ -81,27 +60,13 @@ namespace dnd_infra.Migrations
 
                     b.HasIndex("ChestTrapId");
 
-                    b.HasIndex("HeroId");
-
-                    b.HasIndex("MonsterDalId");
-
-                    b.HasIndex("MonsterDalId1");
-
-                    b.HasIndex("MonsterId");
-
                     b.HasIndex("PotionId");
 
                     b.HasIndex("SessionId");
 
-                    b.HasIndex("SpellDalId");
-
                     b.HasIndex("SpellId");
 
-                    b.HasIndex("WeaponDalId");
-
                     b.HasIndex("WeaponId");
-
-                    b.HasIndex("WeaponSuperAttackDalId");
 
                     b.HasIndex("WeaponSuperAttackId");
 
@@ -159,18 +124,14 @@ namespace dnd_infra.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("ArtefactDalId")
-                        .HasColumnType("int");
-
                     b.Property<int>("ArtefactId")
                         .HasColumnType("int");
 
-                    b.Property<int>("Effect")
-                        .HasColumnType("int");
+                    b.Property<string>("Effect")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ArtefactDalId");
 
                     b.HasIndex("ArtefactId");
 
@@ -222,18 +183,14 @@ namespace dnd_infra.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("ChestTrapDalId")
-                        .HasColumnType("int");
-
                     b.Property<int>("ChestTrapId")
                         .HasColumnType("int");
 
-                    b.Property<int>("Effect")
-                        .HasColumnType("int");
+                    b.Property<string>("Effect")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ChestTrapDalId");
 
                     b.HasIndex("ChestTrapId");
 
@@ -288,18 +245,14 @@ namespace dnd_infra.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("Effect")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("PotionDalId")
-                        .HasColumnType("int");
+                    b.Property<string>("Effect")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("PotionId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("PotionDalId");
 
                     b.HasIndex("PotionId");
 
@@ -366,18 +319,14 @@ namespace dnd_infra.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("Effect")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("SpellDalId")
-                        .HasColumnType("int");
+                    b.Property<string>("Effect")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("SpellId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("SpellDalId");
 
                     b.HasIndex("SpellId");
 
@@ -395,13 +344,7 @@ namespace dnd_infra.Migrations
                     b.Property<int?>("ArtefactId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("ArtefactId1")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("HeroDalId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("HeroId")
+                    b.Property<int?>("HeroId")
                         .HasColumnType("int");
 
                     b.Property<bool>("IsDiscarded")
@@ -410,10 +353,10 @@ namespace dnd_infra.Migrations
                     b.Property<bool>("IsEquiped")
                         .HasColumnType("bit");
 
-                    b.Property<int?>("PotionId")
+                    b.Property<int?>("MonsterId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("PotionId1")
+                    b.Property<int?>("PotionId")
                         .HasColumnType("int");
 
                     b.Property<int>("SessionId")
@@ -422,13 +365,7 @@ namespace dnd_infra.Migrations
                     b.Property<int?>("SpellId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("SpellId1")
-                        .HasColumnType("int");
-
                     b.Property<int?>("WeaponId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("WeaponId1")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -437,17 +374,13 @@ namespace dnd_infra.Migrations
                         .IsUnique()
                         .HasFilter("[ArtefactId] IS NOT NULL");
 
-                    b.HasIndex("ArtefactId1");
-
-                    b.HasIndex("HeroDalId");
-
                     b.HasIndex("HeroId");
+
+                    b.HasIndex("MonsterId");
 
                     b.HasIndex("PotionId")
                         .IsUnique()
                         .HasFilter("[PotionId] IS NOT NULL");
-
-                    b.HasIndex("PotionId1");
 
                     b.HasIndex("SessionId");
 
@@ -455,13 +388,9 @@ namespace dnd_infra.Migrations
                         .IsUnique()
                         .HasFilter("[SpellId] IS NOT NULL");
 
-                    b.HasIndex("SpellId1");
-
                     b.HasIndex("WeaponId")
                         .IsUnique()
                         .HasFilter("[WeaponId] IS NOT NULL");
-
-                    b.HasIndex("WeaponId1");
 
                     b.ToTable("StoredItems", "Items");
                 });
@@ -525,18 +454,14 @@ namespace dnd_infra.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("Effect")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("WeaponDalId")
-                        .HasColumnType("int");
+                    b.Property<string>("Effect")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("WeaponId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("WeaponDalId");
 
                     b.HasIndex("WeaponId");
 
@@ -693,24 +618,6 @@ namespace dnd_infra.Migrations
                         .HasForeignKey("ChestTrapId")
                         .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("dnd_infra.Players.DALs.HeroDal", null)
-                        .WithMany()
-                        .HasForeignKey("HeroId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("dnd_infra.Players.DALs.MonsterDal", null)
-                        .WithMany("MeleeAttackDice")
-                        .HasForeignKey("MonsterDalId");
-
-                    b.HasOne("dnd_infra.Players.DALs.MonsterDal", null)
-                        .WithMany("RangeAttackDice")
-                        .HasForeignKey("MonsterDalId1");
-
-                    b.HasOne("dnd_infra.Players.DALs.MonsterDal", null)
-                        .WithMany()
-                        .HasForeignKey("MonsterId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
                     b.HasOne("dnd_infra.Items.DALs.PotionDal", null)
                         .WithMany()
                         .HasForeignKey("PotionId")
@@ -724,28 +631,16 @@ namespace dnd_infra.Migrations
 
                     b.HasOne("dnd_infra.Items.DALs.SpellDal", null)
                         .WithMany("Dice")
-                        .HasForeignKey("SpellDalId");
-
-                    b.HasOne("dnd_infra.Items.DALs.SpellDal", null)
-                        .WithMany()
                         .HasForeignKey("SpellId")
                         .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("dnd_infra.Items.DALs.WeaponDal", null)
                         .WithMany("Dice")
-                        .HasForeignKey("WeaponDalId");
-
-                    b.HasOne("dnd_infra.Items.DALs.WeaponDal", null)
-                        .WithMany()
                         .HasForeignKey("WeaponId")
                         .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("dnd_infra.Items.DALs.WeaponSuperAttackDal", null)
                         .WithMany("Dice")
-                        .HasForeignKey("WeaponSuperAttackDalId");
-
-                    b.HasOne("dnd_infra.Items.DALs.WeaponSuperAttackDal", null)
-                        .WithMany()
                         .HasForeignKey("WeaponSuperAttackId")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
@@ -763,10 +658,6 @@ namespace dnd_infra.Migrations
                 {
                     b.HasOne("dnd_infra.Items.DALs.ArtefactDal", null)
                         .WithMany("Effects")
-                        .HasForeignKey("ArtefactDalId");
-
-                    b.HasOne("dnd_infra.Items.DALs.ArtefactDal", null)
-                        .WithMany()
                         .HasForeignKey("ArtefactId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
@@ -785,10 +676,6 @@ namespace dnd_infra.Migrations
                 {
                     b.HasOne("dnd_infra.Items.DALs.ChestTrapDal", null)
                         .WithMany("Effects")
-                        .HasForeignKey("ChestTrapDalId");
-
-                    b.HasOne("dnd_infra.Items.DALs.ChestTrapDal", null)
-                        .WithMany()
                         .HasForeignKey("ChestTrapId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
@@ -807,10 +694,6 @@ namespace dnd_infra.Migrations
                 {
                     b.HasOne("dnd_infra.Items.DALs.PotionDal", null)
                         .WithMany("Effects")
-                        .HasForeignKey("PotionDalId");
-
-                    b.HasOne("dnd_infra.Items.DALs.PotionDal", null)
-                        .WithMany()
                         .HasForeignKey("PotionId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
@@ -829,10 +712,6 @@ namespace dnd_infra.Migrations
                 {
                     b.HasOne("dnd_infra.Items.DALs.SpellDal", null)
                         .WithMany("Effects")
-                        .HasForeignKey("SpellDalId");
-
-                    b.HasOne("dnd_infra.Items.DALs.SpellDal", null)
-                        .WithMany()
                         .HasForeignKey("SpellId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
@@ -840,31 +719,25 @@ namespace dnd_infra.Migrations
 
             modelBuilder.Entity("dnd_infra.Items.DALs.StoredItemDal", b =>
                 {
-                    b.HasOne("dnd_infra.Items.DALs.ArtefactDal", null)
-                        .WithOne()
-                        .HasForeignKey("dnd_infra.Items.DALs.StoredItemDal", "ArtefactId");
-
                     b.HasOne("dnd_infra.Items.DALs.ArtefactDal", "Artefact")
-                        .WithMany()
-                        .HasForeignKey("ArtefactId1");
+                        .WithOne()
+                        .HasForeignKey("dnd_infra.Items.DALs.StoredItemDal", "ArtefactId")
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("dnd_infra.Players.DALs.HeroDal", null)
                         .WithMany("StoredItems")
-                        .HasForeignKey("HeroDalId");
-
-                    b.HasOne("dnd_infra.Players.DALs.HeroDal", null)
-                        .WithMany()
                         .HasForeignKey("HeroId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("dnd_infra.Items.DALs.PotionDal", null)
-                        .WithOne()
-                        .HasForeignKey("dnd_infra.Items.DALs.StoredItemDal", "PotionId");
+                    b.HasOne("dnd_infra.Players.DALs.MonsterDal", null)
+                        .WithMany("StoredItems")
+                        .HasForeignKey("MonsterId")
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("dnd_infra.Items.DALs.PotionDal", "Potion")
-                        .WithMany()
-                        .HasForeignKey("PotionId1");
+                        .WithOne()
+                        .HasForeignKey("dnd_infra.Items.DALs.StoredItemDal", "PotionId")
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("dnd_infra.Sessions.SessionDal", null)
                         .WithMany()
@@ -872,21 +745,15 @@ namespace dnd_infra.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("dnd_infra.Items.DALs.SpellDal", null)
-                        .WithOne()
-                        .HasForeignKey("dnd_infra.Items.DALs.StoredItemDal", "SpellId");
-
                     b.HasOne("dnd_infra.Items.DALs.SpellDal", "Spell")
-                        .WithMany()
-                        .HasForeignKey("SpellId1");
-
-                    b.HasOne("dnd_infra.Items.DALs.WeaponDal", null)
                         .WithOne()
-                        .HasForeignKey("dnd_infra.Items.DALs.StoredItemDal", "WeaponId");
+                        .HasForeignKey("dnd_infra.Items.DALs.StoredItemDal", "SpellId")
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("dnd_infra.Items.DALs.WeaponDal", "Weapon")
-                        .WithMany()
-                        .HasForeignKey("WeaponId1");
+                        .WithOne()
+                        .HasForeignKey("dnd_infra.Items.DALs.StoredItemDal", "WeaponId")
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("Artefact");
 
@@ -916,10 +783,6 @@ namespace dnd_infra.Migrations
                 {
                     b.HasOne("dnd_infra.Items.DALs.WeaponDal", null)
                         .WithMany("Effects")
-                        .HasForeignKey("WeaponDalId");
-
-                    b.HasOne("dnd_infra.Items.DALs.WeaponDal", null)
-                        .WithMany()
                         .HasForeignKey("WeaponId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
@@ -927,7 +790,7 @@ namespace dnd_infra.Migrations
 
             modelBuilder.Entity("dnd_infra.Items.DALs.WeaponSuperAttackDal", b =>
                 {
-                    b.HasOne("dnd_infra.Items.DALs.WeaponDal", null)
+                    b.HasOne("dnd_infra.Items.DALs.WeaponSuperAttackDal", null)
                         .WithOne()
                         .HasForeignKey("dnd_infra.Items.DALs.WeaponSuperAttackDal", "WeaponId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -993,9 +856,7 @@ namespace dnd_infra.Migrations
 
             modelBuilder.Entity("dnd_infra.Players.DALs.MonsterDal", b =>
                 {
-                    b.Navigation("MeleeAttackDice");
-
-                    b.Navigation("RangeAttackDice");
+                    b.Navigation("StoredItems");
                 });
 #pragma warning restore 612, 618
         }
