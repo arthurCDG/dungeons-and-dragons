@@ -12,7 +12,7 @@ using dnd_infra;
 namespace dnd_infra.Migrations
 {
     [DbContext(typeof(GlobalDbContext))]
-    [Migration("20230511180150_InitialMigration")]
+    [Migration("20230511181034_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
@@ -793,7 +793,7 @@ namespace dnd_infra.Migrations
 
             modelBuilder.Entity("dnd_infra.Items.DALs.WeaponSuperAttackDal", b =>
                 {
-                    b.HasOne("dnd_infra.Items.DALs.WeaponSuperAttackDal", null)
+                    b.HasOne("dnd_infra.Items.DALs.WeaponDal", null)
                         .WithOne()
                         .HasForeignKey("dnd_infra.Items.DALs.WeaponSuperAttackDal", "WeaponId")
                         .OnDelete(DeleteBehavior.Restrict)

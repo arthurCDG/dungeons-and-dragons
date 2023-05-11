@@ -16,9 +16,9 @@ internal class WeaponEffectDalConfiguration : IEntityTypeConfiguration<WeaponEff
 
         builder.Property(weaponEffect => weaponEffect.Effect).HasConversion(new EnumToStringConverter<WeaponEffectType>());
 
-        builder.HasOne<WeaponDal>()
-            .WithMany(weapon => weapon.Effects)
-            .HasForeignKey(spellEffect => spellEffect.WeaponId)
-            .OnDelete(DeleteBehavior.Restrict);
+        //builder.HasOne<WeaponDal>()
+        //    .WithMany(weapon => weapon.Effects)
+        //    .HasForeignKey(weaponEffect => weaponEffect.WeaponId)
+        //    .OnDelete(DeleteBehavior.Restrict);
     }
 }

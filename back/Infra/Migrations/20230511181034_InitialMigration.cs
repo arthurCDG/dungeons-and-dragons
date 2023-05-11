@@ -39,30 +39,6 @@ namespace dnd_infra.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "WeaponSuperAttacks",
-                schema: "Items",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    WeaponId = table.Column<int>(type: "int", nullable: false),
-                    Type = table.Column<int>(type: "int", nullable: false),
-                    LosesWeaponAfterSuperAttack = table.Column<bool>(type: "bit", nullable: true),
-                    LosesWeaponIfStarDieReturnsStar = table.Column<bool>(type: "bit", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_WeaponSuperAttacks", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_WeaponSuperAttacks_WeaponSuperAttacks_WeaponId",
-                        column: x => x.WeaponId,
-                        principalSchema: "Items",
-                        principalTable: "WeaponSuperAttacks",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Artefacts",
                 schema: "Items",
                 columns: table => new
@@ -234,42 +210,6 @@ namespace dnd_infra.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Weapons",
-                schema: "Items",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    WeaponType = table.Column<int>(type: "int", nullable: false),
-                    SuperAttackId = table.Column<int>(type: "int", nullable: true),
-                    CanRerollOneDie = table.Column<bool>(type: "bit", nullable: true),
-                    StarDieEffect = table.Column<int>(type: "int", nullable: true),
-                    SessionId = table.Column<int>(type: "int", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Explanation = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Level = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Weapons", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Weapons_Sessions_SessionId",
-                        column: x => x.SessionId,
-                        principalSchema: "dbo",
-                        principalTable: "Sessions",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Weapons_WeaponSuperAttacks_SuperAttackId",
-                        column: x => x.SuperAttackId,
-                        principalSchema: "Items",
-                        principalTable: "WeaponSuperAttacks",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
                 name: "ArtefactEffects",
                 schema: "Items",
                 columns: table => new
@@ -411,20 +351,6 @@ namespace dnd_infra.Migrations
                         principalTable: "Spells",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_DieAssociations_WeaponSuperAttacks_WeaponSuperAttackId",
-                        column: x => x.WeaponSuperAttackId,
-                        principalSchema: "Items",
-                        principalTable: "WeaponSuperAttacks",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_DieAssociations_Weapons_WeaponId",
-                        column: x => x.WeaponId,
-                        principalSchema: "Items",
-                        principalTable: "Weapons",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -489,13 +415,6 @@ namespace dnd_infra.Migrations
                         principalTable: "Spells",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_StoredItems_Weapons_WeaponId",
-                        column: x => x.WeaponId,
-                        principalSchema: "Items",
-                        principalTable: "Weapons",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -511,8 +430,55 @@ namespace dnd_infra.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_WeaponEffects", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Weapons",
+                schema: "Items",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    WeaponType = table.Column<int>(type: "int", nullable: false),
+                    SuperAttackId = table.Column<int>(type: "int", nullable: true),
+                    CanRerollOneDie = table.Column<bool>(type: "bit", nullable: true),
+                    StarDieEffect = table.Column<int>(type: "int", nullable: true),
+                    SessionId = table.Column<int>(type: "int", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Explanation = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Level = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Weapons", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_WeaponEffects_Weapons_WeaponId",
+                        name: "FK_Weapons_Sessions_SessionId",
+                        column: x => x.SessionId,
+                        principalSchema: "dbo",
+                        principalTable: "Sessions",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "WeaponSuperAttacks",
+                schema: "Items",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    WeaponId = table.Column<int>(type: "int", nullable: false),
+                    Type = table.Column<int>(type: "int", nullable: false),
+                    LosesWeaponAfterSuperAttack = table.Column<bool>(type: "bit", nullable: true),
+                    LosesWeaponIfStarDieReturnsStar = table.Column<bool>(type: "bit", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_WeaponSuperAttacks", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_WeaponSuperAttacks_Weapons_WeaponId",
                         column: x => x.WeaponId,
                         principalSchema: "Items",
                         principalTable: "Weapons",
@@ -696,11 +662,70 @@ namespace dnd_infra.Migrations
                 table: "WeaponSuperAttacks",
                 column: "WeaponId",
                 unique: true);
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_DieAssociations_WeaponSuperAttacks_WeaponSuperAttackId",
+                schema: "Dice",
+                table: "DieAssociations",
+                column: "WeaponSuperAttackId",
+                principalSchema: "Items",
+                principalTable: "WeaponSuperAttacks",
+                principalColumn: "Id",
+                onDelete: ReferentialAction.Restrict);
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_DieAssociations_Weapons_WeaponId",
+                schema: "Dice",
+                table: "DieAssociations",
+                column: "WeaponId",
+                principalSchema: "Items",
+                principalTable: "Weapons",
+                principalColumn: "Id",
+                onDelete: ReferentialAction.Restrict);
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_StoredItems_Weapons_WeaponId",
+                schema: "Items",
+                table: "StoredItems",
+                column: "WeaponId",
+                principalSchema: "Items",
+                principalTable: "Weapons",
+                principalColumn: "Id",
+                onDelete: ReferentialAction.Restrict);
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_WeaponEffects_Weapons_WeaponId",
+                schema: "Items",
+                table: "WeaponEffects",
+                column: "WeaponId",
+                principalSchema: "Items",
+                principalTable: "Weapons",
+                principalColumn: "Id",
+                onDelete: ReferentialAction.Restrict);
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_Weapons_WeaponSuperAttacks_SuperAttackId",
+                schema: "Items",
+                table: "Weapons",
+                column: "SuperAttackId",
+                principalSchema: "Items",
+                principalTable: "WeaponSuperAttacks",
+                principalColumn: "Id");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropForeignKey(
+                name: "FK_Weapons_Sessions_SessionId",
+                schema: "Items",
+                table: "Weapons");
+
+            migrationBuilder.DropForeignKey(
+                name: "FK_Weapons_WeaponSuperAttacks_SuperAttackId",
+                schema: "Items",
+                table: "Weapons");
+
             migrationBuilder.DropTable(
                 name: "ArtefactEffects",
                 schema: "Items");
@@ -754,15 +779,15 @@ namespace dnd_infra.Migrations
                 schema: "Items");
 
             migrationBuilder.DropTable(
-                name: "Weapons",
-                schema: "Items");
-
-            migrationBuilder.DropTable(
                 name: "Sessions",
                 schema: "dbo");
 
             migrationBuilder.DropTable(
                 name: "WeaponSuperAttacks",
+                schema: "Items");
+
+            migrationBuilder.DropTable(
+                name: "Weapons",
                 schema: "Items");
         }
     }

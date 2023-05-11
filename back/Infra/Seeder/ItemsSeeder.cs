@@ -28,8 +28,6 @@ internal sealed class ItemsSeeder
 
     private async Task SeedArtefactsAsync(int sessionId)
     {
-        var toto = sessionId;
-
         List<ArtefactDal> artefacts = new()
         {
             new ArtefactDal
