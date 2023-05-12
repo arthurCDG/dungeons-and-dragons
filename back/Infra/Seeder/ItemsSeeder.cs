@@ -561,6 +561,7 @@ internal sealed class ItemsSeeder
                 Explanation = "",
                 Level = 2,
                 ImageUrl = "",
+                WeaponType = WeaponType.RangedWeapon,
                 Dice = new()
                 {
                     new DieAssociationDal() { DieType = DieType.YellowDie },
@@ -576,6 +577,7 @@ internal sealed class ItemsSeeder
                 Explanation = "",
                 Level = 1,
                 ImageUrl = "",
+                WeaponType = WeaponType.RangedWeapon,
                 Dice = new()
                 {
                     new DieAssociationDal() { DieType = DieType.YellowDie },
@@ -592,6 +594,7 @@ internal sealed class ItemsSeeder
                 Explanation = "",
                 Level = 1,
                 ImageUrl = "",
+                WeaponType = WeaponType.HeavyMeleeWeapon,
                 Dice = new()
                 {
                     new DieAssociationDal() { DieType = DieType.OrangeDie }
@@ -605,6 +608,7 @@ internal sealed class ItemsSeeder
                 Explanation = "",
                 Level = 1,
                 ImageUrl = "",
+                WeaponType = WeaponType.RangedWeapon,
                 Dice = new()
                 {
                     new DieAssociationDal() { DieType = DieType.YellowDie },
@@ -621,12 +625,75 @@ internal sealed class ItemsSeeder
                 Explanation = "",
                 Level = 1,
                 ImageUrl = "",
+                WeaponType = WeaponType.RangedWeapon,
                 Dice = new()
                 {
                     new DieAssociationDal() { DieType = DieType.YellowDie },
                     new DieAssociationDal() { DieType = DieType.YellowDie }
                 }
-            }
+            },
+            new WeaponDal
+            {
+                SessionId = sessionId,
+                Name = "Masse brutale",
+                Description = "Lourde, puissante, mais imprécise.",
+                Explanation = "",
+                Level = 1,
+                ImageUrl = "",
+                WeaponType = WeaponType.HeavyMeleeWeapon,
+                Dice = new()
+                {
+                    new DieAssociationDal() { DieType = DieType.YellowDie },
+                    new DieAssociationDal() { DieType = DieType.YellowDie },
+                    new DieAssociationDal() { DieType = DieType.RedDie }
+                }
+            },
+            new WeaponDal
+            {
+                SessionId = sessionId,
+                Name = "Hâche de guerre émoussée",
+                Description = "Parfaite pour le combat rapproché.",
+                Explanation = "",
+                Level = 1,
+                ImageUrl = "",
+                WeaponType = WeaponType.MediumMeleeWeapon,
+                Dice = new()
+                {
+                    new DieAssociationDal() { DieType = DieType.YellowDie },
+                    new DieAssociationDal() { DieType = DieType.PurpleDie }
+                }
+            },
+            new WeaponDal
+            {
+                SessionId = sessionId,
+                Name = "Arbalète d'embuscade",
+                Description = "Mobile et particulièrement utile dans les tunnels étroits.",
+                Explanation = "",
+                Level = 1,
+                ImageUrl = "",
+                WeaponType = WeaponType.RangedWeapon,
+                Dice = new()
+                {
+                    new DieAssociationDal() { DieType = DieType.YellowDie },
+                    new DieAssociationDal() { DieType = DieType.RedDie }
+                }
+            },
+            new WeaponDal
+            {
+                SessionId = sessionId,
+                Name = "Fléau d'armes fangeux",
+                Description = "Usée par le temps, elle cause encore beaucoup de dommages à son adversaire.",
+                Explanation = "",
+                Level = 1,
+                ImageUrl = "",
+                WeaponType = WeaponType.LightMeleeWeapon,
+                Dice = new()
+                {
+                    new DieAssociationDal() { DieType = DieType.YellowDie },
+                    new DieAssociationDal() { DieType = DieType.YellowDie },
+                    new DieAssociationDal() { DieType = DieType.OrangeDie }
+                }
+            },
         };
 
         _context.Weapons.AddRange(weapons);

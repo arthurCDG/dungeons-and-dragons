@@ -1,7 +1,8 @@
-﻿using dnd_infra.Items.DALs;
-using dnd_infra.Sessions;
+﻿using dnd_domain.Dice;
+using dnd_infra.Items.DALs;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace dnd_infra.Dice;
 
@@ -12,6 +13,8 @@ internal sealed class DieAssociationDalConfiguration : IEntityTypeConfiguration<
         builder.ToTable("DieAssociations", "Dice");
 
         builder.HasKey(dieAssociation => dieAssociation.Id);
+
+        builder.Property(dieAssociation => dieAssociation.DieType).HasConversion(new EnumToStringConverter<DieType>());
 
         builder.HasOne<ArtefactDal>()
             .WithMany()

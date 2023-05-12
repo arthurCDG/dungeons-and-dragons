@@ -11,5 +11,6 @@ public static class InfraExtensions
         services.AddDbContext<GlobalDbContext>();
         services.AddScoped<ISessionSeeder, SessionSeeder>();
         services.AddScoped<ItemsSeeder>();
+        services.AddScoped<PlayersSeeder>();
     }
 }
