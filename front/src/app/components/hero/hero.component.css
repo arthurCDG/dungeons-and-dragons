@@ -1,0 +1,24 @@
+.player {
+	width: 80%;
+	height: 80%;
+	border: 1px solid greenyellow;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+
+.regdar {
+	background-image: url('./../../../assets/heroes/fighter-male.png');
+}
+
+.jozian {
+	background-image: url('./../../../assets/heroes/paladin-male.png');
+}
+
+.lidda {
+	background-image: url('./../../../assets/heroes/rogue-female.png');
+}
+
+.mialye {
+	background-image: url('./../../../assets/heroes/wizzard-female.png');
+}
