@@ -2,7 +2,7 @@
 
 namespace dnd_infra.Players.Configurations;
 
-internal static class PlayersConfigurations
+internal static class PlayerConfigurations
 {
     public static void ApplyPlayersConfigurations(this ModelBuilder modelBuilder)
     {

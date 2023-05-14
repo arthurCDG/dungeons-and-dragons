@@ -6,6 +6,7 @@ namespace dnd_infra.Players.DALs;
 
 internal sealed class HeroDal : PlayerDal
 {
+    public int SquareId { get; set; }
     public HeroClass Class { get; set; }
     public HeroRace Race { get; set; }
     public List<StoredItemDal> StoredItems { get; set; } = new();

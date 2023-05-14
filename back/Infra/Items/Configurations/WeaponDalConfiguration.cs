@@ -1,5 +1,5 @@
-﻿using dnd_infra.Items.DALs;
-using dnd_infra.Sessions;
+﻿using dnd_infra.Campaigns;
+using dnd_infra.Items.DALs;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -9,13 +9,13 @@ internal sealed class WeaponDalConfiguration : IEntityTypeConfiguration<WeaponDa
 {
     public void Configure(EntityTypeBuilder<WeaponDal> builder)
     {
-        builder.ToTable("Weapons", "Items");
+        builder.ToTable("Weapons", ProjectSchema.Items);
 
         builder.HasKey(weapon => weapon.Id);
 
-        builder.HasOne<SessionDal>()
+        builder.HasOne<CampaignDal>()
             .WithMany()
-            .HasForeignKey(weapon => weapon.SessionId)
+            .HasForeignKey(weapon => weapon.CampaignId)
             .OnDelete(DeleteBehavior.Restrict);
 
         builder.HasOne<StoredItemDal>()

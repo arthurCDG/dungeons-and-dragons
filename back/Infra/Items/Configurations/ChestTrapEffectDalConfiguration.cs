@@ -10,7 +10,7 @@ internal sealed class ChestTrapEffectDalConfiguration : IEntityTypeConfiguration
 {
     public void Configure(EntityTypeBuilder<ChestTrapEffectDal> builder)
     {
-        builder.ToTable("ChestTrapEffects", "Items");
+        builder.ToTable("ChestTrapEffects", ProjectSchema.Items);
 
         builder.HasKey(chestTrapEffect => chestTrapEffect.Id);
 

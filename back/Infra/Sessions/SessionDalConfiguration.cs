@@ -7,7 +7,7 @@ internal sealed class SessionDalConfiguration : IEntityTypeConfiguration<Session
 {
     public void Configure(EntityTypeBuilder<SessionDal> builder)
     {
-        builder.ToTable("Sessions", "dbo"); // Find another schema for this?
+        builder.ToTable("Sessions", ProjectSchema.Sessions);
 
         builder.HasKey(a => a.Id);
 

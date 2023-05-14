@@ -10,7 +10,7 @@ internal sealed class PotionEffectDalConfiguration : IEntityTypeConfiguration<Po
 {
     public void Configure(EntityTypeBuilder<PotionEffectDal> builder)
     {
-        builder.ToTable("PotionEffects", "Items");
+        builder.ToTable("PotionEffects", ProjectSchema.Items);
 
         builder.HasKey(potionEffect => potionEffect.Id);
 

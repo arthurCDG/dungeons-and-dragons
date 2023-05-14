@@ -8,7 +8,7 @@ internal sealed class WeaponSuperAttackDalConfiguration : IEntityTypeConfigurati
 {
     public void Configure(EntityTypeBuilder<WeaponSuperAttackDal> builder)
     {
-        builder.ToTable("WeaponSuperAttacks", "Items");
+        builder.ToTable("WeaponSuperAttacks", ProjectSchema.Items);
 
         builder.HasKey(weaponSuperAttack => weaponSuperAttack.Id);
     }

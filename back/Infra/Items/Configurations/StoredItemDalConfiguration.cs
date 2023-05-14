@@ -1,6 +1,5 @@
 ﻿using dnd_infra.Items.DALs;
 using dnd_infra.Players.DALs;
-using dnd_infra.Sessions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -10,7 +9,7 @@ internal sealed class StoredItemDalConfiguration : IEntityTypeConfiguration<Stor
 {
     public void Configure(EntityTypeBuilder<StoredItemDal> builder)
     {
-        builder.ToTable("StoredItems", "Items");
+        builder.ToTable("StoredItems", ProjectSchema.Items);
 
         builder.HasKey(storedItem => storedItem.Id);
 

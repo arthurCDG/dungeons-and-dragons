@@ -10,7 +10,7 @@ internal sealed class SpellEffectDalConfiguration : IEntityTypeConfiguration<Spe
 {
     public void Configure(EntityTypeBuilder<SpellEffectDal> builder)
     {
-        builder.ToTable("SpellEffects", "Items");
+        builder.ToTable("SpellEffects", ProjectSchema.Items);
 
         builder.HasKey(spellEffect => spellEffect.Id);
 

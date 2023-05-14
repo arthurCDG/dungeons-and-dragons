@@ -10,7 +10,7 @@ internal class WeaponEffectDalConfiguration : IEntityTypeConfiguration<WeaponEff
 {
     public void Configure(EntityTypeBuilder<WeaponEffectDal> builder)
     {
-        builder.ToTable("WeaponEffects", "Items");
+        builder.ToTable("WeaponEffects", ProjectSchema.Items);
 
         builder.HasKey(weaponEffect => weaponEffect.Id);
 

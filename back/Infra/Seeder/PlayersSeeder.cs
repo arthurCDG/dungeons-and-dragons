@@ -1,4 +1,5 @@
 ﻿using dnd_domain.Players.Enums;
+using dnd_infra.Campaigns.Rooms;
 using dnd_infra.Items.DALs;
 using dnd_infra.Players.DALs;
 using Microsoft.EntityFrameworkCore;
@@ -18,23 +19,27 @@ internal sealed class PlayersSeeder
         _context = globalDbContext ?? throw new ArgumentNullException(nameof(globalDbContext));
     }
 
-    public async Task SeedPlayersAsync(int sessionId)
+    public async Task SeedPlayersAsync(int campaignId)
     {
-        List<ArtefactDal> artefacts = await _context.Artefacts.Where(a => a.SessionId == sessionId).ToListAsync();
-        List<SpellDal> spells = await _context.Spells.Where(a => a.SessionId == sessionId).ToListAsync();
-        List<WeaponDal> weapons = await _context.Weapons.Where(a => a.SessionId == sessionId).ToListAsync();
+        List<ArtefactDal> artefacts = await _context.Artefacts.Where(a => a.CampaignId == campaignId).ToListAsync();
+        List<SpellDal> spells = await _context.Spells.Where(s => s.CampaignId == campaignId).ToListAsync();
+        List<WeaponDal> weapons = await _context.Weapons.Where(w => w.CampaignId == campaignId).ToListAsync();
 
-        await SeedHeroesAsync(sessionId, artefacts, spells, weapons);
-        await SeedMonstersAsync(sessionId, artefacts, spells, weapons);
+        List<RoomDal> rooms = await _context.Rooms.Where(r => r.CampaignId == campaignId).ToListAsync();
+        RoomDal startingRoom = rooms.Single(r => r.IsStartRoom == true);
+        List<int> startingSquareIds = startingRoom.Squares.Where(s => s.IsHeroStartingSquare == true).Select(s => s.Id).ToList();
+
+        await SeedHeroesAsync(campaignId, artefacts, spells, weapons, startingSquareIds);
+        await SeedMonstersAsync(campaignId, artefacts, spells, weapons, rooms);
     }
 
-    private async Task SeedHeroesAsync(int sessionId, List<ArtefactDal> artefacts, List<SpellDal> spells, List<WeaponDal> weapons)
+    private async Task SeedHeroesAsync(int campaignId, List<ArtefactDal> artefacts, List<SpellDal> spells, List<WeaponDal> weapons, List<int> startingSquareIds)
     {
         List<HeroDal> heroes = new()
         {
             new HeroDal
             {
-                SessionId = sessionId,
+                CampaignId = campaignId,
                 Name = "Regdar",
                 ImageUrl = "",
                 Race = HeroRace.Human,
@@ -43,6 +48,7 @@ internal sealed class PlayersSeeder
                 ManaPoints = 0,
                 Shield = 2,
                 FootSteps = 4,
+                SquareId = startingSquareIds[0],
                 StoredItems = new()
                 {
                     new StoredItemDal
@@ -54,7 +60,7 @@ internal sealed class PlayersSeeder
             },
             new HeroDal
             {
-                SessionId = sessionId,
+                CampaignId = campaignId,
                 Name = "Lidda",
                 ImageUrl = "",
                 Race = HeroRace.Halfling,
@@ -63,6 +69,7 @@ internal sealed class PlayersSeeder
                 ManaPoints = 0,
                 Shield = 2,
                 FootSteps = 6,
+                SquareId = startingSquareIds[1],
                 StoredItems = new()
                 {
                     new StoredItemDal
@@ -79,7 +86,7 @@ internal sealed class PlayersSeeder
             },
             new HeroDal
             {
-                SessionId = sessionId,
+                CampaignId = campaignId,
                 Name = "Jozan",
                 ImageUrl = "",
                 Race = HeroRace.Human,
@@ -88,6 +95,7 @@ internal sealed class PlayersSeeder
                 ManaPoints = 5,
                 Shield = 2,
                 FootSteps = 5,
+                SquareId = startingSquareIds[2],
                 StoredItems = new()
                 {
                     new StoredItemDal
@@ -104,7 +112,7 @@ internal sealed class PlayersSeeder
             },
             new HeroDal
             {
-                SessionId = sessionId,
+                CampaignId = campaignId,
                 Name = "Mialye",
                 ImageUrl = "",
                 Race = HeroRace.Elf,
@@ -113,6 +121,7 @@ internal sealed class PlayersSeeder
                 ManaPoints = 5,
                 Shield = 2,
                 FootSteps = 5,
+                SquareId = startingSquareIds[3],
                 StoredItems = new()
                 {
                     new StoredItemDal
@@ -133,13 +142,15 @@ internal sealed class PlayersSeeder
         await _context.SaveChangesAsync();
     }
 
-    private async Task SeedMonstersAsync(int sessionId, List<ArtefactDal> artefacts, List<SpellDal> spells, List<WeaponDal> weapons)
+    private async Task SeedMonstersAsync(int campaignId, List<ArtefactDal> artefacts, List<SpellDal> spells, List<WeaponDal> weapons, List<RoomDal> rooms)
     {
+        List<int> monsterSquareIds = rooms.SelectMany(r => r.Squares.Where(s => s.IsMonsterStartingSquare == true)).Select(s => s.Id).ToList();
+
         List<MonsterDal> monsters = new()
         {
             new MonsterDal
             {
-                SessionId = sessionId,
+                CampaignId = campaignId,
                 Name = "Gobelours",
                 Type = MonsterType.BugBear,
                 ImageUrl = "",
@@ -147,6 +158,7 @@ internal sealed class PlayersSeeder
                 ManaPoints = 0,
                 FootSteps = 4,
                 Shield = 2,
+                SquareId = monsterSquareIds[0],
                 StoredItems = new()
                 {
                     new StoredItemDal
@@ -158,7 +170,7 @@ internal sealed class PlayersSeeder
             },
             new MonsterDal
             {
-                SessionId = sessionId,
+                CampaignId = campaignId,
                 Name = "Gnoll",
                 Type = MonsterType.Gnoll,
                 ImageUrl = "",
@@ -166,6 +178,7 @@ internal sealed class PlayersSeeder
                 ManaPoints = 0,
                 FootSteps = 3,
                 Shield = 2,
+                SquareId = monsterSquareIds[1],
                 StoredItems = new()
                 {
                     new StoredItemDal
@@ -181,7 +194,7 @@ internal sealed class PlayersSeeder
             },
             new MonsterDal
             {
-                SessionId = sessionId,
+                CampaignId = campaignId,
                 Name = "Gobelin",
                 Type = MonsterType.Goblin,
                 ImageUrl = "",
@@ -189,6 +202,7 @@ internal sealed class PlayersSeeder
                 ManaPoints = 0,
                 FootSteps = 5,
                 Shield = 1,
+                SquareId = monsterSquareIds[2],
                 StoredItems = new()
                 {
                     new StoredItemDal
@@ -200,7 +214,7 @@ internal sealed class PlayersSeeder
             }
         };
 
-        _context.Monsters.AddRange(monsters);
+        _context.AddRange(monsters);
         await _context.SaveChangesAsync();
     }
 }

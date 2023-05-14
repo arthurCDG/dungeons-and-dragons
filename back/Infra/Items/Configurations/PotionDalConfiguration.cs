@@ -1,5 +1,5 @@
-﻿using dnd_infra.Items.DALs;
-using dnd_infra.Sessions;
+﻿using dnd_infra.Campaigns;
+using dnd_infra.Items.DALs;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -9,13 +9,13 @@ internal sealed class PotionDalConfiguration : IEntityTypeConfiguration<PotionDa
 {
     public void Configure(EntityTypeBuilder<PotionDal> builder)
     {
-        builder.ToTable("Potions", "Items");
+        builder.ToTable("Potions", ProjectSchema.Items);
 
         builder.HasKey(potion => potion.Id);
 
-        builder.HasOne<SessionDal>()
+        builder.HasOne<CampaignDal>()
             .WithMany()
-            .HasForeignKey(potion => potion.SessionId)
+            .HasForeignKey(potion => potion.CampaignId)
             .OnDelete(DeleteBehavior.Restrict);
 
         builder.HasOne<StoredItemDal>()

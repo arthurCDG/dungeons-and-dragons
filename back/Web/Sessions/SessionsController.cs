@@ -1,4 +1,4 @@
-﻿using dnd_domain.Seeder;
+﻿using dnd_services.Sessions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
@@ -7,23 +7,23 @@ using System.Threading.Tasks;
 
 namespace dungeons_and_dragons.Controllers;
 
-[SwaggerTag("Exports")]
+[SwaggerTag("Sessions")]
 [ApiExplorerSettings(IgnoreApi = false)]
 [ApiController, Route(Route)]
-public class SessionsSeederController : ControllerBase
+public class SessionsController : ControllerBase
 {
-    public const string Route = "services/seeder/sessions";
-    private readonly ISessionSeeder _sessionSeeder;
+    public const string Route = "api/sessions";
+    private readonly ISessionsService _sessionsService;
 
-    public SessionsSeederController(ISessionSeeder sessionSeeder)
+    public SessionsController(ISessionsService sessionsService)
     {
-        _sessionSeeder = sessionSeeder;
+        _sessionsService = sessionsService ?? throw new System.ArgumentNullException(nameof(sessionsService));
     }
 
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
-    public Task SeedAsync()
-        => _sessionSeeder.SeedSessionAssync();
+    public Task PostAsync()
+        => _sessionsService.CreateAsync();
 }

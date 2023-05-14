@@ -19,7 +19,10 @@ public class Program
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
 
-        builder.Services.AddGlobalDbContext();
+        // Scope services from other Bounded Contexts
+        builder.Services.AddInfraExtensiosn();
+        builder.Services.AddDomainExtensions();
+        builder.Services.AddServicesExtensions();
 
         var app = builder.Build();
 

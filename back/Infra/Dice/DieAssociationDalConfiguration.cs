@@ -10,7 +10,7 @@ internal sealed class DieAssociationDalConfiguration : IEntityTypeConfiguration<
 {
     public void Configure(EntityTypeBuilder<DieAssociationDal> builder)
     {
-        builder.ToTable("DieAssociations", "Dice");
+        builder.ToTable("DieAssociations", ProjectSchema.Dice);
 
         builder.HasKey(dieAssociation => dieAssociation.Id);
 

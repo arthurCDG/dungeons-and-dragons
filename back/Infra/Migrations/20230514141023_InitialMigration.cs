@@ -15,17 +15,20 @@ namespace dnd_infra.Migrations
                 name: "Items");
 
             migrationBuilder.EnsureSchema(
+                name: "Campaigns");
+
+            migrationBuilder.EnsureSchema(
                 name: "Dice");
 
             migrationBuilder.EnsureSchema(
                 name: "Players");
 
             migrationBuilder.EnsureSchema(
-                name: "dbo");
+                name: "Sessions");
 
             migrationBuilder.CreateTable(
                 name: "Sessions",
-                schema: "dbo",
+                schema: "Sessions",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -39,6 +42,30 @@ namespace dnd_infra.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Campaigns",
+                schema: "Campaigns",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    SessionId = table.Column<int>(type: "int", nullable: false),
+                    StartsAt = table.Column<DateTime>(type: "datetime2(2)", nullable: false),
+                    EndsAt = table.Column<DateTime>(type: "datetime2(2)", nullable: true),
+                    Adventure = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Campaigns", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Campaigns_Sessions_SessionId",
+                        column: x => x.SessionId,
+                        principalSchema: "Sessions",
+                        principalTable: "Sessions",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Artefacts",
                 schema: "Items",
                 columns: table => new
@@ -47,7 +74,7 @@ namespace dnd_infra.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     DiscardAfterUsage = table.Column<bool>(type: "bit", nullable: false),
                     CastDieToDiscardAfterUsage = table.Column<bool>(type: "bit", nullable: true),
-                    SessionId = table.Column<int>(type: "int", nullable: false),
+                    CampaignId = table.Column<int>(type: "int", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Explanation = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -58,10 +85,10 @@ namespace dnd_infra.Migrations
                 {
                     table.PrimaryKey("PK_Artefacts", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Artefacts_Sessions_SessionId",
-                        column: x => x.SessionId,
-                        principalSchema: "dbo",
-                        principalTable: "Sessions",
+                        name: "FK_Artefacts_Campaigns_CampaignId",
+                        column: x => x.CampaignId,
+                        principalSchema: "Campaigns",
+                        principalTable: "Campaigns",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -73,7 +100,7 @@ namespace dnd_infra.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    SessionId = table.Column<int>(type: "int", nullable: false),
+                    CampaignId = table.Column<int>(type: "int", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Explanation = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -84,69 +111,10 @@ namespace dnd_infra.Migrations
                 {
                     table.PrimaryKey("PK_ChestTraps", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ChestTraps_Sessions_SessionId",
-                        column: x => x.SessionId,
-                        principalSchema: "dbo",
-                        principalTable: "Sessions",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Heroes",
-                schema: "Players",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Class = table.Column<int>(type: "int", nullable: false),
-                    Race = table.Column<int>(type: "int", nullable: false),
-                    SessionId = table.Column<int>(type: "int", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    LifePoints = table.Column<int>(type: "int", nullable: false),
-                    ManaPoints = table.Column<int>(type: "int", nullable: false),
-                    FootSteps = table.Column<int>(type: "int", nullable: false),
-                    Shield = table.Column<int>(type: "int", nullable: false),
-                    IsDead = table.Column<bool>(type: "bit", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Heroes", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Heroes_Sessions_SessionId",
-                        column: x => x.SessionId,
-                        principalSchema: "dbo",
-                        principalTable: "Sessions",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Monsters",
-                schema: "Players",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Type = table.Column<int>(type: "int", nullable: false),
-                    SessionId = table.Column<int>(type: "int", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    LifePoints = table.Column<int>(type: "int", nullable: false),
-                    ManaPoints = table.Column<int>(type: "int", nullable: false),
-                    FootSteps = table.Column<int>(type: "int", nullable: false),
-                    Shield = table.Column<int>(type: "int", nullable: false),
-                    IsDead = table.Column<bool>(type: "bit", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Monsters", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Monsters_Sessions_SessionId",
-                        column: x => x.SessionId,
-                        principalSchema: "dbo",
-                        principalTable: "Sessions",
+                        name: "FK_ChestTraps_Campaigns_CampaignId",
+                        column: x => x.CampaignId,
+                        principalSchema: "Campaigns",
+                        principalTable: "Campaigns",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -159,7 +127,7 @@ namespace dnd_infra.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     DiscardAfterUsage = table.Column<bool>(type: "bit", nullable: false),
-                    SessionId = table.Column<int>(type: "int", nullable: false),
+                    CampaignId = table.Column<int>(type: "int", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Explanation = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -170,10 +138,32 @@ namespace dnd_infra.Migrations
                 {
                     table.PrimaryKey("PK_Potions", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Potions_Sessions_SessionId",
-                        column: x => x.SessionId,
-                        principalSchema: "dbo",
-                        principalTable: "Sessions",
+                        name: "FK_Potions_Campaigns_CampaignId",
+                        column: x => x.CampaignId,
+                        principalSchema: "Campaigns",
+                        principalTable: "Campaigns",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Rooms",
+                schema: "Campaigns",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CampaignId = table.Column<int>(type: "int", nullable: false),
+                    IsStartRoom = table.Column<bool>(type: "bit", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Rooms", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Rooms_Campaigns_CampaignId",
+                        column: x => x.CampaignId,
+                        principalSchema: "Campaigns",
+                        principalTable: "Campaigns",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -190,7 +180,7 @@ namespace dnd_infra.Migrations
                     StarDieEffect = table.Column<int>(type: "int", nullable: true),
                     IsMeleeSpell = table.Column<bool>(type: "bit", nullable: false),
                     IsDistantSpell = table.Column<bool>(type: "bit", nullable: false),
-                    SessionId = table.Column<int>(type: "int", nullable: false),
+                    CampaignId = table.Column<int>(type: "int", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Explanation = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -201,10 +191,10 @@ namespace dnd_infra.Migrations
                 {
                     table.PrimaryKey("PK_Spells", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Spells_Sessions_SessionId",
-                        column: x => x.SessionId,
-                        principalSchema: "dbo",
-                        principalTable: "Sessions",
+                        name: "FK_Spells_Campaigns_CampaignId",
+                        column: x => x.CampaignId,
+                        principalSchema: "Campaigns",
+                        principalTable: "Campaigns",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -276,6 +266,31 @@ namespace dnd_infra.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Squares",
+                schema: "Campaigns",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    RoomId = table.Column<int>(type: "int", nullable: false),
+                    ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IsDoor = table.Column<bool>(type: "bit", nullable: true),
+                    IsHeroStartingSquare = table.Column<bool>(type: "bit", nullable: true),
+                    IsMonsterStartingSquare = table.Column<bool>(type: "bit", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Squares", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Squares_Rooms_RoomId",
+                        column: x => x.RoomId,
+                        principalSchema: "Campaigns",
+                        principalTable: "Rooms",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "SpellEffects",
                 schema: "Items",
                 columns: table => new
@@ -298,13 +313,133 @@ namespace dnd_infra.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Heroes",
+                schema: "Players",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    SquareId = table.Column<int>(type: "int", nullable: false),
+                    Class = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Race = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CampaignId = table.Column<int>(type: "int", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    LifePoints = table.Column<int>(type: "int", nullable: false),
+                    ManaPoints = table.Column<int>(type: "int", nullable: false),
+                    FootSteps = table.Column<int>(type: "int", nullable: false),
+                    Shield = table.Column<int>(type: "int", nullable: false),
+                    IsDead = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Heroes", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Heroes_Campaigns_CampaignId",
+                        column: x => x.CampaignId,
+                        principalSchema: "Campaigns",
+                        principalTable: "Campaigns",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Heroes_Squares_SquareId",
+                        column: x => x.SquareId,
+                        principalSchema: "Campaigns",
+                        principalTable: "Squares",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Monsters",
+                schema: "Players",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    SquareId = table.Column<int>(type: "int", nullable: false),
+                    Type = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CampaignId = table.Column<int>(type: "int", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    LifePoints = table.Column<int>(type: "int", nullable: false),
+                    ManaPoints = table.Column<int>(type: "int", nullable: false),
+                    FootSteps = table.Column<int>(type: "int", nullable: false),
+                    Shield = table.Column<int>(type: "int", nullable: false),
+                    IsDead = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Monsters", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Monsters_Campaigns_CampaignId",
+                        column: x => x.CampaignId,
+                        principalSchema: "Campaigns",
+                        principalTable: "Campaigns",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Monsters_Squares_SquareId",
+                        column: x => x.SquareId,
+                        principalSchema: "Campaigns",
+                        principalTable: "Squares",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Positions",
+                schema: "Campaigns",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    SquareId = table.Column<int>(type: "int", nullable: false),
+                    X = table.Column<int>(type: "int", nullable: false),
+                    Y = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Positions", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Positions_Squares_SquareId",
+                        column: x => x.SquareId,
+                        principalSchema: "Campaigns",
+                        principalTable: "Squares",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "SquareTraps",
+                schema: "Campaigns",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    SquareId = table.Column<int>(type: "int", nullable: false),
+                    Type = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SquareTraps", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_SquareTraps_Squares_SquareId",
+                        column: x => x.SquareId,
+                        principalSchema: "Campaigns",
+                        principalTable: "Squares",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "DieAssociations",
                 schema: "Dice",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    DieType = table.Column<int>(type: "int", nullable: false),
+                    DieType = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ArtefactId = table.Column<int>(type: "int", nullable: true),
                     ChestTrapId = table.Column<int>(type: "int", nullable: true),
                     PotionId = table.Column<int>(type: "int", nullable: true),
@@ -427,7 +562,7 @@ namespace dnd_infra.Migrations
                     SuperAttackId = table.Column<int>(type: "int", nullable: true),
                     CanRerollOneDie = table.Column<bool>(type: "bit", nullable: true),
                     StarDieEffect = table.Column<int>(type: "int", nullable: true),
-                    SessionId = table.Column<int>(type: "int", nullable: false),
+                    CampaignId = table.Column<int>(type: "int", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Explanation = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -438,10 +573,10 @@ namespace dnd_infra.Migrations
                 {
                     table.PrimaryKey("PK_Weapons", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Weapons_Sessions_SessionId",
-                        column: x => x.SessionId,
-                        principalSchema: "dbo",
-                        principalTable: "Sessions",
+                        name: "FK_Weapons_Campaigns_CampaignId",
+                        column: x => x.CampaignId,
+                        principalSchema: "Campaigns",
+                        principalTable: "Campaigns",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -477,9 +612,15 @@ namespace dnd_infra.Migrations
                 column: "ArtefactId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Artefacts_SessionId",
+                name: "IX_Artefacts_CampaignId",
                 schema: "Items",
                 table: "Artefacts",
+                column: "CampaignId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Campaigns_SessionId",
+                schema: "Campaigns",
+                table: "Campaigns",
                 column: "SessionId");
 
             migrationBuilder.CreateIndex(
@@ -489,10 +630,10 @@ namespace dnd_infra.Migrations
                 column: "ChestTrapId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ChestTraps_SessionId",
+                name: "IX_ChestTraps_CampaignId",
                 schema: "Items",
                 table: "ChestTraps",
-                column: "SessionId");
+                column: "CampaignId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_DieAssociations_ArtefactId",
@@ -531,16 +672,37 @@ namespace dnd_infra.Migrations
                 column: "WeaponSuperAttackId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Heroes_SessionId",
+                name: "IX_Heroes_CampaignId",
                 schema: "Players",
                 table: "Heroes",
-                column: "SessionId");
+                column: "CampaignId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Monsters_SessionId",
+                name: "IX_Heroes_SquareId",
+                schema: "Players",
+                table: "Heroes",
+                column: "SquareId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Monsters_CampaignId",
                 schema: "Players",
                 table: "Monsters",
-                column: "SessionId");
+                column: "CampaignId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Monsters_SquareId",
+                schema: "Players",
+                table: "Monsters",
+                column: "SquareId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Positions_SquareId",
+                schema: "Campaigns",
+                table: "Positions",
+                column: "SquareId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_PotionEffects_PotionId",
@@ -549,10 +711,16 @@ namespace dnd_infra.Migrations
                 column: "PotionId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Potions_SessionId",
+                name: "IX_Potions_CampaignId",
                 schema: "Items",
                 table: "Potions",
-                column: "SessionId");
+                column: "CampaignId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Rooms_CampaignId",
+                schema: "Campaigns",
+                table: "Rooms",
+                column: "CampaignId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_SpellEffects_SpellId",
@@ -561,10 +729,23 @@ namespace dnd_infra.Migrations
                 column: "SpellId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Spells_SessionId",
+                name: "IX_Spells_CampaignId",
                 schema: "Items",
                 table: "Spells",
-                column: "SessionId");
+                column: "CampaignId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Squares_RoomId",
+                schema: "Campaigns",
+                table: "Squares",
+                column: "RoomId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SquareTraps_SquareId",
+                schema: "Campaigns",
+                table: "SquareTraps",
+                column: "SquareId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_StoredItems_ArtefactId",
@@ -617,10 +798,10 @@ namespace dnd_infra.Migrations
                 column: "WeaponId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Weapons_SessionId",
+                name: "IX_Weapons_CampaignId",
                 schema: "Items",
                 table: "Weapons",
-                column: "SessionId");
+                column: "CampaignId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Weapons_SuperAttackId",
@@ -689,7 +870,7 @@ namespace dnd_infra.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropForeignKey(
-                name: "FK_Weapons_Sessions_SessionId",
+                name: "FK_Weapons_Campaigns_CampaignId",
                 schema: "Items",
                 table: "Weapons");
 
@@ -711,12 +892,20 @@ namespace dnd_infra.Migrations
                 schema: "Dice");
 
             migrationBuilder.DropTable(
+                name: "Positions",
+                schema: "Campaigns");
+
+            migrationBuilder.DropTable(
                 name: "PotionEffects",
                 schema: "Items");
 
             migrationBuilder.DropTable(
                 name: "SpellEffects",
                 schema: "Items");
+
+            migrationBuilder.DropTable(
+                name: "SquareTraps",
+                schema: "Campaigns");
 
             migrationBuilder.DropTable(
                 name: "StoredItems",
@@ -751,8 +940,20 @@ namespace dnd_infra.Migrations
                 schema: "Items");
 
             migrationBuilder.DropTable(
+                name: "Squares",
+                schema: "Campaigns");
+
+            migrationBuilder.DropTable(
+                name: "Rooms",
+                schema: "Campaigns");
+
+            migrationBuilder.DropTable(
+                name: "Campaigns",
+                schema: "Campaigns");
+
+            migrationBuilder.DropTable(
                 name: "Sessions",
-                schema: "dbo");
+                schema: "Sessions");
 
             migrationBuilder.DropTable(
                 name: "WeaponSuperAttacks",

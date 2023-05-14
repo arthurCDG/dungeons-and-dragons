@@ -10,7 +10,7 @@ internal class ArtefactEffectDalConfiguration : IEntityTypeConfiguration<Artefac
 {
     public void Configure(EntityTypeBuilder<ArtefactEffectDal> builder)
     {
-        builder.ToTable("ArtefactEffects", "Items");
+        builder.ToTable("ArtefactEffects", ProjectSchema.Items);
 
         builder.HasKey(artefactEffect => artefactEffect.Id);
 

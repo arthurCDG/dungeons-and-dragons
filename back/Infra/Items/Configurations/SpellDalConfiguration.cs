@@ -1,5 +1,5 @@
-﻿using dnd_infra.Items.DALs;
-using dnd_infra.Sessions;
+﻿using dnd_infra.Campaigns;
+using dnd_infra.Items.DALs;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -9,13 +9,13 @@ internal sealed class SpellDalConfiguration : IEntityTypeConfiguration<SpellDal>
 {
     public void Configure(EntityTypeBuilder<SpellDal> builder)
     {
-        builder.ToTable("Spells", "Items");
+        builder.ToTable("Spells", ProjectSchema.Items);
 
         builder.HasKey(spell => spell.Id);
 
-        builder.HasOne<SessionDal>()
+        builder.HasOne<CampaignDal>()
             .WithMany()
-            .HasForeignKey(spell => spell.SessionId)
+            .HasForeignKey(spell => spell.CampaignId)
             .OnDelete(DeleteBehavior.Restrict);
 
         builder.HasOne<StoredItemDal>()
