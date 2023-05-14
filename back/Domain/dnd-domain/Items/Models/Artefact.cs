@@ -1,6 +1,6 @@
 ﻿namespace dnd_domain.Items.Models;
 
-public class Artefact : StoredItem
+public class Artefact : Item
 {
     public bool? DiscardAfterUsage { get; set; }
     public bool? CastDieToDiscardAfterUsage { get; set; }

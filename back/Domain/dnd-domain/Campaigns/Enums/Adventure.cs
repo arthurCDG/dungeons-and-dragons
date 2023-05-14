@@ -1,4 +1,4 @@
-﻿namespace dnd_domain.Campaigns;
+﻿namespace dnd_domain.Campaigns.Enums;
 
 public enum Adventure
 {

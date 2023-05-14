@@ -1,4 +1,4 @@
-﻿using dnd_domain.Dice;
+﻿using dnd_domain.Dice.Enums;
 using dnd_infra.Items.DALs;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;

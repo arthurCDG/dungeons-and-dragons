@@ -20,6 +20,13 @@ public class SessionsController : ControllerBase
         _sessionsService = sessionsService ?? throw new System.ArgumentNullException(nameof(sessionsService));
     }
 
+    //[HttpGet]
+    //[ProducesResponseType(StatusCodes.Status200Ok)]
+    //[ProducesResponseType(StatusCodes.Status400BadRequest)]
+    //[ProducesResponseType(StatusCodes.Status403Forbidden)]
+    //public Task PostAsync()
+    //    => _sessionsService.GetAsync();
+
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]

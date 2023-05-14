@@ -1,4 +1,4 @@
-﻿using dnd_domain.Dice;
+﻿using dnd_domain.Dice.Enums;
 using dnd_domain.Items.Enums;
 using dnd_infra.Dice;
 using dnd_infra.Items.DALs;

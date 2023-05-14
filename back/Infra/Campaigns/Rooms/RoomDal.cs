@@ -1,5 +1,7 @@
-﻿using dnd_infra.Campaigns.Rooms.Squares.DALs;
+﻿using dnd_domain.Campaigns.Models;
+using dnd_infra.Campaigns.Rooms.Squares.DALs;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace dnd_infra.Campaigns.Rooms;
 
@@ -10,4 +12,13 @@ internal sealed class RoomDal
     public List<SquareDal> Squares { get; set; } = new();
 
     public bool? IsStartRoom { get; set; }
+
+    public Room ToDomain()
+        => new()
+        {
+           Id = Id,
+           CampaignId = CampaignId,
+           IsStartRoom = IsStartRoom,
+           Squares = Squares.Select(s => s.ToDomain()).ToList()
+        };
 }

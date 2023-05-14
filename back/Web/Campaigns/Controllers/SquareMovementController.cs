@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Routing;
 using Swashbuckle.AspNetCore.Annotations;
 using System.Threading.Tasks;
 
-namespace dungeons_and_dragons.Controllers;
+namespace dungeons_and_dragons.Campaigns.Controllers;
 
 [SwaggerTag("Movements")]
 [ApiExplorerSettings(IgnoreApi = false)]

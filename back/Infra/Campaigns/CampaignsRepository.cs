@@ -1,4 +1,6 @@
 ﻿using dnd_domain.Campaigns;
+using dnd_domain.Campaigns.Enums;
+using dnd_domain.Campaigns.Models;
 using dnd_infra.Campaigns.Rooms;
 using dnd_infra.Campaigns.Rooms.Squares.DALs;
 using dnd_infra.Seeder;
@@ -21,6 +23,21 @@ internal sealed class CampaignsRepository : ICampaignsRepository
         _context = context ?? throw new ArgumentNullException(nameof(context));
         _itemsSeeder = itemsSeeder ?? throw new ArgumentNullException(nameof(itemsSeeder));
         _playersSeeder = playersSeeder ?? throw new ArgumentNullException(nameof(playersSeeder));
+    }
+
+    public async Task<Campaign> GetAsync(int sessionId)
+    {
+        CampaignDal dal = await _context.Campaigns
+            .Include(c => c.Rooms)
+                .ThenInclude(r => r.Squares)
+                    .ThenInclude(s => s.Position)
+            .Include(c => c.Heroes)
+                    .ThenInclude(r => r.StoredItems)
+            .Include(c => c.Monsters)
+                    .ThenInclude(r => r.StoredItems)
+            .FirstAsync(c => c.SessionId == sessionId);
+
+        return dal.ToDomain();
     }
 
     public async Task CreateAsync(int sessionId, CampaignPayload campaignPayload)

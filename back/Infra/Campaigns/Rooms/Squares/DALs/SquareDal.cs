@@ -1,4 +1,6 @@
-﻿namespace dnd_infra.Campaigns.Rooms.Squares.DALs;
+﻿using dnd_domain.Campaigns.Models;
+
+namespace dnd_infra.Campaigns.Rooms.Squares.DALs;
 
 internal sealed class SquareDal
 {
@@ -11,4 +13,17 @@ internal sealed class SquareDal
     public bool? IsHeroStartingSquare { get; set; }
     public bool? IsMonsterStartingSquare { get; set; }
     public SquareTrapDal? Trap { get; set; }
+
+    public Square ToDomain()
+        => new()
+        {
+            Id = Id,
+            RoomId = RoomId,
+            ImageUrl = ImageUrl,
+            IsDoor = IsDoor,
+            IsHeroStartingSquare = IsHeroStartingSquare,
+            IsMonsterStartingSquare = IsMonsterStartingSquare,
+            Position = Position.ToDomain(),
+            Trap = Trap?.ToDomain(),
+        };
 }

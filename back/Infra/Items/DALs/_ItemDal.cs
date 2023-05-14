@@ -1,6 +1,6 @@
 ﻿namespace dnd_infra.Items.DALs;
 
-internal abstract class ItemDal
+public abstract class ItemDal
 {
     public int Id { get; set; }
     public int CampaignId { get; set; }

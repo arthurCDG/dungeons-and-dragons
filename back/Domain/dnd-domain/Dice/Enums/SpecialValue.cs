@@ -1,4 +1,4 @@
-﻿namespace dnd_domain.Dice;
+﻿namespace dnd_domain.Dice.Enums;
 
 public enum SpecialValue
 {

@@ -1,4 +1,4 @@
-﻿using dnd_domain.Campaigns;
+﻿using dnd_domain.Campaigns.Models;
 using dnd_services.Campaigns;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Routing;
 using Swashbuckle.AspNetCore.Annotations;
 using System.Threading.Tasks;
 
-namespace dungeons_and_dragons.Controllers;
+namespace dungeons_and_dragons.Campaigns.Controllers;
 
 [SwaggerTag("Campaigns")]
 [ApiExplorerSettings(IgnoreApi = false)]
@@ -21,6 +21,13 @@ public class CampaignsController : ControllerBase
     {
         _campaignsService = campaignsService ?? throw new System.ArgumentNullException(nameof(campaignsService));
     }
+
+    [HttpGet]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status403Forbidden)]
+    public Task<Campaign> GetAsync(int sessionId)
+        => _campaignsService.GetAsync(sessionId);
 
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created)]
