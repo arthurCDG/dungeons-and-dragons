@@ -1,5 +1,6 @@
 ﻿using dnd_domain.Campaigns.Models;
 using dnd_services.Campaigns;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
@@ -11,6 +12,7 @@ namespace dungeons_and_dragons.Campaigns.Controllers;
 [SwaggerTag("Campaigns")]
 [ApiExplorerSettings(IgnoreApi = false)]
 [ApiController, Route(Route)]
+[EnableCors]
 public class CampaignsController : ControllerBase
 {
     public const string Route = "api/sessions/{sessionId}/campaigns";

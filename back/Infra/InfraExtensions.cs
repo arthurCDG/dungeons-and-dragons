@@ -1,4 +1,5 @@
 ﻿using dnd_domain.Campaigns;
+using dnd_domain.Campaigns.Rooms.Squares.Repositories;
 using dnd_domain.Players.Repositories;
 using dnd_domain.Sessions.Services;
 using dnd_infra.Campaigns;
@@ -18,6 +19,7 @@ public static class InfraExtensions
         services.AddScoped<ISessionsRepository, SessionsRepository>();
         services.AddScoped<ICampaignsRepository, CampaignsRepository>();
         services.AddScoped<ISquareMovementRepository, SquareMovementRepository>();
+        services.AddScoped<ISquaresRepository, SquaresRepository>();
 
         services.AddScoped<ItemsSeeder>();
         services.AddScoped<PlayersSeeder>();

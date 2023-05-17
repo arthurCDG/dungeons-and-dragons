@@ -66,6 +66,5 @@ public enum ArtefactEffectType
     CanInvokeHeroNearBy,
     CanCastTrapFinderDie,
     DismissAllAttacks,
-    IsUndetectableInNextRound,
-
+    IsUndetectableInNextRound
 }

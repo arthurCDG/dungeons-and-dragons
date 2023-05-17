@@ -10,12 +10,13 @@ internal class SpellDal : ItemDal
 {
     public int ManaCost { get; set; }
     public SpellType Type { get; set; }
+    public bool IsMeleeSpell { get; set; } = false;
+    public bool IsDistantSpell { get; set; } = false;
+
     public List<DieAssociationDal> Dice { get; set; } = new();
     public List<SpellEffectDal> Effects { get; set; } = new();
 
-    public StarDieEffectType? StarDieEffect { get; set; }
-    public bool IsMeleeSpell { get; set; } = false;
-    public bool IsDistantSpell { get; set; } = false;
+        public StarDieEffectType? StarDieEffect { get; set; }
 
     public Spell ToDomain()
         => new()

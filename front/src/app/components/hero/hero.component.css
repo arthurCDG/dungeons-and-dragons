@@ -1,6 +1,6 @@
 .player {
-	width: 80%;
-	height: 80%;
+	width: 80px;
+	height: 80px;
 	border: 1px solid greenyellow;
 	background-position: center;
 	background-repeat: no-repeat;

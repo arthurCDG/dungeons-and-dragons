@@ -10,7 +10,19 @@ public class Program
 {
     public static void Main(string[] args)
     {
+        var ALLOW_DEV_FRONT_END = "_allowDevFrontEnd";
+
         var builder = WebApplication.CreateBuilder(args);
+
+        builder.Services.AddCors(options =>
+        {
+            options.AddPolicy(
+                name: ALLOW_DEV_FRONT_END,
+                policy => {
+                    policy.WithOrigins("http://localhost:4200");
+                }
+            );
+        });
 
         // Add services to the container.
 
@@ -34,7 +46,7 @@ public class Program
         }
 
         app.UseHttpsRedirection();
-
+        app.UseCors(ALLOW_DEV_FRONT_END);
         app.UseAuthorization();
 
         app.MapControllers();

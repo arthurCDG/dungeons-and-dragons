@@ -28,5 +28,5 @@ public enum StarDieEffectType
     DoubleHeroAttack,
     DoubleAllHeroesAttacks,
     MoveUndeadToAnySquareInTheRoom,
-    HeroCanNoLongerRerollDice,
+    HeroCanNoLongerRerollDice
 }

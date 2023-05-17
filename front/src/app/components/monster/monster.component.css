@@ -1,0 +1,20 @@
+.player {
+	width: 80px;
+	height: 80px;
+	border: 1px solid greenyellow;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+
+.bugBear {
+	background-image: url('./../../../assets/monsters/Fomorian.png');
+}
+
+.goblin {
+	background-image: url('./../../../assets/monsters/Goblin.png');
+}
+
+.gnoll {
+	background-image: url('./../../../assets/monsters/Gnoll.png');
+}

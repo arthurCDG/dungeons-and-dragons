@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { IHero } from './../../../app/models/players.models';
 
 @Component({
   selector: 'app-hero',
@@ -9,10 +10,12 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./hero.component.css']
 })
 export class HeroComponent implements OnInit {
+	@Input() hero: IHero;
 
-  constructor() { }
+	constructor() {}
 
-  ngOnInit(): void {
-  }
+	ngOnInit(): void {
+		console.log('this.hero', this.hero);
+	}
 
 }

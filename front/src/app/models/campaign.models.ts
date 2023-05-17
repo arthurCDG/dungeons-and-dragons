@@ -1,7 +1,11 @@
+import { IHero, IMonster } from "./players.models";
+
 export interface ICampaign {
 	id: number;
 	startsAt: Date;
 	rooms: IRoom[];
+	heroes: IHero[];
+	monsters: IMonster[];
 }
 
 export interface IRoom {
