@@ -25,7 +25,7 @@ internal sealed class CampaignsRepository : ICampaignsRepository
         _playersSeeder = playersSeeder ?? throw new ArgumentNullException(nameof(playersSeeder));
     }
 
-    public async Task<Campaign> GetAsync(int sessionId)
+    public async Task<Campaign> GetAsync(int sessionId, int campaignId)
     {
         CampaignDal dal = await _context.Campaigns
             .Include(c => c.Rooms)
@@ -35,7 +35,7 @@ internal sealed class CampaignsRepository : ICampaignsRepository
                     .ThenInclude(r => r.StoredItems)
             .Include(c => c.Monsters)
                     .ThenInclude(r => r.StoredItems)
-            .FirstAsync(c => c.SessionId == sessionId);
+            .SingleAsync(c => c.SessionId == sessionId && c.Id == campaignId);
 
         return dal.ToDomain();
     }
@@ -78,31 +78,107 @@ internal sealed class CampaignsRepository : ICampaignsRepository
 
     private async Task<List<RoomDal>> GetGoblinBanditsRoomsAsync(int campaignId)
     {
-        // Start room for heroes
+        RoomDal disabledRoom = new() { CampaignId = campaignId };
+        RoomDal bottomLeftRoom = new() { CampaignId = campaignId };
+        RoomDal topMiddleLeftRoom = new() { CampaignId = campaignId };
+        RoomDal topMiddleRightRoom = new() { CampaignId = campaignId };
+        RoomDal bottomMiddleRightRoom = new() { CampaignId = campaignId };
+        RoomDal topRightRoom = new() { CampaignId = campaignId, IsStartRoom = true };
+        RoomDal bottomRightRoom = new() { CampaignId = campaignId };
 
-        RoomDal roomDal = new()
-        {
-            CampaignId = campaignId,
-            IsStartRoom = true
-        };
-
-        _context.Rooms.Add(roomDal);
+        List<RoomDal> rooms = new() { disabledRoom, bottomLeftRoom, topMiddleLeftRoom, topMiddleRightRoom, bottomMiddleRightRoom, topRightRoom, bottomRightRoom };
+        _context.Rooms.AddRange(rooms);
         await _context.SaveChangesAsync();
 
-        for (int x = 0; x < 6; x++)
+        for (int x = 1; x <= 11; x++)
         {
-            for (int y = 0; y < 5; y++)
+            for (int y = 1; y <= 22; y++)
             {
-                SquareDal squareDal = new() { Position = new() { X = x, Y = y }, RoomId = roomDal.Id };
+                SquareDal squareDal = new() { Position = new() { X = x, Y = y } };
 
-                if (x == 0 && (y == 1 || y == 2 || y == 3 || y == 4))
+                // Board frame
+
+                if (x == 1)
                 {
-                    squareDal.IsHeroStartingSquare = true;
+                    squareDal.HasTopWall = true;
                 }
 
-                if (x == 5 && y == 4)
+                if (y == 1)
                 {
-                    squareDal.IsDoor = true;
+                    squareDal.HasLeftWall = true;
+                }
+
+                if (x == 11)
+                {
+                    squareDal.HasBottomWall = true;
+                }
+
+                if (y == 22)
+                {
+                    squareDal.HasRightWall = true;
+                }
+
+                // Top left room (disabled)
+
+                if ((x == 3 & (y == 5 || y == 6 || y == 7)) || (x == 6 && y >= 1 && y <= 4))
+                {
+                    squareDal.HasBottomWall = true;
+                }
+
+                if ((x >= 1 && x <= 3 & y == 7) || (x >= 4 && x <= 6 && y == 4))
+                {
+                    squareDal.HasRightWall = true;
+                }
+
+                if ((x >= 1 && x <= 6 && y >= 1 && y <= 4) || (x >= 1 && x <= 3 && y >= 1 && y <= 7))
+                {
+                    squareDal.RoomId = disabledRoom.Id;
+                    squareDal.IsDisabled = true;
+                }
+
+                // Bottom-left room (2 chests and 2 goblins)
+
+                if ((x == 7 && y >= 1 && y <= 4) || (x >= 8 && x <= 11 && y >= 1 && y <= 11))
+                {
+                    squareDal.RoomId = bottomLeftRoom.Id;
+                }
+
+                _context.Add(squareDal);
+
+                // Top-middle-left room (2 pillars and 3 traps)
+
+                if ((x >= 1 && x <= 3 && y >= 8 && y <= 11) || (x >= 4 && x <= 7 && y >= 5 && y <= 11))
+                {
+                    squareDal.RoomId = topMiddleLeftRoom.Id;
+                }
+
+                // Top-middle-right room (6 chest and 3 goblins)
+
+                if (x >= 1 && x <= 7 && y >= 12 && y <= 17)
+                {
+                    squareDal.RoomId = topMiddleRightRoom.Id;
+                }
+
+                // Bottom-middle-right room (6 chest and 3 goblins)
+
+                if (x >= 8 && x <= 11 && y >= 12 && y <= 17)
+                {
+                    squareDal.RoomId = bottomMiddleRightRoom.Id;
+                }
+
+                // Top right room (start room for heroes)
+
+                if (x >= 1 && x <= 5 && y >= 18 && y <= 22)
+                {
+                    squareDal.RoomId = topRightRoom.Id;
+                }
+
+
+                // Bottom right room (1 goblin)
+
+                if (x >= 6 && x <= 11 && y >= 18 && y <= 22)
+                {
+                    squareDal.RoomId = bottomRightRoom.Id;
                 }
 
                 _context.Add(squareDal);
@@ -110,38 +186,6 @@ internal sealed class CampaignsRepository : ICampaignsRepository
         }
 
         await _context.SaveChangesAsync();
-
-        // First room with goblins
-
-        RoomDal firstGoblinRoomDal = new()
-        {
-            CampaignId = campaignId
-        };
-
-        _context.Rooms.Add(firstGoblinRoomDal);
-        await _context.SaveChangesAsync();
-
-        for (int x = 0; x < 6; x++)
-        {
-            for (int y = 0; y < 6; y++)
-            {
-                SquareDal squareDal = new() { Position = new() { X = x, Y = y }, RoomId = firstGoblinRoomDal.Id };
-
-                if (x == 5 && (y == 1 || y == 2 || y == 3))
-                {
-                    squareDal.IsMonsterStartingSquare = true;
-                }
-
-                if ((x == 0 && y == 4) || (x == 4 && y == 0))
-                {
-                    squareDal.IsDoor = true;
-                }
-
-                _context.Add(squareDal);
-            }
-        }
-
-        await _context.SaveChangesAsync();
-        return new List<RoomDal> { roomDal, firstGoblinRoomDal };
+        return rooms;
     }
 }

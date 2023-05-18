@@ -18,9 +18,9 @@ internal sealed class PotionDalConfiguration : IEntityTypeConfiguration<PotionDa
             .HasForeignKey(potion => potion.CampaignId)
             .OnDelete(DeleteBehavior.Restrict);
 
-        builder.HasOne<StoredItemDal>()
+        builder.HasMany<StoredItemDal>()
             .WithOne(storedItem => storedItem.Potion)
-            .HasForeignKey<StoredItemDal>(storedItem => storedItem.PotionId)
+            .HasForeignKey(storedItem => storedItem.PotionId)
             .OnDelete(DeleteBehavior.Restrict);
     }
 }

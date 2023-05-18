@@ -23,12 +23,14 @@ internal sealed class StoredItemDalConfiguration : IEntityTypeConfiguration<Stor
             .HasForeignKey(storedItem => storedItem.MonsterId)
             .OnDelete(DeleteBehavior.Restrict);
 
-        builder.HasOne<SpellDal>()
-            .WithOne()
-            .HasForeignKey<StoredItemDal>(storedItem => storedItem.SpellId);
+        //builder.HasOne<SpellDal>()
+        //    .WithMany()
+        //    .HasForeignKey(storedItem => storedItem.SpellId)
+        //    .OnDelete(DeleteBehavior.Restrict);
 
-        builder.HasOne<WeaponDal>()
-            .WithOne()
-            .HasForeignKey<StoredItemDal>(storedItem => storedItem.WeaponId);
+        //builder.HasOne<WeaponDal>()
+        //    .WithMany()
+        //    .HasForeignKey(storedItem => storedItem.WeaponId)
+        //    .OnDelete(DeleteBehavior.Restrict);
     }
 }

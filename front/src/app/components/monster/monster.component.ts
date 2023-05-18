@@ -1,6 +1,6 @@
-import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { IMonster } from './../../../app/models/players.models';
+import { IMonster, MonsterType } from './../../../app/models/players.models';
 
 @Component({
   selector: 'app-monster',
@@ -12,11 +12,12 @@ import { IMonster } from './../../../app/models/players.models';
 export class MonsterComponent implements OnInit {
 	@Input() monster: IMonster;
 
-	constructor(private cdr: ChangeDetectorRef) { }
+	public BugBear: MonsterType.BugBear;
+	public Gnoll: MonsterType.Gnoll;
+	public Goblin: MonsterType.Goblin;
 
-	ngOnInit(): void {
-		console.log('this.monster', this.monster);
-		this.cdr.markForCheck();
-	}
+	constructor() {}
+
+	ngOnInit(): void {}
 
 }

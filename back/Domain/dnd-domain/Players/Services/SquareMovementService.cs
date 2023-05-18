@@ -1,4 +1,5 @@
-﻿using dnd_domain.Fields.Models;
+﻿using dnd_domain.Campaigns.Models;
+using dnd_domain.Fields.Models;
 using dnd_domain.Players.Repositories;
 
 namespace dnd_domain.Players.Services;
@@ -12,6 +13,6 @@ internal sealed class SquareMovementService : ISquareMovementService
         _playerMovementRepository = playerMovementRepository ?? throw new ArgumentNullException(nameof(playerMovementRepository));
     }
 
-    public Task MoveToSquareAsync(int heroId, MovementRequestPayload movementRequest)
-        => _playerMovementRepository.MoveToSquareAsync(heroId, movementRequest);
+    public Task<Movement> MoveToSquareAsync(MovementRequestPayload movementRequest)
+        => _playerMovementRepository.MoveToSquareAsync(movementRequest);
 }

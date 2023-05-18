@@ -1,7 +1,16 @@
 <div class="campaign">
 	<h2>Campaign works!</h2>
 	<p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Inventore ut sequi necessitatibus reiciendis adipisci tempora laudantium, consequuntur illum impedit id quam eos possimus est mollitia iure ab quibusdam ipsum quis?</p>
-	<ng-container *ngFor="let room of campaign?.rooms">
-		<app-room [room]="room" [heroesBySquareId]="heroesBySquareId" [monstersBySquareId]="monstersBySquareId"></app-room>
-	</ng-container>
+	<div class="board">
+		<ng-container *ngFor="let square of squares">
+			<app-square
+				[square]="square"
+				[squareNeedsToReload]="square.id === squaredIdThatNeedsToReload"
+				[squareIsSelected]="square.id === selectedSquaredId"
+				(squareChanged)="onSquareChanged($event)"
+				(squareSelected)="onSquareSelected($event)"
+			>
+			</app-square>
+		</ng-container>
+	</div>
 </div>

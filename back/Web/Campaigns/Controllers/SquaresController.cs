@@ -25,6 +25,13 @@ public class SquaresController : ControllerBase
         _squaresService = squaresService ?? throw new System.ArgumentNullException(nameof(squaresService));
     }
 
+    [HttpGet()]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status403Forbidden)]
+    public Task<List<Square>> GetAsync(int campaignId)
+        => _squaresService.GetAsync(campaignId);
+
     [HttpGet("{squareId}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]

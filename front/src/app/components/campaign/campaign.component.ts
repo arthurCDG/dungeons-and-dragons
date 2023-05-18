@@ -2,37 +2,39 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { IHero, IMonster } from 'src/app/models/players.models';
-import { RoomComponent } from '../room/room.component';
-import { ICampaign } from './../../../app/models/campaign.models';
-import { CampaignsService } from './../../../app/services';
+import { SquareComponent } from '../square/square.component';
+import { ICampaign, ISquare } from './../../../app/models/campaign.models';
+import { CampaignsService, SquaresService } from './../../../app/services';
 
 @Component({
   selector: 'app-campaign',
   standalone: true,
-  imports: [CommonModule, RoomComponent],
+  imports: [CommonModule, SquareComponent],
   templateUrl: './campaign.component.html',
   styleUrls: ['./campaign.component.css'],
-  providers: [CampaignsService]
+  providers: [CampaignsService, SquaresService]
 })
 export class CampaignComponent implements OnInit {
 	public campaign: ICampaign;
-	public heroesBySquareId: Map<number, IHero>;
-	public monstersBySquareId: Map<number, IMonster>;
+	public squares: ISquare[];
 
-	constructor(private campaignsService: CampaignsService, private activatedRoute: ActivatedRoute) { }
+	public squaredIdThatNeedsToReload: number;
+	public selectedSquaredId: number;
+
+	constructor(private campaignsService: CampaignsService, private squaresService: SquaresService, private activatedRoute: ActivatedRoute) { }
 
 	ngOnInit(): void {
-		this.campaignsService.getAsync(1).subscribe((campaign: ICampaign) => { // TODO retrieve Id dynamically
+		this.campaignsService.getAsync(1, 3).subscribe((campaign: ICampaign) => {
 			this.campaign = campaign;
-
-			this.heroesBySquareId = campaign?.heroes.reduce((map, hero) => {
-				return map.set(hero?.squareId, hero);
-			}, new Map<number, IHero>());
-
-			this.monstersBySquareId = campaign?.monsters.reduce((map, monster) => {
-				return map.set(monster?.squareId, monster);
-			}, new Map<number, IMonster>());
+			this.squares = campaign.squares;
 		});
+	}
+
+	onSquareChanged(formerSquaredId: number): void {
+		this.squaredIdThatNeedsToReload = formerSquaredId;
+	}
+
+	onSquareSelected(squareId: number): void {
+		this.selectedSquaredId = squareId;
 	}
 }

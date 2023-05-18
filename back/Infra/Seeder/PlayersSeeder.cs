@@ -1,5 +1,6 @@
 ﻿using dnd_domain.Players.Enums;
 using dnd_infra.Campaigns.Rooms;
+using dnd_infra.Campaigns.Rooms.Squares.DALs;
 using dnd_infra.Items.DALs;
 using dnd_infra.Players.DALs;
 using Microsoft.EntityFrameworkCore;
@@ -26,14 +27,13 @@ internal sealed class PlayersSeeder
         List<WeaponDal> weapons = await _context.Weapons.Where(w => w.CampaignId == campaignId).ToListAsync();
 
         List<RoomDal> rooms = await _context.Rooms.Where(r => r.CampaignId == campaignId).ToListAsync();
-        RoomDal startingRoom = rooms.Single(r => r.IsStartRoom == true);
-        List<int> startingSquareIds = startingRoom.Squares.Where(s => s.IsHeroStartingSquare == true).Select(s => s.Id).ToList();
+        List<SquareDal> squares = rooms.SelectMany(r => r.Squares).ToList();
 
-        await SeedHeroesAsync(campaignId, artefacts, spells, weapons, startingSquareIds);
-        await SeedMonstersAsync(campaignId, artefacts, spells, weapons, rooms);
+        await SeedHeroesAsync(campaignId, artefacts, spells, weapons, squares);
+        await SeedMonstersAsync(campaignId, artefacts, spells, weapons, squares);
     }
 
-    private async Task SeedHeroesAsync(int campaignId, List<ArtefactDal> artefacts, List<SpellDal> spells, List<WeaponDal> weapons, List<int> startingSquareIds)
+    private async Task SeedHeroesAsync(int campaignId, List<ArtefactDal> artefacts, List<SpellDal> spells, List<WeaponDal> weapons, List<SquareDal> squares)
     {
         List<HeroDal> heroes = new()
         {
@@ -48,7 +48,7 @@ internal sealed class PlayersSeeder
                 ManaPoints = 0,
                 Shield = 2,
                 FootSteps = 4,
-                SquareId = startingSquareIds[0],
+                SquareId = squares.Single(s => s.Position.X == 1 && s.Position.Y == 21).Id,
                 StoredItems = new()
                 {
                     new StoredItemDal
@@ -69,7 +69,7 @@ internal sealed class PlayersSeeder
                 ManaPoints = 0,
                 Shield = 2,
                 FootSteps = 6,
-                SquareId = startingSquareIds[1],
+                SquareId = squares.Single(s => s.Position.X == 1 && s.Position.Y == 20).Id,
                 StoredItems = new()
                 {
                     new StoredItemDal
@@ -95,7 +95,7 @@ internal sealed class PlayersSeeder
                 ManaPoints = 5,
                 Shield = 2,
                 FootSteps = 5,
-                SquareId = startingSquareIds[2],
+                SquareId = squares.Single(s => s.Position.X == 1 && s.Position.Y == 19).Id,
                 StoredItems = new()
                 {
                     new StoredItemDal
@@ -121,7 +121,7 @@ internal sealed class PlayersSeeder
                 ManaPoints = 5,
                 Shield = 2,
                 FootSteps = 5,
-                SquareId = startingSquareIds[3],
+                SquareId = squares.Single(s => s.Position.X == 1 && s.Position.Y == 18).Id,
                 StoredItems = new()
                 {
                     new StoredItemDal
@@ -142,67 +142,121 @@ internal sealed class PlayersSeeder
         await _context.SaveChangesAsync();
     }
 
-    private async Task SeedMonstersAsync(int campaignId, List<ArtefactDal> artefacts, List<SpellDal> spells, List<WeaponDal> weapons, List<RoomDal> rooms)
+    private async Task SeedMonstersAsync(int campaignId, List<ArtefactDal> artefacts, List<SpellDal> spells, List<WeaponDal> weapons, List<SquareDal> squares)
     {
-        List<int> monsterSquareIds = rooms.SelectMany(r => r.Squares.Where(s => s.IsMonsterStartingSquare == true)).Select(s => s.Id).ToList();
-
         List<MonsterDal> monsters = new()
         {
             new MonsterDal
             {
                 CampaignId = campaignId,
-                Name = "Gobelours",
-                Type = MonsterType.BugBear,
-                ImageUrl = "",
-                LifePoints = 7,
-                ManaPoints = 0,
-                FootSteps = 4,
-                Shield = 2,
-                SquareId = monsterSquareIds[0],
-                StoredItems = new()
-                {
-                    new StoredItemDal
-                    {
-                        WeaponId = weapons.Single(w => w.Name == "Masse brutale").Id,
-                        IsEquiped = true
-                    }
-                }
-            },
-            new MonsterDal
-            {
-                CampaignId = campaignId,
-                Name = "Gnoll",
-                Type = MonsterType.Gnoll,
-                ImageUrl = "",
-                LifePoints = 6,
-                ManaPoints = 0,
-                FootSteps = 3,
-                Shield = 2,
-                SquareId = monsterSquareIds[1],
-                StoredItems = new()
-                {
-                    new StoredItemDal
-                    {
-                        WeaponId = weapons.Single(w => w.Name == "Hâche de guerre émoussée").Id,
-                        IsEquiped = true
-                    },
-                    new StoredItemDal
-                    {
-                        WeaponId = weapons.Single(w => w.Name == "Arbalète d'embuscade").Id
-                    }
-                }
-            },
-            new MonsterDal
-            {
-                CampaignId = campaignId,
-                Name = "Gobelin",
+                Name = "Zoc",
                 Type = MonsterType.Goblin,
                 ImageUrl = "",
                 LifePoints = 4,
                 ManaPoints = 0,
                 FootSteps = 5,
                 Shield = 1,
-                SquareId = monsterSquareIds[2],
+                SquareId = squares.Single(s => s.Position.X == 10 && s.Position.Y == 19).Id,
+                StoredItems = new()
+                {
+                    new StoredItemDal
+                    {
+                        WeaponId = weapons.Single(w => w.Name == "Fléau d'armes fangeux").Id,
+                        IsEquiped = true
+                    }
+                }
+            },
+            new MonsterDal
+            {
+                CampaignId = campaignId,
+                Name = "Slusb",
+                Type = MonsterType.Goblin,
+                ImageUrl = "",
+                LifePoints = 4,
+                ManaPoints = 0,
+                FootSteps = 5,
+                Shield = 1,
+                SquareId = squares.Single(s => s.Position.X == 8 && s.Position.Y == 2).Id,
+                StoredItems = new()
+                {
+                    new StoredItemDal
+                    {
+                        WeaponId = weapons.Single(w => w.Name == "Fléau d'armes fangeux").Id,
+                        IsEquiped = true
+                    }
+                }
+            },
+            new MonsterDal
+            {
+                CampaignId = campaignId,
+                Name = "Klezz",
+                Type = MonsterType.Goblin,
+                ImageUrl = "",
+                LifePoints = 4,
+                ManaPoints = 0,
+                FootSteps = 5,
+                Shield = 1,
+                SquareId = squares.Single(s => s.Position.X == 11 && s.Position.Y == 4).Id,
+                StoredItems = new()
+                {
+                    new StoredItemDal
+                    {
+                        WeaponId = weapons.Single(w => w.Name == "Fléau d'armes fangeux").Id,
+                        IsEquiped = true
+                    }
+                }
+            },
+            new MonsterDal
+            {
+                CampaignId = campaignId,
+                Name = "Guburk",
+                Type = MonsterType.Goblin,
+                ImageUrl = "",
+                LifePoints = 4,
+                ManaPoints = 0,
+                FootSteps = 5,
+                Shield = 1,
+                SquareId = squares.Single(s => s.Position.X == 6 && s.Position.Y == 13).Id,
+                StoredItems = new()
+                {
+                    new StoredItemDal
+                    {
+                        WeaponId = weapons.Single(w => w.Name == "Fléau d'armes fangeux").Id,
+                        IsEquiped = true
+                    }
+                }
+            },
+            new MonsterDal
+            {
+                CampaignId = campaignId,
+                Name = "Praq",
+                Type = MonsterType.Goblin,
+                ImageUrl = "",
+                LifePoints = 4,
+                ManaPoints = 0,
+                FootSteps = 5,
+                Shield = 1,
+                SquareId = squares.Single(s => s.Position.X == 7 && s.Position.Y == 16).Id,
+                StoredItems = new()
+                {
+                    new StoredItemDal
+                    {
+                        WeaponId = weapons.Single(w => w.Name == "Fléau d'armes fangeux").Id,
+                        IsEquiped = true
+                    }
+                }
+            },
+            new MonsterDal
+            {
+                CampaignId = campaignId,
+                Name = "Cukx",
+                Type = MonsterType.Goblin,
+                ImageUrl = "",
+                LifePoints = 4,
+                ManaPoints = 0,
+                FootSteps = 5,
+                Shield = 1,
+                SquareId = squares.Single(s => s.Position.X == 2 && s.Position.Y == 17).Id,
                 StoredItems = new()
                 {
                     new StoredItemDal

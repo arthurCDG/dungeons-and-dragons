@@ -18,9 +18,9 @@ internal sealed class WeaponDalConfiguration : IEntityTypeConfiguration<WeaponDa
             .HasForeignKey(weapon => weapon.CampaignId)
             .OnDelete(DeleteBehavior.Restrict);
 
-        builder.HasOne<StoredItemDal>()
+        builder.HasMany<StoredItemDal>()
             .WithOne(storedItem => storedItem.Weapon)
-            .HasForeignKey<StoredItemDal>(storedItem => storedItem.WeaponId)
+            .HasForeignKey(storedItem => storedItem.WeaponId)
             .OnDelete(DeleteBehavior.Restrict);
 
         builder.HasOne<WeaponSuperAttackDal>()

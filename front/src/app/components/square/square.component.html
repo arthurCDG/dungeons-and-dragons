@@ -1,9 +1,20 @@
-<div class="square dungeon-tile type-1">
-	<ng-container *ngIf="hero">
-		<app-hero [hero]="hero"></app-hero>
-	</ng-container>
-	<ng-container *ngIf="monster">
-		<app-monster [monster]="monster"></app-monster>
-	</ng-container>
-	<!-- <app-interactive-element></app-interactive-element> -->
+<div
+	class="square dungeon-tile"
+	[ngClass]="tileStyle"
+	[class.top-wall]="square.hasTopWall"
+	[class.left-wall]="square.hasLeftWall"
+	[class.right-wall]="square.hasRightWall"
+	[class.bottom-wall]="square.hasBottomWall"
+	(click)="onSquareClicked()"
+>
+	<div [class.is-disabled]="square.isDisabled"></div>
+	<div [class.selected]="selected === true">
+		<ng-container *ngIf="hero">
+			<app-hero [hero]="hero"></app-hero>
+		</ng-container>
+		<ng-container *ngIf="monster">
+			<app-monster [monster]="monster"></app-monster>
+		</ng-container>
+		<!-- <app-interactive-element></app-interactive-element> -->
+	</div>
 </div>

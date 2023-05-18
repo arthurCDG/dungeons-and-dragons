@@ -1,4 +1,5 @@
-﻿using dnd_domain.Fields.Models;
+﻿using dnd_domain.Campaigns.Models;
+using dnd_domain.Fields.Models;
 using dnd_domain.Players.Repositories;
 using dnd_infra.Players.DALs;
 using Microsoft.EntityFrameworkCore;
@@ -16,10 +17,13 @@ internal sealed class SquareMovementRepository : ISquareMovementRepository
         _context = globalDbContext ?? throw new ArgumentNullException(nameof(globalDbContext));
     }
 
-    public async Task MoveToSquareAsync(int heroId, MovementRequestPayload movementRequest)
+    public async Task<Movement> MoveToSquareAsync(MovementRequestPayload movementRequest)
     {
-        HeroDal dal = await _context.Heroes.FirstAsync(h => h.Id == heroId);
+        HeroDal dal = await _context.Heroes.FirstAsync(h => h.Id == movementRequest.HeroId);
+        int formerSquareId = dal.SquareId;
         dal.SquareId = movementRequest.SquareId;
         await _context.SaveChangesAsync();
+
+        return new Movement { HeroId = dal.Id, FormerSquareId = formerSquareId, NewSquareId = dal.SquareId };
     }
 }

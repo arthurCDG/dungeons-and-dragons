@@ -16,12 +16,13 @@ public class Program
 
         builder.Services.AddCors(options =>
         {
-            options.AddPolicy(
-                name: ALLOW_DEV_FRONT_END,
-                policy => {
-                    policy.WithOrigins("http://localhost:4200");
-                }
-            );
+            options.AddDefaultPolicy(builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
+            //options.AddPolicy(
+            //    name: ALLOW_DEV_FRONT_END,
+            //    policy => {
+            //        policy.WithOrigins("http://localhost:4200");
+            //    }
+            //);
         });
 
         // Add services to the container.
@@ -46,8 +47,8 @@ public class Program
         }
 
         app.UseHttpsRedirection();
-        app.UseCors(ALLOW_DEV_FRONT_END);
-        app.UseAuthorization();
+        app.UseCors();
+        //app.UseAuthorization();
 
         app.MapControllers();
 

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using dnd_infra;
 
@@ -11,9 +12,11 @@ using dnd_infra;
 namespace dnd_infra.Migrations
 {
     [DbContext(typeof(GlobalDbContext))]
-    partial class GlobalDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230518132530_AddWallsAndDisabledModForSquares")]
+    partial class AddWallsAndDisabledModForSquares
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -499,17 +502,25 @@ namespace dnd_infra.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ArtefactId");
+                    b.HasIndex("ArtefactId")
+                        .IsUnique()
+                        .HasFilter("[ArtefactId] IS NOT NULL");
 
                     b.HasIndex("HeroId");
 
                     b.HasIndex("MonsterId");
 
-                    b.HasIndex("PotionId");
+                    b.HasIndex("PotionId")
+                        .IsUnique()
+                        .HasFilter("[PotionId] IS NOT NULL");
 
-                    b.HasIndex("SpellId");
+                    b.HasIndex("SpellId")
+                        .IsUnique()
+                        .HasFilter("[SpellId] IS NOT NULL");
 
-                    b.HasIndex("WeaponId");
+                    b.HasIndex("WeaponId")
+                        .IsUnique()
+                        .HasFilter("[WeaponId] IS NOT NULL");
 
                     b.ToTable("StoredItems", "Items");
                 });
@@ -893,8 +904,8 @@ namespace dnd_infra.Migrations
             modelBuilder.Entity("dnd_infra.Items.DALs.StoredItemDal", b =>
                 {
                     b.HasOne("dnd_infra.Items.DALs.ArtefactDal", "Artefact")
-                        .WithMany()
-                        .HasForeignKey("ArtefactId")
+                        .WithOne()
+                        .HasForeignKey("dnd_infra.Items.DALs.StoredItemDal", "ArtefactId")
                         .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("dnd_infra.Players.DALs.HeroDal", null)
@@ -908,18 +919,18 @@ namespace dnd_infra.Migrations
                         .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("dnd_infra.Items.DALs.PotionDal", "Potion")
-                        .WithMany()
-                        .HasForeignKey("PotionId")
+                        .WithOne()
+                        .HasForeignKey("dnd_infra.Items.DALs.StoredItemDal", "PotionId")
                         .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("dnd_infra.Items.DALs.SpellDal", "Spell")
-                        .WithMany()
-                        .HasForeignKey("SpellId")
+                        .WithOne()
+                        .HasForeignKey("dnd_infra.Items.DALs.StoredItemDal", "SpellId")
                         .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("dnd_infra.Items.DALs.WeaponDal", "Weapon")
-                        .WithMany()
-                        .HasForeignKey("WeaponId")
+                        .WithOne()
+                        .HasForeignKey("dnd_infra.Items.DALs.StoredItemDal", "WeaponId")
                         .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("Artefact");

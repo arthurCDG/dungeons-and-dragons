@@ -1,8 +1,10 @@
-﻿using dnd_domain.Players.Models;
+﻿using dnd_domain.Campaigns.Models;
+using dnd_domain.Players.Models;
 
 namespace dnd_domain.Campaigns.Rooms.Squares.Repositories;
 
 public interface ISquaresRepository
 {
+    Task<List<Square>> GetAsync(int campaignId);
     Task<Player?> GetSquarePlayerIfAnyAsync(int squareId);
 }

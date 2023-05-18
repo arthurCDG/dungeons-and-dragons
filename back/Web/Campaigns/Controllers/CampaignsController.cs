@@ -1,5 +1,6 @@
 ﻿using dnd_domain.Campaigns.Models;
 using dnd_services.Campaigns;
+using dungeons_and_dragons.Campaigns.DTOs;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -24,12 +25,15 @@ public class CampaignsController : ControllerBase
         _campaignsService = campaignsService ?? throw new System.ArgumentNullException(nameof(campaignsService));
     }
 
-    [HttpGet]
+    [HttpGet("{campaignId}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
-    public Task<Campaign> GetAsync(int sessionId)
-        => _campaignsService.GetAsync(sessionId);
+    public async Task<CampaignDto> GetAsync(int sessionId, int campaignId)
+    {
+        Campaign campaign = await _campaignsService.GetAsync(sessionId, campaignId);
+        return CampaignDto.FromDomain(campaign);
+    }
 
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created)]
