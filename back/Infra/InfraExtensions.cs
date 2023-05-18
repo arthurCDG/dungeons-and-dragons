@@ -4,6 +4,7 @@ using dnd_domain.Players.Repositories;
 using dnd_domain.Sessions.Services;
 using dnd_infra.Campaigns;
 using dnd_infra.Campaigns.Rooms.Squares.Repositories;
+using dnd_infra.Players.Repositories;
 using dnd_infra.Seeder;
 using dnd_infra.Sessions;
 using Microsoft.Extensions.DependencyInjection;
@@ -20,6 +21,8 @@ public static class InfraExtensions
         services.AddScoped<ICampaignsRepository, CampaignsRepository>();
         services.AddScoped<ISquareMovementRepository, SquareMovementRepository>();
         services.AddScoped<ISquaresRepository, SquaresRepository>();
+        services.AddScoped<IHeroesRepository, HeroesRepository>();
+        services.AddScoped<IMonstersRepository, MonstersRepository>();
 
         services.AddScoped<ItemsSeeder>();
         services.AddScoped<PlayersSeeder>();

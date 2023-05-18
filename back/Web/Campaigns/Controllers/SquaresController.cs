@@ -25,7 +25,7 @@ public class SquaresController : ControllerBase
         _squaresService = squaresService ?? throw new System.ArgumentNullException(nameof(squaresService));
     }
 
-    [HttpGet()]
+    [HttpGet]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]

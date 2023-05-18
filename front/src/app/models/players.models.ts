@@ -25,6 +25,11 @@ export interface IMonster extends IPlayer {
 	storedItems: IStoredItem[];
 };
 
+export interface IAttackPayload {
+	meleeAttack?: number;
+	rangeAttack?: number;
+}
+
 export enum HeroClass {
 	Warrior,
     Necromant,

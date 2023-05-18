@@ -1,5 +1,6 @@
 ﻿using dnd_services.Campaigns;
 using dnd_services.Campaigns.Rooms.Squares;
+using dnd_services.Players;
 using dnd_services.Sessions;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -12,5 +13,6 @@ public static class ServicesExtensions
         services.AddScoped<ISessionsService, SessionsService>();
         services.AddScoped<ICampaignsService, CampaignsService>();
         services.AddScoped<ISquaresService, SquaresService>();
+        services.AddScoped<IAttacksService, AttacksService>();
     }
 }
