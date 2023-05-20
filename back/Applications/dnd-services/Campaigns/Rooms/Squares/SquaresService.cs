@@ -1,6 +1,9 @@
 ﻿using dnd_domain.Campaigns.Models;
 using dnd_domain.Campaigns.Rooms.Squares.Repositories;
 using dnd_domain.Players.Models;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace dnd_services.Campaigns.Rooms.Squares;
 

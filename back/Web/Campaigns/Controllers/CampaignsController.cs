@@ -1,6 +1,7 @@
 ﻿using dnd_domain.Campaigns.Models;
 using dnd_services.Campaigns;
 using dungeons_and_dragons.Campaigns.DTOs;
+using dungeons_and_dragons.Campaigns.Mappers;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -19,10 +20,12 @@ public class CampaignsController : ControllerBase
     public const string Route = "api/sessions/{sessionId}/campaigns";
 
     private readonly ICampaignsService _campaignsService;
+    private readonly CampaignDtoMapper _campaignDtoMapper;
 
-    public CampaignsController(ICampaignsService campaignsService)
+    public CampaignsController(ICampaignsService campaignsService, CampaignDtoMapper campaignDtoMapper)
     {
         _campaignsService = campaignsService ?? throw new System.ArgumentNullException(nameof(campaignsService));
+        _campaignDtoMapper = campaignDtoMapper ?? throw new System.ArgumentNullException(nameof(campaignDtoMapper));
     }
 
     [HttpGet("{campaignId}")]
@@ -32,7 +35,7 @@ public class CampaignsController : ControllerBase
     public async Task<CampaignDto> GetAsync(int sessionId, int campaignId)
     {
         Campaign campaign = await _campaignsService.GetAsync(sessionId, campaignId);
-        return CampaignDto.FromDomain(campaign);
+        return await _campaignDtoMapper.ToDtoAsync(campaign);
     }
 
     [HttpPost]

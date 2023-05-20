@@ -1,7 +1,9 @@
 ﻿using dnd_domain.Items.Models;
+using System.Threading.Tasks;
 
 namespace dnd_domain.Items.Services;
-internal interface IChestItemsService
+
+public interface IChestItemsService
 {
     Task<StoredItem> GetAsync();
 }

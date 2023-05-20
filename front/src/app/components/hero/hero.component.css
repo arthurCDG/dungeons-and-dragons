@@ -7,17 +7,21 @@
 }
 
 .regdar {
-	background-image: url('./../../../assets/heroes/fighter-male.png');
+	background-image: url('./../../../assets/players/heroes/fighter-male.png');
 }
 
 .jozian {
-	background-image: url('./../../../assets/heroes/paladin-male.png');
+	background-image: url('./../../../assets/players/heroes/paladin-male.png');
 }
 
 .lidda {
-	background-image: url('./../../../assets/heroes/rogue-female.png');
+	background-image: url('./../../../assets/players/heroes/rogue-female.png');
 }
 
 .mialye {
-	background-image: url('./../../../assets/heroes/wizzard-female.png');
+	background-image: url('./../../../assets/players/heroes/wizzard-female.png');
+}
+
+.dead {
+	background-image: url('./../../../assets/players/skeleton-transparent.svg');
 }

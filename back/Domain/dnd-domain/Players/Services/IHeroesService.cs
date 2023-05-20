@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace dnd_domain.Players.Repositories;
+namespace dnd_domain.Players.Services;
 
-public interface IHeroesRepository
+public interface IHeroesService
 {
     Task<List<Hero>> GetAsync(int campaignId);
     Task<Hero> AttackAsync(int id, AttackPayload attack);

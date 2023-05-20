@@ -1,4 +1,6 @@
-﻿namespace dnd_domain.Items.Models;
+﻿using System.Collections.Generic;
+
+namespace dnd_domain.Items.Models;
 
 public class Potion : Item
 {

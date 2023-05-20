@@ -1,5 +1,6 @@
 ﻿using dnd_domain.Items.Models;
 using dnd_domain.Players.Enums;
+using System.Collections.Generic;
 
 namespace dnd_domain.Players.Models;
 

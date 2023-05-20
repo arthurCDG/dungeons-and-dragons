@@ -7,13 +7,17 @@
 }
 
 .bugBear {
-	background-image: url('./../../../assets/monsters/Fomorian.png');
+	background-image: url('./../../../assets/players/monsters/Fomorian.png');
 }
 
 .goblin {
-	background-image: url('./../../../assets/monsters/Goblin.png');
+	background-image: url('./../../../assets/players/monsters/Goblin.png');
 }
 
 .gnoll {
-	background-image: url('./../../../assets/monsters/Gnoll.png');
+	background-image: url('./../../../assets/players/monsters/Gnoll.png');
+}
+
+.dead {
+	background-image: url('./../../../assets/players/skeleton-transparent.svg');
 }

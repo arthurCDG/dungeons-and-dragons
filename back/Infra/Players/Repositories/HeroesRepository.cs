@@ -3,6 +3,8 @@ using dnd_domain.Players.Repositories;
 using dnd_infra.Players.DALs;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace dnd_infra.Players.Repositories;
@@ -15,6 +17,12 @@ internal sealed class HeroesRepository : IHeroesRepository
     {
         _context = context ?? throw new ArgumentNullException(nameof(context));
     }
+
+    public Task<List<Hero>> GetAsync(int campaignId)
+        => _context.Heroes
+            .Where(h => h.CampaignId == campaignId)
+            .Select(h => h.ToDomain())
+            .ToListAsync();
 
     public async Task<Hero> AttackAsync(int id, AttackPayload attack)
     {

@@ -38,16 +38,8 @@ export class SquareComponent implements OnInit, OnChanges {
 		const randomNumber: number = Math.ceil((Math.random() * 3));
 		this.tileStyle = `type-${randomNumber}`;
 
-		this.squaresService.getByIdAsync(this.square.id).subscribe((player: IPlayer) => {
-			
-			if ((player as IHero)?.class != null) {
-				this.hero = player as IHero;
-			}
-
-			if ((player as IMonster)?.type != null) {
-				this.monster = player as IMonster
-			}
-		})
+		this.hero = this.square?.hero ?? null;
+		this.monster = this.square?.monster ?? null;
 	}
 
 	ngOnChanges(): void {

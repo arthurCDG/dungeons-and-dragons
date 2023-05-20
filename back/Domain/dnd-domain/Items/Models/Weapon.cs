@@ -1,5 +1,6 @@
 ﻿using dnd_domain.Dice.Models;
 using dnd_domain.Items.Enums;
+using System.Collections.Generic;
 
 namespace dnd_domain.Items.Models;
 

@@ -13,7 +13,7 @@ namespace dnd_infra;
 
 public static class InfraExtensions
 {
-    public static void AddInfraExtensiosn(this IServiceCollection services)
+    public static void AddInfraExtensions(this IServiceCollection services)
     {
         services.AddDbContext<GlobalDbContext>();
 

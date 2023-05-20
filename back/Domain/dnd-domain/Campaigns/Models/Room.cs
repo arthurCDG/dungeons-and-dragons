@@ -1,4 +1,6 @@
-﻿namespace dnd_domain.Campaigns.Models;
+﻿using System.Collections.Generic;
+
+namespace dnd_domain.Campaigns.Models;
 
 public class Room
 {

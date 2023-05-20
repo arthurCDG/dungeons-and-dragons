@@ -8,5 +8,7 @@ public static class DomainExtensions
     public static void AddDomainExtensions(this IServiceCollection services)
     {
         services.AddScoped<ISquareMovementService, SquareMovementService>();
+        services.AddScoped<IHeroesService, HeroesService>();
+        services.AddScoped<IMonstersService, MonstersService>();
     }
 }

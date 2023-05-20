@@ -4,16 +4,9 @@ export interface ICampaign {
 	id: number;
 	startsAt: Date;
 	endsAt?: Date;
-	adventure: Adventure;
+	adventure: Adventure;	
 	squares: ISquare[];
 }
-
-// export interface IRoom {
-// 	id: number;
-// 	campaignId: number;
-// 	squares: ISquare[];
-// 	isStartRoom?: boolean;
-// }
 
 export interface ISquare {
 	id: number;
@@ -27,6 +20,8 @@ export interface ISquare {
 	isDisabled: boolean;
 	isDoor: boolean;
 	squareTrap: ISquareTrap;
+	hero?: IHero,
+	monster?: IMonster
 }
 
 export interface IPosition {

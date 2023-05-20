@@ -21,7 +21,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Infra\dnd-infra.csproj" />
-    <ProjectReference Include="..\Services\dnd-services\dnd-services.csproj" />
+    <ProjectReference Include="..\Services\dnd-services\dnd-applications.csproj" />
   </ItemGroup>
 
 </Project>

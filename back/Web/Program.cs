@@ -10,32 +10,23 @@ public class Program
 {
     public static void Main(string[] args)
     {
-        var ALLOW_DEV_FRONT_END = "_allowDevFrontEnd";
-
         var builder = WebApplication.CreateBuilder(args);
 
         builder.Services.AddCors(options =>
         {
             options.AddDefaultPolicy(builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
-            //options.AddPolicy(
-            //    name: ALLOW_DEV_FRONT_END,
-            //    policy => {
-            //        policy.WithOrigins("http://localhost:4200");
-            //    }
-            //);
         });
 
-        // Add services to the container.
 
         builder.Services.AddControllers();
-        // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
 
         // Scope services from other Bounded Contexts
-        builder.Services.AddInfraExtensiosn();
+        builder.Services.AddInfraExtensions();
         builder.Services.AddDomainExtensions();
         builder.Services.AddServicesExtensions();
+        builder.Services.AddWebExtensions();
 
         var app = builder.Build();
 
@@ -48,7 +39,6 @@ public class Program
 
         app.UseHttpsRedirection();
         app.UseCors();
-        //app.UseAuthorization();
 
         app.MapControllers();
 

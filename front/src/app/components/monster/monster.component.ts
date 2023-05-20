@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IMonster, MonsterType } from './../../../app/models/players.models';
 
@@ -9,15 +9,22 @@ import { IMonster, MonsterType } from './../../../app/models/players.models';
   templateUrl: './monster.component.html',
   styleUrls: ['./monster.component.css']
 })
-export class MonsterComponent implements OnInit {
+export class MonsterComponent implements OnInit, OnChanges {
 	@Input() monster: IMonster;
 
 	public BugBear: MonsterType.BugBear;
 	public Gnoll: MonsterType.Gnoll;
 	public Goblin: MonsterType.Goblin;
 
+	public isDead: boolean;
+
 	constructor() {}
 
-	ngOnInit(): void {}
+	ngOnInit(): void {
+		this.isDead = this.monster?.isDead;
+	}
 
+	ngOnChanges(): void {
+		this.isDead = this.monster?.isDead;
+	}
 }
