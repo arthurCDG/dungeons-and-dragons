@@ -1,9 +1,11 @@
 ﻿using dnd_domain.Campaigns;
 using dnd_domain.Campaigns.Rooms.Squares.Repositories;
+using dnd_domain.GameFlow.Repositories;
 using dnd_domain.Players.Repositories;
 using dnd_domain.Sessions.Services;
 using dnd_infra.Campaigns;
 using dnd_infra.Campaigns.Rooms.Squares.Repositories;
+using dnd_infra.GameFlow.Repositories;
 using dnd_infra.Players.Repositories;
 using dnd_infra.Seeder;
 using dnd_infra.Sessions;
@@ -26,5 +28,7 @@ public static class InfraExtensions
 
         services.AddScoped<ItemsSeeder>();
         services.AddScoped<PlayersSeeder>();
+
+        services.AddScoped<ITurnFlowRepository, TurnFlowRepository>();
     }
 }

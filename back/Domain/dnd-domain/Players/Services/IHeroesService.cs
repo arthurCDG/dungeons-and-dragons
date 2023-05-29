@@ -7,6 +7,7 @@ namespace dnd_domain.Players.Services;
 public interface IHeroesService
 {
     Task<List<Hero>> GetAsync(int campaignId);
+    Task<Hero> GetByIdAsync(int id);
     Task<Hero> AttackAsync(int id, AttackPayload attack);
     Task<Hero> UpdateAsync(int id, PlayerPayload heroPayload);
 }

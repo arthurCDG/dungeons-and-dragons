@@ -1,7 +1,7 @@
 ﻿using dnd_domain.Players.Models;
 using System.Threading.Tasks;
 
-namespace dnd_services.Players;
+namespace dnd_application.Players;
 
 public interface IAttacksService
 {

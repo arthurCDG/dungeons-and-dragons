@@ -11,4 +11,10 @@ internal abstract class PlayerDal
     public int FootSteps { get; set; }
     public int Shield { get; set; }
     public bool IsDead { get; set; } = false;
+
+    public int MaxAttackCount { get; set; }
+    public int MaxHealCount { get; set; }
+    public int MaxFootStepsCount { get; set; }
+    public int MaxChestSearchCount { get; set; }
+    public int MaxTrapSearchCount { get; set; }
 }

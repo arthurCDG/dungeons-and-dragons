@@ -1,7 +1,7 @@
 ﻿using dnd_domain.Campaigns.Models;
 using System.Threading.Tasks;
 
-namespace dnd_services.Campaigns;
+namespace dnd_application.Campaigns;
 
 public interface ICampaignsService
 {

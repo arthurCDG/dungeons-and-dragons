@@ -24,6 +24,9 @@ internal sealed class HeroesRepository : IHeroesRepository
             .Select(h => h.ToDomain())
             .ToListAsync();
 
+    public Task<Hero> GetByIdAsync(int id)
+        => _context.Heroes.Where(h => h.Id == id).Select(h => h.ToDomain()).SingleAsync();
+
     public async Task<Hero> AttackAsync(int id, AttackPayload attack)
     {
         HeroDal hero = await _context.Heroes.SingleAsync(h => h.Id == id);

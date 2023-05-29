@@ -3,7 +3,7 @@ using dnd_domain.Players.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace dnd_services.Campaigns.Rooms.Squares;
+namespace dnd_application.Campaigns.Rooms.Squares;
 
 public interface ISquaresService
 {

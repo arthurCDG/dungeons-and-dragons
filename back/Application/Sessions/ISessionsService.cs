@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace dnd_services.Sessions;
+namespace dnd_application.Sessions;
 
 public interface ISessionsService
 {

@@ -24,6 +24,9 @@ internal sealed class MonstersRepository : IMonstersRepository
             .Select(m => m.ToDomain())
             .ToListAsync();
 
+    public Task<Monster> GetByIdAsync(int id)
+        => _context.Monsters.Where(h => h.Id == id).Select(h => h.ToDomain()).SingleAsync();
+
     public async Task<Monster> AttackAsync(int id, AttackPayload attack)
     {
         MonsterDal monster = await _context.Monsters.SingleAsync(h => h.Id == id);

@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "dnd-web", "Web\dnd-web.cspr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "dnd-domain", "Domain\dnd-domain\dnd-domain.csproj", "{666A4EA0-2764-4677-A8C0-4C55A3383E6D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "dnd-applications", "Services\dnd-services\dnd-applications.csproj", "{B12D35E1-D5A2-4693-81A7-A324A8EEF776}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "dnd-application", "Application\dnd-application.csproj", "{BE083C9F-5EAD-4C92-BD13-E9DA89DF785C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,10 +29,10 @@ Global
 		{666A4EA0-2764-4677-A8C0-4C55A3383E6D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{666A4EA0-2764-4677-A8C0-4C55A3383E6D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{666A4EA0-2764-4677-A8C0-4C55A3383E6D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B12D35E1-D5A2-4693-81A7-A324A8EEF776}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B12D35E1-D5A2-4693-81A7-A324A8EEF776}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B12D35E1-D5A2-4693-81A7-A324A8EEF776}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B12D35E1-D5A2-4693-81A7-A324A8EEF776}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BE083C9F-5EAD-4C92-BD13-E9DA89DF785C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BE083C9F-5EAD-4C92-BD13-E9DA89DF785C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BE083C9F-5EAD-4C92-BD13-E9DA89DF785C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BE083C9F-5EAD-4C92-BD13-E9DA89DF785C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

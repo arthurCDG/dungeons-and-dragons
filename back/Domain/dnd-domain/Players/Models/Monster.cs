@@ -8,5 +8,6 @@ public class Monster : Player
 {
     public int SquareId { get; set; }
     public MonsterType Type { get; set; } = new();
+
     public List<StoredItem> StoredItems { get; set; } = new();
 }

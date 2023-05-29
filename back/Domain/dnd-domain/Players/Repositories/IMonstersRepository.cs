@@ -7,6 +7,7 @@ namespace dnd_domain.Players.Repositories;
 public interface IMonstersRepository
 {
     Task<List<Monster>> GetAsync(int campaignId);
+    Task<Monster> GetByIdAsync(int id);
     Task<Monster> AttackAsync(int id, AttackPayload attack);
     Task<Monster> UpdateAsync(int id, PlayerPayload monsterPayload);
 }

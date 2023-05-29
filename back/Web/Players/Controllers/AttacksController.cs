@@ -1,5 +1,5 @@
 ﻿using dnd_domain.Players.Models;
-using dnd_services.Players;
+using dnd_application.Players;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;

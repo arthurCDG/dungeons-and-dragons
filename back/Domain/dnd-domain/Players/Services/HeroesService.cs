@@ -18,6 +18,9 @@ internal sealed class HeroesService : IHeroesService
     public Task<List<Hero>> GetAsync(int campaignId)
         => _heroesRepository.GetAsync(campaignId);
 
+    public Task<Hero> GetByIdAsync(int id)
+    => _heroesRepository.GetByIdAsync(id);
+
     public Task<Hero> AttackAsync(int id, AttackPayload attack)
         => _heroesRepository.AttackAsync(id, attack);
 

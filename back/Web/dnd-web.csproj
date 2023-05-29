@@ -20,8 +20,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Application\dnd-application.csproj" />
     <ProjectReference Include="..\Infra\dnd-infra.csproj" />
-    <ProjectReference Include="..\Services\dnd-services\dnd-applications.csproj" />
   </ItemGroup>
 
 </Project>

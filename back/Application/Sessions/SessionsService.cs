@@ -2,7 +2,7 @@
 using System;
 using System.Threading.Tasks;
 
-namespace dnd_services.Sessions;
+namespace dnd_application.Sessions;
 
 internal sealed class SessionsService : ISessionsService
 {

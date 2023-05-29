@@ -17,4 +17,7 @@ internal sealed class MonstersService : IMonstersService
 
     public Task<List<Monster>> GetAsync(int campaignId)
         => _monstersRepository.GetAsync(campaignId);
+
+    public Task<Monster> GetByIdAsync(int id)
+        => _monstersRepository.GetByIdAsync(id);
 }

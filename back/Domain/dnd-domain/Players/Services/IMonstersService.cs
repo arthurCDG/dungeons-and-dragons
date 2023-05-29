@@ -7,4 +7,5 @@ namespace dnd_domain.Players.Services;
 public interface IMonstersService
 {
     Task<List<Monster>> GetAsync(int campaignId);
+    Task<Monster> GetByIdAsync(int id);
 }

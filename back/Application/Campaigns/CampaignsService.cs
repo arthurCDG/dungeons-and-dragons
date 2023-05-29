@@ -3,7 +3,7 @@ using dnd_domain.Campaigns.Models;
 using System;
 using System.Threading.Tasks;
 
-namespace dnd_services.Campaigns;
+namespace dnd_application.Campaigns;
 
 internal sealed class CampaignsService : ICampaignsService
 {

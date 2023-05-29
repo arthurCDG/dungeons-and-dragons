@@ -3,7 +3,7 @@ using dnd_domain.Players.Repositories;
 using System;
 using System.Threading.Tasks;
 
-namespace dnd_services.Players;
+namespace dnd_application.Players;
 
 internal sealed class AttacksService : IAttacksService
 {

@@ -1,6 +1,6 @@
 ﻿using dnd_domain.Campaigns.Models;
 using dnd_domain.Players.Models;
-using dnd_services.Campaigns.Rooms.Squares;
+using dnd_application.Campaigns.Rooms.Squares;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;

@@ -1,5 +1,6 @@
 ﻿using dnd_domain.Players.Enums;
 using dnd_domain.Players.Models;
+using dnd_infra.GameFlow.DALs;
 using dnd_infra.Items.DALs;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,8 @@ internal sealed class HeroDal : PlayerDal
     public int SquareId { get; set; }
     public HeroClass Class { get; set; }
     public HeroRace Race { get; set; }
+    public TurnOrderDal TurnOrder { get; set; } = null!;
+    public ActionsDal Actions { get; set; } = null!;
     public List<StoredItemDal> StoredItems { get; set; } = new();
 
     public Hero ToDomain()

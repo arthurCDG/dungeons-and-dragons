@@ -2,6 +2,8 @@
 using dnd_infra.Campaigns.Rooms;
 using dnd_infra.Campaigns.Rooms.Squares.DALs;
 using dnd_infra.Dice;
+using dnd_infra.GameFlow.Configurations;
+using dnd_infra.GameFlow.DALs;
 using dnd_infra.Items.Configurations;
 using dnd_infra.Items.DALs;
 using dnd_infra.Players.Configurations;
@@ -25,10 +27,12 @@ internal sealed class GlobalDbContext : DbContext
     {
         modelBuilder.ApplyItemConfigurations();
         modelBuilder.ApplyPlayersConfigurations();
-        modelBuilder.ApplyConfiguration(new DieAssociationDalConfiguration());
 
+        modelBuilder.ApplyConfiguration(new DieAssociationDalConfiguration());
         modelBuilder.ApplyConfiguration(new SessionDalConfiguration());
+        
         modelBuilder.ApplyCampaignsConfigurations();
+        modelBuilder.ApplyGameFlowConfigurations();
     }
 
     public DbSet<StoredItemDal> StoredItems { get; set; }
@@ -42,6 +46,10 @@ internal sealed class GlobalDbContext : DbContext
     public DbSet<MonsterDal> Monsters { get; set; }
 
     public DbSet<DieAssociationDal> DieAssociations { get; set; }
+
+    public DbSet<TurnOrderDal> TurnOrders { get; set; }
+    public DbSet<CurrentPlayerDal> CurrentPlayers { get; set; }
+    public DbSet<ActionsDal> Actions { get; set; }
 
     public DbSet<SessionDal> Sessions { get; set; }
     public DbSet<CampaignDal> Campaigns { get; set; }

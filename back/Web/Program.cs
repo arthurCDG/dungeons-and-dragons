@@ -1,3 +1,4 @@
+using dnd_application;
 using dnd_infra;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -25,7 +26,7 @@ public class Program
         // Scope services from other Bounded Contexts
         builder.Services.AddInfraExtensions();
         builder.Services.AddDomainExtensions();
-        builder.Services.AddServicesExtensions();
+        builder.Services.AddApplicationExtensions();
         builder.Services.AddWebExtensions();
 
         var app = builder.Build();

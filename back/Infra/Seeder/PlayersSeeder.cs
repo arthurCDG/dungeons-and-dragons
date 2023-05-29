@@ -49,6 +49,11 @@ internal sealed class PlayersSeeder
                 Shield = 2,
                 FootSteps = 4,
                 SquareId = squares.Single(s => s.Position.X == 1 && s.Position.Y == 21).Id,
+                MaxAttackCount = 1,
+                MaxHealCount = 0,
+                MaxFootStepsCount = 4,
+                MaxChestSearchCount = 1,
+                MaxTrapSearchCount = 0,
                 StoredItems = new()
                 {
                     new StoredItemDal
@@ -70,6 +75,11 @@ internal sealed class PlayersSeeder
                 Shield = 2,
                 FootSteps = 6,
                 SquareId = squares.Single(s => s.Position.X == 1 && s.Position.Y == 20).Id,
+                MaxAttackCount = 1,
+                MaxHealCount = 0,
+                MaxFootStepsCount = 6,
+                MaxChestSearchCount = 1,
+                MaxTrapSearchCount = 1,
                 StoredItems = new()
                 {
                     new StoredItemDal
@@ -96,6 +106,11 @@ internal sealed class PlayersSeeder
                 Shield = 2,
                 FootSteps = 5,
                 SquareId = squares.Single(s => s.Position.X == 1 && s.Position.Y == 19).Id,
+                MaxAttackCount = 1,
+                MaxHealCount = 1,
+                MaxFootStepsCount = 5,
+                MaxChestSearchCount = 1,
+                MaxTrapSearchCount = 0,
                 StoredItems = new()
                 {
                     new StoredItemDal
@@ -122,6 +137,11 @@ internal sealed class PlayersSeeder
                 Shield = 2,
                 FootSteps = 5,
                 SquareId = squares.Single(s => s.Position.X == 1 && s.Position.Y == 18).Id,
+                MaxAttackCount = 1,
+                MaxHealCount = 1,
+                MaxFootStepsCount = 5,
+                MaxChestSearchCount = 1,
+                MaxTrapSearchCount = 0,
                 StoredItems = new()
                 {
                     new StoredItemDal
@@ -157,6 +177,11 @@ internal sealed class PlayersSeeder
                 FootSteps = 5,
                 Shield = 1,
                 SquareId = squares.Single(s => s.Position.X == 10 && s.Position.Y == 19).Id,
+                MaxAttackCount = 1,
+                MaxHealCount = 0,
+                MaxFootStepsCount = 5,
+                MaxChestSearchCount = 0,
+                MaxTrapSearchCount = 0,
                 StoredItems = new()
                 {
                     new StoredItemDal
@@ -177,6 +202,11 @@ internal sealed class PlayersSeeder
                 FootSteps = 5,
                 Shield = 1,
                 SquareId = squares.Single(s => s.Position.X == 8 && s.Position.Y == 2).Id,
+                MaxAttackCount = 1,
+                MaxHealCount = 0,
+                MaxFootStepsCount = 5,
+                MaxChestSearchCount = 0,
+                MaxTrapSearchCount = 0,
                 StoredItems = new()
                 {
                     new StoredItemDal
@@ -197,6 +227,11 @@ internal sealed class PlayersSeeder
                 FootSteps = 5,
                 Shield = 1,
                 SquareId = squares.Single(s => s.Position.X == 11 && s.Position.Y == 4).Id,
+                MaxAttackCount = 1,
+                MaxHealCount = 0,
+                MaxFootStepsCount = 5,
+                MaxChestSearchCount = 0,
+                MaxTrapSearchCount = 0,
                 StoredItems = new()
                 {
                     new StoredItemDal
@@ -217,6 +252,11 @@ internal sealed class PlayersSeeder
                 FootSteps = 5,
                 Shield = 1,
                 SquareId = squares.Single(s => s.Position.X == 6 && s.Position.Y == 13).Id,
+                MaxAttackCount = 1,
+                MaxHealCount = 0,
+                MaxFootStepsCount = 5,
+                MaxChestSearchCount = 0,
+                MaxTrapSearchCount = 0,
                 StoredItems = new()
                 {
                     new StoredItemDal
@@ -237,6 +277,11 @@ internal sealed class PlayersSeeder
                 FootSteps = 5,
                 Shield = 1,
                 SquareId = squares.Single(s => s.Position.X == 7 && s.Position.Y == 16).Id,
+                MaxAttackCount = 1,
+                MaxHealCount = 0,
+                MaxFootStepsCount = 5,
+                MaxChestSearchCount = 0,
+                MaxTrapSearchCount = 0,
                 StoredItems = new()
                 {
                     new StoredItemDal
@@ -257,6 +302,11 @@ internal sealed class PlayersSeeder
                 FootSteps = 5,
                 Shield = 1,
                 SquareId = squares.Single(s => s.Position.X == 2 && s.Position.Y == 17).Id,
+                MaxAttackCount = 1,
+                MaxHealCount = 0,
+                MaxFootStepsCount = 5,
+                MaxChestSearchCount = 0,
+                MaxTrapSearchCount = 0,
                 StoredItems = new()
                 {
                     new StoredItemDal

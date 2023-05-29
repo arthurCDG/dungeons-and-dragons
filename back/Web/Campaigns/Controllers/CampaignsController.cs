@@ -1,5 +1,5 @@
 ﻿using dnd_domain.Campaigns.Models;
-using dnd_services.Campaigns;
+using dnd_application.Campaigns;
 using dungeons_and_dragons.Campaigns.DTOs;
 using dungeons_and_dragons.Campaigns.Mappers;
 using Microsoft.AspNetCore.Cors;
