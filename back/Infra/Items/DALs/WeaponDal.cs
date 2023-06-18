@@ -2,7 +2,6 @@
 using dnd_domain.Items.Models;
 using dnd_infra.Dice;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace dnd_infra.Items.DALs;
 
@@ -14,13 +13,11 @@ internal sealed class WeaponDal : ItemDal
 
     public WeaponSuperAttackDal? SuperAttack { get; set; }
     public bool? CanRerollOneDie { get; set; }
-    public StarDieEffectType? StarDieEffect { get; set; }
 
     public Weapon ToDomain()
         => new()
         {
             Id = Id,
-            CampaignId = CampaignId,
             Description = Description,
             Explanation = Explanation,
             ImageUrl = ImageUrl,
@@ -30,7 +27,7 @@ internal sealed class WeaponDal : ItemDal
             CanRerollOneDie = CanRerollOneDie,
             WeaponType = WeaponType,
             SuperAttack = SuperAttack?.ToDomain(),
-            Dice = Dice.Select(d => d.ToDomain()).ToList(),
-            Effects = Effects.Select(e => e.ToDomain()).ToList()
+            Dice = Dice.ConvertAll(d => d.ToDomain()),
+            Effects = Effects.ConvertAll(e => e.ToDomain())
         };
 }

@@ -14,9 +14,9 @@ internal sealed class CampaignsService : ICampaignsService
         _campaignsRepository = campaignsRepository ?? throw new ArgumentNullException(nameof(campaignsRepository));
     }
 
-    public Task<Campaign> GetAsync(int sessionId, int campaignId)
-        => _campaignsRepository.GetAsync(sessionId, campaignId);
+    public Task<Campaign> GetAsync(int campaignId)
+        => _campaignsRepository.GetAsync(campaignId);
 
-    public Task CreateAsync(int sessionId, CampaignPayload campaignPayload)
-        => _campaignsRepository.CreateAsync(sessionId, campaignPayload);
+    public Task CreateAsync(CampaignPayload campaignPayload)
+        => _campaignsRepository.CreateAsync(campaignPayload);
 }

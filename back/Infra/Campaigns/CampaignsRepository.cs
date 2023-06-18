@@ -1,13 +1,16 @@
 ﻿using dnd_domain.Campaigns;
 using dnd_domain.Campaigns.Enums;
 using dnd_domain.Campaigns.Models;
+using dnd_domain.Users;
+using dnd_infra.Campaigns.Adventures;
 using dnd_infra.Campaigns.Rooms;
 using dnd_infra.Campaigns.Rooms.Squares.DALs;
 using dnd_infra.Seeder;
-using dnd_infra.Sessions;
+using dnd_infra.Users;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace dnd_infra.Campaigns;
@@ -17,51 +20,55 @@ internal sealed class CampaignsRepository : ICampaignsRepository
     private readonly GlobalDbContext _context;
     private readonly ItemsSeeder _itemsSeeder;
     private readonly PlayersSeeder _playersSeeder;
+    private readonly IUsersRepository _usersRepository;
 
-    public CampaignsRepository(GlobalDbContext context, ItemsSeeder itemsSeeder, PlayersSeeder playersSeeder)
+    public CampaignsRepository(GlobalDbContext context, ItemsSeeder itemsSeeder, PlayersSeeder playersSeeder, IUsersRepository usersRepository)
     {
         _context = context ?? throw new ArgumentNullException(nameof(context));
         _itemsSeeder = itemsSeeder ?? throw new ArgumentNullException(nameof(itemsSeeder));
         _playersSeeder = playersSeeder ?? throw new ArgumentNullException(nameof(playersSeeder));
+        _usersRepository = usersRepository ?? throw new ArgumentNullException(nameof(usersRepository));
     }
 
-    public async Task<Campaign> GetAsync(int sessionId, int campaignId)
+    public async Task<Campaign> GetAsync(int campaignId)
     {
         CampaignDal dal = await _context.Campaigns
-            .Include(c => c.Rooms)
-                .ThenInclude(r => r.Squares)
-                    .ThenInclude(s => s.Position)
-            .Include(c => c.Heroes)
-                    .ThenInclude(r => r.StoredItems)
-            .Include(c => c.Monsters)
-                    .ThenInclude(r => r.StoredItems)
-            .SingleAsync(c => c.SessionId == sessionId && c.Id == campaignId);
+            .Include(c => c.Adventures)
+                .ThenInclude(a => a.Rooms)
+                    .ThenInclude(r => r.Squares)
+                        .ThenInclude(s => s.Position)
+            .Include(c => c.Adventures)
+                .ThenInclude(a => a.Players)
+                    .ThenInclude(p => p.StoredItems)
+            .SingleAsync(c => c.Id == campaignId);
 
         return dal.ToDomain();
     }
 
-    public async Task CreateAsync(int sessionId, CampaignPayload campaignPayload)
+    public async Task CreateAsync(CampaignPayload campaignPayload)
     {
-        SessionDal sessionDal = await _context.Sessions.SingleAsync(s => s.Id == sessionId);
-
         try
         {
-            CampaignDal campaignDal = new()
+            List<UserDal> users = await _context.Users.Where(u => campaignPayload.UserIds.Contains(u.Id)).ToListAsync();
+
+            CampaignDal campaign = new()
             {
-                SessionId = sessionId,
-                Adventure = Adventure.GoblinBandits,
-                StartsAt = sessionDal.StartsAt
+                Name = campaignPayload.Name,
+                Level = campaignPayload.Level,
+                StartsAt = DateTime.UtcNow,
+                AssociatedUsers = users.Select(u => new UserCampaignAssociationDal() { UserId = u.Id }).ToList()
             };
 
-            _context.Campaigns.Add(campaignDal);
+            _context.Campaigns.Add(campaign);
             await _context.SaveChangesAsync();
 
-            List<RoomDal> rooms = await GetRoomsAsync(campaignDal.Id, campaignPayload.Adventure);
-            campaignDal.Rooms = rooms ?? throw new ArgumentNullException(nameof(rooms));
+            // Seed First adventure - will have to see how to do this when we have 10+ adventures
+            AdventureDal adventure = await SeedAdventureAsync(campaign.Id, campaignPayload.AdventurePayload);
+            campaign.Adventures.Add(adventure);
             await _context.SaveChangesAsync();
 
-            await _itemsSeeder.SeedItemsAsync(campaignDal.Id);
-            await _playersSeeder.SeedPlayersAsync(campaignDal.Id);
+            await _itemsSeeder.SeedItemsAsync(); // Should be seeded once in DB and that's it ?
+            await _playersSeeder.SeedPlayersAsync(adventure.Id);
         }
         catch (Exception e)
         {
@@ -69,22 +76,41 @@ internal sealed class CampaignsRepository : ICampaignsRepository
         }
     }
 
-    private async Task<List<RoomDal>> GetRoomsAsync(int campaignId, Adventure adventure)
+    private async Task<AdventureDal> SeedAdventureAsync(int adventureId, AdventurePayload adventurePayload)
+    {
+        AdventureDal adventureDal = new()
+        {
+            Name = GetAdventureName(adventurePayload.Adventure),
+            Type = adventurePayload.Adventure,
+            Rooms = await SeedRoomsAsync(adventureId, adventurePayload.Adventure)
+        };
+
+        return adventureDal;
+    }
+
+    private static string GetAdventureName(AdventureType adventure)
         => adventure switch
         {
-            Adventure.GoblinBandits => await GetGoblinBanditsRoomsAsync(campaignId),
+            AdventureType.GoblinBandits => "Les bandits gobelins", // TODO lokalise name
             _ => throw new InvalidOperationException($"Unknown adventure: {adventure}")
         };
 
-    private async Task<List<RoomDal>> GetGoblinBanditsRoomsAsync(int campaignId)
+    private async Task<List<RoomDal>> SeedRoomsAsync(int adventureId, AdventureType adventure)
+        => adventure switch
+        {
+            AdventureType.GoblinBandits => await GetGoblinBanditsRoomsAsync(adventureId),
+            _ => throw new InvalidOperationException($"Unknown adventure: {adventure}")
+        };
+
+private async Task<List<RoomDal>> GetGoblinBanditsRoomsAsync(int adventureId)
     {
-        RoomDal disabledRoom = new() { CampaignId = campaignId };
-        RoomDal bottomLeftRoom = new() { CampaignId = campaignId };
-        RoomDal topMiddleLeftRoom = new() { CampaignId = campaignId };
-        RoomDal topMiddleRightRoom = new() { CampaignId = campaignId };
-        RoomDal bottomMiddleRightRoom = new() { CampaignId = campaignId };
-        RoomDal topRightRoom = new() { CampaignId = campaignId, IsStartRoom = true };
-        RoomDal bottomRightRoom = new() { CampaignId = campaignId };
+        RoomDal disabledRoom = new() { AdventureId = adventureId };
+        RoomDal bottomLeftRoom = new() { AdventureId = adventureId };
+        RoomDal topMiddleLeftRoom = new() { AdventureId = adventureId };
+        RoomDal topMiddleRightRoom = new() { AdventureId = adventureId };
+        RoomDal bottomMiddleRightRoom = new() { AdventureId = adventureId };
+        RoomDal topRightRoom = new() { AdventureId = adventureId, IsStartRoom = true };
+        RoomDal bottomRightRoom = new() { AdventureId = adventureId };
 
         List<RoomDal> rooms = new() { disabledRoom, bottomLeftRoom, topMiddleLeftRoom, topMiddleRightRoom, bottomMiddleRightRoom, topRightRoom, bottomRightRoom };
         _context.Rooms.AddRange(rooms);

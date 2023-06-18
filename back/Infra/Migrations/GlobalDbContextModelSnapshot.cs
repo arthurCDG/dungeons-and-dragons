@@ -22,6 +22,32 @@ namespace dnd_infra.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("dnd_infra.Campaigns.Adventures.AdventureDal", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("CampaignId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CampaignId");
+
+                    b.ToTable("Adventures", "Campaigns");
+                });
+
             modelBuilder.Entity("dnd_infra.Campaigns.CampaignDal", b =>
                 {
                     b.Property<int>("Id")
@@ -30,21 +56,20 @@ namespace dnd_infra.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("Adventure")
-                        .HasColumnType("int");
-
                     b.Property<DateTime?>("EndsAt")
                         .HasColumnType("datetime2(2)");
 
-                    b.Property<int>("SessionId")
+                    b.Property<int>("Level")
                         .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("StartsAt")
                         .HasColumnType("datetime2(2)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("SessionId");
 
                     b.ToTable("Campaigns", "Campaigns");
                 });
@@ -57,7 +82,7 @@ namespace dnd_infra.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("CampaignId")
+                    b.Property<int>("AdventureId")
                         .HasColumnType("int");
 
                     b.Property<bool?>("IsStartRoom")
@@ -65,7 +90,7 @@ namespace dnd_infra.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CampaignId");
+                    b.HasIndex("AdventureId");
 
                     b.ToTable("Rooms", "Campaigns");
                 });
@@ -205,48 +230,6 @@ namespace dnd_infra.Migrations
                     b.ToTable("DieAssociations", "Dice");
                 });
 
-            modelBuilder.Entity("dnd_infra.GameFlow.DALs.ActionsDal", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int?>("HeroId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("MonsterId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("RemainingAttacks")
-                        .HasColumnType("int");
-
-                    b.Property<int>("RemainingChestSearch")
-                        .HasColumnType("int");
-
-                    b.Property<int>("RemainingFootSteps")
-                        .HasColumnType("int");
-
-                    b.Property<int>("RemainingHeals")
-                        .HasColumnType("int");
-
-                    b.Property<int>("RemainingTrapSearch")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("HeroId")
-                        .IsUnique()
-                        .HasFilter("[HeroId] IS NOT NULL");
-
-                    b.HasIndex("MonsterId")
-                        .IsUnique()
-                        .HasFilter("[MonsterId] IS NOT NULL");
-
-                    b.ToTable("Actions", "GameFlow");
-                });
-
             modelBuilder.Entity("dnd_infra.GameFlow.DALs.CurrentPlayerDal", b =>
                 {
                     b.Property<int>("Id")
@@ -255,26 +238,18 @@ namespace dnd_infra.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("CampaignId")
+                    b.Property<int>("AdventureId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("HeroId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("MonsterId")
+                    b.Property<int>("PlayerId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CampaignId");
+                    b.HasIndex("AdventureId");
 
-                    b.HasIndex("HeroId")
-                        .IsUnique()
-                        .HasFilter("[HeroId] IS NOT NULL");
-
-                    b.HasIndex("MonsterId")
-                        .IsUnique()
-                        .HasFilter("[MonsterId] IS NOT NULL");
+                    b.HasIndex("PlayerId")
+                        .IsUnique();
 
                     b.ToTable("CurrentPlayers", "GameFlow");
                 });
@@ -287,24 +262,16 @@ namespace dnd_infra.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("HeroId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("MonsterId")
-                        .HasColumnType("int");
-
                     b.Property<int>("Order")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PlayerId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("HeroId")
-                        .IsUnique()
-                        .HasFilter("[HeroId] IS NOT NULL");
-
-                    b.HasIndex("MonsterId")
-                        .IsUnique()
-                        .HasFilter("[MonsterId] IS NOT NULL");
+                    b.HasIndex("PlayerId")
+                        .IsUnique();
 
                     b.ToTable("TurnOrders", "GameFlow");
                 });
@@ -317,9 +284,6 @@ namespace dnd_infra.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("CampaignId")
-                        .HasColumnType("int");
-
                     b.Property<bool?>("CastDieToDiscardAfterUsage")
                         .HasColumnType("bit");
 
@@ -327,7 +291,7 @@ namespace dnd_infra.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("DiscardAfterUsage")
+                    b.Property<bool?>("DiscardAfterUsage")
                         .HasColumnType("bit");
 
                     b.Property<string>("Explanation")
@@ -345,9 +309,10 @@ namespace dnd_infra.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                    b.Property<int?>("StarDieEffect")
+                        .HasColumnType("int");
 
-                    b.HasIndex("CampaignId");
+                    b.HasKey("Id");
 
                     b.ToTable("Artefacts", "Items");
                 });
@@ -382,12 +347,15 @@ namespace dnd_infra.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("CampaignId")
-                        .HasColumnType("int");
+                    b.Property<bool?>("CastDieToDiscardAfterUsage")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool?>("DiscardAfterUsage")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Explanation")
                         .IsRequired()
@@ -404,9 +372,10 @@ namespace dnd_infra.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                    b.Property<int?>("StarDieEffect")
+                        .HasColumnType("int");
 
-                    b.HasIndex("CampaignId");
+                    b.HasKey("Id");
 
                     b.ToTable("ChestTraps", "Items");
                 });
@@ -441,14 +410,14 @@ namespace dnd_infra.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("CampaignId")
-                        .HasColumnType("int");
+                    b.Property<bool?>("CastDieToDiscardAfterUsage")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("DiscardAfterUsage")
+                    b.Property<bool?>("DiscardAfterUsage")
                         .HasColumnType("bit");
 
                     b.Property<string>("Explanation")
@@ -466,9 +435,10 @@ namespace dnd_infra.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                    b.Property<int?>("StarDieEffect")
+                        .HasColumnType("int");
 
-                    b.HasIndex("CampaignId");
+                    b.HasKey("Id");
 
                     b.ToTable("Potions", "Items");
                 });
@@ -503,12 +473,15 @@ namespace dnd_infra.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("CampaignId")
-                        .HasColumnType("int");
+                    b.Property<bool?>("CastDieToDiscardAfterUsage")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool?>("DiscardAfterUsage")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Explanation")
                         .IsRequired()
@@ -541,8 +514,6 @@ namespace dnd_infra.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CampaignId");
 
                     b.ToTable("Spells", "Items");
                 });
@@ -580,16 +551,13 @@ namespace dnd_infra.Migrations
                     b.Property<int?>("ArtefactId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("HeroId")
-                        .HasColumnType("int");
-
                     b.Property<bool>("IsDiscarded")
                         .HasColumnType("bit");
 
                     b.Property<bool>("IsEquiped")
                         .HasColumnType("bit");
 
-                    b.Property<int?>("MonsterId")
+                    b.Property<int>("PlayerId")
                         .HasColumnType("int");
 
                     b.Property<int?>("PotionId")
@@ -605,9 +573,7 @@ namespace dnd_infra.Migrations
 
                     b.HasIndex("ArtefactId");
 
-                    b.HasIndex("HeroId");
-
-                    b.HasIndex("MonsterId");
+                    b.HasIndex("PlayerId");
 
                     b.HasIndex("PotionId");
 
@@ -626,15 +592,18 @@ namespace dnd_infra.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("CampaignId")
-                        .HasColumnType("int");
-
                     b.Property<bool?>("CanRerollOneDie")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("CastDieToDiscardAfterUsage")
                         .HasColumnType("bit");
 
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool?>("DiscardAfterUsage")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Explanation")
                         .IsRequired()
@@ -661,8 +630,6 @@ namespace dnd_infra.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CampaignId");
 
                     b.HasIndex("SuperAttackId");
 
@@ -719,7 +686,7 @@ namespace dnd_infra.Migrations
                     b.ToTable("WeaponSuperAttacks", "Items");
                 });
 
-            modelBuilder.Entity("dnd_infra.Players.DALs.HeroDal", b =>
+            modelBuilder.Entity("dnd_infra.Players.DALs.PlayerAttributesDal", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -727,22 +694,17 @@ namespace dnd_infra.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("CampaignId")
+                    b.Property<int>("AttackCount")
                         .HasColumnType("int");
 
-                    b.Property<string>("Class")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("ChestSearchCount")
+                        .HasColumnType("int");
 
                     b.Property<int>("FootSteps")
                         .HasColumnType("int");
 
-                    b.Property<string>("ImageUrl")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsDead")
-                        .HasColumnType("bit");
+                    b.Property<int>("HealCount")
+                        .HasColumnType("int");
 
                     b.Property<int>("LifePoints")
                         .HasColumnType("int");
@@ -750,112 +712,174 @@ namespace dnd_infra.Migrations
                     b.Property<int>("ManaPoints")
                         .HasColumnType("int");
 
+                    b.Property<int>("PlayerId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Shield")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TrapSearchCount")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("PlayerAttributes", "Players");
+                });
+
+            modelBuilder.Entity("dnd_infra.Players.DALs.PlayerDal", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("AdventureId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("AttributesId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsDead")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("MaxAttributesId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProfileId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SquareId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AdventureId");
+
+                    b.HasIndex("AttributesId");
+
+                    b.HasIndex("MaxAttributesId");
+
+                    b.HasIndex("ProfileId");
+
+                    b.HasIndex("SquareId")
+                        .IsUnique();
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Players", "Players");
+                });
+
+            modelBuilder.Entity("dnd_infra.Players.DALs.PlayerMaxAttributesDal", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
                     b.Property<int>("MaxAttackCount")
                         .HasColumnType("int");
 
                     b.Property<int>("MaxChestSearchCount")
                         .HasColumnType("int");
 
-                    b.Property<int>("MaxFootStepsCount")
+                    b.Property<int>("MaxFootSteps")
                         .HasColumnType("int");
 
                     b.Property<int>("MaxHealCount")
                         .HasColumnType("int");
 
+                    b.Property<int>("MaxLifePoints")
+                        .HasColumnType("int");
+
+                    b.Property<int>("MaxManaPoints")
+                        .HasColumnType("int");
+
+                    b.Property<int>("MaxShield")
+                        .HasColumnType("int");
+
                     b.Property<int>("MaxTrapSearchCount")
                         .HasColumnType("int");
 
-                    b.Property<string>("Name")
+                    b.Property<int>("PlayerId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("PlayerMaxAttributes", "Players");
+                });
+
+            modelBuilder.Entity("dnd_infra.Players.DALs.PlayerProfileDal", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Class")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FirstName")
                         .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Gender")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImageUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("MonsterType")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Race")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Shield")
-                        .HasColumnType("int");
-
-                    b.Property<int>("SquareId")
-                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CampaignId");
-
-                    b.HasIndex("SquareId")
-                        .IsUnique();
-
-                    b.ToTable("Heroes", "Players");
+                    b.ToTable("PlayerProfiles", "Players");
                 });
 
-            modelBuilder.Entity("dnd_infra.Players.DALs.MonsterDal", b =>
+            modelBuilder.Entity("dnd_infra.Users.UserCampaignAssociationDal", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int?>("CampaignDalId")
+                        .HasColumnType("int");
 
                     b.Property<int>("CampaignId")
                         .HasColumnType("int");
 
-                    b.Property<int>("FootSteps")
+                    b.Property<int>("UserId")
                         .HasColumnType("int");
-
-                    b.Property<string>("ImageUrl")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsDead")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("LifePoints")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ManaPoints")
-                        .HasColumnType("int");
-
-                    b.Property<int>("MaxAttackCount")
-                        .HasColumnType("int");
-
-                    b.Property<int>("MaxChestSearchCount")
-                        .HasColumnType("int");
-
-                    b.Property<int>("MaxFootStepsCount")
-                        .HasColumnType("int");
-
-                    b.Property<int>("MaxHealCount")
-                        .HasColumnType("int");
-
-                    b.Property<int>("MaxTrapSearchCount")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Shield")
-                        .HasColumnType("int");
-
-                    b.Property<int>("SquareId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Type")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CampaignDalId");
+
                     b.HasIndex("CampaignId");
 
-                    b.HasIndex("SquareId")
-                        .IsUnique();
+                    b.HasIndex("UserId");
 
-                    b.ToTable("Monsters", "Players");
+                    b.ToTable("UserCampaignAssociationDal");
                 });
 
-            modelBuilder.Entity("dnd_infra.Sessions.SessionDal", b =>
+            modelBuilder.Entity("dnd_infra.Users.UserDal", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -863,31 +887,39 @@ namespace dnd_infra.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<DateTime?>("EndsAt")
-                        .HasColumnType("datetime2(2)");
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("StartsAt")
-                        .HasColumnType("datetime2(2)");
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NickName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PictureUrl")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Sessions", "Sessions");
+                    b.ToTable("Users", "Users");
                 });
 
-            modelBuilder.Entity("dnd_infra.Campaigns.CampaignDal", b =>
+            modelBuilder.Entity("dnd_infra.Campaigns.Adventures.AdventureDal", b =>
                 {
-                    b.HasOne("dnd_infra.Sessions.SessionDal", null)
-                        .WithMany()
-                        .HasForeignKey("SessionId")
+                    b.HasOne("dnd_infra.Campaigns.CampaignDal", null)
+                        .WithMany("Adventures")
+                        .HasForeignKey("CampaignId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 
             modelBuilder.Entity("dnd_infra.Campaigns.Rooms.RoomDal", b =>
                 {
-                    b.HasOne("dnd_infra.Campaigns.CampaignDal", null)
+                    b.HasOne("dnd_infra.Campaigns.Adventures.AdventureDal", null)
                         .WithMany("Rooms")
-                        .HasForeignKey("CampaignId")
+                        .HasForeignKey("AdventureId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
@@ -952,60 +984,28 @@ namespace dnd_infra.Migrations
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 
-            modelBuilder.Entity("dnd_infra.GameFlow.DALs.ActionsDal", b =>
-                {
-                    b.HasOne("dnd_infra.Players.DALs.HeroDal", null)
-                        .WithOne("Actions")
-                        .HasForeignKey("dnd_infra.GameFlow.DALs.ActionsDal", "HeroId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("dnd_infra.Players.DALs.MonsterDal", null)
-                        .WithOne("Actions")
-                        .HasForeignKey("dnd_infra.GameFlow.DALs.ActionsDal", "MonsterId")
-                        .OnDelete(DeleteBehavior.Restrict);
-                });
-
             modelBuilder.Entity("dnd_infra.GameFlow.DALs.CurrentPlayerDal", b =>
                 {
-                    b.HasOne("dnd_infra.Campaigns.CampaignDal", null)
+                    b.HasOne("dnd_infra.Campaigns.Adventures.AdventureDal", null)
                         .WithMany()
-                        .HasForeignKey("CampaignId")
+                        .HasForeignKey("AdventureId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("dnd_infra.Players.DALs.HeroDal", "Hero")
+                    b.HasOne("dnd_infra.Players.DALs.PlayerDal", "Player")
                         .WithOne()
-                        .HasForeignKey("dnd_infra.GameFlow.DALs.CurrentPlayerDal", "HeroId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .HasForeignKey("dnd_infra.GameFlow.DALs.CurrentPlayerDal", "PlayerId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
-                    b.HasOne("dnd_infra.Players.DALs.MonsterDal", "Monster")
-                        .WithOne()
-                        .HasForeignKey("dnd_infra.GameFlow.DALs.CurrentPlayerDal", "MonsterId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.Navigation("Hero");
-
-                    b.Navigation("Monster");
+                    b.Navigation("Player");
                 });
 
             modelBuilder.Entity("dnd_infra.GameFlow.DALs.TurnOrderDal", b =>
                 {
-                    b.HasOne("dnd_infra.Players.DALs.HeroDal", null)
+                    b.HasOne("dnd_infra.Players.DALs.PlayerDal", null)
                         .WithOne("TurnOrder")
-                        .HasForeignKey("dnd_infra.GameFlow.DALs.TurnOrderDal", "HeroId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("dnd_infra.Players.DALs.MonsterDal", null)
-                        .WithOne("TurnOrder")
-                        .HasForeignKey("dnd_infra.GameFlow.DALs.TurnOrderDal", "MonsterId")
-                        .OnDelete(DeleteBehavior.Restrict);
-                });
-
-            modelBuilder.Entity("dnd_infra.Items.DALs.ArtefactDal", b =>
-                {
-                    b.HasOne("dnd_infra.Campaigns.CampaignDal", null)
-                        .WithMany()
-                        .HasForeignKey("CampaignId")
+                        .HasForeignKey("dnd_infra.GameFlow.DALs.TurnOrderDal", "PlayerId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
@@ -1019,15 +1019,6 @@ namespace dnd_infra.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("dnd_infra.Items.DALs.ChestTrapDal", b =>
-                {
-                    b.HasOne("dnd_infra.Campaigns.CampaignDal", null)
-                        .WithMany()
-                        .HasForeignKey("CampaignId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("dnd_infra.Items.DALs.ChestTrapEffectDal", b =>
                 {
                     b.HasOne("dnd_infra.Items.DALs.ChestTrapDal", null)
@@ -1037,29 +1028,11 @@ namespace dnd_infra.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("dnd_infra.Items.DALs.PotionDal", b =>
-                {
-                    b.HasOne("dnd_infra.Campaigns.CampaignDal", null)
-                        .WithMany()
-                        .HasForeignKey("CampaignId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("dnd_infra.Items.DALs.PotionEffectDal", b =>
                 {
                     b.HasOne("dnd_infra.Items.DALs.PotionDal", null)
                         .WithMany("Effects")
                         .HasForeignKey("PotionId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("dnd_infra.Items.DALs.SpellDal", b =>
-                {
-                    b.HasOne("dnd_infra.Campaigns.CampaignDal", null)
-                        .WithMany()
-                        .HasForeignKey("CampaignId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
@@ -1080,15 +1053,11 @@ namespace dnd_infra.Migrations
                         .HasForeignKey("ArtefactId")
                         .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("dnd_infra.Players.DALs.HeroDal", null)
+                    b.HasOne("dnd_infra.Players.DALs.PlayerDal", null)
                         .WithMany("StoredItems")
-                        .HasForeignKey("HeroId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("dnd_infra.Players.DALs.MonsterDal", null)
-                        .WithMany("StoredItems")
-                        .HasForeignKey("MonsterId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .HasForeignKey("PlayerId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.HasOne("dnd_infra.Items.DALs.PotionDal", "Potion")
                         .WithMany()
@@ -1116,12 +1085,6 @@ namespace dnd_infra.Migrations
 
             modelBuilder.Entity("dnd_infra.Items.DALs.WeaponDal", b =>
                 {
-                    b.HasOne("dnd_infra.Campaigns.CampaignDal", null)
-                        .WithMany()
-                        .HasForeignKey("CampaignId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
                     b.HasOne("dnd_infra.Items.DALs.WeaponSuperAttackDal", "SuperAttack")
                         .WithMany()
                         .HasForeignKey("SuperAttackId");
@@ -1147,43 +1110,82 @@ namespace dnd_infra.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("dnd_infra.Players.DALs.HeroDal", b =>
+            modelBuilder.Entity("dnd_infra.Players.DALs.PlayerDal", b =>
                 {
-                    b.HasOne("dnd_infra.Campaigns.CampaignDal", null)
-                        .WithMany("Heroes")
-                        .HasForeignKey("CampaignId")
+                    b.HasOne("dnd_infra.Campaigns.Adventures.AdventureDal", null)
+                        .WithMany("Players")
+                        .HasForeignKey("AdventureId")
                         .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("dnd_infra.Players.DALs.PlayerAttributesDal", "Attributes")
+                        .WithMany()
+                        .HasForeignKey("AttributesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("dnd_infra.Players.DALs.PlayerMaxAttributesDal", "MaxAttributes")
+                        .WithMany()
+                        .HasForeignKey("MaxAttributesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("dnd_infra.Players.DALs.PlayerProfileDal", "Profile")
+                        .WithMany()
+                        .HasForeignKey("ProfileId")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("dnd_infra.Campaigns.Rooms.Squares.DALs.SquareDal", null)
                         .WithOne()
-                        .HasForeignKey("dnd_infra.Players.DALs.HeroDal", "SquareId")
+                        .HasForeignKey("dnd_infra.Players.DALs.PlayerDal", "SquareId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("dnd_infra.Users.UserDal", null)
+                        .WithMany("Players")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Attributes");
+
+                    b.Navigation("MaxAttributes");
+
+                    b.Navigation("Profile");
+                });
+
+            modelBuilder.Entity("dnd_infra.Users.UserCampaignAssociationDal", b =>
+                {
+                    b.HasOne("dnd_infra.Campaigns.CampaignDal", null)
+                        .WithMany("AssociatedUsers")
+                        .HasForeignKey("CampaignDalId");
+
+                    b.HasOne("dnd_infra.Campaigns.CampaignDal", null)
+                        .WithMany()
+                        .HasForeignKey("CampaignId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("dnd_infra.Users.UserDal", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("dnd_infra.Players.DALs.MonsterDal", b =>
+            modelBuilder.Entity("dnd_infra.Campaigns.Adventures.AdventureDal", b =>
                 {
-                    b.HasOne("dnd_infra.Campaigns.CampaignDal", null)
-                        .WithMany("Monsters")
-                        .HasForeignKey("CampaignId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                    b.Navigation("Players");
 
-                    b.HasOne("dnd_infra.Campaigns.Rooms.Squares.DALs.SquareDal", null)
-                        .WithOne()
-                        .HasForeignKey("dnd_infra.Players.DALs.MonsterDal", "SquareId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                    b.Navigation("Rooms");
                 });
 
             modelBuilder.Entity("dnd_infra.Campaigns.CampaignDal", b =>
                 {
-                    b.Navigation("Heroes");
+                    b.Navigation("Adventures");
 
-                    b.Navigation("Monsters");
-
-                    b.Navigation("Rooms");
+                    b.Navigation("AssociatedUsers");
                 });
 
             modelBuilder.Entity("dnd_infra.Campaigns.Rooms.RoomDal", b =>
@@ -1233,26 +1235,17 @@ namespace dnd_infra.Migrations
                     b.Navigation("Dice");
                 });
 
-            modelBuilder.Entity("dnd_infra.Players.DALs.HeroDal", b =>
+            modelBuilder.Entity("dnd_infra.Players.DALs.PlayerDal", b =>
                 {
-                    b.Navigation("Actions")
-                        .IsRequired();
-
                     b.Navigation("StoredItems");
 
                     b.Navigation("TurnOrder")
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("dnd_infra.Players.DALs.MonsterDal", b =>
+            modelBuilder.Entity("dnd_infra.Users.UserDal", b =>
                 {
-                    b.Navigation("Actions")
-                        .IsRequired();
-
-                    b.Navigation("StoredItems");
-
-                    b.Navigation("TurnOrder")
-                        .IsRequired();
+                    b.Navigation("Players");
                 });
 #pragma warning restore 612, 618
         }

@@ -1,5 +1,4 @@
-﻿using dnd_infra.Campaigns;
-using dnd_infra.Items.DALs;
+﻿using dnd_infra.Items.DALs;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -11,11 +10,6 @@ internal sealed class ChestTrapDalConfiguration : IEntityTypeConfiguration<Chest
     {
         builder.ToTable("ChestTraps", ProjectSchema.Items);
 
-        builder.HasKey(chestTtap => chestTtap.Id);
-
-        builder.HasOne<CampaignDal>()
-            .WithMany()
-            .HasForeignKey(chestTtap => chestTtap.CampaignId)
-            .OnDelete(DeleteBehavior.Restrict);
+        builder.HasKey(chestTrap => chestTrap.Id);
     }
 }

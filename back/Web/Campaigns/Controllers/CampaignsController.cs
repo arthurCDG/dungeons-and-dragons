@@ -1,5 +1,5 @@
-﻿using dnd_domain.Campaigns.Models;
-using dnd_application.Campaigns;
+﻿using dnd_application.Campaigns;
+using dnd_domain.Campaigns.Models;
 using dungeons_and_dragons.Campaigns.DTOs;
 using dungeons_and_dragons.Campaigns.Mappers;
 using Microsoft.AspNetCore.Cors;
@@ -17,31 +17,29 @@ namespace dungeons_and_dragons.Campaigns.Controllers;
 [EnableCors]
 public class CampaignsController : ControllerBase
 {
-    public const string Route = "api/sessions/{sessionId}/campaigns";
+    public const string Route = "api/campaigns";
 
     private readonly ICampaignsService _campaignsService;
-    private readonly CampaignDtoMapper _campaignDtoMapper;
 
-    public CampaignsController(ICampaignsService campaignsService, CampaignDtoMapper campaignDtoMapper)
+    public CampaignsController(ICampaignsService campaignsService)
     {
         _campaignsService = campaignsService ?? throw new System.ArgumentNullException(nameof(campaignsService));
-        _campaignDtoMapper = campaignDtoMapper ?? throw new System.ArgumentNullException(nameof(campaignDtoMapper));
     }
 
     [HttpGet("{campaignId}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
-    public async Task<CampaignDto> GetAsync(int sessionId, int campaignId)
+    public async Task<CampaignDto> GetAsync(int campaignId)
     {
-        Campaign campaign = await _campaignsService.GetAsync(sessionId, campaignId);
-        return await _campaignDtoMapper.ToDtoAsync(campaign);
+        Campaign campaign = await _campaignsService.GetAsync(campaignId);
+        return CampaignDtoMapper.ToDto(campaign);
     }
 
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
-    public Task PostAsync(int sessionId, [FromBody] CampaignPayload campaignPayload)
-        => _campaignsService.CreateAsync(sessionId, campaignPayload);
+    public Task PostAsync([FromBody] CampaignPayload campaignPayload)
+        => _campaignsService.CreateAsync(campaignPayload);
 }

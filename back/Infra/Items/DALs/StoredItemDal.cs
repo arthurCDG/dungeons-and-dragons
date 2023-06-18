@@ -7,9 +7,8 @@ internal sealed class StoredItemDal
     public int Id { get; set; }
     public bool IsEquiped { get; set; } = false;
     public bool IsDiscarded { get; set; } = false;
+    public int PlayerId { get; set; }
 
-    public int? HeroId { get; set; }
-    public int? MonsterId { get; set; }
 
     public int? ArtefactId { get; set; }
     public ArtefactDal? Artefact { get; set; }
@@ -26,8 +25,7 @@ internal sealed class StoredItemDal
             Id = Id,
             IsEquiped = IsEquiped,
             IsDiscarded = IsDiscarded,
-            HeroId = HeroId,
-            MonsterId = MonsterId,
+            PlayerId = PlayerId,
             ArtefactId = ArtefactId,
             Artefact = Artefact?.ToDomain(),
             PotionId = PotionId,

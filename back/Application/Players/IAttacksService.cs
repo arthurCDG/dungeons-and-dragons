@@ -5,6 +5,5 @@ namespace dnd_application.Players;
 
 public interface IAttacksService
 {
-    Task<Hero> AttackHeroAsync(int heroId, AttackPayload payload);
-    Task<Monster> AttackMonsterAsync(int monsterId, AttackPayload payload);
+    Task<Player> AttackPlayerAsync(int heroId, AttackPayload attackPayload);
 }

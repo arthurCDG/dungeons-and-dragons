@@ -5,6 +5,6 @@ namespace dnd_application.Campaigns;
 
 public interface ICampaignsService
 {
-    Task<Campaign> GetAsync(int sessionId, int campaignId);
-    Task CreateAsync(int sessionId, CampaignPayload campaignPayload);
+    Task<Campaign> GetAsync(int campaignId);
+    Task CreateAsync(CampaignPayload campaignPayload);
 }

@@ -4,7 +4,6 @@ namespace dnd_domain.GameFlow.Models;
 
 public class CurrentPlayer
 {
-    public int CampaignId { get; set; }
-    public Hero? Hero { get; set; }
-    public Monster? Monster { get; set; }
+    public int AdventureId { get; set; }
+    public Player Player { get; set; } = new();
 }

@@ -6,18 +6,14 @@ namespace dnd_infra.GameFlow.DALs;
 internal sealed class CurrentPlayerDal
 {
     public int Id { get; set; }
-    public int CampaignId { get; set; }
-
-    public int? HeroId { get; set; }
-    public HeroDal? Hero { get; set; }
-    public int? MonsterId { get; set; }
-    public MonsterDal? Monster { get; set; }
+    public int AdventureId { get; set; }
+    public int PlayerId { get; set; }
+    public PlayerDal Player { get; set; } = new();
 
     public CurrentPlayer ToDomain()
         => new()
         {
-            CampaignId = CampaignId,
-            Hero = Hero?.ToDomain(),
-            Monster = Monster?.ToDomain(),
+            AdventureId = AdventureId,
+            Player = Player.ToDomain(),
         };
 }

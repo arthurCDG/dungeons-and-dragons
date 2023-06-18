@@ -18,22 +18,21 @@ internal sealed class ItemsSeeder
         _context = globalDbContext ?? throw new ArgumentNullException(nameof(globalDbContext));
     }
 
-    public async Task SeedItemsAsync(int campaignId)
+    public async Task SeedItemsAsync()
     {
-        await SeedArtefactsAsync(campaignId);
-        await SeedChestTrapsAsync(campaignId);
-        await SeedPotionsAsync(campaignId);
-        await SeedWeaponsAsync(campaignId);
-        await SeedSpellsAsync(campaignId);
+        await SeedArtefactsAsync();
+        await SeedChestTrapsAsync();
+        await SeedPotionsAsync();
+        await SeedWeaponsAsync();
+        await SeedSpellsAsync();
     }
 
-    private async Task SeedArtefactsAsync(int campaignId)
+    private async Task SeedArtefactsAsync()
     {
         List<ArtefactDal> artefacts = new()
         {
             new ArtefactDal
             {
-                CampaignId = campaignId,
                 Name = "Amulette de Yondalla",
                 Description = "Couverte de symboles magiques.",
                 Explanation = "Quand vous ouvrez un coffre, vous pouvez garder l'objet trouvé, ou vous en défausser et en choisir un autre.",
@@ -48,7 +47,6 @@ internal sealed class ItemsSeeder
             },
             new ArtefactDal
             {
-                CampaignId = campaignId,
                 Name = "Fortune de Yondalla",
                 Description = "Des runes de protection sont serties dans sa pierre.",
                 Explanation = "Quand vous ouvrez un coffre, vous avez le choix entre 4 objets. Choisissez en deux que vous gardez. Par ailleurs, les pièges ne vous infligent pas de dégât. Après avoir fait votre choix, lancez le dé de hasard pour savoir si vous gardez ou non l'artefact.",
@@ -64,7 +62,6 @@ internal sealed class ItemsSeeder
             },
             new ArtefactDal
             {
-                CampaignId = campaignId,
                 Name = "Anneau des ombres",
                 Description = "Passez cet anneau à votre doigt pour disparaître dans les ténèbres du donjon.",
                 Explanation = "Déplacez vous où vous le désirez dans la pièce sans être détecté. Lancez ensuite le dé de hasard pour savoir si vous gardez ou non l'artefact.",
@@ -79,7 +76,6 @@ internal sealed class ItemsSeeder
             },
             new ArtefactDal
             {
-                CampaignId = campaignId,
                 Name = "Cape en peau d'écorce",
                 Description = "Composée de l'écorce des arbres magiques de Arnholm, cette cape légère vous protège.",
                 Explanation = "Portez cette cape pour ne pas subir de dégâts lors d'une attaque ou d'un événement. Lancez ensuite le dé de hasard pour savoir si vous gardez ou non l'artefact.",
@@ -94,7 +90,6 @@ internal sealed class ItemsSeeder
             },
             new ArtefactDal
             {
-                CampaignId = campaignId,
                 Name = "Bouclier du chaos",
                 Description = "Forgé dans un moment de rage par les nains, ce bouclier agit de manière imprévisible.",
                 Explanation = "Redirigez les dégâts que vous devez subir sur les points de vie d'un autre héros. Lancez ensuite le dé de hasard pour savoir si vous gardez ou non l'artefact.",
@@ -109,7 +104,6 @@ internal sealed class ItemsSeeder
             },
             new ArtefactDal
             {
-                CampaignId = campaignId,
                 Name = "Amulette d'Olidammara",
                 Description = "Elle renferme la sagesse de nombreux anciens.",
                 Explanation = "Permet au porteur de chercher des pièges dans la salle.",
@@ -124,7 +118,6 @@ internal sealed class ItemsSeeder
             },
             new ArtefactDal
             {
-                CampaignId = campaignId,
                 Name = "Orbe de vision lucide",
                 Description = "Il appartenait autrefois à de sages seigneurs à qui il offrait ses dons de vision.",
                 Explanation = "Révelez tous les pièges dans la pièce. L'artefact disparaît après son utilisation.",
@@ -139,7 +132,6 @@ internal sealed class ItemsSeeder
             },
             new ArtefactDal
             {
-                CampaignId = campaignId,
                 Name = "Bouclier miroir elfe",
                 Description = "Découvert au fond d'une fontaine elfe, il réfléchit l'image de tout ce qu'il voit.",
                 Explanation = "L'attaquant subit les dégâts du jet de dé à votre place. Lancez ensuite le dé de hasard pour savoir si vous gardez ou non l'artefact.",
@@ -154,7 +146,6 @@ internal sealed class ItemsSeeder
             },
             new ArtefactDal
             {
-                CampaignId = campaignId,
                 Name = "Cape de Boccob",
                 Description = "Les enchantements tissés dans cette cape permettent d'absorber les attaques physiques.",
                 Explanation = "Augmente la classe d'armure de 1 pour ce tour. Lancez ensuite le dé de hasard pour savoir si vous gardez ou non l'artefact.",
@@ -169,7 +160,6 @@ internal sealed class ItemsSeeder
             },
             new ArtefactDal
             {
-                CampaignId = campaignId,
                 Name = "Cor de l'invocateur",
                 Description = "Soufflez fort pour appeler de l'aide.",
                 Explanation = "Déplacez n'importe quel héros sur une case près de vous. Lancez ensuite le dé de hasard pour savoir si vous gardez ou non l'artefact.",
@@ -188,13 +178,12 @@ internal sealed class ItemsSeeder
         await _context.SaveChangesAsync();
     }
 
-    private async Task SeedChestTrapsAsync(int campaignId)
+    private async Task SeedChestTrapsAsync()
     {
         List<ChestTrapDal> chestTraps = new()
         {
             new ChestTrapDal
             {
-                CampaignId = campaignId,
                 Name = "Brume étouffante",
                 Description = "Une brume qui rend la respiration difficile.",
                 Explanation = "Toutes les créatures vivantes situées dans la pièce perdent 1 point de vie. N'affecte pas les morts-vivants.",
@@ -208,7 +197,6 @@ internal sealed class ItemsSeeder
             },
             new ChestTrapDal
             {
-                CampaignId = campaignId,
                 Name = "Couverture de flammes",
                 Description = "Une intense chaleur vous encercle.",
                 Explanation = "Vous perdez 2 points de vie et le Héros le plus proche de vous perd 2 points de vie aussi.",
@@ -222,7 +210,6 @@ internal sealed class ItemsSeeder
             },
             new ChestTrapDal
             {
-                CampaignId = campaignId,
                 Name = "Voix des damnés",
                 Description = "Des forces invisibles contrôlent votre esprit.",
                 Explanation = "Vous vous déplacez près du Héros le plus proche et attaquez avec votre arme équipée.",
@@ -236,7 +223,6 @@ internal sealed class ItemsSeeder
             },
             new ChestTrapDal
             {
-                CampaignId = campaignId,
                 Name = "Lumière aveuglante",
                 Description = "Vous êtes aveuglé par un flash de lumière intense.",
                 Explanation = "Vous passez votre prochain tour.",
@@ -249,7 +235,6 @@ internal sealed class ItemsSeeder
             },
             new ChestTrapDal
             {
-                CampaignId = campaignId,
                 Name = "Appel de la tombe",
                 Description = "Un pouvoir fantomatique.",
                 Explanation = "Vous ranimez le dernier monstre vaincu.",
@@ -262,7 +247,6 @@ internal sealed class ItemsSeeder
             },
             new ChestTrapDal
             {
-                CampaignId = campaignId,
                 Name = "Trahison brutale",
                 Description = "Un terrible sortilège est lancé.",
                 Explanation = "Choisissez de subir 5 points de dégâts ou de faire subir 3 points de dégâts à un autre Héros aléatoirement choisi.",
@@ -275,7 +259,6 @@ internal sealed class ItemsSeeder
             },
             new ChestTrapDal
             {
-                CampaignId = campaignId,
                 Name = "Perte de magie",
                 Description = "Vous avez pénétré dans un champ de faiblesse magique.",
                 Explanation = "Vous perdez 4 points de sort.",
@@ -292,13 +275,12 @@ internal sealed class ItemsSeeder
         await _context.SaveChangesAsync();
     }
 
-    private async Task SeedPotionsAsync(int campaignId)
+    private async Task SeedPotionsAsync()
     {
         List<PotionDal> potions = new()
         {
             new PotionDal
             {
-                CampaignId = campaignId,
                 Name = "Potion de faiblesse",
                 Description = "Buvez cette potion pour affaiblir un monstre.",
                 Explanation = "Réduisez la classe d'armure d'un monstre de 2 jusqu'au début du prochain tour du Maître du Donjon.",
@@ -311,7 +293,6 @@ internal sealed class ItemsSeeder
             },
             new PotionDal
             {
-                CampaignId = campaignId,
                 Name = "Potion de soins importants",
                 Description = "Buvez cette potion pour raviver vos forces.",
                 Explanation = "Récupérez un maximum de 5 points de vie.",
@@ -324,7 +305,6 @@ internal sealed class ItemsSeeder
             },
             new PotionDal
             {
-                CampaignId = campaignId,
                 Name = "Potion de soins légers",
                 Description = "Buvez cette potion pour raviver vos forces.",
                 Explanation = "Récupérez un maximum de 3 points de vie.",
@@ -337,7 +317,6 @@ internal sealed class ItemsSeeder
             },
             new PotionDal
             {
-                CampaignId = campaignId,
                 Name = "Potion de soins modérés",
                 Description = "Buvez cette potion pour raviver vos forces.",
                 Explanation = "Récupérez un maximum de 4 points de vie.",
@@ -350,7 +329,6 @@ internal sealed class ItemsSeeder
             },
             new PotionDal
             {
-                CampaignId = campaignId,
                 Name = "Potion de cercle de guérison",
                 Description = "Buvez cette potion pour former un cercle de guérison autour de tous les Héros.",
                 Explanation = "Faites récupérer un maximum de 2 points de vie à chaque Héros.",
@@ -363,7 +341,6 @@ internal sealed class ItemsSeeder
             },
             new PotionDal
             {
-                CampaignId = campaignId,
                 Name = "Potion de restauration suprême",
                 Description = "Buvez cette potion pour raviver vos pouvoirs magiques.",
                 Explanation = "Récupérez un maximum de 5 points de mana.",
@@ -376,7 +353,6 @@ internal sealed class ItemsSeeder
             },
             new PotionDal
             {
-                CampaignId = campaignId,
                 Name = "Potion de restauration partielle",
                 Description = "Buvez cette potion pour raviver vos pouvoirs magiques.",
                 Explanation = "Récupérez un maximum de 3 points de mana.",
@@ -389,7 +365,6 @@ internal sealed class ItemsSeeder
             },
             new PotionDal
             {
-                CampaignId = campaignId,
                 Name = "Potion de restauration",
                 Description = "Buvez cette potion pour raviver vos pouvoirs magiques.",
                 Explanation = "Récupérez un maximum de 4 points de mana.",
@@ -402,7 +377,6 @@ internal sealed class ItemsSeeder
             },
             new PotionDal
             {
-                CampaignId = campaignId,
                 Name = "Potion d'ombre fumigène",
                 Description = "Buvez cette potion pour matérialiser un nuage épais autour de tous les monstres de la pièce.",
                 Explanation = "Chaque héros présent dans la pièce peut effectuer un déplacement gratuit immédiatement.",
@@ -415,7 +389,6 @@ internal sealed class ItemsSeeder
             },
             new PotionDal
             {
-                CampaignId = campaignId,
                 Name = "Potion de restauration suprême",
                 Description = "Ramenez un Héros à la vie et redonnez lui 4 points de vie et 4 points de sort, si possible.",
                 Explanation = "Vous devez être à côté du Héros mort pour utiliser cette potion.",
@@ -428,7 +401,6 @@ internal sealed class ItemsSeeder
             },
             new PotionDal
             {
-                CampaignId = campaignId,
                 Name = "Potion de faiblesse suprême",
                 Description = "Buvez cette potion pour affaiblir les monstres.",
                 Explanation = "Réduisez de 2 la classe d'armure de tous les monstres situés dans la pièce jusqu'au début du prochain tour du Maître du Donjon.",
@@ -441,7 +413,6 @@ internal sealed class ItemsSeeder
             },
             new PotionDal
             {
-                CampaignId = campaignId,
                 Name = "Potion de main impérieuse",
                 Description = "Buvez cette potion pour appeler de l'aide.",
                 Explanation = "Déplacez n'importe quel monstre à l'endroit de votre choix, dans la pièce où il se trouve.",
@@ -454,7 +425,6 @@ internal sealed class ItemsSeeder
             },
             new PotionDal
             {
-                CampaignId = campaignId,
                 Name = "Potion d'attaque soudaine",
                 Description = "Buvez cette potion pour accroître la force de tous les Héros pendant un tour.",
                 Explanation = "Infligez 2 points de dégâts à n'importe quel monstre dans la pièce.",
@@ -467,7 +437,6 @@ internal sealed class ItemsSeeder
             },
             new PotionDal
             {
-                CampaignId = campaignId,
                 Name = "Potion de montée d'adrénaline",
                 Description = "Buvez cette potion pour accélérer vos réactions.",
                 Explanation = "Vous attaquez immédiatement, même si ce n'est pas votre tour.",
@@ -480,7 +449,6 @@ internal sealed class ItemsSeeder
             },
             new PotionDal
             {
-                CampaignId = campaignId,
                 Name = "Potion de la sagesse d'Olidammara",
                 Description = "Buvez cette potion quand un piège se déclenche.",
                 Explanation = "Le piège n'a aucun effet.",
@@ -493,7 +461,6 @@ internal sealed class ItemsSeeder
             },
             new PotionDal
             {
-                CampaignId = campaignId,
                 Name = "Potion de bénédiction de Kord",
                 Description = "Buvez cette potion pour bénir l'une de vos armes.",
                 Explanation = "Double la puissance de l'arme choisie lors de sa prochaine attaque.",
@@ -506,7 +473,6 @@ internal sealed class ItemsSeeder
             },
             new PotionDal
             {
-                CampaignId = campaignId,
                 Name = "Potion d'introspection",
                 Description = "Buvez cette potion pour revenir en arrière dans le temps.",
                 Explanation = "Relancez le dernier dé joué.",
@@ -519,7 +485,6 @@ internal sealed class ItemsSeeder
             },
             new PotionDal
             {
-                CampaignId = campaignId,
                 Name = "Potion de fou rire",
                 Description = "Buvez cette potion pour provoquer la chute d'un monstre situé dans la pièce.",
                 Explanation = "Le monstre passe son prochain tour.",
@@ -532,7 +497,6 @@ internal sealed class ItemsSeeder
             },
             new PotionDal
             {
-                CampaignId = campaignId,
                 Name = "Potion d'arrêt du temps",
                 Description = "Buvez cette potion pour arrêter le temps pour vos ennemis.",
                 Explanation = "Tous les monstres situés dans la pièce passent leur prochain tour.",
@@ -549,13 +513,12 @@ internal sealed class ItemsSeeder
         await _context.SaveChangesAsync();
     }
 
-    private async Task SeedWeaponsAsync(int campaignId)
+    private async Task SeedWeaponsAsync()
     {
         List<WeaponDal> weapons = new()
         {
             new WeaponDal
             {
-                CampaignId = campaignId,
                 Name = "Arc long composite",
                 Description = "Fabriqué à l'aide de deux matériaux légers, mais particulièrement résistants, cet arc est très flexible et extrêmement puissant.",
                 Explanation = "",
@@ -571,7 +534,6 @@ internal sealed class ItemsSeeder
             },
             new WeaponDal
             {
-                CampaignId = campaignId,
                 Name = "Arc court des anciens",
                 Description = "Fabriqué avec le bois d'if le plus vieux de la Forêt des elfes anciens.",
                 Explanation = "",
@@ -588,7 +550,6 @@ internal sealed class ItemsSeeder
             },
             new WeaponDal
             {
-                CampaignId = campaignId,
                 Name = "Epée large",
                 Description = "Une lame puissante et légère, bien équilibrée, parfaite pour le combat au corps à corps.",
                 Explanation = "",
@@ -602,7 +563,6 @@ internal sealed class ItemsSeeder
             },
             new WeaponDal
             {
-                CampaignId = campaignId,
                 Name = "Arbalète de la foi",
                 Description = "Enchantée par les runes de Pélor, ses carreaux ne manquent jamais leur cible.",
                 Explanation = "",
@@ -619,7 +579,6 @@ internal sealed class ItemsSeeder
             },
             new WeaponDal
             {
-                CampaignId = campaignId,
                 Name = "Dague de lancer équilibrée",
                 Description = "Bien équilibrée pour plus de précision.",
                 Explanation = "",
@@ -634,7 +593,6 @@ internal sealed class ItemsSeeder
             },
             new WeaponDal
             {
-                CampaignId = campaignId,
                 Name = "Masse brutale",
                 Description = "Lourde, puissante, mais imprécise.",
                 Explanation = "",
@@ -650,7 +608,6 @@ internal sealed class ItemsSeeder
             },
             new WeaponDal
             {
-                CampaignId = campaignId,
                 Name = "Hâche de guerre émoussée",
                 Description = "Parfaite pour le combat rapproché.",
                 Explanation = "",
@@ -665,7 +622,6 @@ internal sealed class ItemsSeeder
             },
             new WeaponDal
             {
-                CampaignId = campaignId,
                 Name = "Arbalète d'embuscade",
                 Description = "Mobile et particulièrement utile dans les tunnels étroits.",
                 Explanation = "",
@@ -680,7 +636,6 @@ internal sealed class ItemsSeeder
             },
             new WeaponDal
             {
-                CampaignId = campaignId,
                 Name = "Fléau d'armes fangeux",
                 Description = "Usée par le temps, elle cause encore beaucoup de dommages à son adversaire.",
                 Explanation = "",
@@ -716,13 +671,12 @@ internal sealed class ItemsSeeder
         await _context.SaveChangesAsync();
     }
 
-    private async Task SeedSpellsAsync(int campaignId)
+    private async Task SeedSpellsAsync()
     {
         List<SpellDal> spells = new()
         {
             new SpellDal
             {
-                CampaignId = campaignId,
                 Name = "Restauration suprême",
                 Description = "Ramenez un Héros à la vie et redonnez lui 4 points de vie et 4 points de sort, si possible.",
                 Explanation = "Placez vous à côté du Héros mort pour lancer le sort.",
@@ -739,7 +693,6 @@ internal sealed class ItemsSeeder
             },
             new SpellDal
             {
-                CampaignId = campaignId,
                 Name = "Mains brûlantes",
                 Description = "Des gerbes de feu jaillissent de vos doigts, brûlant tout sur leur passage.",
                 Explanation = "",
@@ -757,7 +710,6 @@ internal sealed class ItemsSeeder
             },
             new SpellDal
             {
-                CampaignId = campaignId,
                 Name = "Projectile magique",
                 Description = "De l'énergie brute projetée par votre main.",
                 Explanation = "",

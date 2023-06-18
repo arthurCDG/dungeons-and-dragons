@@ -1,4 +1,4 @@
-﻿using dnd_infra.Sessions;
+﻿using dnd_infra.Users;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -18,24 +18,14 @@ internal sealed class CampaignDalConfiguration : IEntityTypeConfiguration<Campai
         builder.Property(campaign => campaign.EndsAt)
              .HasColumnType("datetime2(2)");
 
-        builder.HasOne<SessionDal>()
-            .WithMany()
-            .HasForeignKey(campaign => campaign.SessionId)
+        builder.HasMany<UserCampaignAssociationDal>()
+            .WithOne()
+            .HasForeignKey(uca => uca.CampaignId)
             .OnDelete(DeleteBehavior.Restrict);
 
-        builder.HasMany(campaign => campaign.Rooms)
+        builder.HasMany(campaign => campaign.Adventures)
             .WithOne()
-            .HasForeignKey(board => board.CampaignId)
-            .OnDelete(DeleteBehavior.Restrict);
-
-        builder.HasMany(campaign => campaign.Heroes)
-            .WithOne()
-            .HasForeignKey(hero => hero.CampaignId)
-            .OnDelete(DeleteBehavior.Restrict);
-
-        builder.HasMany(campaign => campaign.Monsters)
-            .WithOne()
-            .HasForeignKey(monster => monster.CampaignId)
+            .HasForeignKey(adventure => adventure.CampaignId)
             .OnDelete(DeleteBehavior.Restrict);
     }
 }

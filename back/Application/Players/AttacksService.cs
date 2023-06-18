@@ -7,18 +7,13 @@ namespace dnd_application.Players;
 
 internal sealed class AttacksService : IAttacksService
 {
-    private readonly IHeroesRepository _heroesRepository;
-    private readonly IMonstersRepository _monstersRepository;
+    private readonly IPlayersRepository _playersRepository;
 
-    public AttacksService(IHeroesRepository heroesRepository, IMonstersRepository monstersRepository)
+    public AttacksService(IPlayersRepository playersRepository)
     {
-        _heroesRepository = heroesRepository ?? throw new ArgumentNullException(nameof(heroesRepository));
-        _monstersRepository = monstersRepository ?? throw new ArgumentNullException(nameof(monstersRepository));
+        _playersRepository = playersRepository ?? throw new ArgumentNullException(nameof(playersRepository));
     }
 
-    public Task<Hero> AttackHeroAsync(int heroId, AttackPayload payload)
-        => _heroesRepository.AttackAsync(heroId, payload);
-
-    public Task<Monster> AttackMonsterAsync(int monsterId, AttackPayload payload)
-        => _monstersRepository.AttackAsync(monsterId, payload);
+    public Task<Player> AttackPlayerAsync(int playerId, AttackPayload attackPyload)
+        => _playersRepository.AttackAsync(playerId, attackPyload);
 }

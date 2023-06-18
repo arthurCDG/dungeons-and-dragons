@@ -5,9 +5,7 @@ public class StoredItem
     public int Id { get; set; }
     public bool IsEquiped { get; set; } = false;
     public bool IsDiscarded { get; set; } = false;
-
-    public int? HeroId { get; set; }
-    public int? MonsterId { get; set; }
+    public int PlayerId { get; set; } 
 
     public int? ArtefactId { get; set; }
     public Artefact? Artefact { get; set; }

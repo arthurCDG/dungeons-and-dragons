@@ -8,7 +8,7 @@ namespace dnd_infra.Campaigns.Rooms;
 internal sealed class RoomDal
 {
     public int Id { get; set; }
-    public int CampaignId { get; set; }
+    public int AdventureId { get; set; }
     public List<SquareDal> Squares { get; set; } = new();
 
     public bool? IsStartRoom { get; set; }
@@ -17,7 +17,7 @@ internal sealed class RoomDal
         => new()
         {
            Id = Id,
-           CampaignId = CampaignId,
+           AdventureId = AdventureId,
            IsStartRoom = IsStartRoom,
            Squares = Squares.Select(s => s.ToDomain()).ToList()
         };

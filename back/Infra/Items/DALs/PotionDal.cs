@@ -6,14 +6,12 @@ namespace dnd_infra.Items.DALs;
 
 internal sealed class PotionDal : ItemDal
 {
-    public bool DiscardAfterUsage { get; set; }
     public List<PotionEffectDal> Effects { get; set; } = new();
 
     public Potion ToDomain()
         => new()
         {
             Id = Id,
-            CampaignId = CampaignId,
             Description = Description,
             Explanation = Explanation,
             ImageUrl = ImageUrl,

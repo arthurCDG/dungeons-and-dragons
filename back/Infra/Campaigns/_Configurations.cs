@@ -1,4 +1,5 @@
-﻿using dnd_infra.Campaigns.Rooms;
+﻿using dnd_infra.Campaigns.Adventures;
+using dnd_infra.Campaigns.Rooms;
 using dnd_infra.Campaigns.Rooms.Squares.Configurations;
 using Microsoft.EntityFrameworkCore;
 
@@ -9,6 +10,7 @@ internal static class CampaignsConfigurations
     public static void ApplyCampaignsConfigurations(this ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfiguration(new CampaignDalConfiguration());
+        modelBuilder.ApplyConfiguration(new AdventureDalConfiguration());
         modelBuilder.ApplyConfiguration(new RoomDalConfiguration());
         modelBuilder.ApplyConfiguration(new SquareDalConfiguration());
         modelBuilder.ApplyConfiguration(new SquareTrapDalConfiguration());

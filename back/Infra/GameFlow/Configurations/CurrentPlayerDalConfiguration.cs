@@ -1,4 +1,4 @@
-﻿using dnd_infra.Campaigns;
+﻿using dnd_infra.Campaigns.Adventures;
 using dnd_infra.GameFlow.DALs;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -13,19 +13,14 @@ internal sealed class CurrentPlayerDalConfiguration : IEntityTypeConfiguration<C
 
         builder.HasKey(currentPlayer => currentPlayer.Id);
 
-        builder.HasOne<CampaignDal>()
+        builder.HasOne<AdventureDal>()
             .WithMany()
-            .HasForeignKey(currentPlayer => currentPlayer.CampaignId)
+            .HasForeignKey(currentPlayer => currentPlayer.AdventureId)
             .OnDelete(DeleteBehavior.Restrict);
 
-        builder.HasOne(cp => cp.Hero)
+        builder.HasOne(cp => cp.Player)
             .WithOne()
-            .HasForeignKey<CurrentPlayerDal>(currentPlayer => currentPlayer.HeroId)
-            .OnDelete(DeleteBehavior.Restrict);
-
-        builder.HasOne(cp => cp.Monster)
-            .WithOne()
-            .HasForeignKey<CurrentPlayerDal>(currentPlayer => currentPlayer.MonsterId)
+            .HasForeignKey<CurrentPlayerDal>(currentPlayer => currentPlayer.PlayerId)
             .OnDelete(DeleteBehavior.Restrict);
     }
 }

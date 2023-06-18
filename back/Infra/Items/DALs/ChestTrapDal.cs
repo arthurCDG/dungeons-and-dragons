@@ -12,7 +12,6 @@ internal sealed class ChestTrapDal : ItemDal
         => new()
         {
             Id = Id,
-            CampaignId = CampaignId,
             Description = Description,
             Explanation = Explanation,
             ImageUrl = ImageUrl,

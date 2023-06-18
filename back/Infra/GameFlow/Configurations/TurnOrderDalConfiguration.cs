@@ -13,14 +13,9 @@ internal sealed class TurnOrderDalConfiguration : IEntityTypeConfiguration<TurnO
 
         builder.HasKey(turnOrder => turnOrder.Id);
 
-        builder.HasOne<HeroDal>()
+        builder.HasOne<PlayerDal>()
             .WithOne(h => h.TurnOrder)
-            .HasForeignKey<TurnOrderDal>(turnOrder => turnOrder.HeroId)
-            .OnDelete(DeleteBehavior.Restrict);
-
-        builder.HasOne<MonsterDal>()
-            .WithOne(m => m.TurnOrder)
-            .HasForeignKey<TurnOrderDal>(turnOrder => turnOrder.MonsterId)
+            .HasForeignKey<TurnOrderDal>(turnOrder => turnOrder.PlayerId)
             .OnDelete(DeleteBehavior.Restrict);
     }
 }

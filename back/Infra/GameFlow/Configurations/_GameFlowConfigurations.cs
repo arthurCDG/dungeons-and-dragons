@@ -8,6 +8,5 @@ internal static class _GameFlowConfigurations
     {
         modelBuilder.ApplyConfiguration(new CurrentPlayerDalConfiguration());
         modelBuilder.ApplyConfiguration(new TurnOrderDalConfiguration());
-        modelBuilder.ApplyConfiguration(new ActionsDalConfiguration());
     }
 }

@@ -23,17 +23,10 @@ public class AttacksController : ControllerBase
         _attacksService = attacksService ?? throw new System.ArgumentNullException(nameof(attacksService));
     }
 
-    [HttpPost("hero/{heroId}")]
+    [HttpPost("hero/{playerId}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
-    public Task<Hero> AttackAsync(int heroId, [FromBody] AttackPayload payload)
-        => _attacksService.AttackHeroAsync(heroId, payload);
-
-    [HttpPost("monster/{monsterId}")]
-    [ProducesResponseType(StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    [ProducesResponseType(StatusCodes.Status403Forbidden)]
-    public Task<Monster> AttackMonsterAsync(int monsterId, [FromBody] AttackPayload payload)
-        => _attacksService.AttackMonsterAsync(monsterId, payload);
+    public Task<Player> AttackAsync(int playerId, [FromBody] AttackPayload attackPayload)
+        => _attacksService.AttackPlayerAsync(playerId, attackPayload);
 }

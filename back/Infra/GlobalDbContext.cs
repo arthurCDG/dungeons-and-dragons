@@ -1,4 +1,5 @@
 ﻿using dnd_infra.Campaigns;
+using dnd_infra.Campaigns.Adventures;
 using dnd_infra.Campaigns.Rooms;
 using dnd_infra.Campaigns.Rooms.Squares.DALs;
 using dnd_infra.Dice;
@@ -8,7 +9,7 @@ using dnd_infra.Items.Configurations;
 using dnd_infra.Items.DALs;
 using dnd_infra.Players.Configurations;
 using dnd_infra.Players.DALs;
-using dnd_infra.Sessions;
+using dnd_infra.Users;
 using Microsoft.EntityFrameworkCore;
 
 namespace dnd_infra;
@@ -26,11 +27,11 @@ internal sealed class GlobalDbContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyItemConfigurations();
-        modelBuilder.ApplyPlayersConfigurations();
+        modelBuilder.ApplyPlayerConfigurations();
+        modelBuilder.ApplyConfiguration(new UserDalConfiguration());
 
         modelBuilder.ApplyConfiguration(new DieAssociationDalConfiguration());
-        modelBuilder.ApplyConfiguration(new SessionDalConfiguration());
-        
+
         modelBuilder.ApplyCampaignsConfigurations();
         modelBuilder.ApplyGameFlowConfigurations();
     }
@@ -42,17 +43,16 @@ internal sealed class GlobalDbContext : DbContext
     public DbSet<WeaponDal> Weapons { get; set; }
     public DbSet<SpellDal> Spells { get; set; }
 
-    public DbSet<HeroDal> Heroes { get; set; }
-    public DbSet<MonsterDal> Monsters { get; set; }
+    public DbSet<UserDal> Users { get; set; }
+    public DbSet<PlayerDal> Players { get; set; }
 
     public DbSet<DieAssociationDal> DieAssociations { get; set; }
 
     public DbSet<TurnOrderDal> TurnOrders { get; set; }
     public DbSet<CurrentPlayerDal> CurrentPlayers { get; set; }
-    public DbSet<ActionsDal> Actions { get; set; }
 
-    public DbSet<SessionDal> Sessions { get; set; }
     public DbSet<CampaignDal> Campaigns { get; set; }
+    public DbSet<AdventureDal> Adventures { get; set; }
     public DbSet<RoomDal> Rooms { get; set; }
     public DbSet<SquareDal> Squares { get; set; }
 }

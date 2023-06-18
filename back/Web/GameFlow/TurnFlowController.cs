@@ -18,12 +18,10 @@ public class TurnFlowController : ControllerBase
 {
     public const string Route = "api/campaigns/{campaignId}";
     private readonly ITurnFlowService _turnFlowService;
-    private readonly CurrentPlayerDtoMapper _currentPlayerDtoMapper;
 
-    public TurnFlowController(ITurnFlowService turnFlowService, CurrentPlayerDtoMapper currentPlayerDtoMapper)
+    public TurnFlowController(ITurnFlowService turnFlowService)
     {
         _turnFlowService = turnFlowService ?? throw new System.ArgumentNullException(nameof(turnFlowService));
-        _currentPlayerDtoMapper = currentPlayerDtoMapper ?? throw new System.ArgumentNullException(nameof(currentPlayerDtoMapper));
     }
 
     [HttpGet("current-player")]
@@ -33,7 +31,7 @@ public class TurnFlowController : ControllerBase
     public async Task<CurrentPlayerDto> GetCurrentPlayer(int campaignId)
     {
         CurrentPlayer currentPlayer = await _turnFlowService.GetCurrentPlayerAsync(campaignId);
-        return await _currentPlayerDtoMapper.MapToDtoAsync(currentPlayer);
+        return CurrentPlayerDto.FromDomain(currentPlayer);
     }
 
     [HttpGet("next-player")]
@@ -43,7 +41,7 @@ public class TurnFlowController : ControllerBase
     public async Task<CurrentPlayerDto> GetNextPlayer(int campaignId)
     {
         CurrentPlayer currentPlayer = await _turnFlowService.GetNextCurrentPlayerAsync(campaignId);
-        return await _currentPlayerDtoMapper.MapToDtoAsync(currentPlayer);
+        return CurrentPlayerDto.FromDomain(currentPlayer);
     }
 
     [HttpPost("enable-current-player")]

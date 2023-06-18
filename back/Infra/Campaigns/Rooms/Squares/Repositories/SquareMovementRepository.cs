@@ -19,11 +19,11 @@ internal sealed class SquareMovementRepository : ISquareMovementRepository
 
     public async Task<Movement> MoveToSquareAsync(MovementRequestPayload movementRequest)
     {
-        HeroDal dal = await _context.Heroes.FirstAsync(h => h.Id == movementRequest.HeroId);
-        int formerSquareId = dal.SquareId;
-        dal.SquareId = movementRequest.SquareId;
+        PlayerDal playerDal = await _context.Players.FirstAsync(h => h.Id == movementRequest.PlayerId);
+        int formerSquareId = playerDal.SquareId;
+        playerDal.SquareId = movementRequest.SquareId;
         await _context.SaveChangesAsync();
 
-        return new Movement { HeroId = dal.Id, FormerSquareId = formerSquareId, NewSquareId = dal.SquareId };
+        return new Movement { PlayerId = playerDal.Id, FormerSquareId = formerSquareId, NewSquareId = playerDal.SquareId };
     }
 }

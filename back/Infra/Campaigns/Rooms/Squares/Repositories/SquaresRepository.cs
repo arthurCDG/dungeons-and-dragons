@@ -19,28 +19,15 @@ internal sealed class SquaresRepository : ISquaresRepository
         _context = globalDbContext ?? throw new System.ArgumentNullException(nameof(globalDbContext));
     }
 
-    public async Task<List<Square>> GetAsync(int campaignId)
+    public async Task<List<Square>> GetAsync(int adventureId)
     {
-        List<SquareDal> squares = await _context.Rooms.Where(r => r.CampaignId == campaignId).SelectMany(r => r.Squares).ToListAsync();
+        List<SquareDal> squares = await _context.Rooms.Where(r => r.AdventureId == adventureId).SelectMany(r => r.Squares).ToListAsync();
         return squares.ConvertAll(s => s.ToDomain());
     }
 
     public async Task<Player?> GetSquarePlayerIfAnyAsync(int squareId)
     {
-        HeroDal? heroDal = await _context.Heroes.FirstOrDefaultAsync(h => h.SquareId == squareId);
-
-        if (heroDal is not null)
-        {
-            return heroDal.ToDomain();
-        }
-
-        MonsterDal? monsterDal = await _context.Monsters.FirstOrDefaultAsync(m => m.SquareId == squareId);
-
-        if (monsterDal is not null)
-        {
-            return monsterDal.ToDomain();
-        }
-
-        return null;
+        PlayerDal? playerDal = await _context.Players.FirstOrDefaultAsync(h => h.SquareId == squareId);
+        return playerDal?.ToDomain() ?? null;
     }
 }

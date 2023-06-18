@@ -1,5 +1,4 @@
-﻿using dnd_infra.Campaigns;
-using dnd_infra.Items.DALs;
+﻿using dnd_infra.Items.DALs;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -12,11 +11,6 @@ internal sealed class ArtefactDalConfiguration : IEntityTypeConfiguration<Artefa
         builder.ToTable("Artefacts", ProjectSchema.Items);
 
         builder.HasKey(artefact => artefact.Id);
-
-        builder.HasOne<CampaignDal>()
-            .WithMany()
-            .HasForeignKey(artefact => artefact.CampaignId)
-            .OnDelete(DeleteBehavior.Restrict);
 
         builder.HasMany<StoredItemDal>()
             .WithOne(storedItem => storedItem.Artefact)
