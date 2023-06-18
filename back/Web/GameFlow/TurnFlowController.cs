@@ -32,7 +32,7 @@ public class TurnFlowController : ControllerBase
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
     public async Task<CurrentPlayerDto> GetCurrentPlayer(int campaignId)
     {
-        CurrentPlayer currentPlayer = await _turnFlowService.GetCurrentPlayerIdAsync(campaignId);
+        CurrentPlayer currentPlayer = await _turnFlowService.GetCurrentPlayerAsync(campaignId);
         return await _currentPlayerDtoMapper.MapToDtoAsync(currentPlayer);
     }
 
@@ -40,8 +40,11 @@ public class TurnFlowController : ControllerBase
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
-    public Task<int> GetNextPlayer(int campaignId)
-        => _turnFlowService.GetNextPlayerIdAsync(campaignId);
+    public async Task<CurrentPlayerDto> GetNextPlayer(int campaignId)
+    {
+        CurrentPlayer currentPlayer = await _turnFlowService.GetNextCurrentPlayerAsync(campaignId);
+        return await _currentPlayerDtoMapper.MapToDtoAsync(currentPlayer);
+    }
 
     [HttpPost("enable-current-player")]
     [ProducesResponseType(StatusCodes.Status200OK)]

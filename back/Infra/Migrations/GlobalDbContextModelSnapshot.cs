@@ -973,15 +973,19 @@ namespace dnd_infra.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("dnd_infra.Players.DALs.HeroDal", null)
+                    b.HasOne("dnd_infra.Players.DALs.HeroDal", "Hero")
                         .WithOne()
                         .HasForeignKey("dnd_infra.GameFlow.DALs.CurrentPlayerDal", "HeroId")
                         .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("dnd_infra.Players.DALs.MonsterDal", null)
+                    b.HasOne("dnd_infra.Players.DALs.MonsterDal", "Monster")
                         .WithOne()
                         .HasForeignKey("dnd_infra.GameFlow.DALs.CurrentPlayerDal", "MonsterId")
                         .OnDelete(DeleteBehavior.Restrict);
+
+                    b.Navigation("Hero");
+
+                    b.Navigation("Monster");
                 });
 
             modelBuilder.Entity("dnd_infra.GameFlow.DALs.TurnOrderDal", b =>

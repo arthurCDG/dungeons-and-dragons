@@ -1,6 +1,5 @@
 ﻿using dnd_infra.Campaigns;
 using dnd_infra.GameFlow.DALs;
-using dnd_infra.Players.DALs;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -19,12 +18,12 @@ internal sealed class CurrentPlayerDalConfiguration : IEntityTypeConfiguration<C
             .HasForeignKey(currentPlayer => currentPlayer.CampaignId)
             .OnDelete(DeleteBehavior.Restrict);
 
-        builder.HasOne<HeroDal>()
+        builder.HasOne(cp => cp.Hero)
             .WithOne()
             .HasForeignKey<CurrentPlayerDal>(currentPlayer => currentPlayer.HeroId)
             .OnDelete(DeleteBehavior.Restrict);
 
-        builder.HasOne<MonsterDal>()
+        builder.HasOne(cp => cp.Monster)
             .WithOne()
             .HasForeignKey<CurrentPlayerDal>(currentPlayer => currentPlayer.MonsterId)
             .OnDelete(DeleteBehavior.Restrict);

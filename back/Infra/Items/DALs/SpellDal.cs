@@ -16,7 +16,7 @@ internal class SpellDal : ItemDal
     public List<DieAssociationDal> Dice { get; set; } = new();
     public List<SpellEffectDal> Effects { get; set; } = new();
 
-        public StarDieEffectType? StarDieEffect { get; set; }
+     public StarDieEffectType? StarDieEffect { get; set; }
 
     public Spell ToDomain()
         => new()

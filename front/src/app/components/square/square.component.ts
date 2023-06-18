@@ -40,6 +40,12 @@ export class SquareComponent implements OnInit, OnChanges {
 
 		this.hero = this.square?.hero ?? null;
 		this.monster = this.square?.monster ?? null;
+
+		// if (this.hero)
+		// 	console.log('this.hero', this.hero);
+
+		// if (this.monster)
+		// 	console.log('this.monster', this.monster);
 	}
 
 	ngOnChanges(): void {
@@ -62,11 +68,14 @@ export class SquareComponent implements OnInit, OnChanges {
 	public onSquareClicked(): void {
 		if (this.hero || this.monster) {
 			this.squareSelected.emit(this.square.id);
-			return;
+		} else {
+			this.movePlayerToPosition();
 		}
+	}
 
+	private movePlayerToPosition() {
 		const payload: IMovementRequestPayload = {
-			heroId: 9,
+			heroId: 7, // TODO change
 			squareId: this.square.id
 		};
 
@@ -77,11 +86,11 @@ export class SquareComponent implements OnInit, OnChanges {
 				if ((player as IHero)?.class != null) {
 					this.hero = player as IHero;
 				}
-	
+
 				if ((player as IMonster)?.type != null) {
-					this.monster = player as IMonster
+					this.monster = player as IMonster;
 				}
-			})
+			});
 		});
 	}
 }

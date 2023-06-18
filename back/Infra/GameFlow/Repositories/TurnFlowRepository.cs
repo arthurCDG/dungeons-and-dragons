@@ -21,22 +21,70 @@ internal sealed class TurnFlowRepository : ITurnFlowRepository
 
     public async Task<CurrentPlayer> GetCurrentPlayerAsync(int campaignId)
     {
-        CurrentPlayerDal? currentPlayer = await _context.CurrentPlayers.FirstOrDefaultAsync(cp => cp.CampaignId == campaignId);
-        List<TurnOrderDal> turnOrders = await GetTurnOrdersAsync(campaignId);
-        currentPlayer ??= await CreateCurrentPlayerAsync(campaignId, turnOrders);
+        CurrentPlayerDal currentPlayer = await GetCurrentPlayerDalAsync(campaignId);
         return currentPlayer!.ToDomain();
     }
 
-    public async Task<int> GetNextPlayerIdAsync(int campaignId)
+    private async Task<CurrentPlayerDal> GetCurrentPlayerDalAsync(int campaignId)
+    {
+        CurrentPlayerDal? currentPlayer = await _context.CurrentPlayers
+            .Include(cp => cp.Hero)
+            .Include(cp => cp.Monster)
+            .FirstOrDefaultAsync(cp => cp.CampaignId == campaignId);
+
+        List<TurnOrderDal> turnOrders = await GetTurnOrdersAsync(campaignId);
+        currentPlayer ??= await CreateCurrentPlayerAsync(campaignId, turnOrders);
+
+        return currentPlayer!;
+    }
+
+    public async Task<CurrentPlayer> GetNextCurrentPlayerAsync(int campaignId)
     {
         List<TurnOrderDal> turnOrders = await GetTurnOrdersAsync(campaignId);
+        
+        CurrentPlayerDal currentPlayer = await GetCurrentPlayerDalAsync(campaignId);
 
-        CurrentPlayer currentPlayer = await GetCurrentPlayerAsync(campaignId);
-        int currentPlayerId = currentPlayer.HeroId ?? currentPlayer.MonsterId ?? throw new InvalidOperationException();
-        int currentTurnOrder = turnOrders.Single(to => to.HeroId == currentPlayerId || to.MonsterId == currentPlayerId).Order;
-        int? nextTurnOrder = turnOrders.FirstOrDefault(to => to.Order > currentTurnOrder)?.Order ?? turnOrders.FirstOrDefault()?.Order;
+        int currentTurnOrder;
+        if (currentPlayer.HeroId is not null)
+        {
+            currentTurnOrder = turnOrders.Single(to => to.HeroId == currentPlayer.HeroId).Order;
+        }
+        else
+        {
+            currentTurnOrder = turnOrders.Single(to => to.MonsterId == currentPlayer.MonsterId).Order;
+        }
 
-        return turnOrders.SingleOrDefault(to => to.Order == nextTurnOrder)?.HeroId ?? turnOrders.SingleOrDefault(to => to.Order == nextTurnOrder)?.MonsterId ?? 0;
+        TurnOrderDal nextTurnOrder = turnOrders.FirstOrDefault(to => to.Order > currentTurnOrder) ?? turnOrders.First();
+        CurrentPlayerDal nextCurrentPlayer = ForgeNextCurrentPlayerDal(nextTurnOrder, campaignId);
+        
+        _context.CurrentPlayers.Remove(currentPlayer);
+        await _context.SaveChangesAsync();
+        
+        return nextCurrentPlayer.ToDomain();
+    }
+
+    private CurrentPlayerDal ForgeNextCurrentPlayerDal(TurnOrderDal nextTurnOrder, int campaignId)
+    {
+        if (nextTurnOrder.HeroId is not null)
+        {
+            CurrentPlayerDal nextCurrentPlayer = new()
+            {
+                HeroId = nextTurnOrder.HeroId,
+                CampaignId = campaignId
+            };
+            _context.Add(nextCurrentPlayer);
+            return nextCurrentPlayer;
+        }
+        else
+        {
+            CurrentPlayerDal nextCurrentPlayer = new()
+            {
+                MonsterId = nextTurnOrder.MonsterId,
+                CampaignId = campaignId
+            };
+            _context.Add(nextCurrentPlayer);
+            return nextCurrentPlayer;
+        }
     }
 
     public async Task EnableCurrentPlayerAsync(int campaignId)
@@ -84,12 +132,14 @@ internal sealed class TurnFlowRepository : ITurnFlowRepository
         List<MonsterDal> monsters = await _context.Monsters.Where(m => !m.IsDead && m.CampaignId == campaignId).Include(m => m.TurnOrder).ToListAsync();
 
         List<TurnOrderDal> turnOrders = heroes.Select(h => h.TurnOrder)
-            .Intersect(monsters.Select(m => m.TurnOrder))
+            .Union(monsters.Select(m => m.TurnOrder))
             .ToList();
 
         bool allPlayersHaveTurnOrders = heroes.All(h => h.TurnOrder is not null) && monsters.All(m => m.TurnOrder is not null);
 
-        return allPlayersHaveTurnOrders ? turnOrders.OrderBy(to => to?.Order).ToList() : await CreateTurnOrdersAsync(campaignId);
+        return allPlayersHaveTurnOrders
+            ? turnOrders.OrderBy(to => to?.Order).ToList()
+            : await CreateTurnOrdersAsync(campaignId);
     }
 
     private async Task<List<TurnOrderDal>> CreateTurnOrdersAsync(int campaignId)
@@ -118,7 +168,9 @@ internal sealed class TurnFlowRepository : ITurnFlowRepository
         _context.TurnOrders.AddRange(turnOrders);
         await _context.SaveChangesAsync();
 
-        return turnOrders;
+        return turnOrders
+            .OrderBy(to => to.Order)
+            .ToList();
     }
 
     private static int GetRandomOrder(List<int> orders)

@@ -20,15 +20,15 @@ public class CurrentPlayerDtoMapper
         CurrentPlayerDto dto = new()
         {
             CampaignId = currentPlayer.CampaignId,
-            HeroId = currentPlayer.HeroId,
-            MonsterId = currentPlayer.MonsterId
+            HeroId = currentPlayer.Hero?.Id,
+            MonsterId = currentPlayer.Monster?.Id
         };
 
-        if (currentPlayer.HeroId is not null)
-            dto.Hero = await _heroesService.GetByIdAsync((int)currentPlayer.HeroId);
+        if (currentPlayer.Hero?.Id is not null)
+            dto.Hero = await _heroesService.GetByIdAsync(currentPlayer.Hero.Id);
 
-        else if (currentPlayer.MonsterId is not null)
-            dto.Monster = await _monstersService.GetByIdAsync((int)currentPlayer.MonsterId);
+        else if (currentPlayer.Monster?.Id is not null)
+            dto.Monster = await _monstersService.GetByIdAsync(currentPlayer.Monster.Id);
 
         return dto;
     }

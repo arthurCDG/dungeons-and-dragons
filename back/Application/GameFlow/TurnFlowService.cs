@@ -17,16 +17,16 @@ internal sealed class TurnFlowService : ITurnFlowService
     public async Task<bool> IsCurrentPlayerAsync(int campaignId, int playerId)
     {
         CurrentPlayer currentPlayer = await _turnFlowRepository.GetCurrentPlayerAsync(campaignId);
-        return currentPlayer.HeroId is not null
-            ? currentPlayer.HeroId == playerId
-            : currentPlayer.MonsterId == playerId;
+        return currentPlayer.Hero is not null
+            ? currentPlayer.Hero.Id == playerId
+            : currentPlayer.Monster!.Id == playerId;
     }
 
-    public Task<CurrentPlayer> GetCurrentPlayerIdAsync(int campaignId)
+    public Task<CurrentPlayer> GetCurrentPlayerAsync(int campaignId)
         => _turnFlowRepository.GetCurrentPlayerAsync(campaignId);
 
-    public Task<int> GetNextPlayerIdAsync(int campaignId)
-        => _turnFlowRepository.GetNextPlayerIdAsync(campaignId);
+    public Task<CurrentPlayer> GetNextCurrentPlayerAsync(int campaignId)
+        => _turnFlowRepository.GetNextCurrentPlayerAsync(campaignId);
 
     public Task EnableCurrentPlayerAsync(int campaignId)
         => _turnFlowRepository.EnableCurrentPlayerAsync(campaignId);

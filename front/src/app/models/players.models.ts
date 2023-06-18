@@ -10,6 +10,13 @@ export interface IPlayer {
 	footSteps: number;
 	imageUrl: string;
 	isDead: boolean;
+	turnOrder: ITurnOrder;
+	actions: IActions;
+	maxAttackCount: number;
+	maxHealCount: number;
+	maxFootStepsCount: number;
+	maxChestSearchCount: number;
+	maxTrapSearchCount: number;
 }
 
 export interface IHero extends IPlayer {
@@ -24,6 +31,22 @@ export interface IMonster extends IPlayer {
 	type: MonsterType;
 	storedItems: IStoredItem[];
 };
+
+export interface ITurnOrder {
+	order: number;
+	heroId?: number;
+	monsterId?: number;
+}
+
+export interface IActions {
+	remainingFootSteps: number;
+    remainingAttacks: number;
+    remainingHeals: number;
+    remainingChestSearch: number;
+    remainingTrapSearch: number;
+	heroId?: number;
+	monsterId?: number;
+}
 
 export interface IAttackPayload {
 	meleeAttack?: number;

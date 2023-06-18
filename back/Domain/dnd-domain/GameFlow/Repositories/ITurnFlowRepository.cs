@@ -6,6 +6,6 @@ namespace dnd_domain.GameFlow.Repositories;
 public interface ITurnFlowRepository
 {
     Task<CurrentPlayer> GetCurrentPlayerAsync(int campaignId);
-    Task<int> GetNextPlayerIdAsync(int campaignId);
+    Task<CurrentPlayer> GetNextCurrentPlayerAsync(int campaignId);
     Task EnableCurrentPlayerAsync(int campaignId);
 }

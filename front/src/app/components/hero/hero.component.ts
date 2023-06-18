@@ -11,7 +11,7 @@ import { IHero } from './../../../app/models/players.models';
 })
 export class HeroComponent implements OnInit, OnChanges {
 	@Input() hero: IHero;
-
+	
 	public isDead: boolean;
 
 	constructor() {}
