@@ -11,7 +11,7 @@ internal sealed class PlayerDal
     public int Id { get; set; }
     public int UserId { get; set; }
     public bool IsDead { get; set; } = false;
-    public int? SquareId { get; set; }
+    public int SquareId { get; set; }
 
     public PlayerProfileDal Profile { get; set; } = null!;
     public PlayerAttributesDal Attributes { get; set; } = null!;

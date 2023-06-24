@@ -12,6 +12,8 @@ public static class CampaignDtoMapper
             Id = campaign.Id,
             StartsAt = campaign.StartsAt,
             EndsAt = campaign.EndsAt,
-            Adventures = campaign.Adventures.Select(AdventureDtoMapper.ToDto).ToList()
+            Adventures = campaign.Adventures
+                .Select(a => AdventureDtoMapper.ToDto(a, campaign.Players))
+                .ToList()
         };
 }

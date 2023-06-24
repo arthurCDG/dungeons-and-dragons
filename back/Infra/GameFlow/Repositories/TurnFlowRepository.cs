@@ -92,11 +92,11 @@ internal sealed class TurnFlowRepository : ITurnFlowRepository
         await _context.SaveChangesAsync(); 
     }
 
-    private async Task<List<TurnOrderDal>> GetTurnOrdersAsync(int adventureId)
+    private async Task<List<TurnOrderDal>> GetTurnOrdersAsync(int campaignId)
     {
         List<PlayerDal> players = await _context.Players
             .Include(p => p.TurnOrder)
-            .Where(p => !p.IsDead && p.AdventureId == adventureId)
+            .Where(p => !p.IsDead && p.Campaigns.Any(c => c.Id == campaignId))
             .ToListAsync();
 
         List<TurnOrderDal> turnOrders = players.Select(p => p.TurnOrder).ToList();
@@ -105,19 +105,19 @@ internal sealed class TurnFlowRepository : ITurnFlowRepository
 
         return allPlayersHaveTurnOrders
             ? turnOrders.OrderBy(to => to?.Order).ToList()
-            : await CreateTurnOrdersAsync(adventureId);
+            : await CreateTurnOrdersAsync(campaignId);
     }
 
-    private async Task<List<TurnOrderDal>> CreateTurnOrdersAsync(int adventureId)
+    private async Task<List<TurnOrderDal>> CreateTurnOrdersAsync(int campaignId)
     {
         List<PlayerDal> heroes = await _context.Players
             .Include(p => p.Profile)
-            .Where(p => !p.IsDead && p.AdventureId == adventureId && p.Profile.Class.HasValue && p.Profile.Race.HasValue)
+            .Where(p => !p.IsDead && p.Campaigns.Any(c => c.Id == campaignId) && p.Profile.Class.HasValue && p.Profile.Race.HasValue)
             .ToListAsync();
 
         List<PlayerDal> monsters = await _context.Players
             .Include(p => p.Profile)
-            .Where(p => !p.IsDead && p.AdventureId == adventureId && p.Profile.MonsterType.HasValue)
+            .Where(p => !p.IsDead && p.Campaigns.Any(c => c.Id == campaignId) && p.Profile.MonsterType.HasValue)
             .ToListAsync();
 
         List<int> playersOrders = Enumerable.Range(1, heroes.Count).ToList();

@@ -28,8 +28,8 @@ public class UsersController : ControllerBase
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
-    public Task<List<User>> GetAsync([FromBody] int campaignId)
-         => _usersService.GetAsync(campaignId);
+    public Task<List<User>> GetAsync()
+         => _usersService.GetAsync();
 
     [HttpGet("{id}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
