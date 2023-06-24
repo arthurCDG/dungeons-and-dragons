@@ -16,5 +16,6 @@ public static class ApplicationExtensions
         services.AddScoped<IAttacksService, AttacksService>();
         services.AddScoped<ITurnFlowService, TurnFlowService>();
         services.AddScoped<IUsersService, UsersService>();
+        services.AddScoped<IPlayersService, PlayersService>();
     }
 }
