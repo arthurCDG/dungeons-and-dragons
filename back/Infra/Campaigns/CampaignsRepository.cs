@@ -4,9 +4,11 @@ using dnd_domain.Campaigns.Models;
 using dnd_infra.Campaigns.Adventures;
 using dnd_infra.Campaigns.Rooms;
 using dnd_infra.Campaigns.Rooms.Squares.DALs;
+using dnd_infra.Players.DALs;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace dnd_infra.Campaigns;
@@ -24,13 +26,12 @@ internal sealed class CampaignsRepository : ICampaignsRepository
     public async Task<Campaign> GetAsync(int campaignId)
     {
         CampaignDal dal = await _context.Campaigns
+            .Include(c => c.Players)
+                .ThenInclude(p => p.StoredItems)
             .Include(c => c.Adventures)
                 .ThenInclude(a => a.Rooms)
                     .ThenInclude(r => r.Squares)
                         .ThenInclude(s => s.Position)
-            .Include(c => c.Adventures)
-                .ThenInclude(a => a.Players)
-                    .ThenInclude(p => p.StoredItems)
             .SingleAsync(c => c.Id == campaignId);
 
         return dal.ToDomain();
@@ -57,6 +58,15 @@ internal sealed class CampaignsRepository : ICampaignsRepository
         {
             throw new InvalidProgramException($"Campaign could not be created because of this exception: {e}");
         }
+    }
+
+    public async Task UpdateAsync(int id, CampaignPayload campaignPayload)
+    {
+        CampaignDal campaign = await _context.Campaigns.SingleAsync(c => c.Id == id);
+        List<PlayerDal> players = await _context.Players.Where(p => campaignPayload.PlayerIds.Contains(p.Id)).ToListAsync();
+        
+        campaign.Players.AddRange(players);
+        await _context.SaveChangesAsync();
     }
 
     private async Task<AdventureDal> SeedAdventureAsync(int adventureId, AdventurePayload adventurePayload)

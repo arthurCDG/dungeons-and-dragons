@@ -19,4 +19,7 @@ internal sealed class CampaignsService : ICampaignsService
 
     public Task CreateAsync(CampaignPayload campaignPayload)
         => _campaignsRepository.CreateAsync(campaignPayload);
+
+    public Task UpdateAsync(int id, CampaignPayload campaignPayload)
+        => _campaignsRepository.UpdateAsync(id, campaignPayload);
 }

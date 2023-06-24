@@ -1,5 +1,6 @@
 ﻿using dnd_domain.Dice.Enums;
 using dnd_domain.Items.Enums;
+using dnd_domain.Items.Services;
 using dnd_infra.Dice;
 using dnd_infra.Items.DALs;
 using System;
@@ -9,16 +10,16 @@ using System.Threading.Tasks;
 
 namespace dnd_infra.Seeder;
 
-internal sealed class ItemsSeeder
+internal sealed class ItemsSeederService : IItemsSeederService
 {
     private readonly GlobalDbContext _context;
 
-    public ItemsSeeder(GlobalDbContext globalDbContext)
+    public ItemsSeederService(GlobalDbContext globalDbContext)
     {
         _context = globalDbContext ?? throw new ArgumentNullException(nameof(globalDbContext));
     }
 
-    public async Task SeedItemsAsync()
+    public async Task SeedAsync()
     {
         await SeedArtefactsAsync();
         await SeedChestTrapsAsync();
@@ -389,7 +390,7 @@ internal sealed class ItemsSeeder
             },
             new PotionDal
             {
-                Name = "Potion de restauration suprême",
+                Name = "Potion de résurrection suprême",
                 Description = "Ramenez un Héros à la vie et redonnez lui 4 points de vie et 4 points de sort, si possible.",
                 Explanation = "Vous devez être à côté du Héros mort pour utiliser cette potion.",
                 Level = 1,

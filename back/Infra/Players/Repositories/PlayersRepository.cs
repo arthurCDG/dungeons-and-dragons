@@ -12,20 +12,22 @@ namespace dnd_infra.Players.Repositories;
 internal sealed class PlayersRepository : IPlayersRepository
 {
     private readonly GlobalDbContext _context;
+    private readonly PlayersFactory _playersFactory;
 
-    public PlayersRepository(GlobalDbContext context)
+    public PlayersRepository(GlobalDbContext context, PlayersFactory playersFactory)
     {
         _context = context ?? throw new ArgumentNullException(nameof(context));
+        _playersFactory = playersFactory ?? throw new ArgumentNullException(nameof(playersFactory));
     }
 
-    public Task<List<Player>> GetAsync(int adventureId)
+    public Task<List<Player>> GetAsync(int campaignId)
         => _context.Players
             .Include(p => p.Profile)
             .Include(p => p.Attributes)
             .Include(p => p.MaxAttributes)
             .Include(p => p.StoredItems)
             .Include(p => p.TurnOrder)
-            .Where(h => h.AdventureId == adventureId)
+            .Where(h => h.Campaigns.Any(c => c.Id == campaignId))
             .Select(h => h.ToDomain())
             .ToListAsync();
 
@@ -39,6 +41,36 @@ internal sealed class PlayersRepository : IPlayersRepository
             .Where(h => h.Id == id)
             .Select(h => h.ToDomain())
             .SingleAsync();
+
+    public async Task<Player> CreateAsync(PlayerCreationPayload playerCreationPayload)
+    {
+        PlayerDal player = await _playersFactory.ForgePlayerAsync(playerCreationPayload);
+
+        _context.Players.Add(player);
+        await _context.SaveChangesAsync();
+
+        return player.ToDomain();
+    }
+
+    public async Task<Player> UpdateAsync(int id, PlayerPayload playerPayload)
+    {
+        PlayerDal dal = await _context.Players
+            .Include(p => p.Attributes)
+            .Include(p => p.Profile)
+            .SingleAsync(h => h.Id == id);
+
+        UpdatePlayer(dal, playerPayload);
+        return dal.ToDomain();
+    }
+
+    private static void UpdatePlayer(PlayerDal dal, PlayerPayload playerPayload)
+    {
+        dal.Attributes.LifePoints = playerPayload.LifePoints ?? dal.Attributes.LifePoints;
+        dal.Attributes.ManaPoints = playerPayload.ManaPoints ?? dal.Attributes.ManaPoints;
+        dal.Attributes.FootSteps = playerPayload.FootSteps ?? dal.Attributes.FootSteps;
+        dal.Attributes.Shield = playerPayload.Shield ?? dal.Attributes.Shield;
+        dal.Profile.ImageUrl = playerPayload.ImageUrl ?? dal.Profile.ImageUrl;
+    }
 
     public async Task<Player> AttackAsync(int id, AttackPayload attack)
     {
@@ -61,17 +93,6 @@ internal sealed class PlayersRepository : IPlayersRepository
         return player.ToDomain();
     }
 
-    public async Task<Player> UpdateAsync(int id, PlayerPayload playerPayload)
-    {
-        PlayerDal dal = await _context.Players
-            .Include(p => p.Attributes)
-            .Include(p => p.Profile)
-            .SingleAsync(h => h.Id == id);
-
-        UpdatePlayer(dal, playerPayload);
-        return dal.ToDomain();
-    }
-
     private static int ComputeLostLifePoints(AttackPayload attack, int shield)
     {
         if (attack.MeleeAttack is not null)
@@ -82,14 +103,5 @@ internal sealed class PlayersRepository : IPlayersRepository
         {
             return attack.RangeAttack ?? 0;
         }
-    }
-
-    private static void UpdatePlayer(PlayerDal dal, PlayerPayload playerPayload)
-    {
-        dal.Attributes.LifePoints = playerPayload.LifePoints ?? dal.Attributes.LifePoints;
-        dal.Attributes.ManaPoints = playerPayload.ManaPoints ?? dal.Attributes.ManaPoints;
-        dal.Attributes.FootSteps = playerPayload.FootSteps ?? dal.Attributes.FootSteps;
-        dal.Attributes.Shield = playerPayload.Shield ?? dal.Attributes.Shield;
-        dal.Profile.ImageUrl = playerPayload.ImageUrl ?? dal.Profile.ImageUrl;
     }
 }

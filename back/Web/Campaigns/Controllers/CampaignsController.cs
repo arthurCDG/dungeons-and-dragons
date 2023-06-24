@@ -26,13 +26,13 @@ public class CampaignsController : ControllerBase
         _campaignsService = campaignsService ?? throw new System.ArgumentNullException(nameof(campaignsService));
     }
 
-    [HttpGet("{campaignId}")]
+    [HttpGet("{id}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
-    public async Task<CampaignDto> GetAsync(int campaignId)
+    public async Task<CampaignDto> GetAsync(int id)
     {
-        Campaign campaign = await _campaignsService.GetAsync(campaignId);
+        Campaign campaign = await _campaignsService.GetAsync(id);
         return CampaignDtoMapper.ToDto(campaign);
     }
 
@@ -42,4 +42,11 @@ public class CampaignsController : ControllerBase
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
     public Task PostAsync([FromBody] CampaignPayload campaignPayload)
         => _campaignsService.CreateAsync(campaignPayload);
+
+    [HttpPatch("{id}")]
+    [ProducesResponseType(StatusCodes.Status201Created)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status403Forbidden)]
+    public Task UpdateAsync(int id, [FromBody] CampaignPayload campaignPayload)
+        => _campaignsService.UpdateAsync(id, campaignPayload);
 }

@@ -8,6 +8,7 @@ public interface IPlayersRepository
 {
     Task<List<Player>> GetAsync(int campaignId);
     Task<Player> GetByIdAsync(int id);
-    Task<Player> AttackAsync(int id, AttackPayload attack);
+    Task<Player> CreateAsync(PlayerCreationPayload playerCreationPayload);
     Task<Player> UpdateAsync(int id, PlayerPayload playerPayload);
+    Task<Player> AttackAsync(int id, AttackPayload attack);
 }

@@ -1,6 +1,7 @@
 ﻿using dnd_domain.Campaigns;
 using dnd_domain.Campaigns.Rooms.Squares.Repositories;
 using dnd_domain.GameFlow.Repositories;
+using dnd_domain.Items.Services;
 using dnd_domain.Players.Repositories;
 using dnd_domain.Users;
 using dnd_infra.Campaigns;
@@ -25,8 +26,8 @@ public static class InfraExtensions
         services.AddScoped<IPlayersRepository, PlayersRepository>();
         services.AddScoped<IUsersRepository, UsersRepository>();
 
-        services.AddScoped<ItemsSeeder>();
-        services.AddScoped<PlayersSeeder>();
+        services.AddScoped<IItemsSeederService,ItemsSeederService>();
+        services.AddScoped<PlayersFactory>();
 
         services.AddScoped<ITurnFlowRepository, TurnFlowRepository>();
     }
