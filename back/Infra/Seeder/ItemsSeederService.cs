@@ -525,7 +525,7 @@ internal sealed class ItemsSeederService : IItemsSeederService
                 Explanation = "",
                 Level = 2,
                 ImageUrl = "",
-                WeaponType = WeaponType.RangedWeapon,
+                Type = WeaponType.RangedWeapon,
                 Dice = new()
                 {
                     new DieAssociationDal() { DieType = DieType.YellowDie },
@@ -540,7 +540,7 @@ internal sealed class ItemsSeederService : IItemsSeederService
                 Explanation = "",
                 Level = 1,
                 ImageUrl = "",
-                WeaponType = WeaponType.RangedWeapon,
+                Type = WeaponType.RangedWeapon,
                 Dice = new()
                 {
                     new DieAssociationDal() { DieType = DieType.YellowDie },
@@ -556,7 +556,7 @@ internal sealed class ItemsSeederService : IItemsSeederService
                 Explanation = "",
                 Level = 1,
                 ImageUrl = "",
-                WeaponType = WeaponType.HeavyMeleeWeapon,
+                Type = WeaponType.HeavyMeleeWeapon,
                 Dice = new()
                 {
                     new DieAssociationDal() { DieType = DieType.OrangeDie }
@@ -569,7 +569,7 @@ internal sealed class ItemsSeederService : IItemsSeederService
                 Explanation = "",
                 Level = 1,
                 ImageUrl = "",
-                WeaponType = WeaponType.RangedWeapon,
+                Type = WeaponType.RangedWeapon,
                 Dice = new()
                 {
                     new DieAssociationDal() { DieType = DieType.YellowDie },
@@ -585,7 +585,7 @@ internal sealed class ItemsSeederService : IItemsSeederService
                 Explanation = "",
                 Level = 1,
                 ImageUrl = "",
-                WeaponType = WeaponType.RangedWeapon,
+                Type = WeaponType.RangedWeapon,
                 Dice = new()
                 {
                     new DieAssociationDal() { DieType = DieType.YellowDie },
@@ -599,7 +599,7 @@ internal sealed class ItemsSeederService : IItemsSeederService
                 Explanation = "",
                 Level = 1,
                 ImageUrl = "",
-                WeaponType = WeaponType.HeavyMeleeWeapon,
+                Type = WeaponType.HeavyMeleeWeapon,
                 Dice = new()
                 {
                     new DieAssociationDal() { DieType = DieType.YellowDie },
@@ -614,7 +614,7 @@ internal sealed class ItemsSeederService : IItemsSeederService
                 Explanation = "",
                 Level = 1,
                 ImageUrl = "",
-                WeaponType = WeaponType.MediumMeleeWeapon,
+                Type = WeaponType.MediumMeleeWeapon,
                 Dice = new()
                 {
                     new DieAssociationDal() { DieType = DieType.YellowDie },
@@ -628,7 +628,7 @@ internal sealed class ItemsSeederService : IItemsSeederService
                 Explanation = "",
                 Level = 1,
                 ImageUrl = "",
-                WeaponType = WeaponType.RangedWeapon,
+                Type = WeaponType.RangedWeapon,
                 Dice = new()
                 {
                     new DieAssociationDal() { DieType = DieType.YellowDie },
@@ -642,7 +642,7 @@ internal sealed class ItemsSeederService : IItemsSeederService
                 Explanation = "",
                 Level = 1,
                 ImageUrl = "",
-                WeaponType = WeaponType.LightMeleeWeapon,
+                Type = WeaponType.LightMeleeWeapon,
                 Dice = new()
                 {
                     new DieAssociationDal() { DieType = DieType.YellowDie },

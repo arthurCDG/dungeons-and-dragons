@@ -7,7 +7,7 @@ namespace dnd_infra.Items.DALs;
 
 internal sealed class WeaponDal : ItemDal
 {
-    public WeaponType WeaponType { get; set; } = new();
+    public WeaponType Type { get; set; } = new();
     public List<DieAssociationDal> Dice { get; set; } = new();
     public List<WeaponEffectDal> Effects { get; set; } = new();
 
@@ -25,7 +25,7 @@ internal sealed class WeaponDal : ItemDal
             Name = Name,
             StarDieEffect = StarDieEffect,
             CanRerollOneDie = CanRerollOneDie,
-            WeaponType = WeaponType,
+            Type = Type,
             SuperAttack = SuperAttack?.ToDomain(),
             Dice = Dice.ConvertAll(d => d.ToDomain()),
             Effects = Effects.ConvertAll(e => e.ToDomain())

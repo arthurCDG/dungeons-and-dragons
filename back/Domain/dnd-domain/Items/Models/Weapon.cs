@@ -6,7 +6,7 @@ namespace dnd_domain.Items.Models;
 
 public class Weapon : Item
 {
-    public WeaponType WeaponType { get; set; } = new();
+    public WeaponType Type { get; set; } = new();
     public List<DieAssociation> Dice { get; set; } = new();
     public List<WeaponEffect> Effects { get; set; } = new();
 
