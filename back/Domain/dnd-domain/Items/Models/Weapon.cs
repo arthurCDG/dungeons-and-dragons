@@ -12,5 +12,4 @@ public class Weapon : Item
 
     public WeaponSuperAttack? SuperAttack { get; set; }
     public bool? CanRerollOneDie { get; set; }
-    public StarDieEffectType? StarDieEffect { get; set; }
 }

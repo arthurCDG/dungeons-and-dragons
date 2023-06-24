@@ -7,11 +7,9 @@ namespace dnd_infra.Users;
 internal sealed class UserDal
 {
     public int Id { get; set; }
-    public string FirstName { get; set; } = string.Empty;
-    public string LastName { get; set; } = string.Empty;
-
+    public string Name { get; set; } = string.Empty;
+    public string Password { get; set; } = string.Empty;
     public string? PictureUrl { get; set; }
-    public string? NickName { get; set; }
 
     public List<PlayerDal> Players { get; set; } = new();
 
@@ -19,10 +17,9 @@ internal sealed class UserDal
         => new()
         {
             Id = Id,
-            FirstName = FirstName,
-            LastName = LastName,
+            Password = Password,
             PictureUrl = PictureUrl,
-            NickName = NickName,
+            Name = Name,
             Players = Players.ConvertAll(p => p.ToDomain())
         };
 }

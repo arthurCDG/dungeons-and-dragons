@@ -14,5 +14,5 @@ public abstract class Item
 
     public bool? DiscardAfterUsage { get; set; }
     public bool? CastDieToDiscardAfterUsage { get; set; }
-    public StarDieEffectType? StarDieEffectType { get; set; }
+    public StarDieEffectType? StarDieEffect { get; set; }
 }

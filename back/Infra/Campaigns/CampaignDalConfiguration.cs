@@ -1,5 +1,4 @@
-﻿using dnd_infra.Users;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace dnd_infra.Campaigns;
@@ -18,10 +17,8 @@ internal sealed class CampaignDalConfiguration : IEntityTypeConfiguration<Campai
         builder.Property(campaign => campaign.EndsAt)
              .HasColumnType("datetime2(2)");
 
-        builder.HasMany<UserCampaignAssociationDal>()
-            .WithOne()
-            .HasForeignKey(uca => uca.CampaignId)
-            .OnDelete(DeleteBehavior.Restrict);
+        builder.HasMany(c => c.Players)
+            .WithMany(u => u.Campaigns);
 
         builder.HasMany(campaign => campaign.Adventures)
             .WithOne()

@@ -15,10 +15,5 @@ internal sealed class UserDalConfiguration : IEntityTypeConfiguration<UserDal>
             .WithOne()
             .HasForeignKey(p => p.UserId)
             .OnDelete(DeleteBehavior.Restrict);
-
-        builder.HasMany<UserCampaignAssociationDal>()
-            .WithOne()
-            .HasForeignKey(uca => uca.UserId)
-            .OnDelete(DeleteBehavior.Restrict);
     }
 }

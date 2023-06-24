@@ -1,16 +1,12 @@
 ﻿using dnd_domain.Campaigns;
 using dnd_domain.Campaigns.Enums;
 using dnd_domain.Campaigns.Models;
-using dnd_domain.Users;
 using dnd_infra.Campaigns.Adventures;
 using dnd_infra.Campaigns.Rooms;
 using dnd_infra.Campaigns.Rooms.Squares.DALs;
-using dnd_infra.Seeder;
-using dnd_infra.Users;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace dnd_infra.Campaigns;
@@ -18,16 +14,11 @@ namespace dnd_infra.Campaigns;
 internal sealed class CampaignsRepository : ICampaignsRepository
 {
     private readonly GlobalDbContext _context;
-    private readonly ItemsSeeder _itemsSeeder;
-    private readonly PlayersSeeder _playersSeeder;
-    private readonly IUsersRepository _usersRepository;
 
-    public CampaignsRepository(GlobalDbContext context, ItemsSeeder itemsSeeder, PlayersSeeder playersSeeder, IUsersRepository usersRepository)
+
+    public CampaignsRepository(GlobalDbContext context)
     {
         _context = context ?? throw new ArgumentNullException(nameof(context));
-        _itemsSeeder = itemsSeeder ?? throw new ArgumentNullException(nameof(itemsSeeder));
-        _playersSeeder = playersSeeder ?? throw new ArgumentNullException(nameof(playersSeeder));
-        _usersRepository = usersRepository ?? throw new ArgumentNullException(nameof(usersRepository));
     }
 
     public async Task<Campaign> GetAsync(int campaignId)
@@ -49,26 +40,18 @@ internal sealed class CampaignsRepository : ICampaignsRepository
     {
         try
         {
-            List<UserDal> users = await _context.Users.Where(u => campaignPayload.UserIds.Contains(u.Id)).ToListAsync();
-
             CampaignDal campaign = new()
             {
-                Name = campaignPayload.Name,
-                Level = campaignPayload.Level,
-                StartsAt = DateTime.UtcNow,
-                AssociatedUsers = users.Select(u => new UserCampaignAssociationDal() { UserId = u.Id }).ToList()
+                Type = campaignPayload.Type,
+                StartsAt = DateTime.UtcNow
             };
 
             _context.Campaigns.Add(campaign);
             await _context.SaveChangesAsync();
 
-            // Seed First adventure - will have to see how to do this when we have 10+ adventures
             AdventureDal adventure = await SeedAdventureAsync(campaign.Id, campaignPayload.AdventurePayload);
             campaign.Adventures.Add(adventure);
             await _context.SaveChangesAsync();
-
-            await _itemsSeeder.SeedItemsAsync(); // Should be seeded once in DB and that's it ?
-            await _playersSeeder.SeedPlayersAsync(adventure.Id);
         }
         catch (Exception e)
         {

@@ -19,10 +19,5 @@ internal class AdventureDalConfiguration : IEntityTypeConfiguration<AdventureDal
             .WithOne()
             .HasForeignKey(room => room.AdventureId)
             .OnDelete(DeleteBehavior.Restrict);
-
-        builder.HasMany(adventure => adventure.Players)
-            .WithOne()
-            .HasForeignKey(player => player.AdventureId)
-            .OnDelete(DeleteBehavior.Restrict);
     }
 }

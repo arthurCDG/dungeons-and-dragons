@@ -1,4 +1,5 @@
-﻿using dnd_domain.Players.Services;
+﻿using dnd_domain.Items.Services;
+using dnd_domain.Players.Services;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace dnd_infra;
