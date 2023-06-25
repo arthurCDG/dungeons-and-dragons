@@ -6,6 +6,7 @@ internal sealed class TurnOrderDal
 {
     public int Id { get; set; }
     public int PlayerId { get; set; }
+    public int AdventureId { get; set; }
     public int Order { get; set; }
 
     public TurnOrder ToDomain()
@@ -13,6 +14,7 @@ internal sealed class TurnOrderDal
         {
             Id = Id,
             PlayerId = PlayerId,
+            AdventureId = AdventureId,
             Order = Order
         };
 }

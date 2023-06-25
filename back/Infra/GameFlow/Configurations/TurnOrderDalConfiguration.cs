@@ -1,4 +1,5 @@
-﻿using dnd_infra.GameFlow.DALs;
+﻿using dnd_infra.Campaigns.Adventures;
+using dnd_infra.GameFlow.DALs;
 using dnd_infra.Players.DALs;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -16,6 +17,11 @@ internal sealed class TurnOrderDalConfiguration : IEntityTypeConfiguration<TurnO
         builder.HasOne<PlayerDal>()
             .WithOne(h => h.TurnOrder)
             .HasForeignKey<TurnOrderDal>(turnOrder => turnOrder.PlayerId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasOne<AdventureDal>()
+            .WithMany()
+            .HasForeignKey(to => to.AdventureId)
             .OnDelete(DeleteBehavior.Restrict);
     }
 }

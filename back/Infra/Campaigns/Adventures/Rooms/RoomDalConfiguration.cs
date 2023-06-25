@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace dnd_infra.Campaigns.Rooms;
+namespace dnd_infra.Campaigns.Adventures.Rooms;
 internal sealed class RoomDalConfiguration : IEntityTypeConfiguration<RoomDal>
 {
     public void Configure(EntityTypeBuilder<RoomDal> builder)

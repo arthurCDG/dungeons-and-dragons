@@ -1,6 +1,6 @@
 ﻿using dnd_domain.Campaigns.Models;
 
-namespace dnd_infra.Campaigns.Rooms.Squares.DALs;
+namespace dnd_infra.Campaigns.Adventures.Rooms.Squares.DALs;
 
 internal sealed class PositionDal
 {
@@ -11,7 +11,7 @@ internal sealed class PositionDal
 
     public Position ToDomain()
         => new()
-        { 
+        {
             Id = Id,
             SquareId = SquareId,
             X = X,

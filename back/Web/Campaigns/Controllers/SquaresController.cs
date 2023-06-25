@@ -1,12 +1,10 @@
-﻿using dnd_domain.Campaigns.Models;
+﻿using dnd_application.Campaigns.Adventures.Rooms.Squares;
 using dnd_domain.Players.Models;
-using dnd_application.Campaigns.Rooms.Squares;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 using Swashbuckle.AspNetCore.Annotations;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace dungeons_and_dragons.Campaigns.Controllers;
@@ -25,12 +23,12 @@ public class SquaresController : ControllerBase
         _squaresService = squaresService ?? throw new System.ArgumentNullException(nameof(squaresService));
     }
 
-    [HttpGet]
-    [ProducesResponseType(StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    [ProducesResponseType(StatusCodes.Status403Forbidden)]
-    public Task<List<Square>> GetAsync(int campaignId)
-        => _squaresService.GetAsync(campaignId);
+    //[HttpGet]
+    //[ProducesResponseType(StatusCodes.Status200OK)]
+    //[ProducesResponseType(StatusCodes.Status400BadRequest)]
+    //[ProducesResponseType(StatusCodes.Status403Forbidden)]
+    //public Task<List<Square>> GetAsync(int campaignId)
+    //    => _squaresService.GetAsync(campaignId);
 
     [HttpGet("{squareId}")]
     [ProducesResponseType(StatusCodes.Status200OK)]

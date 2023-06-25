@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Threading.Tasks;
 
-namespace dnd_infra.Campaigns.Rooms.Squares.Repositories;
+namespace dnd_infra.Campaigns.Adventures.Rooms.Squares.Repositories;
 
 internal sealed class SquareMovementRepository : ISquareMovementRepository
 {
@@ -20,10 +20,10 @@ internal sealed class SquareMovementRepository : ISquareMovementRepository
     public async Task<Movement> MoveToSquareAsync(MovementRequestPayload movementRequest)
     {
         PlayerDal playerDal = await _context.Players.FirstAsync(h => h.Id == movementRequest.PlayerId);
-        int formerSquareId = playerDal.SquareId;
+        int formerSquareId = (int)playerDal.SquareId!; // TODO - validation in service before
         playerDal.SquareId = movementRequest.SquareId;
         await _context.SaveChangesAsync();
 
-        return new Movement { PlayerId = playerDal.Id, FormerSquareId = formerSquareId, NewSquareId = playerDal.SquareId };
+        return new Movement { PlayerId = playerDal.Id, FormerSquareId = formerSquareId, NewSquareId = (int)playerDal.SquareId };
     }
 }

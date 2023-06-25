@@ -5,6 +5,7 @@ namespace dnd_domain.Players.Models;
 public class PlayerProfile
 {
     public int Id { get; set; }
+    public int PlayerId { get; set; }
     public string FirstName { get; set; } = string.Empty;
     public string LastName { get; set; } = string.Empty;
     public PlayerGender Gender { get; set; }

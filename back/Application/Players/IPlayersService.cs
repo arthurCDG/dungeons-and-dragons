@@ -6,4 +6,5 @@ namespace dnd_application.Players;
 public interface IPlayersService
 {
     Task<Player> CreateAsync(PlayerCreationPayload playerCreationPayload);
+    Task CreateDungeonMasterAsync(int campaignId, PlayerCreationPayload playerCreationPayload);
 }

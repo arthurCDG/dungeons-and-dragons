@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace dnd_application.Campaigns.Rooms.Squares;
+namespace dnd_application.Campaigns.Adventures.Rooms.Squares;
 
 internal sealed class SquaresService : ISquaresService
 {
@@ -20,4 +20,7 @@ internal sealed class SquaresService : ISquaresService
         => _squaresRepository.GetAsync(campaignId);
     public Task<Player?> GetSquarePlayerIfAnyAsync(int squareId)
         => _squaresRepository.GetSquarePlayerIfAnyAsync(squareId);
+
+    public Task PlaceHeroesOnSquaresAsync(int campaignId)
+        => _squaresRepository.PlaceHeroesOnSquaresAsync(campaignId);
 }

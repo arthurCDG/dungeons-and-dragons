@@ -6,6 +6,7 @@ namespace dnd_infra.Players.DALs;
 internal sealed class PlayerProfileDal
 {
     public int Id { get; set; }
+    public int PlayerId { get; set; }
     public string FirstName { get; set; } = string.Empty;
     public string LastName { get; set; } = string.Empty;
     public PlayerGender Gender { get; set; }
@@ -19,6 +20,7 @@ internal sealed class PlayerProfileDal
         => new()
         {
             Id = Id,
+            PlayerId = PlayerId,
             FirstName = FirstName,
             LastName = LastName,
             Gender = Gender,

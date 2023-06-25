@@ -1,6 +1,6 @@
 ﻿using dnd_infra.Campaigns.Adventures;
-using dnd_infra.Campaigns.Rooms;
-using dnd_infra.Campaigns.Rooms.Squares.Configurations;
+using dnd_infra.Campaigns.Adventures.Rooms;
+using dnd_infra.Campaigns.Adventures.Rooms.Squares.Configurations;
 using Microsoft.EntityFrameworkCore;
 
 namespace dnd_infra.Campaigns;

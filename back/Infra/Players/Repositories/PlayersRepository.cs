@@ -1,5 +1,7 @@
-﻿using dnd_domain.Players.Models;
+﻿using dnd_domain.Campaigns.Models;
+using dnd_domain.Players.Models;
 using dnd_domain.Players.Repositories;
+using dnd_infra.Campaigns;
 using dnd_infra.Players.DALs;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -50,6 +52,28 @@ internal sealed class PlayersRepository : IPlayersRepository
         await _context.SaveChangesAsync();
 
         return player.ToDomain();
+    }
+
+    public Task SeedMonstersAsync(int campaignId, AdventurePayload adventurePayload)
+        => _playersFactory.ForgeMonstersFromAdventureAsync(campaignId, adventurePayload.Adventure);
+
+    public async Task CreateDungeonMasterAsync(int campaignId, PlayerCreationPayload playerCreationPayload)
+    {
+        CampaignDal campaign = await _context.Campaigns
+            .Include(c => c.Players)
+                .ThenInclude(p => p.Profile)
+            .FirstAsync(c => c.Id == campaignId);
+
+        List<PlayerDal> players = campaign.Players
+            .Where(p => p.Profile.MonsterType != null)
+            .ToList();
+
+        foreach (PlayerDal player in players)
+        {
+            player.UserId = playerCreationPayload.UserId;
+        }
+
+        await _context.SaveChangesAsync();
     }
 
     public async Task<Player> UpdateAsync(int id, PlayerPayload playerPayload)

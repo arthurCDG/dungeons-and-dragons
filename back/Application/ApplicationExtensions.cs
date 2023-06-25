@@ -1,5 +1,6 @@
 ﻿using dnd_application.Campaigns;
-using dnd_application.Campaigns.Rooms.Squares;
+using dnd_application.Campaigns.Adventures;
+using dnd_application.Campaigns.Adventures.Rooms.Squares;
 using dnd_application.GameFlow;
 using dnd_application.Players;
 using dnd_application.Users;
@@ -17,5 +18,6 @@ public static class ApplicationExtensions
         services.AddScoped<ITurnFlowService, TurnFlowService>();
         services.AddScoped<IUsersService, UsersService>();
         services.AddScoped<IPlayersService, PlayersService>();
+        services.AddScoped<IAdventuresService, AdventuresService>();
     }
 }

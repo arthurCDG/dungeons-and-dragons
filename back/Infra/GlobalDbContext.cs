@@ -1,7 +1,7 @@
 ﻿using dnd_infra.Campaigns;
 using dnd_infra.Campaigns.Adventures;
-using dnd_infra.Campaigns.Rooms;
-using dnd_infra.Campaigns.Rooms.Squares.DALs;
+using dnd_infra.Campaigns.Adventures.Rooms;
+using dnd_infra.Campaigns.Adventures.Rooms.Squares.DALs;
 using dnd_infra.Dice;
 using dnd_infra.GameFlow.Configurations;
 using dnd_infra.GameFlow.DALs;

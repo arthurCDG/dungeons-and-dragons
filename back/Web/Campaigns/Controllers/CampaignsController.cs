@@ -20,10 +20,12 @@ public class CampaignsController : ControllerBase
     public const string Route = "api/campaigns";
 
     private readonly ICampaignsService _campaignsService;
+    private readonly CampaignDtoMapper _campaignDtoMapper;
 
-    public CampaignsController(ICampaignsService campaignsService)
+    public CampaignsController(ICampaignsService campaignsService, CampaignDtoMapper campaignDtoMapper)
     {
         _campaignsService = campaignsService ?? throw new System.ArgumentNullException(nameof(campaignsService));
+        _campaignDtoMapper = campaignDtoMapper ?? throw new System.ArgumentNullException(nameof(campaignDtoMapper));
     }
 
     [HttpGet("{id}")]
@@ -33,7 +35,7 @@ public class CampaignsController : ControllerBase
     public async Task<CampaignDto> GetAsync(int id)
     {
         Campaign campaign = await _campaignsService.GetAsync(id);
-        return CampaignDtoMapper.ToDto(campaign);
+        return _campaignDtoMapper.ToDto(campaign);
     }
 
     [HttpPost]

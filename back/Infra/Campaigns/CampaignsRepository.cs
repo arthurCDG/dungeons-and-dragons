@@ -1,9 +1,11 @@
 ﻿using dnd_domain.Campaigns;
 using dnd_domain.Campaigns.Enums;
 using dnd_domain.Campaigns.Models;
+using dnd_domain.Players.Models;
+using dnd_domain.Players.Repositories;
 using dnd_infra.Campaigns.Adventures;
-using dnd_infra.Campaigns.Rooms;
-using dnd_infra.Campaigns.Rooms.Squares.DALs;
+using dnd_infra.Campaigns.Adventures.Rooms;
+using dnd_infra.Campaigns.Adventures.Rooms.Squares.DALs;
 using dnd_infra.Players.DALs;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -16,11 +18,12 @@ namespace dnd_infra.Campaigns;
 internal sealed class CampaignsRepository : ICampaignsRepository
 {
     private readonly GlobalDbContext _context;
+    private readonly IPlayersRepository _playersRepository;
 
-
-    public CampaignsRepository(GlobalDbContext context)
+    public CampaignsRepository(GlobalDbContext context, IPlayersRepository playersRepository)
     {
         _context = context ?? throw new ArgumentNullException(nameof(context));
+        _playersRepository = playersRepository ?? throw new ArgumentNullException(nameof(playersRepository));
     }
 
     public async Task<Campaign> GetAsync(int campaignId)
@@ -37,6 +40,22 @@ internal sealed class CampaignsRepository : ICampaignsRepository
         return dal.ToDomain();
     }
 
+    public Task<Campaign> GetFromAdventureAsync(int adventureId)
+        => _context.Campaigns
+        .Where(c => c.Adventures.Any(a => a.Id == adventureId))
+        .Select(c => c.ToDomain())
+        .SingleAsync();
+
+    public async Task<List<Player>> GetPlayersAsync(int id)
+    {
+        CampaignDal campaign = await _context.Campaigns.SingleAsync(c => c.Id == id);
+
+        return await _context.Players
+            .Where(p => campaign.Players.Contains(p))
+            .Select(p => p.ToDomain())
+            .ToListAsync();
+    }
+
     public async Task CreateAsync(CampaignPayload campaignPayload)
     {
         try
@@ -50,9 +69,7 @@ internal sealed class CampaignsRepository : ICampaignsRepository
             _context.Campaigns.Add(campaign);
             await _context.SaveChangesAsync();
 
-            AdventureDal adventure = await SeedAdventureAsync(campaign.Id, campaignPayload.AdventurePayload);
-            campaign.Adventures.Add(adventure);
-            await _context.SaveChangesAsync();
+            await SeedAdventureAsync(campaign.Id, campaignPayload.AdventurePayload);
         }
         catch (Exception e)
         {
@@ -69,16 +86,23 @@ internal sealed class CampaignsRepository : ICampaignsRepository
         await _context.SaveChangesAsync();
     }
 
-    private async Task<AdventureDal> SeedAdventureAsync(int adventureId, AdventurePayload adventurePayload)
+    private async Task<AdventureDal> SeedAdventureAsync(int campaignId, AdventurePayload adventurePayload)
     {
-        AdventureDal adventureDal = new()
+        AdventureDal adventure = new()
         {
             Name = GetAdventureName(adventurePayload.Adventure),
             Type = adventurePayload.Adventure,
-            Rooms = await SeedRoomsAsync(adventureId, adventurePayload.Adventure)
+            CampaignId = campaignId,
+            IsActive = true
         };
 
-        return adventureDal;
+        _context.Adventures.Add(adventure);
+        await _context.SaveChangesAsync();
+
+        await SeedRoomsAsync(adventure.Id, adventurePayload.Adventure);
+        await _playersRepository.SeedMonstersAsync(campaignId, adventurePayload);
+
+        return adventure;
     }
 
     private static string GetAdventureName(AdventureType adventure)
@@ -95,7 +119,7 @@ internal sealed class CampaignsRepository : ICampaignsRepository
             _ => throw new InvalidOperationException($"Unknown adventure: {adventure}")
         };
 
-private async Task<List<RoomDal>> GetGoblinBanditsRoomsAsync(int adventureId)
+    private async Task<List<RoomDal>> GetGoblinBanditsRoomsAsync(int adventureId)
     {
         RoomDal disabledRoom = new() { AdventureId = adventureId };
         RoomDal bottomLeftRoom = new() { AdventureId = adventureId };

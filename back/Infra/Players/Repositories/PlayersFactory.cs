@@ -1,8 +1,8 @@
 ﻿using dnd_domain.Campaigns.Enums;
 using dnd_domain.Players.Enums;
 using dnd_domain.Players.Models;
-using dnd_infra.Campaigns.Rooms;
-using dnd_infra.Campaigns.Rooms.Squares.DALs;
+using dnd_infra.Campaigns;
+using dnd_infra.Campaigns.Adventures.Rooms.Squares.DALs;
 using dnd_infra.Items.DALs;
 using dnd_infra.Players.DALs;
 using Microsoft.EntityFrameworkCore;
@@ -39,20 +39,35 @@ internal sealed class PlayersFactory
         };
     }
 
-    public async Task ForgeMonstersFromAdventureAsync(int adventureId, AdventureType adventureType)
+    public async Task ForgeMonstersFromAdventureAsync(int campaignId, AdventureType adventureType)
     {
+        CampaignDal campaign = await _context.Campaigns
+            .Include(c => c.Adventures)
+                .ThenInclude(a => a.Rooms)
+                    .ThenInclude(r => r.Squares)
+                        .ThenInclude(s => s.Position)
+            .FirstAsync(c => c.Id == campaignId); // Includes
+
+        List<SquareDal> squares = campaign.Adventures
+            .Where(a => a.IsActive)
+            .SelectMany(a => a.Rooms)
+            .SelectMany(r => r.Squares)
+            .ToList();
+
         List<WeaponDal> weapons = await _context.Weapons.ToListAsync();
-        List<RoomDal> rooms = await _context.Rooms.Where(r => r.AdventureId == adventureId).ToListAsync();
-        List<SquareDal> squares = rooms.SelectMany(r => r.Squares).ToList();
+        List<PlayerDal> monsters = new();
 
         switch (adventureType)
         {
             case AdventureType.GoblinBandits:
-                await SeedGoblinBanditsAdventureMonstersAsync(weapons, squares);
+                monsters = ForgeGoblinBanditsAdventureMonsters(weapons, squares);
                 break;
             default:
                 throw new InvalidOperationException($"Unknown adventure type: {adventureType}.");
         }
+
+        campaign.Players.AddRange(monsters);
+        await _context.SaveChangesAsync();
     }
 
     private static PlayerDal ForgeRegdar(PlayerCreationPayload payload, List<ArtefactDal> artefacts, List<SpellDal> spells, List<WeaponDal> weapons)
@@ -207,9 +222,8 @@ internal sealed class PlayersFactory
         throw new NotImplementedException($"Custom player creation is not yet implemented. Soon to be released.");
     }
 
-    private async Task SeedGoblinBanditsAdventureMonstersAsync(List<WeaponDal> weapons, List<SquareDal> squares)
-    {
-        List<PlayerDal> monsters = new()
+    private static List<PlayerDal> ForgeGoblinBanditsAdventureMonsters(List<WeaponDal> weapons, List<SquareDal> squares)
+        => new()
         {
             new PlayerDal
             {
@@ -386,8 +400,4 @@ internal sealed class PlayersFactory
                 }
             }
         };
-
-        _context.AddRange(monsters);
-        await _context.SaveChangesAsync();
-    }
 }

@@ -1,19 +1,28 @@
 ﻿using dnd_domain.Campaigns.Models;
 using dungeons_and_dragons.Campaigns.DTOs;
-using System.Linq;
+using System.Collections.Generic;
 
 namespace dungeons_and_dragons.Campaigns.Mappers;
 
-public static class CampaignDtoMapper
+public class CampaignDtoMapper
 {
-    public static CampaignDto ToDto(Campaign campaign)
-        => new()
+    private readonly AdventureDtoMapper _adventureDtoMapper;
+
+    public CampaignDtoMapper(AdventureDtoMapper adventureDtoMapper)
+    {
+        _adventureDtoMapper = adventureDtoMapper ?? throw new System.ArgumentNullException(nameof(adventureDtoMapper));
+    }
+
+    public CampaignDto ToDto(Campaign campaign)
+    {
+        List<AdventureDto> adventures = _adventureDtoMapper.ToDtos(campaign);
+
+        return new()
         {
             Id = campaign.Id,
             StartsAt = campaign.StartsAt,
             EndsAt = campaign.EndsAt,
-            Adventures = campaign.Adventures
-                .Select(a => AdventureDtoMapper.ToDto(a, campaign.Players))
-                .ToList()
+            Adventures = adventures
         };
+    }
 }

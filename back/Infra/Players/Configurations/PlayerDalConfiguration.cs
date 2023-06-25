@@ -1,4 +1,4 @@
-﻿using dnd_infra.Campaigns.Rooms.Squares.DALs;
+﻿using dnd_infra.Campaigns.Adventures.Rooms.Squares.DALs;
 using dnd_infra.Players.DALs;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -12,6 +12,21 @@ internal sealed class PlayerDalConfiguration : IEntityTypeConfiguration<PlayerDa
         builder.ToTable("Players", ProjectSchema.Players);
 
         builder.HasKey(p => p.Id);
+
+        builder.HasOne(p => p.Profile)
+            .WithOne()
+            .HasForeignKey<PlayerProfileDal>(pp => pp.PlayerId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        builder.HasOne(p => p.Attributes)
+            .WithOne()
+            .HasForeignKey<PlayerAttributesDal>(pp => pp.PlayerId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        builder.HasOne(p => p.MaxAttributes)
+            .WithOne()
+            .HasForeignKey<PlayerMaxAttributesDal>(pp => pp.PlayerId)
+            .OnDelete(DeleteBehavior.Cascade);
 
         builder.HasOne<SquareDal>()
             .WithOne()

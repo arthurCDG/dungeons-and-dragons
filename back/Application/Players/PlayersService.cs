@@ -16,4 +16,8 @@ internal sealed class PlayersService : IPlayersService
 
     public Task<Player> CreateAsync(PlayerCreationPayload playerCreationPayload)
         => _playersRepository.CreateAsync(playerCreationPayload);
+
+    public Task CreateDungeonMasterAsync(int campaignId, PlayerCreationPayload playerCreationPayload)
+        => _playersRepository.CreateDungeonMasterAsync(campaignId, playerCreationPayload);
+
 }

@@ -1,11 +1,13 @@
 ﻿using dnd_domain.Campaigns;
+using dnd_domain.Campaigns.Adventures;
 using dnd_domain.Campaigns.Rooms.Squares.Repositories;
 using dnd_domain.GameFlow.Repositories;
 using dnd_domain.Items.Services;
 using dnd_domain.Players.Repositories;
 using dnd_domain.Users;
 using dnd_infra.Campaigns;
-using dnd_infra.Campaigns.Rooms.Squares.Repositories;
+using dnd_infra.Campaigns.Adventures;
+using dnd_infra.Campaigns.Adventures.Rooms.Squares.Repositories;
 using dnd_infra.GameFlow.Repositories;
 using dnd_infra.Players.Repositories;
 using dnd_infra.Seeder;
@@ -21,13 +23,15 @@ public static class InfraExtensions
         services.AddDbContext<GlobalDbContext>();
 
         services.AddScoped<ICampaignsRepository, CampaignsRepository>();
+        services.AddScoped<IAdventuresRepository, AdventuresRepository>();
         services.AddScoped<ISquareMovementRepository, SquareMovementRepository>();
         services.AddScoped<ISquaresRepository, SquaresRepository>();
+
         services.AddScoped<IPlayersRepository, PlayersRepository>();
         services.AddScoped<IUsersRepository, UsersRepository>();
+        services.AddScoped<PlayersFactory>();
 
         services.AddScoped<IItemsSeederService,ItemsSeederService>();
-        services.AddScoped<PlayersFactory>();
 
         services.AddScoped<ITurnFlowRepository, TurnFlowRepository>();
     }

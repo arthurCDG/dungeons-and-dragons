@@ -28,4 +28,11 @@ public class PlayersController : ControllerBase
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
     public Task<Player> AttackAsync([FromBody] PlayerCreationPayload playerCreationPayload)
         => _playersService.CreateAsync(playerCreationPayload);
+
+    [HttpPost("dungeon-master")]
+    [ProducesResponseType(StatusCodes.Status201Created)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status403Forbidden)]
+    public Task CreateDungeonMasterAsync(int campaignId, PlayerCreationPayload playerCreationPayload)
+        => _playersService.CreateDungeonMasterAsync(campaignId, playerCreationPayload);
 }

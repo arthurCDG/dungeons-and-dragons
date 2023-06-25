@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using dnd_infra;
 
@@ -11,9 +12,11 @@ using dnd_infra;
 namespace dnd_infra.Migrations
 {
     [DbContext(typeof(GlobalDbContext))]
-    partial class GlobalDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230624212516_AddFKsOnPlayersTables")]
+    partial class AddFKsOnPlayersTables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -48,12 +51,6 @@ namespace dnd_infra.Migrations
                     b.Property<int>("CampaignId")
                         .HasColumnType("int");
 
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsCompleted")
-                        .HasColumnType("bit");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -69,7 +66,29 @@ namespace dnd_infra.Migrations
                     b.ToTable("Adventures", "Campaigns");
                 });
 
-            modelBuilder.Entity("dnd_infra.Campaigns.Adventures.Rooms.RoomDal", b =>
+            modelBuilder.Entity("dnd_infra.Campaigns.CampaignDal", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime?>("EndsAt")
+                        .HasColumnType("datetime2(2)");
+
+                    b.Property<DateTime>("StartsAt")
+                        .HasColumnType("datetime2(2)");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Campaigns", "Campaigns");
+                });
+
+            modelBuilder.Entity("dnd_infra.Campaigns.Rooms.RoomDal", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -90,7 +109,7 @@ namespace dnd_infra.Migrations
                     b.ToTable("Rooms", "Campaigns");
                 });
 
-            modelBuilder.Entity("dnd_infra.Campaigns.Adventures.Rooms.Squares.DALs.PositionDal", b =>
+            modelBuilder.Entity("dnd_infra.Campaigns.Rooms.Squares.DALs.PositionDal", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -115,7 +134,7 @@ namespace dnd_infra.Migrations
                     b.ToTable("Positions", "Campaigns");
                 });
 
-            modelBuilder.Entity("dnd_infra.Campaigns.Adventures.Rooms.Squares.DALs.SquareDal", b =>
+            modelBuilder.Entity("dnd_infra.Campaigns.Rooms.Squares.DALs.SquareDal", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -155,7 +174,7 @@ namespace dnd_infra.Migrations
                     b.ToTable("Squares", "Campaigns");
                 });
 
-            modelBuilder.Entity("dnd_infra.Campaigns.Adventures.Rooms.Squares.DALs.SquareTrapDal", b =>
+            modelBuilder.Entity("dnd_infra.Campaigns.Rooms.Squares.DALs.SquareTrapDal", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -176,28 +195,6 @@ namespace dnd_infra.Migrations
                         .IsUnique();
 
                     b.ToTable("SquareTraps", "Campaigns");
-                });
-
-            modelBuilder.Entity("dnd_infra.Campaigns.CampaignDal", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime?>("EndsAt")
-                        .HasColumnType("datetime2(2)");
-
-                    b.Property<DateTime>("StartsAt")
-                        .HasColumnType("datetime2(2)");
-
-                    b.Property<int>("Type")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Campaigns", "Campaigns");
                 });
 
             modelBuilder.Entity("dnd_infra.Dice.DieAssociationDal", b =>
@@ -279,9 +276,6 @@ namespace dnd_infra.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("AdventureId")
-                        .HasColumnType("int");
-
                     b.Property<int>("Order")
                         .HasColumnType("int");
 
@@ -289,8 +283,6 @@ namespace dnd_infra.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("AdventureId");
 
                     b.HasIndex("PlayerId")
                         .IsUnique();
@@ -765,17 +757,16 @@ namespace dnd_infra.Migrations
                     b.Property<bool>("IsDead")
                         .HasColumnType("bit");
 
-                    b.Property<int?>("SquareId")
+                    b.Property<int>("SquareId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("UserId")
+                    b.Property<int>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("SquareId")
-                        .IsUnique()
-                        .HasFilter("[SquareId] IS NOT NULL");
+                        .IsUnique();
 
                     b.HasIndex("UserId");
 
@@ -917,7 +908,7 @@ namespace dnd_infra.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("dnd_infra.Campaigns.Adventures.Rooms.RoomDal", b =>
+            modelBuilder.Entity("dnd_infra.Campaigns.Rooms.RoomDal", b =>
                 {
                     b.HasOne("dnd_infra.Campaigns.Adventures.AdventureDal", null)
                         .WithMany("Rooms")
@@ -926,29 +917,29 @@ namespace dnd_infra.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("dnd_infra.Campaigns.Adventures.Rooms.Squares.DALs.PositionDal", b =>
+            modelBuilder.Entity("dnd_infra.Campaigns.Rooms.Squares.DALs.PositionDal", b =>
                 {
-                    b.HasOne("dnd_infra.Campaigns.Adventures.Rooms.Squares.DALs.SquareDal", null)
+                    b.HasOne("dnd_infra.Campaigns.Rooms.Squares.DALs.SquareDal", null)
                         .WithOne("Position")
-                        .HasForeignKey("dnd_infra.Campaigns.Adventures.Rooms.Squares.DALs.PositionDal", "SquareId")
+                        .HasForeignKey("dnd_infra.Campaigns.Rooms.Squares.DALs.PositionDal", "SquareId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("dnd_infra.Campaigns.Adventures.Rooms.Squares.DALs.SquareDal", b =>
+            modelBuilder.Entity("dnd_infra.Campaigns.Rooms.Squares.DALs.SquareDal", b =>
                 {
-                    b.HasOne("dnd_infra.Campaigns.Adventures.Rooms.RoomDal", null)
+                    b.HasOne("dnd_infra.Campaigns.Rooms.RoomDal", null)
                         .WithMany("Squares")
                         .HasForeignKey("RoomId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("dnd_infra.Campaigns.Adventures.Rooms.Squares.DALs.SquareTrapDal", b =>
+            modelBuilder.Entity("dnd_infra.Campaigns.Rooms.Squares.DALs.SquareTrapDal", b =>
                 {
-                    b.HasOne("dnd_infra.Campaigns.Adventures.Rooms.Squares.DALs.SquareDal", null)
+                    b.HasOne("dnd_infra.Campaigns.Rooms.Squares.DALs.SquareDal", null)
                         .WithOne("Trap")
-                        .HasForeignKey("dnd_infra.Campaigns.Adventures.Rooms.Squares.DALs.SquareTrapDal", "SquareId")
+                        .HasForeignKey("dnd_infra.Campaigns.Rooms.Squares.DALs.SquareTrapDal", "SquareId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
@@ -1005,12 +996,6 @@ namespace dnd_infra.Migrations
 
             modelBuilder.Entity("dnd_infra.GameFlow.DALs.TurnOrderDal", b =>
                 {
-                    b.HasOne("dnd_infra.Campaigns.Adventures.AdventureDal", null)
-                        .WithMany()
-                        .HasForeignKey("AdventureId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
                     b.HasOne("dnd_infra.Players.DALs.PlayerDal", null)
                         .WithOne("TurnOrder")
                         .HasForeignKey("dnd_infra.GameFlow.DALs.TurnOrderDal", "PlayerId")
@@ -1129,15 +1114,17 @@ namespace dnd_infra.Migrations
 
             modelBuilder.Entity("dnd_infra.Players.DALs.PlayerDal", b =>
                 {
-                    b.HasOne("dnd_infra.Campaigns.Adventures.Rooms.Squares.DALs.SquareDal", null)
+                    b.HasOne("dnd_infra.Campaigns.Rooms.Squares.DALs.SquareDal", null)
                         .WithOne()
                         .HasForeignKey("dnd_infra.Players.DALs.PlayerDal", "SquareId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.HasOne("dnd_infra.Users.UserDal", null)
                         .WithMany("Players")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("dnd_infra.Players.DALs.PlayerMaxAttributesDal", b =>
@@ -1163,22 +1150,22 @@ namespace dnd_infra.Migrations
                     b.Navigation("Rooms");
                 });
 
-            modelBuilder.Entity("dnd_infra.Campaigns.Adventures.Rooms.RoomDal", b =>
+            modelBuilder.Entity("dnd_infra.Campaigns.CampaignDal", b =>
+                {
+                    b.Navigation("Adventures");
+                });
+
+            modelBuilder.Entity("dnd_infra.Campaigns.Rooms.RoomDal", b =>
                 {
                     b.Navigation("Squares");
                 });
 
-            modelBuilder.Entity("dnd_infra.Campaigns.Adventures.Rooms.Squares.DALs.SquareDal", b =>
+            modelBuilder.Entity("dnd_infra.Campaigns.Rooms.Squares.DALs.SquareDal", b =>
                 {
                     b.Navigation("Position")
                         .IsRequired();
 
                     b.Navigation("Trap");
-                });
-
-            modelBuilder.Entity("dnd_infra.Campaigns.CampaignDal", b =>
-                {
-                    b.Navigation("Adventures");
                 });
 
             modelBuilder.Entity("dnd_infra.Items.DALs.ArtefactDal", b =>
@@ -1217,7 +1204,8 @@ namespace dnd_infra.Migrations
 
             modelBuilder.Entity("dnd_infra.Players.DALs.PlayerDal", b =>
                 {
-                    b.Navigation("Attributes");
+                    b.Navigation("Attributes")
+                        .IsRequired();
 
                     b.Navigation("MaxAttributes")
                         .IsRequired();
@@ -1227,7 +1215,8 @@ namespace dnd_infra.Migrations
 
                     b.Navigation("StoredItems");
 
-                    b.Navigation("TurnOrder");
+                    b.Navigation("TurnOrder")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("dnd_infra.Users.UserDal", b =>
