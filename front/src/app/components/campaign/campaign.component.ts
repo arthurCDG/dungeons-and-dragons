@@ -1,40 +1,26 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 
-import { SquareComponent } from '../square/square.component';
-import { ICampaign, ISquare } from './../../../app/models/campaign.models';
+import { ICampaign } from './../../../app/models/campaign.models';
 import { CampaignsService } from './../../../app/services';
 
 @Component({
   selector: 'app-campaign',
   standalone: true,
-  imports: [CommonModule, SquareComponent],
+  imports: [CommonModule],
   templateUrl: './campaign.component.html',
   styleUrls: ['./campaign.component.css'],
   providers: [CampaignsService]
 })
 export class CampaignComponent implements OnInit {
-	public campaign: ICampaign;
-	public squares: ISquare[];
-
-	public squaredIdThatNeedsToReload: number;
-	public selectedSquaredId: number;
+	public campaigns: ICampaign[];
 
 	constructor(private campaignsService: CampaignsService) { }
 
 	ngOnInit(): void {
-		this.campaignsService.getAsync(1, 1) // TODO take sessionId and campaignId
-			.subscribe((campaign: ICampaign) => {
-				this.campaign = campaign;
-				this.squares = campaign.squares;
+		this.campaignsService.getAsync(5, 11) // TODO take playerId and campaignId from ParamsService
+			.subscribe((campaigns: ICampaign[]) => {
+				this.campaigns = campaigns;
 			});
-	}
-
-	onSquareChanged(formerSquaredId: number): void {
-		this.squaredIdThatNeedsToReload = formerSquaredId;
-	}
-
-	onSquareSelected(squareId: number): void {
-		this.selectedSquaredId = squareId;
 	}
 }

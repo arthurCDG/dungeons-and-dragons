@@ -1,0 +1,6 @@
+.board {
+	width: calc(22*4rem);
+	height: calc(11*4rem);
+	display: grid;
+	grid-template-columns: repeat(22, 1fr);
+}

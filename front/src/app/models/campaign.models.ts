@@ -4,7 +4,16 @@ export interface ICampaign {
 	id: number;
 	startsAt: Date;
 	endsAt?: Date;
-	adventure: Adventure;	
+	adventures: IAdventure[];
+}
+
+export interface IAdventure {
+	id: number;
+	campaignId: number;
+	name: string;
+	type: AdventureType;
+	isActive: boolean;
+	isCompleted: boolean;
 	squares: ISquare[];
 }
 
@@ -65,10 +74,10 @@ export enum SquareTrapType {
 }
 
 export interface ICampaignPayload {
-	adventure : Adventure;
+	I : AdventureType;
 }
 
-export enum Adventure {
+export enum AdventureType {
 	Custom,
     GoblinBandits,
     OnTheTrailOfEvil,

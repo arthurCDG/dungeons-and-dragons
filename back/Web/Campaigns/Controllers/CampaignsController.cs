@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 using Swashbuckle.AspNetCore.Annotations;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace dungeons_and_dragons.Campaigns.Controllers;
@@ -17,7 +18,7 @@ namespace dungeons_and_dragons.Campaigns.Controllers;
 [EnableCors]
 public class CampaignsController : ControllerBase
 {
-    public const string Route = "api/campaigns";
+    public const string Route = "api/players/{playerId}/campaigns";
 
     private readonly ICampaignsService _campaignsService;
     private readonly CampaignDtoMapper _campaignDtoMapper;
@@ -28,13 +29,23 @@ public class CampaignsController : ControllerBase
         _campaignDtoMapper = campaignDtoMapper ?? throw new System.ArgumentNullException(nameof(campaignDtoMapper));
     }
 
+    [HttpGet]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status403Forbidden)]
+    public async Task<List<CampaignDto>> GetAsync(int playerId)
+    {
+        List<Campaign> campaigns = await _campaignsService.GetAsync(playerId);
+        return _campaignDtoMapper.ToDtos(campaigns);
+    }
+
     [HttpGet("{id}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
-    public async Task<CampaignDto> GetAsync(int id)
+    public async Task<CampaignDto> GetByIdAsync(int id)
     {
-        Campaign campaign = await _campaignsService.GetAsync(id);
+        Campaign campaign = await _campaignsService.GetByIdAsync(id);
         return _campaignDtoMapper.ToDto(campaign);
     }
 

@@ -26,7 +26,17 @@ internal sealed class CampaignsRepository : ICampaignsRepository
         _playersRepository = playersRepository ?? throw new ArgumentNullException(nameof(playersRepository));
     }
 
-    public async Task<Campaign> GetAsync(int campaignId)
+    public async Task<List<Campaign>> GetAsync(int playerId)
+    {
+        PlayerDal player = await _context.Players
+            .Include(p => p.Campaigns)
+            .Where(p => p.Id == playerId)
+            .SingleAsync();
+
+        return player.Campaigns.ConvertAll(c => c.ToDomain());
+    }
+
+    public async Task<Campaign> GetByIdAsync(int campaignId)
     {
         CampaignDal dal = await _context.Campaigns
             .Include(c => c.Players)

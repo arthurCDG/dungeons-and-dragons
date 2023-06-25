@@ -13,6 +13,9 @@ public class CampaignDtoMapper
         _adventureDtoMapper = adventureDtoMapper ?? throw new System.ArgumentNullException(nameof(adventureDtoMapper));
     }
 
+    public List<CampaignDto> ToDtos(List<Campaign> campaigns)
+        => campaigns.ConvertAll(ToDto);
+
     public CampaignDto ToDto(Campaign campaign)
     {
         List<AdventureDto> adventures = _adventureDtoMapper.ToDtos(campaign);

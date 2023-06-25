@@ -1,2 +1,13 @@
-<router-outlet></router-outlet>
+<div class="board">
+	<ng-container *ngFor="let square of squares">
+		<app-square
+			[square]="square"
+			[squareNeedsToReload]="square.id === squaredIdThatNeedsToReload"
+			[squareIsSelected]="square.id === selectedSquaredId"
+			(squareChanged)="onSquareChanged($event)"
+			(squareSelected)="onSquareSelected($event)"
+		>
+		</app-square>
+	</ng-container>
+</div>
 <app-action-bar></app-action-bar>

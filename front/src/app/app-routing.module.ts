@@ -5,14 +5,12 @@ import { AdventurePageComponent } from './pages/adventure-page/adventure-page.co
 
 const routes: Routes = [
 	{
+		path: 'campaigns',
+		component: CampaignComponent
+	},
+	{
 		path: 'adventure',
 		component: AdventurePageComponent,
-		children: [
-			{
-				path: '',
-				component: CampaignComponent
-			}
-		]
 	}
 ];
 

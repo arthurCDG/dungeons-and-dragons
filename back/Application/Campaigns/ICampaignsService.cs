@@ -7,7 +7,8 @@ namespace dnd_application.Campaigns;
 
 public interface ICampaignsService
 {
-    Task<Campaign> GetAsync(int campaignId);
+    Task<List<Campaign>> GetAsync(int playerId);
+    Task<Campaign> GetByIdAsync(int campaignId);
     Task<Campaign> GetFromAdventureAsync(int adventureId);
     Task<List<Player>> GetPlayersAsync(int id);
     Task CreateAsync(CampaignPayload campaignPayload);
