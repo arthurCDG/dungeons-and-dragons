@@ -24,7 +24,8 @@ export class AdventurePageComponent implements OnInit {
 	constructor(private readonly adventuresService: AdventuresService) { }
 
 	ngOnInit(): void {
-		this.adventuresService.startAsync(11, 9) // TODO retrieve from params service
+		this.adventuresService.getByIdAsync(1, 1) // TODO retrieve from params service
+		// this.adventuresService.startAsync(1, 1) // TODO use in a different case (when coming from campaign component for the first time - maybe a specific button ?)
 			.subscribe((adventure: IAdventure) => {
 				console.log('passing here ?? Adventure ==>', adventure);
 				

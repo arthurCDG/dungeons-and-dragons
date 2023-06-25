@@ -52,9 +52,17 @@ internal sealed class CampaignsRepository : ICampaignsRepository
 
     public Task<Campaign> GetFromAdventureAsync(int adventureId)
         => _context.Campaigns
-        .Where(c => c.Adventures.Any(a => a.Id == adventureId))
-        .Select(c => c.ToDomain())
-        .SingleAsync();
+            .Include(c => c.Players)
+                .ThenInclude(p => p.Profile)
+            .Include(c => c.Players)
+                .ThenInclude(p => p.Attributes)
+            .Include(c => c.Players)
+                .ThenInclude(p => p.MaxAttributes)
+            .Include(c => c.Players)
+                .ThenInclude(p => p.TurnOrder)
+            .Where(c => c.Adventures.Any(a => a.Id == adventureId))
+            .Select(c => c.ToDomain())
+            .SingleAsync();
 
     public async Task<List<Player>> GetPlayersAsync(int id)
     {

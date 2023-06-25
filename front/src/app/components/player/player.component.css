@@ -6,6 +6,12 @@
 	background-size: cover;
 }
 
+.dead {
+	background-image: url('./../../../assets/players/skeleton-transparent.svg');
+}
+
+/* HEROES */
+
 .regdar {
 	background-image: url('./../../../assets/players/heroes/fighter-male.png');
 }
@@ -22,6 +28,16 @@
 	background-image: url('./../../../assets/players/heroes/wizzard-female.png');
 }
 
-.dead {
-	background-image: url('./../../../assets/players/skeleton-transparent.svg');
+/* MONSTERS */
+
+.bugBear {
+	background-image: url('./../../../assets/players/monsters/Fomorian.png');
+}
+
+.goblin {
+	background-image: url('./../../../assets/players/monsters/Goblin.png');
+}
+
+.gnoll {
+	background-image: url('./../../../assets/players/monsters/Gnoll.png');
 }

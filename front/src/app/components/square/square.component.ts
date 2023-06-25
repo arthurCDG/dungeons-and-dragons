@@ -1,16 +1,15 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
-import { HeroComponent } from '../hero/hero.component';
+import { PlayerComponent } from '../player/player.component';
 import { InteractiveElementComponent } from '../interactive-element/interactive-element.component';
-import { MonsterComponent } from '../monster/monster.component';
 import { IMovement, IMovementRequestPayload, ISquare } from './../../../app/models/campaign.models';
-import { IHero, IMonster, IPlayer } from './../../../app/models/players.models';
+import { IPlayer } from './../../../app/models/players.models';
 import { SquareMovementService, SquaresService } from './../../../app/services';
 
 @Component({
   selector: 'app-square',
   standalone: true,
-  imports: [CommonModule, HeroComponent, MonsterComponent, InteractiveElementComponent],
+  imports: [CommonModule, PlayerComponent, InteractiveElementComponent],
   templateUrl: './square.component.html',
   styleUrls: ['./square.component.css'],
   providers: [SquaresService, SquareMovementService]
@@ -23,8 +22,7 @@ export class SquareComponent implements OnInit, OnChanges {
 	@Output() squareChanged = new EventEmitter<number>();
 	@Output() squareSelected = new EventEmitter<number>();
 
-	public hero: IHero | null = null;
-	public monster: IMonster | null = null;
+	public player?: IPlayer;
 
 	public selected: boolean;
 	public tileStyle: string;
@@ -38,26 +36,16 @@ export class SquareComponent implements OnInit, OnChanges {
 		const randomNumber: number = Math.ceil((Math.random() * 3));
 		this.tileStyle = `type-${randomNumber}`;
 
-		this.hero = this.square?.hero ?? null;
-		this.monster = this.square?.monster ?? null;
-
-		// if (this.hero)
-		// 	console.log('this.hero', this.hero);
-
-		// if (this.monster)
-		// 	console.log('this.monster', this.monster);
+		this.player = this.square.player;
 	}
 
 	ngOnChanges(): void {
 		if (this.squareNeedsToReload) {
 			this.squaresService.getByIdAsync(this.square.id).subscribe((player: IPlayer) => {
-				if ((player as IHero)?.class != null) {
-					this.hero = player as IHero;
-				} else if ((player as IMonster)?.type != null) {
-					this.monster = player as IMonster
+				if (player) {
+					this.player = player;
 				} else {
-					this.hero = null;
-					this.monster = null;
+					this.player = undefined;
 				}
 			})
 		}
@@ -66,7 +54,7 @@ export class SquareComponent implements OnInit, OnChanges {
 	}
 
 	public onSquareClicked(): void {
-		if (this.hero || this.monster) {
+		if (this.player) {
 			this.squareSelected.emit(this.square.id);
 		} else {
 			this.movePlayerToPosition();
@@ -83,12 +71,8 @@ export class SquareComponent implements OnInit, OnChanges {
 			this.squareChanged.emit(movement.formerSquareId);
 
 			this.squaresService.getByIdAsync(this.square.id).subscribe((player: IPlayer) => {
-				if ((player as IHero)?.class != null) {
-					this.hero = player as IHero;
-				}
-
-				if ((player as IMonster)?.type != null) {
-					this.monster = player as IMonster;
+				if (player != null) {
+					this.player = player;
 				}
 			});
 		});

@@ -23,7 +23,7 @@ public class AttacksController : ControllerBase
         _attacksService = attacksService ?? throw new System.ArgumentNullException(nameof(attacksService));
     }
 
-    [HttpPost("hero/{playerId}")]
+    [HttpPost("{playerId}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]

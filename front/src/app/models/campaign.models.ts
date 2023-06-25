@@ -1,4 +1,4 @@
-import { IHero, IMonster } from "./players.models";
+import { IPlayer } from "./players.models";
 
 export interface ICampaign {
 	id: number;
@@ -29,8 +29,7 @@ export interface ISquare {
 	isDisabled: boolean;
 	isDoor: boolean;
 	squareTrap: ISquareTrap;
-	hero?: IHero,
-	monster?: IMonster
+	player?: IPlayer
 }
 
 export interface IPosition {

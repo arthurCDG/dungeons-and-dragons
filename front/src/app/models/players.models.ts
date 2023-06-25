@@ -1,36 +1,57 @@
+import { ICampaign } from "./campaign.models";
 import { IStoredItem } from "./items.models";
 
 export interface IPlayer {
 	id: number;
-	campaignId: number;
+	userId?: number;
+	isDead: boolean;
+	squareId?: number;
 	name: string;
+	profile: IProfile;
+	maxAttributes: IPlayerMaxAttributes;
+	attributes?: IPlayerAttributes;
+	turnOrder?: ITurnOrder;
+	campaigns: ICampaign[];
+	storedItems: IStoredItem[];
+}
+
+export interface IPlayerAttributes {
+	id: number;
+	playerId: number;
 	lifePoints: number;
 	manaPoints: number;
 	shield: number;
 	footSteps: number;
-	imageUrl: string;
-	isDead: boolean;
-	turnOrder: ITurnOrder;
-	actions: IActions;
+	attackCount: number;
+	healCount: number;
+	chestSearchCount: number;
+	trapSearchCount: number;
+}
+
+export interface IPlayerMaxAttributes {
+	id: number;
+	playerId: number;
+	maxLifePoints: number;
+	maxManaPoints: number;
+	maxFootSteps: number;
+	maxShield: number;
 	maxAttackCount: number;
 	maxHealCount: number;
-	maxFootStepsCount: number;
 	maxChestSearchCount: number;
 	maxTrapSearchCount: number;
 }
 
-export interface IHero extends IPlayer {
-	squareId: number;
-	class: HeroClass;
-	race: HeroRace;
-	storedItems: IStoredItem[];
-};
-
-export interface IMonster extends IPlayer {
-	squareId: number;
-	type: MonsterType;
-	storedItems: IStoredItem[];
-};
+export interface IProfile {
+	id: number;
+	playerId: number;
+	firstName: string;
+	lastName: string;
+	playerGender: PlayerGender;
+	imageUrl: string;
+	heroClass?: HeroClass;
+	heroRace?: HeroRace;
+	monsterType?: MonsterType;
+}
 
 export interface ITurnOrder {
 	order: number;
@@ -86,4 +107,11 @@ export enum MonsterType {
     Ogre,
     Skeleton,
     Troll
+}
+
+export enum PlayerGender {
+	None,
+    Male,
+    Female,
+    NonBinary
 }

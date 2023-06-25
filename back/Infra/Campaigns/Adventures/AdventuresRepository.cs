@@ -18,9 +18,31 @@ internal sealed class AdventuresRepository : IAdventuresRepository
         _squaresRepository = squaresRepository ?? throw new System.ArgumentNullException(nameof(squaresRepository));
     }
 
+    public Task<Adventure> GetByIdAsync(int id)
+        => _context.Adventures
+            .Include(a => a.Rooms)
+                .ThenInclude(r => r.Squares)
+                    .ThenInclude(s => s.Position)
+            .Include(a => a.Rooms)
+                .ThenInclude(r => r.Squares)
+                    .ThenInclude(s => s.Trap)
+            .Where(a => a.Id == id)
+            .Select(a => a.ToDomain())
+            .SingleAsync();
+
     public async Task<Adventure> StartAsync(int campaignId, int id)
     {
         await _squaresRepository.PlaceHeroesOnSquaresAsync(campaignId);
-        return await _context.Adventures.Where(a => a.Id == id).Select(a => a.ToDomain()).SingleAsync();
+
+        return await _context.Adventures
+            .Include(a => a.Rooms)
+                .ThenInclude(r => r.Squares)
+                    .ThenInclude(s => s.Position)
+            .Include(a => a.Rooms)
+                .ThenInclude(r => r.Squares)
+                    .ThenInclude(s => s.Trap)
+            .Where(a => a.Id == id)
+            .Select(a => a.ToDomain())
+            .SingleAsync();
     }
 }

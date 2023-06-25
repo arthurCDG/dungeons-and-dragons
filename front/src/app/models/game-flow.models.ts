@@ -1,9 +1,6 @@
-import { IHero, IMonster } from "./players.models";
+import { IPlayer } from "./players.models";
 
 export interface ICurrentPlayerDto {
-	campaignId: number;
-	heroId?: number;
-	hero?: IHero;
-	monsterId?: number;
-	monster?: IMonster;
+	adventureId: number;
+	player?: IPlayer;
 }

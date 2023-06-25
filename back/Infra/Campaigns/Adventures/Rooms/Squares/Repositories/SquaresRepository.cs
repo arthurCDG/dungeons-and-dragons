@@ -37,7 +37,21 @@ internal sealed class SquaresRepository : ISquaresRepository
 
     public async Task PlaceHeroesOnSquaresAsync(int campaignId)
     {
-        CampaignDal campaign = await _context.Campaigns.SingleAsync(c => c.Id == campaignId);
+        CampaignDal campaign = await _context.Campaigns
+            .Include(c => c.Players)
+                .ThenInclude(p => p.Profile)
+            //.Include(c => c.Players)
+            //    .ThenInclude(p => p.MaxAttributes)
+            //.Include(c => c.Players)
+            //    .ThenInclude(p => p.Attributes)
+            //.Include(c => c.Players)
+            //    .ThenInclude(p => p.TurnOrder)
+            .Include(c => c.Adventures)
+                .ThenInclude(a => a.Rooms)
+                    .ThenInclude(r => r.Squares)
+                        .ThenInclude(s => s.Position)
+            .SingleAsync(c => c.Id == campaignId);
+
         List<PlayerDal> players = campaign.Players;
         AdventureDal adventure = campaign.Adventures.Single(a => a.IsActive && !a.IsCompleted);
 

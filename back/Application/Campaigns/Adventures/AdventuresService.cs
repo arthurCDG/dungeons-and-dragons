@@ -13,6 +13,9 @@ internal sealed class AdventuresService : IAdventuresService
         _adventuresRepository = adventuresRepository ?? throw new System.ArgumentNullException(nameof(adventuresRepository));
     }
 
+    public Task<Adventure> GetByIdAsync(int id)
+        => _adventuresRepository.GetByIdAsync(id);
+
     public Task<Adventure> StartAsync(int campaignId, int id)
         => _adventuresRepository.StartAsync(campaignId, id);
 }

@@ -9,8 +9,13 @@ export class AdventuresService {
 
 	constructor(private readonly httpClient: HttpClient) {}
 
-	public startAsync(campaignId: number, adventureId: number): Observable<IAdventure> {
+	public getByIdAsync(campaignId: number, adventureId: number): Observable<IAdventure> {
 		return this.httpClient
 			.get<IAdventure>(`${DEV_BACKEND_URL}/api/${CAMPAIGNS_URL}/${campaignId}/${ADVENTURES_URL}/${adventureId}`);
+	}
+
+	public startAsync(campaignId: number, adventureId: number): Observable<IAdventure> {
+		return this.httpClient
+			.post<IAdventure>(`${DEV_BACKEND_URL}/api/${CAMPAIGNS_URL}/${campaignId}/${ADVENTURES_URL}/${adventureId}`, '');
 	}
 }
