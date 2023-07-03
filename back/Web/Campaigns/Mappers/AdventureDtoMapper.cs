@@ -35,7 +35,7 @@ public class AdventureDtoMapper
     public async Task<AdventureDto> ToDtoAsync(Adventure adventure)
     {
         Campaign campaign = await _campaignsService.GetFromAdventureAsync(adventure.Id);
-        List<Player> players = campaign.Players;
+        List<Player> players = await _campaignsService.GetPlayersAsync(campaign.Id);
 
         return new AdventureDto
         {

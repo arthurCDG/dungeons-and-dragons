@@ -89,7 +89,7 @@ internal sealed class PlayersRepository : IPlayersRepository
 
     private static void UpdatePlayer(PlayerDal dal, PlayerPayload playerPayload)
     {
-        dal.Attributes.LifePoints = playerPayload.LifePoints ?? dal.Attributes.LifePoints;
+        dal.Attributes!.LifePoints = playerPayload.LifePoints ?? dal.Attributes.LifePoints;
         dal.Attributes.ManaPoints = playerPayload.ManaPoints ?? dal.Attributes.ManaPoints;
         dal.Attributes.FootSteps = playerPayload.FootSteps ?? dal.Attributes.FootSteps;
         dal.Attributes.Shield = playerPayload.Shield ?? dal.Attributes.Shield;
@@ -102,7 +102,7 @@ internal sealed class PlayersRepository : IPlayersRepository
             .Include(p => p.Attributes)
             .SingleAsync(h => h.Id == id);
 
-        int lostLifePoints = ComputeLostLifePoints(attack, player.Attributes.Shield);
+        int lostLifePoints = ComputeLostLifePoints(attack, player.Attributes!.Shield);
 
         player.Attributes.LifePoints -= lostLifePoints;
 

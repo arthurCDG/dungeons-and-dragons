@@ -18,7 +18,7 @@ namespace dungeons_and_dragons.Campaigns.Controllers;
 [EnableCors]
 public class CampaignsController : ControllerBase
 {
-    public const string Route = "api/players/{playerId}/campaigns";
+    public const string Route = "api/campaigns";
 
     private readonly ICampaignsService _campaignsService;
     private readonly CampaignDtoMapper _campaignDtoMapper;
@@ -33,7 +33,7 @@ public class CampaignsController : ControllerBase
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
-    public async Task<List<CampaignDto>> GetAsync(int playerId)
+    public async Task<List<CampaignDto>> GetAsync([FromBody] int playerId)
     {
         List<Campaign> campaigns = await _campaignsService.GetAsync(playerId);
         return _campaignDtoMapper.ToDtos(campaigns);
