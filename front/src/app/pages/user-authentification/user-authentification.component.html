@@ -1,0 +1,26 @@
+<div class="user-form-page">
+	<h2 id="userFormTitle">Créer un compte utilisateur</h2>
+	<form (ngSubmit)="register()" [formGroup]="userForm" class="user-form">
+		<div class="form-element">
+			<label class="form-label">Nom d'utilisateur</label>
+			<input class="form-input" type="text" name="username" formControlName="username"/>
+		</div>
+		<div *ngIf="usernameCtrl.dirty && usernameCtrl.hasError('required')" class="error-message form-element">
+			Username is required
+		</div>
+		<div *ngIf="usernameCtrl.dirty && usernameCtrl.hasError('minlength')" class="error-message form-element">
+			Username should be 3 characters min
+		</div>
+		<div class="form-element">
+			<label class="form-label">Mot de passe</label>
+			<input class="form-input" type="password" name="password" formControlName="password" />
+		</div>
+		<div *ngIf="passwordCtrl.dirty && passwordCtrl.hasError('required')"  class="error-message form-element">
+			Password is required
+		</div>
+		<div *ngIf="passwordCtrl.dirty && passwordCtrl.hasError('minlength')" class="error-message form-element">
+			Password should have at leadt 6 characters
+		</div>
+		<button class="form-element" type="submit" [disabled]="userForm.invalid">Enregistrer</button>
+	</form>
+</div>
