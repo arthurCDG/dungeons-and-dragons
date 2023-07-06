@@ -22,14 +22,11 @@ internal sealed class PlayersRepository : IPlayersRepository
         _playersFactory = playersFactory ?? throw new ArgumentNullException(nameof(playersFactory));
     }
 
-    public Task<List<Player>> GetAsync(int campaignId)
+    public Task<List<Player>> GetAsync(int userId)
         => _context.Players
             .Include(p => p.Profile)
-            .Include(p => p.Attributes)
             .Include(p => p.MaxAttributes)
-            .Include(p => p.StoredItems)
-            .Include(p => p.TurnOrder)
-            .Where(h => h.Campaigns.Any(c => c.Id == campaignId))
+            .Where(p => p.UserId == userId)
             .Select(h => h.ToDomain())
             .ToListAsync();
 
@@ -44,9 +41,9 @@ internal sealed class PlayersRepository : IPlayersRepository
             .Select(h => h.ToDomain())
             .SingleAsync();
 
-    public async Task<Player> CreateAsync(PlayerCreationPayload playerCreationPayload)
+    public async Task<Player> CreateAsync(int userId, PlayerCreationPayload playerCreationPayload)
     {
-        PlayerDal player = await _playersFactory.ForgePlayerAsync(playerCreationPayload);
+        PlayerDal player = await _playersFactory.ForgePlayerAsync(userId, playerCreationPayload);
 
         _context.Players.Add(player);
         await _context.SaveChangesAsync();
@@ -57,7 +54,7 @@ internal sealed class PlayersRepository : IPlayersRepository
     public Task SeedMonstersAsync(int campaignId, AdventurePayload adventurePayload)
         => _playersFactory.ForgeMonstersFromAdventureAsync(campaignId, adventurePayload.Adventure);
 
-    public async Task CreateDungeonMasterAsync(int campaignId, PlayerCreationPayload playerCreationPayload)
+    public async Task CreateDungeonMasterAsync(int campaignId, int userId, PlayerCreationPayload playerCreationPayload)
     {
         CampaignDal campaign = await _context.Campaigns
             .Include(c => c.Players)
@@ -70,7 +67,7 @@ internal sealed class PlayersRepository : IPlayersRepository
 
         foreach (PlayerDal player in players)
         {
-            player.UserId = playerCreationPayload.UserId;
+            player.UserId = userId;
         }
 
         await _context.SaveChangesAsync();

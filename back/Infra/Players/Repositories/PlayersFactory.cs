@@ -22,7 +22,7 @@ internal sealed class PlayersFactory
         _context = globalDbContext ?? throw new ArgumentNullException(nameof(globalDbContext));
     }
 
-    public async Task<PlayerDal> ForgePlayerAsync(PlayerCreationPayload payload)
+    public async Task<PlayerDal> ForgePlayerAsync(int userId, PlayerCreationPayload payload)
     {
         List<ArtefactDal> artefacts = await _context.Artefacts.ToListAsync();
         List<SpellDal> spells = await _context.Spells.ToListAsync();
@@ -30,11 +30,11 @@ internal sealed class PlayersFactory
 
         return payload.PlayerType switch
         {
-            PlayerType.Regdar => ForgeRegdar(payload, artefacts, spells, weapons),
-            PlayerType.Lidda => ForgeLidda(payload, artefacts, spells, weapons),
-            PlayerType.Jozian => ForgeJozian(payload, artefacts, spells, weapons),
-            PlayerType.Mialye => ForgeMialye(payload, artefacts, spells, weapons),
-            PlayerType.Custom => ForgeCustomPlayer(payload, artefacts, spells, weapons), // TODO
+            PlayerType.Regdar => ForgeRegdar(userId, artefacts, spells, weapons),
+            PlayerType.Lidda => ForgeLidda(userId, artefacts, spells, weapons),
+            PlayerType.Jozian => ForgeJozian(userId, artefacts, spells, weapons),
+            PlayerType.Mialye => ForgeMialye(userId, artefacts, spells, weapons),
+            PlayerType.Custom => ForgeCustomPlayer(userId, payload, artefacts, spells, weapons), // TODO
             _ => throw new InvalidOperationException($"Unknown player type: {payload.PlayerType}.")
         };
     }
@@ -70,7 +70,7 @@ internal sealed class PlayersFactory
         await _context.SaveChangesAsync();
     }
 
-    private static PlayerDal ForgeRegdar(PlayerCreationPayload payload, List<ArtefactDal> artefacts, List<SpellDal> spells, List<WeaponDal> weapons)
+    private static PlayerDal ForgeRegdar(int userId, List<ArtefactDal> artefacts, List<SpellDal> spells, List<WeaponDal> weapons)
         => new()
         {
             Profile = new()
@@ -100,10 +100,10 @@ internal sealed class PlayersFactory
                     IsEquiped = true
                 }
             },
-            UserId = payload.UserId
+            UserId = userId
         };
 
-    private static PlayerDal ForgeLidda(PlayerCreationPayload payload, List<ArtefactDal> artefacts, List<SpellDal> spells, List<WeaponDal> weapons)
+    private static PlayerDal ForgeLidda(int userId, List<ArtefactDal> artefacts, List<SpellDal> spells, List<WeaponDal> weapons)
         => new()
         {
             Profile = new PlayerProfileDal()
@@ -138,10 +138,10 @@ internal sealed class PlayersFactory
                     IsEquiped = true
                 }
             },
-            UserId = payload.UserId
+            UserId = userId
         };
 
-    private static PlayerDal ForgeJozian(PlayerCreationPayload payload, List<ArtefactDal> artefacts, List<SpellDal> spells, List<WeaponDal> weapons)
+    private static PlayerDal ForgeJozian(int userId, List<ArtefactDal> artefacts, List<SpellDal> spells, List<WeaponDal> weapons)
         => new()
         {
             Profile = new PlayerProfileDal()
@@ -176,10 +176,10 @@ internal sealed class PlayersFactory
                     IsEquiped = true
                 }
             },
-            UserId = payload.UserId
+            UserId = userId
         };
 
-    private static PlayerDal ForgeMialye(PlayerCreationPayload payload, List<ArtefactDal> artefacts, List<SpellDal> spells, List<WeaponDal> weapons)
+    private static PlayerDal ForgeMialye(int userId, List<ArtefactDal> artefacts, List<SpellDal> spells, List<WeaponDal> weapons)
         => new()
         {
             Profile = new PlayerProfileDal()
@@ -214,10 +214,10 @@ internal sealed class PlayersFactory
                     IsEquiped = true
                 }
             },
-            UserId = payload.UserId
+            UserId = userId
         };
 
-    private PlayerDal ForgeCustomPlayer(PlayerCreationPayload payload, List<ArtefactDal> artefacts, List<SpellDal> spells, List<WeaponDal> weapons)
+    private PlayerDal ForgeCustomPlayer(int userId, PlayerCreationPayload payload, List<ArtefactDal> artefacts, List<SpellDal> spells, List<WeaponDal> weapons)
     {
         throw new NotImplementedException($"Custom player creation is not yet implemented. Soon to be released.");
     }

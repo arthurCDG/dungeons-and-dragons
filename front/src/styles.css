@@ -24,3 +24,10 @@
 	color: red;
 	font-weight: 600;
 }
+
+.link-button {
+	text-decoration: none;
+	margin: 2rem 4rem;
+	border: 1px solid black;
+	border-radius: 10%;
+}

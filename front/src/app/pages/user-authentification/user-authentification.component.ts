@@ -9,7 +9,8 @@ import { IUserPayload } from 'src/app/models/users.models';
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './user-authentification.component.html',
-  styleUrls: ['./user-authentification.component.css']
+  styleUrls: ['./user-authentification.component.css'],
+  providers: [UsersService]
 })
 export class UserAuthentificationComponent {
 	usernameCtrl = this.fb.control('', [Validators.required, Validators.minLength(3)]);
@@ -23,11 +24,11 @@ export class UserAuthentificationComponent {
 	constructor(private readonly fb: FormBuilder, private readonly usersService: UsersService) {}
 
 	register(): void {
-		const mockedUserPayload: IUserPayload = {
-			name: 'admin',
-			password: 'admin123'
+		const payload: IUserPayload = {
+			name: this.usernameCtrl.value!,
+			password: this.passwordCtrl.value!
 		};
 
-		this.usersService.createAsync(mockedUserPayload).subscribe(user => console.log('User created!', user));
+		this.usersService.createAsync(payload).subscribe(user => console.log('User created!', user));
 	}
 }

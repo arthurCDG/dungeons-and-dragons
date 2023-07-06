@@ -1,0 +1,26 @@
+#players-page {
+	width: 100vw;
+	display: flex;
+	margin-top: 3rem;
+}
+
+#player-cards {
+	display: flex;
+	flex-direction: column;
+}
+
+.hero-card {
+	background-color: blue;
+}
+
+.dm-card {
+	background-color: red;
+}
+
+.player-logo {
+	width: 30px;
+}
+
+.displayed-hero {
+	width: 40vw;
+}

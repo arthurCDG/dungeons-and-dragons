@@ -12,16 +12,16 @@ export class UsersService {
 
 	public getAsync(): Observable<IUserDto[]> {
 		return this.httpClient
-			.get<IUserDto[]>(`${DEV_BACKEND_URL}/api/${API_URL}`);
+			.get<IUserDto[]>(`${DEV_BACKEND_URL}/${API_URL}`);
 	}
 
 	public getByIdAsync(userId: number): Observable<IUserDto> {
 		return this.httpClient
-			.get<IUserDto>(`${DEV_BACKEND_URL}/api/${API_URL}/${userId}`);
+			.get<IUserDto>(`${DEV_BACKEND_URL}/${API_URL}/${userId}`);
 	}
 
 	public createAsync(userPayload: IUserPayload): Observable<IUserDto> {
 		return this.httpClient
-			.post<IUserDto>(`${DEV_BACKEND_URL}/api/${API_URL}`, userPayload);
+			.post<IUserDto>(`${DEV_BACKEND_URL}/${API_URL}`, userPayload);
 	}
 }

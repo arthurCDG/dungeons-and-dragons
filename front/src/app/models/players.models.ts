@@ -6,7 +6,6 @@ export interface IPlayer {
 	userId?: number;
 	isDead: boolean;
 	squareId?: number;
-	name: string;
 	profile: IProfile;
 	maxAttributes: IPlayerMaxAttributes;
 	attributes?: IPlayerAttributes;
@@ -48,8 +47,8 @@ export interface IProfile {
 	lastName: string;
 	playerGender: PlayerGender;
 	imageUrl: string;
-	heroClass?: HeroClass;
-	heroRace?: HeroRace;
+	class?: HeroClass;
+	race?: HeroRace;
 	monsterType?: MonsterType;
 }
 
@@ -72,6 +71,10 @@ export interface IActions {
 export interface IAttackPayload {
 	meleeAttack?: number;
 	rangeAttack?: number;
+}
+
+export interface IPlayerCreationPayload {
+	playerType: PlayerType;
 }
 
 export enum HeroClass {
@@ -114,4 +117,14 @@ export enum PlayerGender {
     Male,
     Female,
     NonBinary
+}
+
+export enum PlayerType {
+	None,
+    Custom,
+    Regdar,
+    Lidda,
+    Jozian,
+    Mialye,
+    DungeonMaster
 }
