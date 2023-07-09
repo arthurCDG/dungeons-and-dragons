@@ -10,6 +10,7 @@ namespace dnd_infra.Campaigns;
 internal sealed class CampaignDal
 {
     public int Id { get; set; }
+    public string Name { get; set; } = string.Empty;
     public CampaignType Type { get; set; }
     public DateTime StartsAt { get; set; }
     public DateTime? EndsAt { get; set; }
@@ -21,6 +22,7 @@ internal sealed class CampaignDal
         => new()
         {
             Id = Id,
+            Name = Name,
             Type = Type,
             StartsAt = StartsAt,
             EndsAt = EndsAt,

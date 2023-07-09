@@ -23,6 +23,7 @@ public class CampaignDtoMapper
         return new()
         {
             Id = campaign.Id,
+            Name = campaign.Name,
             StartsAt = campaign.StartsAt,
             EndsAt = campaign.EndsAt,
             Adventures = adventures

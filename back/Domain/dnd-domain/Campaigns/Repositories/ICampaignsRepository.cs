@@ -12,5 +12,5 @@ public interface ICampaignsRepository
     Task<Campaign> GetFromAdventureAsync(int adventureId);
     Task<List<Player>> GetPlayersAsync(int id);
     Task CreateAsync(CampaignPayload campaignPayload);
-    Task UpdateAsync(int id, CampaignPayload campaignPayload);
+    Task UpdatePlayersAsync(int id, CampaignPayload campaignPayload);
 }

@@ -79,6 +79,7 @@ internal sealed class CampaignsRepository : ICampaignsRepository
         {
             CampaignDal campaign = new()
             {
+                Name = GetCampaignName(campaignPayload.Type),
                 Type = campaignPayload.Type,
                 StartsAt = DateTime.UtcNow
             };
@@ -94,7 +95,16 @@ internal sealed class CampaignsRepository : ICampaignsRepository
         }
     }
 
-    public async Task UpdateAsync(int id, CampaignPayload campaignPayload)
+    private static string GetCampaignName(CampaignType type)
+        => type switch
+        {
+            CampaignType.HollbrooksLiberation => "La libération de Hollbrooks", // TODO lokalise name
+            CampaignType.InpursuitOfTheDarkArmy => "A la poursuite de l'armée sombre", // TODO lokalise name
+            CampaignType.WrathOfTheLich => "La colère de la liche", // TODO lokalise name
+            _ => throw new ArgumentException($"Unknown campaign type: {type}.")
+        };
+
+    public async Task UpdatePlayersAsync(int id, CampaignPayload campaignPayload)
     {
         CampaignDal campaign = await _context.Campaigns.SingleAsync(c => c.Id == id);
         List<PlayerDal> players = await _context.Players.Where(p => campaignPayload.PlayerIds.Contains(p.Id)).ToListAsync();
@@ -126,14 +136,14 @@ internal sealed class CampaignsRepository : ICampaignsRepository
         => adventure switch
         {
             AdventureType.GoblinBandits => "Les bandits gobelins", // TODO lokalise name
-            _ => throw new InvalidOperationException($"Unknown adventure: {adventure}")
+            _ => throw new ArgumentException($"Unknown adventure: {adventure}")
         };
 
     private async Task<List<RoomDal>> SeedRoomsAsync(int adventureId, AdventureType adventure)
         => adventure switch
         {
             AdventureType.GoblinBandits => await GetGoblinBanditsRoomsAsync(adventureId),
-            _ => throw new InvalidOperationException($"Unknown adventure: {adventure}")
+            _ => throw new ArgumentException($"Unknown adventure: {adventure}")
         };
 
     private async Task<List<RoomDal>> GetGoblinBanditsRoomsAsync(int adventureId)

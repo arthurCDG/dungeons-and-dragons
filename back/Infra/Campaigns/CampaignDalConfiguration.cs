@@ -11,6 +11,8 @@ internal sealed class CampaignDalConfiguration : IEntityTypeConfiguration<Campai
 
         builder.HasKey(campaign => campaign.Id);
 
+        builder.Property(campaign => campaign.Name).HasMaxLength(255);
+
         builder.Property(campaign => campaign.StartsAt)
             .HasColumnType("datetime2(2)");
 

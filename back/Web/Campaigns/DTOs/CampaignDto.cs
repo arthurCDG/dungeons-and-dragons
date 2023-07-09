@@ -6,6 +6,7 @@ namespace dungeons_and_dragons.Campaigns.DTOs;
 public class CampaignDto
 {
     public int Id { get; set; }
+    public string Name { get; set; } = string.Empty;
     public DateTime StartsAt { get; set; }
     public DateTime? EndsAt { get; set; }
 
