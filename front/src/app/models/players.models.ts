@@ -1,6 +1,14 @@
 import { ICampaign } from "./campaign.models";
 import { IStoredItem } from "./items.models";
 
+export interface ICreatablePlayer {
+	firstName: string;
+	lastName: string;
+	description: string;
+	type: PlayerType;
+	maxAttributes: IPlayerMaxAttributes;
+}
+
 export interface IPlayer {
 	id: number;
 	userId?: number;

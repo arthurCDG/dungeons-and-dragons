@@ -1,9 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { CampaignComponent } from './components/campaign/campaign.component';
-import { AdventurePageComponent } from './pages/adventure-page/adventure-page.component';
-import { UserAuthentificationComponent } from './pages/user-authentification/user-authentification.component';
 import { PlayersPageComponent } from './pages/players-page/players-page.component';
+import { UserAuthentificationComponent } from './pages/user-authentification/user-authentification.component';
+import { CampaignsPageComponent } from './pages/campaigns-page/campaigns-page.component';
+import { AdventurePageComponent } from './pages/adventure-page/adventure-page.component';
+import { PlayerCreationPageComponent } from './pages/player-creation-page/player-creation-page.component';
 
 const routes: Routes = [
 	{
@@ -11,21 +12,31 @@ const routes: Routes = [
 		component: UserAuthentificationComponent
 	},
 	{
-		path: 'users',
+		path: 'users/:userId/players',
 		children: [
 			{
-				path: ':userId/players',
-				component: PlayersPageComponent
-			}
+				path: '',
+				component: PlayersPageComponent,
+			},
+			{
+				path:'new',
+				component: PlayerCreationPageComponent
+			},
+			{
+				path: ':playerId/campaigns',
+				component: CampaignsPageComponent,
+				children: [
+					// {
+					// 	path: 'new',
+					// 	component: CampaignCreationPageComponent
+					// },
+					{
+						path: ':campaignId/adventures/:adventureId',
+						component: AdventurePageComponent,
+					}
+				]
+			},
 		]
-	},
-	{
-		path: 'campaigns',
-		component: CampaignComponent
-	},
-	{
-		path: 'adventure',
-		component: AdventurePageComponent,
 	}
 ];
 

@@ -6,7 +6,7 @@ public enum PlayerType
     Custom,
     Regdar,
     Lidda,
-    Jozian,
+    Jozan,
     Mialye,
     DungeonMaster
 }

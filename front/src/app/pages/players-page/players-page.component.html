@@ -1,4 +1,7 @@
 <h1>Page des joueurs</h1>
+<header>
+	<a [routerLink]="['new']">Créer un nouveau joueur</a>
+</header>
 <div id="players-page">
 	<div class="displayed-hero">
 		<img alt="current player picture" href=this.currentPlayer.image />
@@ -17,7 +20,7 @@
 				<img class="player-logo" *ngIf="player.type === 'dungeonMaster'" alt="" src="../../../assets/hero-classes/crane.png" />
 				<span>{{ player.name }}</span>
 				<p>{{ player.campaignsCount }} campagnes en cours</p>
-				<a class="link-button" [routerLink]="[player.id, 'campaigns']" >Jouer</a>
+				<a class="link-button" [routerLink]="[player.id, 'campaigns']" >Jouer avec {{ player.name }}</a>
 			</div>
 		</ng-container>
 	</div>

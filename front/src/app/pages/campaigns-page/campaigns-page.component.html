@@ -1,0 +1,14 @@
+<ng-container *ngIf="!campaigns.length; else campaignsList">
+	<!-- TODO - empty state -->
+</ng-container>
+
+<ng-template #campaignsList>
+	<ul>
+		<li *ngFor="let campaign of campaigns">
+			<h3>{{ campaign.name }}</h3>
+			<p>{{ campaign.startsAt }}</p>
+			<!-- TODO add action buttons to start a campagne, resume a campaign, or add players -->
+			<!-- TODO add a background picture for the campaign -->
+		</li>
+	</ul>
+</ng-template>

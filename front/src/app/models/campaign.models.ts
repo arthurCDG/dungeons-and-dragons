@@ -2,6 +2,7 @@ import { IPlayer } from "./players.models";
 
 export interface ICampaign {
 	id: number;
+	name: string;
 	startsAt: Date;
 	endsAt?: Date;
 	adventures: IAdventure[];

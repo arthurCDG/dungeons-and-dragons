@@ -19,5 +19,7 @@ public static class ApplicationExtensions
         services.AddScoped<IUsersService, UsersService>();
         services.AddScoped<IPlayersService, PlayersService>();
         services.AddScoped<IAdventuresService, AdventuresService>();
+        services.AddScoped<ICreatablePlayersService, CreatablePlayersService>();
+        
     }
 }

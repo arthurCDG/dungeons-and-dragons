@@ -9,7 +9,7 @@ export class CampaignsService {
 
 	constructor(private readonly httpClient: HttpClient) {}
 
-	public getAsync(playerId: number, campaignId: number): Observable<ICampaign[]> {
+	public getAsync(playerId: number): Observable<ICampaign[]> {
 		return this.httpClient.get<ICampaign[]>(`${DEV_BACKEND_URL}/${PLAYERS_URL}/${playerId}/${CAMPAIGNS_URL}`);
 	}
 	

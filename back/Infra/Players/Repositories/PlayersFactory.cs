@@ -32,7 +32,7 @@ internal sealed class PlayersFactory
         {
             PlayerType.Regdar => ForgeRegdar(userId, artefacts, spells, weapons),
             PlayerType.Lidda => ForgeLidda(userId, artefacts, spells, weapons),
-            PlayerType.Jozian => ForgeJozian(userId, artefacts, spells, weapons),
+            PlayerType.Jozan => ForgeJozan(userId, artefacts, spells, weapons),
             PlayerType.Mialye => ForgeMialye(userId, artefacts, spells, weapons),
             PlayerType.Custom => ForgeCustomPlayer(userId, payload, artefacts, spells, weapons), // TODO
             _ => throw new InvalidOperationException($"Unknown player type: {payload.PlayerType}.")
@@ -141,7 +141,7 @@ internal sealed class PlayersFactory
             UserId = userId
         };
 
-    private static PlayerDal ForgeJozian(int userId, List<ArtefactDal> artefacts, List<SpellDal> spells, List<WeaponDal> weapons)
+    private static PlayerDal ForgeJozan(int userId, List<ArtefactDal> artefacts, List<SpellDal> spells, List<WeaponDal> weapons)
         => new()
         {
             Profile = new PlayerProfileDal()
