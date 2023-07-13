@@ -1,14 +1,24 @@
 <ng-container *ngIf="!campaigns.length; else campaignsList">
-	<!-- TODO - empty state -->
+	<a class="link-button" [routerLink]="'new'">Créer une campagne</a>
+	<button class="link-button" disabled>[Soon] Rejoindre une campagne</button>
+	<!-- TODO - empty state image or text -->
 </ng-container>
 
 <ng-template #campaignsList>
 	<ul>
 		<li *ngFor="let campaign of campaigns">
-			<h3>{{ campaign.name }}</h3>
-			<p>{{ campaign.startsAt }}</p>
-			<!-- TODO add action buttons to start a campagne, resume a campaign, or add players -->
-			<!-- TODO add a background picture for the campaign -->
+			<div
+				class="campaign-background-image"
+				[class.hollbrook-background-image]="campaign.name === 'Hollbrook'"
+				[class.aos-background-image]="campaign.name === 'Army of shadows'"
+				[class.wotl-background-image]="campaign.name === 'Wrath of the Lich'"
+			>
+				<h3>{{ campaign.name }}</h3>
+				<p>{{ campaign.startsAt }}</p>
+				<a [routerLink]="" class="link-button">Commencer la campagne</a>
+				<a [routerLink]="" class="link-button">Continuer la campagne</a>
+				<button class="link-button" disabled>[soon] Ajouter des joueurs à la campagne</button>
+			</div>
 		</li>
 	</ul>
 </ng-template>

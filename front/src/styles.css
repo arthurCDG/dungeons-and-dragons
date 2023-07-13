@@ -12,7 +12,7 @@
 }
 
 .form-label {
-	min-widht: 200px;
+	min-width: 200px;
 	margin-right: 1rem;
 }
 
@@ -28,8 +28,16 @@
 .link-button {
 	text-decoration: none;
 	margin: 2rem 4rem;
+	padding: 0.5rem;
 	border: 1px solid black;
-	border-radius: 10%;
+	border-radius: 6px;
+	box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.2);
 }
+
+.link-button:hover {
+	background-color: rgb(246, 246, 246);
+	box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+}
+
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

@@ -59,9 +59,6 @@ export class PlayerCreationPageComponent implements OnInit {
 			playerType: this.playerTypeCtrl.value!,
 		};
 
-		this.playersService.createAsync(this.userId, payload).subscribe(player => {
-			console.log('Player created!', player);
-			this.router.navigate(['../'], { relativeTo: this.route });
-		});
+		this.playersService.createAsync(this.userId, payload).subscribe(() => this.router.navigate(['../'], { relativeTo: this.route }));
 	}
 }

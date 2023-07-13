@@ -5,6 +5,7 @@ import { UserAuthentificationComponent } from './pages/user-authentification/use
 import { CampaignsPageComponent } from './pages/campaigns-page/campaigns-page.component';
 import { AdventurePageComponent } from './pages/adventure-page/adventure-page.component';
 import { PlayerCreationPageComponent } from './pages/player-creation-page/player-creation-page.component';
+import { CampaignCreationPageComponent } from './pages/campaign-creation-page/campaign-creation-page.component';
 
 const routes: Routes = [
 	{
@@ -24,12 +25,15 @@ const routes: Routes = [
 			},
 			{
 				path: ':playerId/campaigns',
-				component: CampaignsPageComponent,
 				children: [
-					// {
-					// 	path: 'new',
-					// 	component: CampaignCreationPageComponent
-					// },
+					{
+						path:'',
+						component: CampaignsPageComponent,
+					},
+					{
+						path: 'new',
+						component: CampaignCreationPageComponent
+					},
 					{
 						path: ':campaignId/adventures/:adventureId',
 						component: AdventurePageComponent,

@@ -3,22 +3,29 @@
 	<a [routerLink]="['new']">Créer un nouveau joueur</a>
 </header>
 <div id="players-page">
-	<div class="displayed-hero">
-		<img alt="current player picture" href=this.currentPlayer.image />
+	<div *ngIf="currentPlayer" class="displayed-player">
+		<img *ngIf="currentPlayer.name === 'Regdar'" alt="Regdar picture" src="../../../assets/players/heroes/fighter-male.png" />
+		<img *ngIf="currentPlayer.name === 'Lidda'" alt="Lidda picture" src="../../../assets/players/heroes/rogue-female.png" />
+		<img *ngIf="currentPlayer.name === 'Jozan'" alt="Jozan picture" src="../../../assets/players/heroes/paladin-male.png" />
+		<img *ngIf="currentPlayer.name === 'Mialye'" alt="Mialye picture" src="../../../assets/players/heroes/wizzard-female.png" />
+		<img *ngIf="currentPlayer.type === 'dungeonMaster'" alt="Dungeon Master picture" src="../../../assets/players/monsters/Fomorian.png" />
 	</div>
-	<div id="player-cards">
+	<div id="player-cards-list">
 		<ng-container *ngFor="let player of players">
 			<div
+				class="player-card"
 				[class.hero-card]="player.type === 'hero'"
 				[class.dm-card]="player.type === 'dungeonMaster'"
-				click="onPlayerCardClick(player)"
+				(click)="onPlayerCardClick(player)"
 			>
-				<img class="player-logo" *ngIf="player.class === 0"	alt="" src="../../../assets/hero-classes/epees.png" />
-				<img class="player-logo" *ngIf="player.class === 4" alt="" src="../../../assets/hero-classes/religion.png" />
-				<img class="player-logo" *ngIf="player.class === 6" alt="" src="../../../assets/hero-classes/haches.png" />
-				<img class="player-logo" *ngIf="player.class === 7" alt="" src="../../../assets/hero-classes/baguette-magique.png" />
-				<img class="player-logo" *ngIf="player.type === 'dungeonMaster'" alt="" src="../../../assets/hero-classes/crane.png" />
-				<span>{{ player.name }}</span>
+				<div>
+					<img class="player-logo" *ngIf="player.class === 0"	alt="" src="../../../assets/hero-classes/epees.png" />
+					<img class="player-logo" *ngIf="player.class === 4" alt="" src="../../../assets/hero-classes/religion.png" />
+					<img class="player-logo" *ngIf="player.class === 6" alt="" src="../../../assets/hero-classes/haches.png" />
+					<img class="player-logo" *ngIf="player.class === 7" alt="" src="../../../assets/hero-classes/baguette-magique.png" />
+					<img class="player-logo" *ngIf="player.type === 'dungeonMaster'" alt="" src="../../../assets/hero-classes/crane.png" />
+					<span>{{ player.name }}</span>
+				</div>
 				<p>{{ player.campaignsCount }} campagnes en cours</p>
 				<a class="link-button" [routerLink]="[player.id, 'campaigns']" >Jouer avec {{ player.name }}</a>
 			</div>
