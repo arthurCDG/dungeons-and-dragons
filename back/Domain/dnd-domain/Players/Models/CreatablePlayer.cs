@@ -7,6 +7,6 @@ public class CreatablePlayer
     public string FirstName { get; set; } = string.Empty;
     public string LastName { get; set; } = string.Empty;
     public string Description { get; set; } = string.Empty;
-    public PlayerType PlayerType { get; set; }
+    public PlayerType Type { get; set; }
     public PlayerMaxAttributes MaxAttributes { get; set; } = null!;
 }

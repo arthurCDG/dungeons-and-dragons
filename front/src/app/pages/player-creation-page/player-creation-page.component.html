@@ -1,45 +1,75 @@
 <h2>Page de création de joueur</h2>
-<div *ngIf="creatablePlayers.length; else emptyState">
-	<form (ngSubmit)="onSubmit()" [formGroup]="playerCreationForm" class="user-form">
-		<div class="form-element">
-			<label class="form-label">Choisir le joueur à créer</label>
-			<mat-radio-group
-				aria-label="Select an option"
-				class="form-input creatable-players-list"
-				formControlName="playerType"
-				name="playerType"
+<ng-container *ngIf="!isLoading; else loading">
+	<div *ngIf="creatablePlayers.length; else emptyState">
+		<!-- Players list -->
+		<form (ngSubmit)="onSubmit()" [formGroup]="playerCreationForm" class="user-form">
+			<div class="form-element">
+				<label class="form-label">Choisir le joueur à créer</label>
+				<mat-radio-group formControlName="playerType" aria-label="Select an option" class="form-input creatable-players-list">
+					<ng-container *ngFor="let player of creatablePlayers">
+						<mat-radio-button type="radio" [value]="player.type"  [attr.name]="player.type" >
+							{{ player.firstName }}
+						</mat-radio-button>
+					</ng-container>
+				</mat-radio-group>
+			</div>
+			<div *ngIf="playerTypeCtrl.dirty && playerTypeCtrl.hasError('required')" class="error-message form-element">
+				Vous devez sélectionner un joueur.
+			</div>
+			<button class="form-element" type="submit" [disabled]="playerCreationForm.invalid">Créer le joueur</button>
+		</form>
+		<!-- Selected player display -->
+		<div *ngIf="selectedPlayer">
+			<h3>{{ selectedPlayer.firstName }}</h3>
+			<img
+				*ngIf="selectedPlayer?.firstName === 'Regdar'"
+				class="selected-player-img"
+				alt="Regdar image preview"
+				src="../../../assets/players/heroes/creatable-heroes-images/Regdar.webp"
 			>
-				<mat-radio-button *ngFor="let player of creatablePlayers" [value]="player.type">{{ player.firstName }}</mat-radio-button>
-			</mat-radio-group>
-		</div>
-		<div *ngIf="playerTypeCtrl.dirty && playerTypeCtrl.hasError('required')" class="error-message form-element">
-			Vous devez sélectionner un joueur.
-		</div>
-		<button class="form-element" type="submit" [disabled]="playerCreationForm.invalid">Créer le joueur</button>
-	</form>
-	<div>
-		<h3>{{ selectedPlayer?.firstName }}</h3>
-		<img src="" alt="player image preview">
-		<p>{{ selectedPlayer?.description }}</p>
-		<div>
-			<span>Points de vie</span>
-			<span>{{ selectedPlayer?.maxAttributes?.maxLifePoints }}</span>
-		</div>
-		<div>
-			<span>Points de magie</span>
-			<span>{{ selectedPlayer?.maxAttributes?.maxManaPoints }}</span>
-		</div>
-		<div>
-			<span>Points d'armure</span>
-			<span>{{ selectedPlayer?.maxAttributes?.maxShield }}</span>
-		</div>
-		<div>
-			<span>Nombre de pas</span>
-			<span>{{ selectedPlayer?.maxAttributes?.maxFootSteps }}</span>
+			<img
+				*ngIf="selectedPlayer?.firstName === 'Lidda'"
+				class="selected-player-img"
+				alt="Lidda image preview"
+				src="../../../assets/players/heroes/creatable-heroes-images/lidda 2.jpg"
+			>
+			<img
+				*ngIf="selectedPlayer?.firstName === 'Jozan'"
+				class="selected-player-img"
+				alt="Jozan image preview"
+				src="../../../assets/players/heroes/creatable-heroes-images/Jozan.jpg"
+			>
+			<img
+				*ngIf="selectedPlayer?.firstName === 'Mialye'"
+				class="selected-player-img"
+				alt="Mialye image preview"
+				src="../../../assets/players/heroes/creatable-heroes-images/Mialye.jpg"
+			>
+			<p>{{ selectedPlayer.description }}</p>
+			<div>
+				<span>Points de vie : </span>
+				<span>{{ selectedPlayer.maxAttributes.maxLifePoints }}</span>
+			</div>
+			<div>
+				<span>Points de magie : </span>
+				<span>{{ selectedPlayer.maxAttributes.maxManaPoints }}</span>
+			</div>
+			<div>
+				<span>Points d'armure : </span>
+				<span>{{ selectedPlayer.maxAttributes.maxShield }}</span>
+			</div>
+			<div>
+				<span>Nombre de pas : </span>
+				<span>{{ selectedPlayer.maxAttributes.maxFootSteps }}</span>
+			</div>
 		</div>
 	</div>
-</div>
 
-<ng-template #emptyState>
-	<p>Vous avez débloqué et créé tous les joueurs créables (message à changer)</p>
+	<ng-template #emptyState>
+		<p>Vous avez débloqué et créé tous les joueurs créables (message à changer)</p>
+	</ng-template>
+</ng-container>
+
+<ng-template #loading>
+	<p>Chargement...</p>
 </ng-template>

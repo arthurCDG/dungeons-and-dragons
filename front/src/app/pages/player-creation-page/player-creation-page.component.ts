@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { MatRadioModule } from '@angular/material/radio';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ICreatablePlayer, IPlayerCreationPayload } from '../../models';
 import { CreatablePlayersService, PlayersService } from '../../services';
 
@@ -25,9 +25,10 @@ export class PlayerCreationPageComponent implements OnInit {
 	private userId: number;
 
 	public creatablePlayers: ICreatablePlayer[] = [];
-	public selectedPlayer: ICreatablePlayer | null = null;
+	public selectedPlayer?: ICreatablePlayer;
+	public isLoading: boolean = true;
 
-	playerTypeCtrl = this.fb.control(null, Validators.required);
+	playerTypeCtrl = this.fb.control(null);
 	playerCreationForm = this.fb.group({
 		playerType: this.playerTypeCtrl,
 	});
@@ -36,12 +37,21 @@ export class PlayerCreationPageComponent implements OnInit {
 		private readonly fb: FormBuilder,
 		private readonly playersService: PlayersService,
 		private readonly creatablePlayersService: CreatablePlayersService,
+		private readonly router: Router,
 		private readonly route: ActivatedRoute
 	) { }
 	
 	ngOnInit(): void {
 		this.route.params.subscribe(params => this.userId = Number(params['userId']));
-		this.creatablePlayersService.getAsync(this.userId).subscribe(creatablePlayers => this.creatablePlayers = creatablePlayers);
+
+		this.creatablePlayersService.getAsync(this.userId).subscribe(creatablePlayers => {
+			this.creatablePlayers = creatablePlayers;
+			this.isLoading = false;
+		});
+
+		this.playerTypeCtrl.valueChanges.subscribe(playerType => {
+			this.selectedPlayer = this.creatablePlayers.find(creatablePlayer => creatablePlayer.type === playerType)
+		});
 	}
 
 	onSubmit(): void {
@@ -49,6 +59,9 @@ export class PlayerCreationPageComponent implements OnInit {
 			playerType: this.playerTypeCtrl.value!,
 		};
 
-		this.playersService.createAsync(this.userId, payload).subscribe(player => console.log('Player created!', player));
+		this.playersService.createAsync(this.userId, payload).subscribe(player => {
+			console.log('Player created!', player);
+			this.router.navigate(['../'], { relativeTo: this.route });
+		});
 	}
 }

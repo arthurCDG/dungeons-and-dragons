@@ -3,3 +3,7 @@
 	flex-direction: column;
 	align-items: flex-start;
 }
+
+.selected-player-img {
+	width: 15rem;
+}
