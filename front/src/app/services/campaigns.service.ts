@@ -6,18 +6,17 @@ import { PLAYERS_URL, CAMPAIGNS_URL, DEV_BACKEND_URL } from './_api.urls';
 
 @Injectable()
 export class CampaignsService {
-
 	constructor(private readonly httpClient: HttpClient) {}
 
 	public getAsync(playerId: number): Observable<ICampaign[]> {
-		return this.httpClient.get<ICampaign[]>(`${DEV_BACKEND_URL}/${PLAYERS_URL}/${playerId}/${CAMPAIGNS_URL}`);
+		return this.httpClient.get<ICampaign[]>(`${DEV_BACKEND_URL}/api/${CAMPAIGNS_URL}?playerId=${playerId}`);
 	}
 	
-	public getByIdAsync(playerId: number, campaignId: number): Observable<ICampaign> {
-		return this.httpClient.get<ICampaign>(`${DEV_BACKEND_URL}/${PLAYERS_URL}/${playerId}/${CAMPAIGNS_URL}/${campaignId}`);
+	public getByIdAsync(campaignId: number): Observable<ICampaign> {
+		return this.httpClient.get<ICampaign>(`${DEV_BACKEND_URL}/api/${CAMPAIGNS_URL}/${campaignId}`);
 	}
 
 	public postAsync(payload: ICampaignPayload): Observable<void> {
-		return this.httpClient.post<void>(`${DEV_BACKEND_URL}/${CAMPAIGNS_URL}`, payload);
+		return this.httpClient.post<void>(`${DEV_BACKEND_URL}/api/${CAMPAIGNS_URL}`, payload);
 	}
 }

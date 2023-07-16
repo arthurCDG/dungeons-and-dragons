@@ -1,8 +1,16 @@
 import { IPlayer } from "./players.models";
 
+export interface ICreatableCampaign {
+	name: string;
+	description: string;
+	type: CampaignType;
+}
+
 export interface ICampaign {
 	id: number;
 	name: string;
+	description: string;
+	type: CampaignType;
 	startsAt: Date;
 	endsAt?: Date;
 	adventures: IAdventure[];
@@ -59,35 +67,49 @@ export interface IMovement {
 
 export enum SquareTrapType {
 	Pit,
-    ResurrectionOfEvil,
-    FireBall,
-    PoisonDarts,
-    WraparoundRoots,
-    CreepingStranglers,
-    SpiderWeb,
-    CurseOfHeavyBurden,
-    CurseOfVulnerability,
-    CurseOfTheTreasures,
-    SkeletonArrows,
-    PivotingSlab,
-    GhostlyHands
+	ResurrectionOfEvil,
+	FireBall,
+	PoisonDarts,
+	WraparoundRoots,
+	CreepingStranglers,
+	SpiderWeb,
+	CurseOfHeavyBurden,
+	CurseOfVulnerability,
+	CurseOfTheTreasures,
+	SkeletonArrows,
+	PivotingSlab,
+	GhostlyHands
 }
 
 export interface ICampaignPayload {
-	I : AdventureType;
+	type: CampaignType;
+	playerIds: number[];
+	adventurePayload: IAdventurePayload;
+}
+
+export interface IAdventurePayload {
+	type: AdventureType;
 }
 
 export enum AdventureType {
+	None = 0,
 	Custom,
-    GoblinBandits,
-    OnTheTrailOfEvil,
-    HauntedVillage,
-    KallictakusKey,
-    DarknessArmy,
-    Pursuit,
-    TheTrollsDen,
-    TheTempleOfTerror,
-    AttackingBorashCastle,
-    TheSpiralOfFate,
-    TheRiseOfNecratim
+	GoblinBandits,
+	OnTheTrailOfEvil,
+	HauntedVillage,
+	KallictakusKey,
+	DarknessArmy,
+	Pursuit,
+	TheTrollsDen,
+	TheTempleOfTerror,
+	AttackingBorashCastle,
+	TheSpiralOfFate,
+	TheRiseOfNecratim
+}
+
+export enum CampaignType {
+	None = 0,
+	HollbrooksLiberation,
+	InpursuitOfTheDarkArmy,
+	WrathOfTheLich
 }

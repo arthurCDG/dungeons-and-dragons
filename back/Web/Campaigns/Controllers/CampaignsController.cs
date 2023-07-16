@@ -33,7 +33,7 @@ public class CampaignsController : ControllerBase
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
-    public async Task<List<CampaignDto>> GetAsync([FromBody] int playerId)
+    public async Task<List<CampaignDto>> GetAsync([FromQuery] int playerId)
     {
         List<Campaign> campaigns = await _campaignsService.GetAsync(playerId);
         return _campaignDtoMapper.ToDtos(campaigns);

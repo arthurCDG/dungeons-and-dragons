@@ -4,5 +4,5 @@ namespace dnd_domain.Campaigns.Models;
 
 public class AdventurePayload
 {
-    public AdventureType Adventure { get; set; }
+    public AdventureType Type { get; set; }
 }

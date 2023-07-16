@@ -13,10 +13,8 @@ internal sealed class PlayerDal
     public bool IsDead { get; set; } = false;
     public int? SquareId { get; set; }
 
-    public PlayerProfileDal Profile { get; set; } = null!;
-    public PlayerMaxAttributesDal MaxAttributes { get; set; } = null!;
-
-
+    public PlayerProfileDal? Profile { get; set; } = null!;
+    public PlayerMaxAttributesDal? MaxAttributes { get; set; } = null!;
     public PlayerAttributesDal? Attributes { get; set; }
     public TurnOrderDal? TurnOrder { get; set; }
 
@@ -24,15 +22,15 @@ internal sealed class PlayerDal
     public List<StoredItemDal> StoredItems { get; set; } = new();
 
     public Player ToDomain()
-        => new()
+        =>  new()
         {
             Id = Id,
             UserId = UserId,
             SquareId = SquareId,
             IsDead = IsDead,
-            Profile = Profile.ToDomain(),
+            Profile = Profile?.ToDomain(),
             Attributes = Attributes?.ToDomain(),
-            MaxAttributes = MaxAttributes.ToDomain(),
+            MaxAttributes = MaxAttributes?.ToDomain(),
             TurnOrder = TurnOrder?.ToDomain(),
             Campaigns = Campaigns.ConvertAll(c => c.ToDomain()),
             StoredItems = StoredItems.ConvertAll(si => si.ToDomain())

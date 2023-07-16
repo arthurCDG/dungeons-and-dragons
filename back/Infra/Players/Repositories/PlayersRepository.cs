@@ -52,7 +52,7 @@ internal sealed class PlayersRepository : IPlayersRepository
     }
 
     public Task SeedMonstersAsync(int campaignId, AdventurePayload adventurePayload)
-        => _playersFactory.ForgeMonstersFromAdventureAsync(campaignId, adventurePayload.Adventure);
+        => _playersFactory.ForgeMonstersFromAdventureAsync(campaignId, adventurePayload.Type);
 
     public async Task CreateDungeonMasterAsync(int campaignId, int userId, PlayerCreationPayload playerCreationPayload)
     {

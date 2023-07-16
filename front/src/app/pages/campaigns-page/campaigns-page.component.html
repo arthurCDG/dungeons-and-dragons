@@ -9,9 +9,9 @@
 		<li *ngFor="let campaign of campaigns">
 			<div
 				class="campaign-background-image"
-				[class.hollbrook-background-image]="campaign.name === 'Hollbrook'"
-				[class.aos-background-image]="campaign.name === 'Army of shadows'"
-				[class.wotl-background-image]="campaign.name === 'Wrath of the Lich'"
+				[class.hollbrook-background-image]="campaign.type === 1"
+				[class.aos-background-image]="campaign.type === 2"
+				[class.wotl-background-image]="campaign.type === 3"
 			>
 				<h3>{{ campaign.name }}</h3>
 				<p>{{ campaign.startsAt }}</p>

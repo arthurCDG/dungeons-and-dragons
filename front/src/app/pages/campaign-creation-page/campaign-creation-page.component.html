@@ -1,1 +1,53 @@
-<p>campaign-creation-page works!</p>
+<h2>Page de création d'une campagne</h2>
+<ng-container *ngIf="!isLoading; else loading">
+	<div *ngIf="creatableCampaigns.length; else emptyState">
+		<!-- Players list -->
+		<form (ngSubmit)="onSubmit()" [formGroup]="campaignCreationForm" class="user-form">
+			<div class="form-element">
+				<label class="form-label">Choisir le joueur à créer</label>
+				<mat-radio-group formControlName="campaignType" aria-label="Select an option" class="form-input creatable-players-list">
+					<ng-container *ngFor="let campaign of creatableCampaigns">
+						<mat-radio-button type="radio" [value]="campaign.type"  [attr.name]="campaign.type" >
+							{{ campaign.name }}
+						</mat-radio-button>
+					</ng-container>
+				</mat-radio-group>
+			</div>
+			<div *ngIf="campaignTypeCtrl.dirty && campaignTypeCtrl.hasError('required')" class="error-message form-element">
+				Vous devez sélectionner un joueur.
+			</div>
+			<button class="form-element" type="submit" [disabled]="campaignCreationForm.invalid">Créer la campagne</button>
+		</form>
+		<!-- Selected player display -->
+		<div *ngIf="selectedCampaign">
+			<h3>{{ selectedCampaign.name }}</h3>
+			<img
+				*ngIf="selectedCampaign?.type === 1"
+				class="selected-player-img"
+				alt="Hollbrook's liberation image preview"
+				src="../../../assets/campaigns/hollbrook-background-campaign-image.jpg"
+			>
+			<img
+				*ngIf="selectedCampaign?.type === 2"
+				class="selected-player-img"
+				alt="Army of shadow image preview"
+				src="../../../assets/campaigns/army-of-shadow-background-campaign-image.jpg"
+			>
+			<img
+				*ngIf="selectedCampaign?.type === 3"
+				class="selected-player-img"
+				alt="Wrath of the lich campaign image preview"
+				src="../../../assets/campaigns/wrath-of-the-lich-background-campaign-image.avif"
+			>
+			<p>{{ selectedCampaign.description }}</p>
+		</div>
+	</div>
+
+	<ng-template #emptyState>
+		<p>Vous avez débloqué et créé toutes les campagnes (message à changer)</p>
+	</ng-template>
+</ng-container>
+
+<ng-template #loading>
+	<p>Chargement...</p>
+</ng-template>

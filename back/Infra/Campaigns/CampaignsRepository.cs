@@ -28,12 +28,11 @@ internal sealed class CampaignsRepository : ICampaignsRepository
 
     public async Task<List<Campaign>> GetAsync(int playerId)
     {
-        PlayerDal player = await _context.Players
-            .Include(p => p.Campaigns)
-            .Where(p => p.Id == playerId)
-            .SingleAsync();
+        List<CampaignDal> campaigns = await _context.Campaigns
+            .Where(c => c.Players.Any(p => p.Id == playerId))
+            .ToListAsync();
 
-        return player.Campaigns.ConvertAll(c => c.ToDomain());
+        return campaigns.ConvertAll(c => c.ToDomain());
     }
 
     public async Task<Campaign> GetByIdAsync(int campaignId)
@@ -68,11 +67,13 @@ internal sealed class CampaignsRepository : ICampaignsRepository
             .SingleAsync(c => c.Id == id);
 
         return await _context.Players
+            .Include(p => p.Profile)
+            .Include(p => p.MaxAttributes)
             .Where(p => campaign.Players.Contains(p))
             .Select(p => p.ToDomain())
             .ToListAsync();
-    }
-
+    }       
+    
     public async Task CreateAsync(CampaignPayload campaignPayload)
     {
         try
@@ -84,8 +85,17 @@ internal sealed class CampaignsRepository : ICampaignsRepository
                 StartsAt = DateTime.UtcNow
             };
 
-            _context.Campaigns.Add(campaign);
-            await _context.SaveChangesAsync();
+            if (campaignPayload.PlayerIds.Any())
+            {
+                PlayerDal player = await _context.Players.SingleAsync(p => p.Id == campaignPayload.PlayerIds.First());
+                player.Campaigns.Add(campaign);
+                await _context.SaveChangesAsync();
+            }
+            else
+            {
+                _context.Campaigns.Add(campaign);
+                await _context.SaveChangesAsync();
+            }
 
             await SeedAdventureAsync(campaign.Id, campaignPayload.AdventurePayload);
         }
@@ -117,8 +127,8 @@ internal sealed class CampaignsRepository : ICampaignsRepository
     {
         AdventureDal adventure = new()
         {
-            Name = GetAdventureName(adventurePayload.Adventure),
-            Type = adventurePayload.Adventure,
+            Name = GetAdventureName(adventurePayload.Type),
+            Type = adventurePayload.Type,
             CampaignId = campaignId,
             IsActive = true
         };
@@ -126,7 +136,7 @@ internal sealed class CampaignsRepository : ICampaignsRepository
         _context.Adventures.Add(adventure);
         await _context.SaveChangesAsync();
 
-        await SeedRoomsAsync(adventure.Id, adventurePayload.Adventure);
+        await SeedRoomsAsync(adventure.Id, adventurePayload.Type);
         await _playersRepository.SeedMonstersAsync(campaignId, adventurePayload);
 
         return adventure;

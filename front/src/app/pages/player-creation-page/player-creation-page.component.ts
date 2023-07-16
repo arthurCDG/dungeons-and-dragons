@@ -38,11 +38,11 @@ export class PlayerCreationPageComponent implements OnInit {
 		private readonly playersService: PlayersService,
 		private readonly creatablePlayersService: CreatablePlayersService,
 		private readonly router: Router,
-		private readonly route: ActivatedRoute
+		private readonly activatedRoute: ActivatedRoute
 	) { }
 	
 	ngOnInit(): void {
-		this.route.params.subscribe(params => this.userId = Number(params['userId']));
+		this.activatedRoute.params.subscribe(params => this.userId = Number(params['userId']));
 
 		this.creatablePlayersService.getAsync(this.userId).subscribe(creatablePlayers => {
 			this.creatablePlayers = creatablePlayers;
@@ -59,6 +59,6 @@ export class PlayerCreationPageComponent implements OnInit {
 			playerType: this.playerTypeCtrl.value!,
 		};
 
-		this.playersService.createAsync(this.userId, payload).subscribe(() => this.router.navigate(['../'], { relativeTo: this.route }));
+		this.playersService.createAsync(this.userId, payload).subscribe(() => this.router.navigate(['../'], { relativeTo: this.activatedRoute }));
 	}
 }

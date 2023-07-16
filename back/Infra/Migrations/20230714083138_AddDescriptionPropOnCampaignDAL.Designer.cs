@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using dnd_infra;
 
@@ -11,9 +12,11 @@ using dnd_infra;
 namespace dnd_infra.Migrations
 {
     [DbContext(typeof(GlobalDbContext))]
-    partial class GlobalDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230714083138_AddDescriptionPropOnCampaignDAL")]
+    partial class AddDescriptionPropOnCampaignDAL
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1228,9 +1231,11 @@ namespace dnd_infra.Migrations
                 {
                     b.Navigation("Attributes");
 
-                    b.Navigation("MaxAttributes");
+                    b.Navigation("MaxAttributes")
+                        .IsRequired();
 
-                    b.Navigation("Profile");
+                    b.Navigation("Profile")
+                        .IsRequired();
 
                     b.Navigation("StoredItems");
 

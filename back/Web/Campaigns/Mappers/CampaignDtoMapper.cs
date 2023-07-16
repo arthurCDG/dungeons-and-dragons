@@ -24,6 +24,8 @@ public class CampaignDtoMapper
         {
             Id = campaign.Id,
             Name = campaign.Name,
+            Description = campaign.Description,
+            Type = campaign.Type,
             StartsAt = campaign.StartsAt,
             EndsAt = campaign.EndsAt,
             Adventures = adventures

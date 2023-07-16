@@ -11,6 +11,7 @@ internal sealed class CampaignDal
 {
     public int Id { get; set; }
     public string Name { get; set; } = string.Empty;
+    public string Description { get; set; } = string.Empty;
     public CampaignType Type { get; set; }
     public DateTime StartsAt { get; set; }
     public DateTime? EndsAt { get; set; }
@@ -23,6 +24,7 @@ internal sealed class CampaignDal
         {
             Id = Id,
             Name = Name,
+            Description = Description,
             Type = Type,
             StartsAt = StartsAt,
             EndsAt = EndsAt,

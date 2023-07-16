@@ -12,9 +12,8 @@ public class Player
     public bool IsDead { get; set; } = false;
     public int? SquareId { get; set; }
 
-    public PlayerProfile Profile { get; set; } = null!;
-    public PlayerMaxAttributes MaxAttributes { get; set; } = null!;
-
+    public PlayerProfile? Profile { get; set; } = null!;
+    public PlayerMaxAttributes? MaxAttributes { get; set; } = null!;
     public PlayerAttributes? Attributes { get; set; }
     public TurnOrder? TurnOrder { get; set; }
 
