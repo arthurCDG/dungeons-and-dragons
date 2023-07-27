@@ -32,8 +32,5 @@ internal sealed class PlayerDalConfiguration : IEntityTypeConfiguration<PlayerDa
             .WithOne()
             .HasForeignKey<PlayerDal>(p => p.SquareId)
             .OnDelete(DeleteBehavior.Restrict);
-
-        builder.HasMany(u => u.Campaigns)
-            .WithMany(c => c.Players);
     }
 }

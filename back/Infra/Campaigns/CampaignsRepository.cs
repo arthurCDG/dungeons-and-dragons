@@ -1,7 +1,6 @@
 ﻿using dnd_domain.Campaigns;
 using dnd_domain.Campaigns.Enums;
 using dnd_domain.Campaigns.Models;
-using dnd_domain.Players.Models;
 using dnd_domain.Players.Repositories;
 using dnd_infra.Campaigns.Adventures;
 using dnd_infra.Campaigns.Adventures.Rooms;
@@ -51,28 +50,13 @@ internal sealed class CampaignsRepository : ICampaignsRepository
 
     public Task<Campaign> GetFromAdventureAsync(int adventureId)
         => _context.Campaigns
-            .Where(c => c.Adventures.Any(a => a.Id == adventureId))
-            .Select(c => c.ToDomain())
-            .SingleAsync();
-
-    public async Task<List<Player>> GetPlayersAsync(int id)
-    {
-        CampaignDal campaign = await _context.Campaigns
             .Include(c => c.Players)
                 .ThenInclude(p => p.Profile)
-           .Include(c => c.Players)
+            .Include(c => c.Players)
                 .ThenInclude(p => p.MaxAttributes)
-           .Include(c => c.Players)
-                .ThenInclude(p => p.Attributes)
-            .SingleAsync(c => c.Id == id);
-
-        return await _context.Players
-            .Include(p => p.Profile)
-            .Include(p => p.MaxAttributes)
-            .Where(p => campaign.Players.Contains(p))
-            .Select(p => p.ToDomain())
-            .ToListAsync();
-    }       
+            .Where(c => c.Adventures.Any(a => a.Id == adventureId))
+            .Select(c => c.ToDomain())
+            .SingleAsync();       
     
     public async Task CreateAsync(CampaignPayload campaignPayload)
     {
@@ -84,18 +68,20 @@ internal sealed class CampaignsRepository : ICampaignsRepository
                 Type = campaignPayload.Type,
                 StartsAt = DateTime.UtcNow
             };
+            
+            await _context.SaveChangesAsync();
 
             if (campaignPayload.PlayerIds.Any())
             {
                 PlayerDal player = await _context.Players.SingleAsync(p => p.Id == campaignPayload.PlayerIds.First());
-                player.Campaigns.Add(campaign);
-                await _context.SaveChangesAsync();
+                player.CampaignId = campaign.Id;
             }
             else
             {
                 _context.Campaigns.Add(campaign);
-                await _context.SaveChangesAsync();
             }
+
+            await _context.SaveChangesAsync();
 
             await SeedAdventureAsync(campaign.Id, campaignPayload.AdventurePayload);
         }

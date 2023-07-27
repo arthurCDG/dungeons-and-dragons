@@ -1,5 +1,6 @@
 ﻿using dnd_domain.GameFlow.Models;
 using dnd_domain.GameFlow.Repositories;
+using dnd_infra.Campaigns;
 using dnd_infra.GameFlow.DALs;
 using dnd_infra.Players.DALs;
 using Microsoft.EntityFrameworkCore;
@@ -94,10 +95,13 @@ internal sealed class TurnFlowRepository : ITurnFlowRepository
 
     private async Task<List<TurnOrderDal>> GetTurnOrdersAsync(int adventureId)
     {
-        List<PlayerDal> players = await _context.Players
-            .Include(p => p.TurnOrder)
-            .Where(p => !p.IsDead && p.Campaigns.Any(c => c.Id == adventureId))
-            .ToListAsync();
+        CampaignDal campaign = await _context.Campaigns
+            .Include(c => c.Players)
+                .ThenInclude(p => p.TurnOrder)
+            .Where(c => c.Adventures.Any(a => a.Id == adventureId))
+            .SingleAsync();
+
+        List<PlayerDal> players = campaign.Players;
 
         List<TurnOrderDal?> turnOrders = players.Select(p => p.TurnOrder).ToList();
 
@@ -110,15 +114,21 @@ internal sealed class TurnFlowRepository : ITurnFlowRepository
 
     private async Task<List<TurnOrderDal>> CreateTurnOrdersAsync(int adventureId)
     {
-        List<PlayerDal> heroes = await _context.Players
-            .Include(p => p.Profile)
-            .Where(p => !p.IsDead && p.Campaigns.Any(c => c.Id == adventureId) && p.Profile.Class.HasValue && p.Profile.Race.HasValue)
-            .ToListAsync();
+        CampaignDal campaign = await _context.Campaigns
+            .Include(c => c.Players)
+                .ThenInclude(p => p.TurnOrder)
+            .Include(c => c.Players)
+                .ThenInclude(p => p.Profile)
+            .Where(c => c.Adventures.Any(a => a.Id == adventureId))
+            .SingleAsync();
 
-        List<PlayerDal> monsters = await _context.Players
-            .Include(p => p.Profile)
-            .Where(p => !p.IsDead && p.Campaigns.Any(c => c.Id == adventureId) && p.Profile.MonsterType.HasValue)
-            .ToListAsync();
+        List<PlayerDal> heroes = campaign.Players
+            .Where(p => !p.IsDead && p.Profile!.Class.HasValue && p.Profile.Race.HasValue)
+            .ToList();
+
+        List<PlayerDal> monsters = campaign.Players
+            .Where(p => !p.IsDead && p.Profile!.MonsterType.HasValue)
+            .ToList();
 
         List<int> playersOrders = Enumerable.Range(1, heroes.Count).ToList();
         List<int> monstersOrders = Enumerable.Range(heroes.Count + 1, monsters.Count).ToList();

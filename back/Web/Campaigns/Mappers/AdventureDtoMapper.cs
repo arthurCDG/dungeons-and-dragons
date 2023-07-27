@@ -1,6 +1,7 @@
 ﻿using dnd_application.Campaigns;
 using dnd_domain.Campaigns.Models;
 using dnd_domain.Players.Models;
+using dnd_domain.Players.Repositories;
 using dungeons_and_dragons.Campaigns.DTOs;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,10 +12,12 @@ namespace dungeons_and_dragons.Campaigns.Mappers;
 public class AdventureDtoMapper
 {
     private readonly ICampaignsService _campaignsService;
+    private readonly IPlayersRepository _playersRepository;
 
-    public AdventureDtoMapper(ICampaignsService campaignsService)
+    public AdventureDtoMapper(ICampaignsService campaignsService, IPlayersRepository playersRepository)
     {
         _campaignsService = campaignsService ?? throw new System.ArgumentNullException(nameof(campaignsService));
+        _playersRepository = playersRepository ?? throw new System.ArgumentNullException(nameof(playersRepository));
     }
 
     public List<AdventureDto> ToDtos(Campaign campaign)
@@ -35,7 +38,7 @@ public class AdventureDtoMapper
     public async Task<AdventureDto> ToDtoAsync(Adventure adventure)
     {
         Campaign campaign = await _campaignsService.GetFromAdventureAsync(adventure.Id);
-        List<Player> players = await _campaignsService.GetPlayersAsync(campaign.Id);
+        List<Player> players = campaign.Players;
 
         return new AdventureDto
         {

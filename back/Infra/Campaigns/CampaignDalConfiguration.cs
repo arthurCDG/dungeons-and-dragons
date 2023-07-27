@@ -20,7 +20,9 @@ internal sealed class CampaignDalConfiguration : IEntityTypeConfiguration<Campai
              .HasColumnType("datetime2(2)");
 
         builder.HasMany(c => c.Players)
-            .WithMany(u => u.Campaigns);
+            .WithOne()
+            .HasForeignKey(p => p.CampaignId)
+            .OnDelete(DeleteBehavior.Restrict);
 
         builder.HasMany(campaign => campaign.Adventures)
             .WithOne()
