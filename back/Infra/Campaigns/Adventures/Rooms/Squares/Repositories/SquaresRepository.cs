@@ -53,7 +53,7 @@ internal sealed class SquaresRepository : ISquaresRepository
             .SingleAsync(c => c.Id == campaignId);
 
         List<PlayerDal> players = campaign.Players;
-        AdventureDal adventure = campaign.Adventures.Single(a => a.IsActive && !a.IsCompleted);
+        AdventureDal adventure = campaign.Adventures.Single(a => a.Status == AdventureStatus.Started);
 
         switch (adventure.Type)
         {
@@ -66,7 +66,7 @@ internal sealed class SquaresRepository : ISquaresRepository
 
     private async Task PlaceHeroesOnGoblinBanditsSquaresAsync(List<RoomDal> rooms, List<PlayerDal> players)
     {
-        List<PlayerDal> heroes = players.Where(p => p.Profile.Class != null && p.Profile.Race != null).ToList();
+        List<PlayerDal> heroes = players.Where(p => p.Profile!.Class != null && p.Profile.Race != null).ToList();
         List<SquareDal> squares = rooms.SelectMany(r => r.Squares).ToList();
 
         List<int> heroesSartingSquareIds = squares

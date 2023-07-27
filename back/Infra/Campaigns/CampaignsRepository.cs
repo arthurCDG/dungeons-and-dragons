@@ -66,19 +66,20 @@ internal sealed class CampaignsRepository : ICampaignsRepository
             {
                 Name = GetCampaignName(campaignPayload.Type),
                 Type = campaignPayload.Type,
-                StartsAt = DateTime.UtcNow
+                StartsAt = DateTime.UtcNow,
             };
-            
+
+            _context.Campaigns.Add(campaign);
             await _context.SaveChangesAsync();
 
             if (campaignPayload.PlayerIds.Any())
             {
-                PlayerDal player = await _context.Players.SingleAsync(p => p.Id == campaignPayload.PlayerIds.First());
-                player.CampaignId = campaign.Id;
-            }
-            else
-            {
-                _context.Campaigns.Add(campaign);
+                List<PlayerDal> players = await _context.Players.Where(p => campaignPayload.PlayerIds.Contains(p.Id)).ToListAsync();
+                
+                foreach (PlayerDal player in players)
+                {
+                    player.CampaignId = campaign.Id;
+                }
             }
 
             await _context.SaveChangesAsync();
@@ -91,15 +92,6 @@ internal sealed class CampaignsRepository : ICampaignsRepository
         }
     }
 
-    private static string GetCampaignName(CampaignType type)
-        => type switch
-        {
-            CampaignType.HollbrooksLiberation => "La libération de Hollbrooks", // TODO lokalise name
-            CampaignType.InpursuitOfTheDarkArmy => "A la poursuite de l'armée sombre", // TODO lokalise name
-            CampaignType.WrathOfTheLich => "La colère de la liche", // TODO lokalise name
-            _ => throw new ArgumentException($"Unknown campaign type: {type}.")
-        };
-
     public async Task UpdatePlayersAsync(int id, CampaignPayload campaignPayload)
     {
         CampaignDal campaign = await _context.Campaigns.SingleAsync(c => c.Id == id);
@@ -109,6 +101,15 @@ internal sealed class CampaignsRepository : ICampaignsRepository
         await _context.SaveChangesAsync();
     }
 
+    private static string GetCampaignName(CampaignType type)
+        => type switch
+        {
+            CampaignType.HollbrooksLiberation => "La libération de Hollbrooks", // TODO lokalise name
+            CampaignType.InpursuitOfTheDarkArmy => "A la poursuite de l'armée sombre", // TODO lokalise name
+            CampaignType.WrathOfTheLich => "La colère de la liche", // TODO lokalise name
+            _ => throw new ArgumentException($"Unknown campaign type: {type}.")
+        };
+
     private async Task<AdventureDal> SeedAdventureAsync(int campaignId, AdventurePayload adventurePayload)
     {
         AdventureDal adventure = new()
@@ -116,7 +117,7 @@ internal sealed class CampaignsRepository : ICampaignsRepository
             Name = GetAdventureName(adventurePayload.Type),
             Type = adventurePayload.Type,
             CampaignId = campaignId,
-            IsActive = true
+            Status = AdventureStatus.Created
         };
 
         _context.Adventures.Add(adventure);

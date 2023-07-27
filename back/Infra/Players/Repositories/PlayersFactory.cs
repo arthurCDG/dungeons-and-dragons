@@ -49,7 +49,7 @@ internal sealed class PlayersFactory
             .FirstAsync(c => c.Id == campaignId); // Includes
 
         List<SquareDal> squares = campaign.Adventures
-            .Where(a => a.IsActive)
+            .Where(a => a.Status == AdventureStatus.Started)
             .SelectMany(a => a.Rooms)
             .SelectMany(r => r.Squares)
             .ToList();

@@ -1,4 +1,5 @@
 ﻿using dnd_domain.Campaigns.Adventures;
+using dnd_domain.Campaigns.Enums;
 using dnd_domain.Campaigns.Models;
 using dnd_domain.Campaigns.Rooms.Squares.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -34,7 +35,7 @@ internal sealed class AdventuresRepository : IAdventuresRepository
     {
         await _squaresRepository.PlaceHeroesOnSquaresAsync(campaignId);
 
-        return await _context.Adventures
+        AdventureDal adventure = await _context.Adventures
             .Include(a => a.Rooms)
                 .ThenInclude(r => r.Squares)
                     .ThenInclude(s => s.Position)
@@ -42,7 +43,11 @@ internal sealed class AdventuresRepository : IAdventuresRepository
                 .ThenInclude(r => r.Squares)
                     .ThenInclude(s => s.Trap)
             .Where(a => a.Id == id)
-            .Select(a => a.ToDomain())
             .SingleAsync();
+
+        adventure.Status = AdventureStatus.Started;
+        await _context.SaveChangesAsync();
+
+        return adventure.ToDomain();
     }
 }

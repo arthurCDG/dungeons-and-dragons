@@ -14,6 +14,7 @@ internal class AdventureDalConfiguration : IEntityTypeConfiguration<AdventureDal
         builder.HasKey(adventure => adventure.Id);
 
         builder.Property(p => p.Type).HasConversion(new EnumToStringConverter<AdventureType>());
+        builder.Property(p => p.Status).HasConversion(new EnumToStringConverter<AdventureStatus>());
 
         builder.HasMany(adventure => adventure.Rooms)
             .WithOne()
