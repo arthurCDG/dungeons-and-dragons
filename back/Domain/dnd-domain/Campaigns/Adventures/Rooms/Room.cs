@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
+using dnd_domain.Campaigns.Adventures.Rooms.Squares;
 
-namespace dnd_domain.Campaigns.Models;
+namespace dnd_domain.Campaigns.Adventures.Rooms;
 
 public class Room
 {

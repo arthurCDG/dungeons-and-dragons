@@ -16,7 +16,7 @@ export class CampaignsService {
 		return this.httpClient.get<ICampaign>(`${DEV_BACKEND_URL}/api/${CAMPAIGNS_URL}/${campaignId}`);
 	}
 
-	public postAsync(payload: ICampaignPayload): Observable<void> {
-		return this.httpClient.post<void>(`${DEV_BACKEND_URL}/api/${CAMPAIGNS_URL}`, payload);
+	public postAsync(payload: ICampaignPayload): Observable<ICampaign> {
+		return this.httpClient.post<ICampaign>(`${DEV_BACKEND_URL}/api/${CAMPAIGNS_URL}`, payload);
 	}
 }

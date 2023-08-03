@@ -53,8 +53,11 @@ public class CampaignsController : ControllerBase
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
-    public Task PostAsync([FromBody] CampaignPayload campaignPayload)
-        => _campaignsService.CreateAsync(campaignPayload);
+    public async Task<CampaignDto> PostAsync([FromBody] CampaignPayload campaignPayload)
+    {
+        Campaign campaign = await _campaignsService.CreateAsync(campaignPayload);
+        return _campaignDtoMapper.ToDto(campaign);
+    }
 
     [HttpPatch("{id}")]
     [ProducesResponseType(StatusCodes.Status201Created)]

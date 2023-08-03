@@ -58,7 +58,7 @@ internal sealed class CampaignsRepository : ICampaignsRepository
             .Select(c => c.ToDomain())
             .SingleAsync();       
     
-    public async Task CreateAsync(CampaignPayload campaignPayload)
+    public async Task<Campaign> CreateAsync(CampaignPayload campaignPayload)
     {
         try
         {
@@ -84,7 +84,7 @@ internal sealed class CampaignsRepository : ICampaignsRepository
 
             await _context.SaveChangesAsync();
 
-            await SeedAdventureAsync(campaign.Id, campaignPayload.AdventurePayload);
+            return campaign.ToDomain();
         }
         catch (Exception e)
         {
@@ -109,150 +109,4 @@ internal sealed class CampaignsRepository : ICampaignsRepository
             CampaignType.WrathOfTheLich => "La colère de la liche", // TODO lokalise name
             _ => throw new ArgumentException($"Unknown campaign type: {type}.")
         };
-
-    private async Task<AdventureDal> SeedAdventureAsync(int campaignId, AdventurePayload adventurePayload)
-    {
-        AdventureDal adventure = new()
-        {
-            Name = GetAdventureName(adventurePayload.Type),
-            Type = adventurePayload.Type,
-            CampaignId = campaignId,
-            Status = AdventureStatus.Created
-        };
-
-        _context.Adventures.Add(adventure);
-        await _context.SaveChangesAsync();
-
-        await SeedRoomsAsync(adventure.Id, adventurePayload.Type);
-        await _playersRepository.SeedMonstersAsync(campaignId, adventurePayload);
-
-        return adventure;
-    }
-
-    private static string GetAdventureName(AdventureType adventure)
-        => adventure switch
-        {
-            AdventureType.GoblinBandits => "Les bandits gobelins", // TODO lokalise name
-            _ => throw new ArgumentException($"Unknown adventure: {adventure}")
-        };
-
-    private async Task<List<RoomDal>> SeedRoomsAsync(int adventureId, AdventureType adventure)
-        => adventure switch
-        {
-            AdventureType.GoblinBandits => await GetGoblinBanditsRoomsAsync(adventureId),
-            _ => throw new ArgumentException($"Unknown adventure: {adventure}")
-        };
-
-    private async Task<List<RoomDal>> GetGoblinBanditsRoomsAsync(int adventureId)
-    {
-        RoomDal disabledRoom = new() { AdventureId = adventureId };
-        RoomDal bottomLeftRoom = new() { AdventureId = adventureId };
-        RoomDal topMiddleLeftRoom = new() { AdventureId = adventureId };
-        RoomDal topMiddleRightRoom = new() { AdventureId = adventureId };
-        RoomDal bottomMiddleRightRoom = new() { AdventureId = adventureId };
-        RoomDal topRightRoom = new() { AdventureId = adventureId, IsStartRoom = true };
-        RoomDal bottomRightRoom = new() { AdventureId = adventureId };
-
-        List<RoomDal> rooms = new() { disabledRoom, bottomLeftRoom, topMiddleLeftRoom, topMiddleRightRoom, bottomMiddleRightRoom, topRightRoom, bottomRightRoom };
-        _context.Rooms.AddRange(rooms);
-        await _context.SaveChangesAsync();
-
-        for (int x = 1; x <= 11; x++)
-        {
-            for (int y = 1; y <= 22; y++)
-            {
-                SquareDal squareDal = new() { Position = new() { X = x, Y = y } };
-
-                // Board frame
-
-                if (x == 1)
-                {
-                    squareDal.HasTopWall = true;
-                }
-
-                if (y == 1)
-                {
-                    squareDal.HasLeftWall = true;
-                }
-
-                if (x == 11)
-                {
-                    squareDal.HasBottomWall = true;
-                }
-
-                if (y == 22)
-                {
-                    squareDal.HasRightWall = true;
-                }
-
-                // Top left room (disabled)
-
-                if ((x == 3 & (y == 5 || y == 6 || y == 7)) || (x == 6 && y >= 1 && y <= 4))
-                {
-                    squareDal.HasBottomWall = true;
-                }
-
-                if ((x >= 1 && x <= 3 & y == 7) || (x >= 4 && x <= 6 && y == 4))
-                {
-                    squareDal.HasRightWall = true;
-                }
-
-                if ((x >= 1 && x <= 6 && y >= 1 && y <= 4) || (x >= 1 && x <= 3 && y >= 1 && y <= 7))
-                {
-                    squareDal.RoomId = disabledRoom.Id;
-                    squareDal.IsDisabled = true;
-                }
-
-                // Bottom-left room (2 chests and 2 goblins)
-
-                if ((x == 7 && y >= 1 && y <= 4) || (x >= 8 && x <= 11 && y >= 1 && y <= 11))
-                {
-                    squareDal.RoomId = bottomLeftRoom.Id;
-                }
-
-                _context.Add(squareDal);
-
-                // Top-middle-left room (2 pillars and 3 traps)
-
-                if ((x >= 1 && x <= 3 && y >= 8 && y <= 11) || (x >= 4 && x <= 7 && y >= 5 && y <= 11))
-                {
-                    squareDal.RoomId = topMiddleLeftRoom.Id;
-                }
-
-                // Top-middle-right room (6 chest and 3 goblins)
-
-                if (x >= 1 && x <= 7 && y >= 12 && y <= 17)
-                {
-                    squareDal.RoomId = topMiddleRightRoom.Id;
-                }
-
-                // Bottom-middle-right room (6 chest and 3 goblins)
-
-                if (x >= 8 && x <= 11 && y >= 12 && y <= 17)
-                {
-                    squareDal.RoomId = bottomMiddleRightRoom.Id;
-                }
-
-                // Top right room (start room for heroes)
-
-                if (x >= 1 && x <= 5 && y >= 18 && y <= 22)
-                {
-                    squareDal.RoomId = topRightRoom.Id;
-                }
-
-
-                // Bottom right room (1 goblin)
-
-                if (x >= 6 && x <= 11 && y >= 18 && y <= 22)
-                {
-                    squareDal.RoomId = bottomRightRoom.Id;
-                }
-
-                _context.Add(squareDal);
-            }
-        }
-
-        await _context.SaveChangesAsync();
-        return rooms;
-    }
 }

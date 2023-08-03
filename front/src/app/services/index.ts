@@ -8,3 +8,4 @@ export * from './adventures.service';
 export * from './players.service';
 export * from './creatable-players.service';
 export * from './creatable-campaigns.service';
+export * from './creatable-adventures.service';

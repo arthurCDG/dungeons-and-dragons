@@ -1,4 +1,5 @@
 ﻿using dnd_application.Campaigns;
+using dnd_domain.Campaigns.Adventures;
 using dnd_domain.Campaigns.Models;
 using dnd_domain.Players.Models;
 using dnd_domain.Players.Repositories;

@@ -26,8 +26,18 @@
 					<img class="player-logo" *ngIf="player.type === 'dungeonMaster'" alt="" src="../../../assets/hero-classes/crane.png" />
 					<span>{{ player.name }}</span>
 				</div>
-				<p>{{ player.campaignsCount }} campagnes en cours</p>
-				<a class="link-button" [routerLink]="[player.id, 'campaigns']" >Jouer avec {{ player.name }}</a>
+				<a
+					*ngIf="player.campaignId; else newCampaignLink"
+					class="link-button"
+					[routerLink]="[player.id, 'campaigns', player.campaignId]"
+				>
+					<span>Jouer avec {{ player.name }}</span>
+				</a>
+				<ng-template #newCampaignLink>
+					<a class="link-button" [routerLink]="[player.id, 'campaigns', 'new']">
+						<span>Jouer avec {{ player.name }}</span>
+					</a>
+				</ng-template>
 			</div>
 		</ng-container>
 	</div>

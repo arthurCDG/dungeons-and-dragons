@@ -1,4 +1,3 @@
-import { ICampaign } from "./campaign.models";
 import { IStoredItem } from "./items.models";
 
 export interface ICreatablePlayer {
@@ -12,13 +11,13 @@ export interface ICreatablePlayer {
 export interface IPlayer {
 	id: number;
 	userId?: number;
+	campaignId: number;
 	isDead: boolean;
 	squareId?: number;
 	profile: IProfile;
 	maxAttributes: IPlayerMaxAttributes;
 	attributes?: IPlayerAttributes;
 	turnOrder?: ITurnOrder;
-	campaigns: ICampaign[];
 	storedItems: IStoredItem[];
 }
 

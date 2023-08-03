@@ -1,4 +1,4 @@
-﻿using dnd_domain.Campaigns.Enums;
+﻿using dnd_domain.Campaigns.Adventures;
 using System.Collections.Generic;
 
 namespace dungeons_and_dragons.Campaigns.DTOs;

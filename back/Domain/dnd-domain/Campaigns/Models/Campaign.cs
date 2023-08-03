@@ -1,4 +1,5 @@
-﻿using dnd_domain.Campaigns.Enums;
+﻿using dnd_domain.Campaigns.Adventures;
+using dnd_domain.Campaigns.Enums;
 using dnd_domain.Players.Models;
 using System;
 using System.Collections.Generic;

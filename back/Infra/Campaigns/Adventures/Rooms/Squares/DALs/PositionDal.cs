@@ -1,4 +1,4 @@
-﻿using dnd_domain.Campaigns.Models;
+﻿using dnd_domain.Campaigns.Adventures.Rooms.Squares;
 
 namespace dnd_infra.Campaigns.Adventures.Rooms.Squares.DALs;
 

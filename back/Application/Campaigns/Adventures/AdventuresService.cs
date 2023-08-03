@@ -1,5 +1,4 @@
 ﻿using dnd_domain.Campaigns.Adventures;
-using dnd_domain.Campaigns.Models;
 using System.Threading.Tasks;
 
 namespace dnd_application.Campaigns.Adventures;
@@ -16,6 +15,6 @@ internal sealed class AdventuresService : IAdventuresService
     public Task<Adventure> GetByIdAsync(int id)
         => _adventuresRepository.GetByIdAsync(id);
 
-    public Task<Adventure> StartAsync(int campaignId, int id)
-        => _adventuresRepository.StartAsync(campaignId, id);
+    public Task<Adventure> StartAsync(int campaignId, AdventureType adventureType)
+        => _adventuresRepository.StartAsync(campaignId, adventureType);
 }

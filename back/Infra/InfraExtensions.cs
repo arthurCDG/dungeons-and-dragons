@@ -1,6 +1,6 @@
 ﻿using dnd_domain.Campaigns;
 using dnd_domain.Campaigns.Adventures;
-using dnd_domain.Campaigns.Rooms.Squares.Repositories;
+using dnd_domain.Campaigns.Adventures.Rooms.Squares;
 using dnd_domain.GameFlow.Repositories;
 using dnd_domain.Items.Services;
 using dnd_domain.Players.Repositories;

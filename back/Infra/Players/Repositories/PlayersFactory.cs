@@ -1,4 +1,4 @@
-﻿using dnd_domain.Campaigns.Enums;
+﻿using dnd_domain.Campaigns.Adventures;
 using dnd_domain.Players.Enums;
 using dnd_domain.Players.Models;
 using dnd_infra.Campaigns;

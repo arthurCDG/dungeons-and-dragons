@@ -1,4 +1,4 @@
-﻿namespace dnd_domain.Campaigns.Models;
+﻿namespace dnd_domain.Campaigns.Adventures.Rooms.Squares;
 
 public class Square
 {

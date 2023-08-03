@@ -1,4 +1,4 @@
-﻿using dnd_domain.Campaigns.Models;
+﻿using dnd_domain.Campaigns.Adventures.Rooms.Squares;
 using dnd_domain.Players.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;

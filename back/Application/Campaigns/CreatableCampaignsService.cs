@@ -24,19 +24,19 @@ internal sealed class CreatableCampaignsService : ICreatableCampaignsService
             {
                 Name = "La libération d'Hollbrooks",
                 Type = CampaignType.HollbrooksLiberation,
-                Description = "Dans cette aventure, les aventuriers vont aider le shérif de la petite ville de Hollbrooks."
+                Description = "Dans cette campagne, les aventuriers vont aider le shérif de la petite ville de Hollbrooks."
             },
             new CreatableCampaign
             {
                 Name = "A la poursuite de l'armée des ombres",
                 Type = CampaignType.InpursuitOfTheDarkArmy,
-                Description = "Dans cette aventure, les aventuriers vont poursuivre leur enquête en se renseignant sur l'armée des ombres qui grandit chaque jour."
+                Description = "Dans cette campagne, les aventuriers vont poursuivre leur enquête en se renseignant sur l'armée des ombres qui grandit chaque jour."
             },
             new CreatableCampaign
             {
                 Name = "La colère de la liche",
                 Type = CampaignType.WrathOfTheLich,
-                Description = "Dans cette aventure, les aventuriers vont affronter Nécratim, le roi Liche."
+                Description = "Dans cette campagne, les aventuriers vont affronter Nécratim, le roi Liche."
             }
         };
 

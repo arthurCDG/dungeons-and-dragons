@@ -16,13 +16,19 @@ export interface ICampaign {
 	adventures: IAdventure[];
 }
 
+export interface ICreatableAdventure {
+	name: string;
+	description: string;
+	type: AdventureType;
+	canBeStarted: boolean;
+}
+
 export interface IAdventure {
 	id: number;
 	campaignId: number;
 	name: string;
 	type: AdventureType;
-	isActive: boolean;
-	isCompleted: boolean;
+	status: AdventureStatus;
 	squares: ISquare[];
 }
 
@@ -105,6 +111,12 @@ export enum AdventureType {
 	AttackingBorashCastle,
 	TheSpiralOfFate,
 	TheRiseOfNecratim
+}
+
+export enum AdventureStatus {
+	None = 0,
+	Started = 1,
+	Finished = 2
 }
 
 export enum CampaignType {

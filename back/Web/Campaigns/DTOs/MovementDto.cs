@@ -1,4 +1,4 @@
-﻿using dnd_domain.Campaigns.Models;
+﻿using dnd_domain.Campaigns.Adventures.Rooms.Squares;
 
 namespace dungeons_and_dragons.Campaigns.DTOs;
 

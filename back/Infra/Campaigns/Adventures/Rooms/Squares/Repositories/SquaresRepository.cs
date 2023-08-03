@@ -1,6 +1,5 @@
-﻿using dnd_domain.Campaigns.Enums;
-using dnd_domain.Campaigns.Models;
-using dnd_domain.Campaigns.Rooms.Squares.Repositories;
+﻿using dnd_domain.Campaigns.Adventures;
+using dnd_domain.Campaigns.Adventures.Rooms.Squares;
 using dnd_domain.Players.Models;
 using dnd_infra.Campaigns.Adventures;
 using dnd_infra.Campaigns.Adventures.Rooms;

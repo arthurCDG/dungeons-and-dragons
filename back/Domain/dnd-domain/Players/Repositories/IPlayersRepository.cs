@@ -1,4 +1,4 @@
-﻿using dnd_domain.Campaigns.Models;
+﻿using dnd_domain.Campaigns.Adventures;
 using dnd_domain.Players.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -14,7 +14,7 @@ public interface IPlayersRepository
     
     Task<Player> UpdateAsync(int id, PlayerPayload playerPayload);
 
-    Task SeedMonstersAsync(int campaignId, AdventurePayload adventurePayload);
+    Task SeedMonstersAsync(int campaignId, AdventureType type);
 
     Task<Player> AttackAsync(int id, AttackPayload attack);
 }

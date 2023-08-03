@@ -42,12 +42,11 @@ export class PlayersPageComponent implements OnInit {
 		playerCards.push(...heroes);
 		
 		if (players.some(p => p.profile.monsterType != null)) {
-			const campaignsCount: number = players.filter(p => p.profile.monsterType != null).length;  // TODO fix this
 			playerCards.push({
 				id: 0,
+				campaignId: players[0].campaignId, // TODO find a better way to retrieve it
 				name: 'Maître du dongeon',
 				image: '',
-				campaignsCount,
 				type: 'dungeonMaster'
 			});
 		}
@@ -58,10 +57,10 @@ export class PlayersPageComponent implements OnInit {
 	private forgeHeroPlayerCard(hero: IPlayer): IPlayerCard {
 		return {
 			id: hero.id,
+			campaignId: hero.campaignId,
 			name: hero.profile.firstName,
 			image: hero.profile.imageUrl,
 			class: hero.profile.class,
-			campaignsCount: hero.campaigns.length,
 			type: 'hero'
 		}
 	}
@@ -69,10 +68,10 @@ export class PlayersPageComponent implements OnInit {
 
 interface IPlayerCard {
 	id: number;
+	campaignId: number;
 	name: string;
 	image: string;
 	type: playerType;
-	campaignsCount: number;
 	class?: HeroClass;
 }
 

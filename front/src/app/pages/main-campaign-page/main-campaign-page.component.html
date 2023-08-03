@@ -1,0 +1,55 @@
+<h1>Page des campagnes</h1>
+
+<ng-container *ngIf="!mainCampaign; else campaignDisplay">
+	<a class="link-button" [routerLink]="'new'">Créer une campagne</a>
+	<button class="link-button" disabled>[Soon] Rejoindre une campagne</button>
+	<!-- TODO - empty state image or text -->
+</ng-container>
+
+<ng-template #campaignDisplay>
+	<div
+		class="campaign-background-image"
+		[class.hollbrook-background-image]="mainCampaign.type === 1"
+		[class.aos-background-image]="mainCampaign.type === 2"
+		[class.wotl-background-image]="mainCampaign.type === 3"
+	>
+		<h3>{{ mainCampaign.name }}</h3>
+		<p>Démarrée le {{ mainCampaign.startsAt }}</p>
+		<button class="link-button" disabled>[soon] Ajouter des joueurs à la campagne</button>
+	</div>
+	<div>
+		<ul>
+			<li *ngFor="let adventure of mainCampaign.adventures" class="adventure-card unlocked">
+				<div>
+					<h3>{{ adventure.name }}</h3>
+					<a
+						*ngIf="adventure.status === 1"
+						[routerLink]="adventure.id.toString()"
+						class="link-button"
+					>
+						<span>Jouer l'aventure</span>
+					</a>
+					<span *ngIf="adventure.status === 2">Aventure terminée</span>
+				</div>
+			</li>
+			<li *ngFor="let creatableAdventure of creatableAdventures">
+				<div *ngIf="creatableAdventure.canBeStarted; else lockedAdventure" class="adventure-card unlocked">
+					<div>
+						<h3>{{ creatableAdventure.name }}</h3>
+						<p>{{ creatableAdventure.description }}</p>
+					</div>
+					<button (click)="startAdventureAsync(creatableAdventure.type)" class="link-button">Créer l'aventure</button>
+				</div>
+				<ng-template #lockedAdventure>
+					<div class="adventure-card locked">
+						<div>
+							<h3>{{ creatableAdventure.name }}</h3>
+							<span>Aventure non débloquée</span>
+						</div>
+						<img src="../../../assets/icons/lock.png" class="lock-icon"/>
+					</div>
+				</ng-template>
+			</li>
+		</ul>
+	</div>
+</ng-template>

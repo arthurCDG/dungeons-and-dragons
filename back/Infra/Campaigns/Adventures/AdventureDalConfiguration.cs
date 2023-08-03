@@ -1,4 +1,4 @@
-﻿using dnd_domain.Campaigns.Enums;
+﻿using dnd_domain.Campaigns.Adventures;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;

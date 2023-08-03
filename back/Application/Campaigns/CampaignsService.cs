@@ -24,7 +24,7 @@ internal sealed class CampaignsService : ICampaignsService
     public Task<Campaign> GetFromAdventureAsync(int adventureId)
         => _campaignsRepository.GetFromAdventureAsync(adventureId);
 
-    public Task CreateAsync(CampaignPayload campaignPayload)
+    public Task<Campaign> CreateAsync(CampaignPayload campaignPayload)
         => _campaignsRepository.CreateAsync(campaignPayload);
 
     public Task UpdateAsync(int id, CampaignPayload campaignPayload)

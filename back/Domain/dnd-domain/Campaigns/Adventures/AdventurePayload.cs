@@ -1,6 +1,4 @@
-﻿using dnd_domain.Campaigns.Enums;
-
-namespace dnd_domain.Campaigns.Models;
+﻿namespace dnd_domain.Campaigns.Adventures;
 
 public class AdventurePayload
 {

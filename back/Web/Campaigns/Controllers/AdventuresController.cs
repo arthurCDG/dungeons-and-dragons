@@ -1,11 +1,12 @@
 ﻿using dnd_application.Campaigns.Adventures;
-using dnd_domain.Campaigns.Models;
+using dnd_domain.Campaigns.Adventures;
 using dungeons_and_dragons.Campaigns.DTOs;
 using dungeons_and_dragons.Campaigns.Mappers;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
+using System;
 using System.Threading.Tasks;
 
 namespace dungeons_and_dragons.Campaigns.Controllers;
@@ -23,8 +24,8 @@ public class AdventuresController : ControllerBase
 
     public AdventuresController(IAdventuresService adventuresService, AdventureDtoMapper adventureDtoMapper)
     {
-        _adventuresService = adventuresService ?? throw new System.ArgumentNullException(nameof(adventuresService));
-        _adventureDtoMapper = adventureDtoMapper ?? throw new System.ArgumentNullException(nameof(adventureDtoMapper));
+        _adventuresService = adventuresService ?? throw new ArgumentNullException(nameof(adventuresService));
+        _adventureDtoMapper = adventureDtoMapper ?? throw new ArgumentNullException(nameof(adventureDtoMapper));
     }
 
     [HttpGet("{id}")]
@@ -37,13 +38,13 @@ public class AdventuresController : ControllerBase
         return await _adventureDtoMapper.ToDtoAsync(adventure);
     }
 
-    [HttpPost("{id}")]
+    [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
-    public async Task<AdventureDto> StartAsync(int campaignId, int id)
+    public async Task<AdventureDto> StartAsync(int campaignId, [FromBody] AdventureType adventureType)
     {
-        Adventure adventure = await _adventuresService.StartAsync(campaignId, id);
+        Adventure adventure = await _adventuresService.StartAsync(campaignId, adventureType);
         return await _adventureDtoMapper.ToDtoAsync(adventure);
     }
 }

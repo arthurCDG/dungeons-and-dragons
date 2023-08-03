@@ -4,7 +4,7 @@ import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { CampaignsService, CreatableCampaignsService } from '../../services';
-import { AdventureType, ICampaignPayload, ICreatableCampaign } from '../../models';
+import { AdventureType, ICampaign, ICampaignPayload, ICreatableCampaign } from '../../models';
 import { MatRadioModule } from '@angular/material/radio';
 
 @Component({
@@ -58,12 +58,16 @@ export class CampaignCreationPageComponent implements OnInit {
   onSubmit(): void {
 	const payload: ICampaignPayload = {
 		type: this.campaignTypeCtrl.value!,
-		playerIds: [],
+		playerIds: [
+			this.playerId
+		],
 		adventurePayload: {
 			type: AdventureType.GoblinBandits
 		}
 	};
 
-	this.campaignsService.postAsync(payload).subscribe(() => this.router.navigate(['../'], { relativeTo: this.activatedRoute }));
+	this.campaignsService
+		.postAsync(payload)
+		.subscribe((campaign: ICampaign) => this.router.navigate(['..', campaign.id], { relativeTo: this.activatedRoute }));
 	}
 }

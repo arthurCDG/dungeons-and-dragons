@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CampaignsPageComponent } from './campaigns-page.component';
+import { CampaignsPageComponent } from './main-campaign-page.component';
 
 describe('CampaignsPageComponent', () => {
   let component: CampaignsPageComponent;

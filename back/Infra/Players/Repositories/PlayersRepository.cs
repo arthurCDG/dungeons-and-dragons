@@ -1,4 +1,4 @@
-﻿using dnd_domain.Campaigns.Models;
+﻿using dnd_domain.Campaigns.Adventures;
 using dnd_domain.Players.Models;
 using dnd_domain.Players.Repositories;
 using dnd_infra.Campaigns;
@@ -51,8 +51,8 @@ internal sealed class PlayersRepository : IPlayersRepository
         return player.ToDomain();
     }
 
-    public Task SeedMonstersAsync(int campaignId, AdventurePayload adventurePayload)
-        => _playersFactory.ForgeMonstersFromAdventureAsync(campaignId, adventurePayload.Type);
+    public Task SeedMonstersAsync(int campaignId, AdventureType type)
+        => _playersFactory.ForgeMonstersFromAdventureAsync(campaignId, type);
 
     public async Task CreateDungeonMasterAsync(int campaignId, int userId, PlayerCreationPayload playerCreationPayload)
     {

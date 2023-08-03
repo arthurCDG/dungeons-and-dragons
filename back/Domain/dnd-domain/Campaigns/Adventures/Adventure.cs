@@ -1,7 +1,7 @@
-﻿using dnd_domain.Campaigns.Enums;
+﻿using dnd_domain.Campaigns.Adventures.Rooms;
 using System.Collections.Generic;
 
-namespace dnd_domain.Campaigns.Models;
+namespace dnd_domain.Campaigns.Adventures;
 
 public class Adventure
 {
