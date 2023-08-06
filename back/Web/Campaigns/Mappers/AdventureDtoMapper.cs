@@ -29,6 +29,7 @@ public class AdventureDtoMapper
                 Id = a.Id,
                 Name = a.Name,
                 Type = a.Type,
+                Status = a.Status,
                 Squares = a.Rooms
                 .SelectMany(r => r.Squares)
                 .Select(s => SquareDtoMapper.ToDto(s, campaign.Players))
@@ -46,9 +47,11 @@ public class AdventureDtoMapper
             Id = adventure.Id,
             Name = adventure.Name,
             Type = adventure.Type,
+            Status = adventure.Status,
             Squares = adventure.Rooms
                 .SelectMany(r => r.Squares)
                 .Select(s => SquareDtoMapper.ToDto(s, players))
+                .OrderBy(s => s.Id)
                 .ToList()
         };
     }

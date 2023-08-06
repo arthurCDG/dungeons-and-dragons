@@ -141,7 +141,7 @@ internal sealed class AdventuresRepository : IAdventuresRepository
                     squareDal.HasBottomWall = true;
                 }
 
-                if ((x >= 1 && x <= 3 & y == 7) || (x >= 4 && x <= 6 && y == 4))
+                if ((x >= 1 && x <= 3 && y == 7) || (x >= 4 && x <= 6 && y == 4))
                 {
                     squareDal.HasRightWall = true;
                 }
@@ -159,6 +159,33 @@ internal sealed class AdventuresRepository : IAdventuresRepository
                     squareDal.RoomId = bottomLeftRoom.Id;
                 }
 
+                if (x == 7 && y == 4)
+                {
+                    squareDal.HasRightWall = true;
+                }
+
+                if (x == 8 && y >= 5 && y <= 11)
+                {
+                    if (y == 8)
+                    {
+                        squareDal.IsDoor = true;
+                    }
+                    else
+                    {
+                        squareDal.HasTopWall = true;
+                    }
+                }
+
+                if (y == 11 && (x == 8 || x == 10 || x == 11))
+                {
+                    squareDal.HasRightWall = true;
+                }
+
+                if (x == 7 && (y == 1 || y == 2))
+                {
+                    squareDal.HasLockedChest = true;
+                }
+
                 _context.Add(squareDal);
 
                 // Top-middle-left room (2 pillars and 3 traps)
@@ -168,6 +195,23 @@ internal sealed class AdventuresRepository : IAdventuresRepository
                     squareDal.RoomId = topMiddleLeftRoom.Id;
                 }
 
+                if (y == 11 && x >= 1 && x <= 7)
+                {
+                    if (x == 4)
+                    {
+                        squareDal.IsDoor = true;
+                    }
+                    else
+                    {
+                        squareDal.HasRightWall = true;
+                    }
+                }
+
+                if (y == 5 && (x == 4 || x == 7))
+                {
+                    squareDal.HasPillar = true;
+                }
+
                 // Top-middle-right room (6 chest and 3 goblins)
 
                 if (x >= 1 && x <= 7 && y >= 12 && y <= 17)
@@ -175,11 +219,51 @@ internal sealed class AdventuresRepository : IAdventuresRepository
                     squareDal.RoomId = topMiddleRightRoom.Id;
                 }
 
-                // Bottom-middle-right room (6 chest and 3 goblins)
+                if (x == 7 && y >= 12 && y <= 17)
+                {
+                    squareDal.HasBottomWall = true;
+                }
+
+                if (y == 17 && x >= 1 && x <= 7)
+                {
+                    squareDal.HasRightWall = true;
+                }
+
+                if (y == 12 && (x == 2 || x == 6))
+                {
+                    squareDal.HasLockedChest = true;
+                }
+
+                if (y == 17 && (x == 1 || x == 3 || x == 5 || x == 7))
+                {
+                    squareDal.HasLockedChest = true;
+                }
+
+                // Bottom-middle-right room (2 chests and 2 pillars)
 
                 if (x >= 8 && x <= 11 && y >= 12 && y <= 17)
                 {
                     squareDal.RoomId = bottomMiddleRightRoom.Id;
+                }
+
+                if (x == 9 && y == 12)
+                {
+                    squareDal.IsDoor = true;
+                }
+
+                if (y == 17 && (x == 8 || x == 10 || x == 11))
+                {
+                    squareDal.HasRightWall = true;
+                }
+
+                if (x == 11 && (y == 14 || y == 15))
+                {
+                    squareDal.HasLockedChest = true;
+                }
+
+                if (x == 8 && (y == 13 || y == 16))
+                {
+                    squareDal.HasPillar = true;
                 }
 
                 // Top right room (start room for heroes)
@@ -189,12 +273,28 @@ internal sealed class AdventuresRepository : IAdventuresRepository
                     squareDal.RoomId = topRightRoom.Id;
                 }
 
+                if (x == 5 && y >= 18 && y <= 22)
+                {
+                    if (y == 21)
+                    {
+                        squareDal.IsDoor = true;
+                    }
+                    else
+                    {
+                        squareDal.HasBottomWall = true;
+                    }
+                }
 
                 // Bottom right room (1 goblin)
 
                 if (x >= 6 && x <= 11 && y >= 18 && y <= 22)
                 {
                     squareDal.RoomId = bottomRightRoom.Id;
+                }
+
+                if (x == 9 && y == 18)
+                {
+                    squareDal.IsDoor = true;
                 }
 
                 _context.Add(squareDal);

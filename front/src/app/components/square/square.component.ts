@@ -5,11 +5,12 @@ import { InteractiveElementComponent } from '../interactive-element/interactive-
 import { IMovement, IMovementRequestPayload, ISquare } from './../../../app/models/campaign.models';
 import { IPlayer } from './../../../app/models/players.models';
 import { SquareMovementService, SquaresService } from './../../../app/services';
+import { DecorativeElementComponent } from '../decorative-element/decorative-element.component';
 
 @Component({
   selector: 'app-square',
   standalone: true,
-  imports: [CommonModule, PlayerComponent, InteractiveElementComponent],
+  imports: [CommonModule, PlayerComponent, InteractiveElementComponent, DecorativeElementComponent],
   templateUrl: './square.component.html',
   styleUrls: ['./square.component.css'],
   providers: [SquaresService, SquareMovementService]

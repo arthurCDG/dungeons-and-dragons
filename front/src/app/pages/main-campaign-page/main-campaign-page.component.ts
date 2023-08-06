@@ -47,6 +47,9 @@ export class MainCampaignPageComponent implements OnInit {
 	startAdventureAsync(adventureType: AdventureType): void {
 		this.adventuresService
 			.startAsync(this.campaignId, adventureType)
-			.subscribe((adventure: IAdventure) => this.router.navigate([adventure.id], { relativeTo: this.activatedRoute }));
+			.subscribe((adventure: IAdventure) => this.router.navigate(
+				['adventures', adventure.id],
+				{ relativeTo: this.activatedRoute }
+			));
 	}
 }

@@ -16,26 +16,13 @@ public class SquareDto
     public bool? HasRightWall { get; set; }
     public bool? HasBottomWall { get; set; }
     public bool? HasLeftWall { get; set; }
+    public bool? HasLockedChest { get; set; }
+    public bool? HasOpenedChest { get; set; }
+    public bool? HasPillar { get; set; }
+
     public bool? IsDisabled { get; set; }
     public bool? IsDoor { get; set; }
 
     public SquareTrap? Trap { get; set; }
     public Player? Player { get; set; }
-
-    private static SquareDto FromDomain(Square square, List<Player> players)
-        => new()
-        {
-            Id = square.Id,
-            RoomId = square.RoomId,
-            ImageUrl = square.ImageUrl,
-            IsDisabled = square.IsDisabled,
-            IsDoor = square.IsDoor,
-            HasBottomWall = square.HasBottomWall,
-            HasTopWall = square.HasTopWall,
-            HasLeftWall = square.HasLeftWall,
-            HasRightWall = square.HasRightWall,
-            Position = square.Position,
-            Trap = square.Trap,
-            Player = players.SingleOrDefault(h => h.SquareId == square.Id),
-        };
 }

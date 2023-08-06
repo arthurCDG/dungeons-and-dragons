@@ -32,12 +32,9 @@ export class AdventurePageComponent implements OnInit {
 		});
 
 		this.adventuresService.getByIdAsync(this.campaignId, this.adventureId).subscribe((adventure: IAdventure) => {
-				console.log('passing here ?? Adventure ==>', adventure);
 				this.adventure = adventure;
 				this.squares = adventure.squares;
 		});
-
-		// this.adventuresService.startAsync(1, 1) // TODO use in a different case (when coming from campaign component for the first time - maybe a specific button ?)
 	}
 
 	onSquareChanged(formerSquaredId: number): void {

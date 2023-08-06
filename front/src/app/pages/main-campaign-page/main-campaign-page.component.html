@@ -19,12 +19,12 @@
 	</div>
 	<div>
 		<ul>
-			<li *ngFor="let adventure of mainCampaign.adventures" class="adventure-card unlocked">
-				<div>
+			<li *ngFor="let adventure of mainCampaign.adventures">
+				<div class="adventure-card unlocked">
 					<h3>{{ adventure.name }}</h3>
 					<a
 						*ngIf="adventure.status === 1"
-						[routerLink]="adventure.id.toString()"
+						[routerLink]="['adventures', adventure.id.toString()]"
 						class="link-button"
 					>
 						<span>Jouer l'aventure</span>

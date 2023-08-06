@@ -13,6 +13,10 @@ internal sealed class SquareDal
     public bool? HasRightWall { get; set; }
     public bool? HasBottomWall { get; set; }
     public bool? HasLeftWall { get; set; }
+    public bool? HasLockedChest { get; set; }
+    public bool? HasOpenedChest { get; set; }
+    public bool? HasPillar { get; set; }
+
     public bool? IsDisabled { get; set; }
     public bool? IsDoor { get; set; }
     public SquareTrapDal? Trap { get; set; }
@@ -27,6 +31,9 @@ internal sealed class SquareDal
             HasRightWall = HasRightWall,
             HasBottomWall = HasBottomWall,
             HasLeftWall = HasLeftWall,
+            HasLockedChest = HasLockedChest,
+            HasOpenedChest = HasOpenedChest,
+            HasPillar = HasPillar,
             IsDisabled = IsDisabled,
             IsDoor = IsDoor,
             Position = Position.ToDomain(),

@@ -5,6 +5,9 @@
 	[class.left-wall]="square.hasLeftWall"
 	[class.right-wall]="square.hasRightWall"
 	[class.bottom-wall]="square.hasBottomWall"
+	[class.locked-chest]="square.hasLockedChest"
+	[class.opened-chest]="square.hasOpenedChest"
+	[class.pillar]="square.hasPillar"
 	(click)="onSquareClicked()"
 >
 	<div [class.is-disabled]="square.isDisabled"></div>
@@ -12,6 +15,17 @@
 		<ng-container *ngIf="player">
 			<app-player [player]="player"></app-player>
 		</ng-container>
-		<!-- <app-interactive-element></app-interactive-element> -->
+		<ng-container *ngIf="square.isDoor">
+			<app-interactive-element [interactiveElement]="'door'"></app-interactive-element>
+		</ng-container>
+		<ng-container *ngIf="square.hasLockedChest">
+			<app-interactive-element [interactiveElement]="'locked-chest'"></app-interactive-element>
+		</ng-container>
+		<ng-container *ngIf="square.hasOpenedChest">
+			<app-decorative-element [decorativeElement]="'opened-chest'"></app-decorative-element>
+		</ng-container>
+		<ng-container *ngIf="square.hasPillar">
+			<app-decorative-element [decorativeElement]="'pillar'"></app-decorative-element>
+		</ng-container>
 	</div>
 </div>

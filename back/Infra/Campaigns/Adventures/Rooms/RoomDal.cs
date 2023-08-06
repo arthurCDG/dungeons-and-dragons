@@ -19,6 +19,6 @@ internal sealed class RoomDal
             Id = Id,
             AdventureId = AdventureId,
             IsStartRoom = IsStartRoom,
-            Squares = Squares.Select(s => s.ToDomain()).ToList()
+            Squares = Squares.OrderBy(s => s.Id).Select(s => s.ToDomain()).ToList()
         };
 }

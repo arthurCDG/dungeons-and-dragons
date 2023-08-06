@@ -9,8 +9,7 @@ public class AdventureDto
     public int CampaignId { get; set; }
     public string Name { get; set; } = string.Empty;
     public AdventureType Type { get; set; }
-    public bool IsActive { get; set; } = false;
-    public bool IsCompleted { get; set; } = false;
+    public AdventureStatus Status { get; set; }
 
     public List<SquareDto> Squares { get; set; } = new();
 
@@ -21,8 +20,7 @@ public class AdventureDto
             CampaignId = CampaignId,
             Name = Name,
             Type = Type,
-            IsActive = IsActive,
-            IsCompleted = IsCompleted,
+            Status = Status,
             Squares = squares
         };
 }

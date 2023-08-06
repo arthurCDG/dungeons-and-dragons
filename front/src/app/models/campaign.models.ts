@@ -37,13 +37,16 @@ export interface ISquare {
 	roomId: number;
 	imageUrl: string;
 	position: IPosition;
-	hasTopWall: boolean;
-	hasLeftWall: boolean;
-	hasRightWall: boolean;
-	hasBottomWall: boolean;
-	isDisabled: boolean;
-	isDoor: boolean;
-	squareTrap: ISquareTrap;
+	hasTopWall?: boolean;
+	hasLeftWall?: boolean;
+	hasRightWall?: boolean;
+	hasBottomWall?: boolean;
+	hasLockedChest?: boolean;
+	hasOpenedChest?: boolean;
+	hasPillar?: boolean;
+	isDisabled?: boolean;
+	isDoor?: boolean;
+	squareTrap?: ISquareTrap;
 	player?: IPlayer
 }
 

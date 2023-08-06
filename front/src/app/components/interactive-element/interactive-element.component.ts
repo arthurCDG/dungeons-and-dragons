@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-interactive-element',
@@ -8,11 +8,8 @@ import { CommonModule } from '@angular/common';
   templateUrl: './interactive-element.component.html',
   styleUrls: ['./interactive-element.component.css']
 })
-export class InteractiveElementComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
+export class InteractiveElementComponent {
+	@Input() interactiveElement: InteractiveElementType;
 }
+
+export type InteractiveElementType = 'locked-chest' | 'door'; // Add more interactive elements
