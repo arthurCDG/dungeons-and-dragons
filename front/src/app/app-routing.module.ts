@@ -6,8 +6,13 @@ import { MainCampaignPageComponent } from './pages/main-campaign-page/main-campa
 import { AdventurePageComponent } from './pages/adventure-page/adventure-page.component';
 import { PlayerCreationPageComponent } from './pages/player-creation-page/player-creation-page.component';
 import { CampaignCreationPageComponent } from './pages/campaign-creation-page/campaign-creation-page.component';
+import { WelcomePageComponent } from './pages/welcome-page/welcome-page.component';
 
 const routes: Routes = [
+	{
+		path: '',
+		component: WelcomePageComponent
+	},
 	{
 		path: 'authentification',
 		component: UserAuthentificationComponent

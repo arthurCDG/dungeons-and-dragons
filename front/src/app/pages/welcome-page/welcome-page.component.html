@@ -1,0 +1,16 @@
+<!-- TODO add banner with auth -->
+<div class="container">
+	<nav class="temporary-nav">
+		<!-- Temporary solution - user should be redirected there if connected (via cookies); else should be redirected to auth -->
+		<img alt="logo" src="../../../assets/logo/dungeons-and-dragons.png" class="nav-logo" />
+		<div class="nav-links">
+			<a [routerLink]="['users', 1, 'players']" class="link-button nav-button">Voir mes joueurs</a> 
+			<a [routerLink]="['authentification']" class="link-button nav-button">Se connecter / Se créer un compte</a>
+		</div>
+	</nav>
+	
+	<div class="home-text">
+		<h1 class="home-title">Dungeons and Dragons</h1>
+		<p class="home-description">Bienvenu dans mon jeu d'aventure inspiré du mythique jeu Donjons et Dragons, mais aussi de Fire Emblem, Warcraft et tant d'autres jeux ...</p>
+	</div>
+</div>

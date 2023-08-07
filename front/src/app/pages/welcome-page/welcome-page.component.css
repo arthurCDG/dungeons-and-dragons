@@ -1,0 +1,59 @@
+.container {
+	width: 100vw;
+	height: 100vh;
+	background-image: url('../../../assets/background-images/dnd-background-welcome-page-5.jpg');
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
+.temporary-nav {
+	width: 100vw;
+	height: 10vh;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.nav-logo {
+	width: 3rem;
+	margin-left: 2rem;
+}
+
+.nav-links {
+	display: flex;
+	justify-content: right;
+}
+
+.nav-button {
+	color: white;
+	background-color: rgba(0, 0, 0, 0.356);
+	border: none;
+}
+
+.nav-button:hover {
+	color: white;
+	background-color: rgba(0, 0, 0, 0.518);
+}
+
+.home-text {
+	display : flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.home-title {
+	color: white;
+	font-size: 5rem;
+	text-align: center;
+	margin-top: 20vh;
+}
+
+.home-description {
+	width: 50vw;
+	color: white;
+	font-size: 2rem;
+	line-height: 3rem;
+	text-align: center;
+	margin-top: 5rem;
+}

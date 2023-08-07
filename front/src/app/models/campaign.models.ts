@@ -64,7 +64,7 @@ export interface ISquareTrap {
 }
 
 export interface IMovementRequestPayload {
-	heroId: number;
+	playerId: number;
 	squareId: number;
 }
 

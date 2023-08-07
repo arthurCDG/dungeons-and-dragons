@@ -30,7 +30,11 @@ internal sealed class SquaresRepository : ISquaresRepository
 
     public async Task<Player?> GetSquarePlayerIfAnyAsync(int squareId)
     {
-        PlayerDal? playerDal = await _context.Players.SingleOrDefaultAsync(h => h.SquareId == squareId);
+        PlayerDal? playerDal = await _context.Players
+            .Include(p => p.Profile)
+            .Include(p => p.MaxAttributes)
+            .SingleOrDefaultAsync(h => h.SquareId == squareId);
+
         return playerDal?.ToDomain() ?? null;
     }
 
