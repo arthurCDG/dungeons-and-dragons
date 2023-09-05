@@ -34,8 +34,11 @@ public class PlayersController : ControllerBase
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
-    public Task<Player> GetByIdAsync(int id)
-        => _playersService.GetByIdAsync(id);
+    public async Task<Player> GetByIdAsync(int id)
+    {
+        var toto = await _playersService.GetByIdAsync(id);
+        return toto;
+    }
 
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created)]

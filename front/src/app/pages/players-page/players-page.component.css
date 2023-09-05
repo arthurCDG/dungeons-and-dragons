@@ -1,5 +1,4 @@
 #players-page {
-	width: 50vw;
 	display: flex;
 	justify-content: space-between;
 	margin-top: 3rem;
@@ -8,6 +7,7 @@
 #player-cards-list {
 	display: flex;
 	flex-direction: column;
+	width: 20vw;
 }
 
 .player-card {
@@ -35,6 +35,13 @@
 	width: 30px;
 }
 
-.displayed-player > img {
-	width: 15rem;
+.displayed-player {
+	background-image: url('../../../assets//campaigns/hollbrook-background-campaign-image.jpg');
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+	width: 80vw;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }

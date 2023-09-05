@@ -59,7 +59,7 @@ export class SquareComponent implements OnInit, OnChanges {
 	}
 
 	public onSquareClicked(): void {
-		if (this.player) {
+		if (this.player || this.square.isDoor || this.square.hasPillar || this.square.hasOpenedChest || this.square.hasLockedChest) {
 			this.squareSelected.emit(this.square.id);
 		} else {
 			this.movePlayerToPosition();

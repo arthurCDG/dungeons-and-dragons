@@ -28,7 +28,7 @@ internal sealed class PlayerDalConfiguration : IEntityTypeConfiguration<PlayerDa
             .HasForeignKey<PlayerMaxAttributesDal>(pp => pp.PlayerId)
             .OnDelete(DeleteBehavior.Cascade);
 
-        builder.HasOne<SquareDal>()
+        builder.HasOne(p => p.Square)
             .WithOne()
             .HasForeignKey<PlayerDal>(p => p.SquareId)
             .OnDelete(DeleteBehavior.Restrict);

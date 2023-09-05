@@ -14,6 +14,9 @@ export class PlayersService {
 	}
 
 	public getByIdAsync(userId: number, playerId: number): Observable<IPlayer> {
+		console.log('userId', userId);
+		console.log('playerId', playerId);
+		
 		return this.httpClient
 			.get<IPlayer>(`${DEV_BACKEND_URL}/api/users/${userId}/players/${playerId}`);
 	}

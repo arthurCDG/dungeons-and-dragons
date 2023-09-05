@@ -1,5 +1,6 @@
 ﻿using dnd_domain.Players.Models;
 using dnd_infra.Campaigns;
+using dnd_infra.Campaigns.Adventures.Rooms.Squares.DALs;
 using dnd_infra.GameFlow.DALs;
 using dnd_infra.Items.DALs;
 using System.Collections.Generic;
@@ -12,6 +13,7 @@ internal sealed class PlayerDal
     public int? UserId { get; set; }
     public bool IsDead { get; set; } = false;
     public int? SquareId { get; set; }
+    public SquareDal? Square { get; set; }
     public int? CampaignId { get; set; }
 
     public PlayerProfileDal? Profile { get; set; } = null!;
@@ -26,7 +28,7 @@ internal sealed class PlayerDal
         {
             Id = Id,
             UserId = UserId,
-            SquareId = SquareId,
+            Square = Square?.ToDomain(),
             CampaignId = CampaignId,
             IsDead = IsDead,
             Profile = Profile?.ToDomain(),

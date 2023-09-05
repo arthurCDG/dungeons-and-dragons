@@ -1,3 +1,4 @@
+import { ISquare } from "./campaign.models";
 import { IStoredItem } from "./items.models";
 
 export interface ICreatablePlayer {
@@ -14,6 +15,7 @@ export interface IPlayer {
 	campaignId: number;
 	isDead: boolean;
 	squareId?: number;
+	square: ISquare;
 	profile: IProfile;
 	maxAttributes: IPlayerMaxAttributes;
 	attributes?: IPlayerAttributes;

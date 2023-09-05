@@ -1,4 +1,5 @@
-﻿using dnd_domain.GameFlow.Models;
+﻿using dnd_domain.Campaigns.Adventures.Rooms.Squares;
+using dnd_domain.GameFlow.Models;
 using dnd_domain.Items.Models;
 using System.Collections.Generic;
 
@@ -9,7 +10,7 @@ public class Player
     public int Id { get; set; }
     public int? UserId { get; set; }
     public bool IsDead { get; set; } = false;
-    public int? SquareId { get; set; }
+    public Square? Square { get; set; }
     public int? CampaignId { get; set; }
 
     public PlayerProfile? Profile { get; set; } = null!;

@@ -1125,7 +1125,7 @@ namespace dnd_infra.Migrations
                         .HasForeignKey("CampaignId")
                         .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("dnd_infra.Campaigns.Adventures.Rooms.Squares.DALs.SquareDal", null)
+                    b.HasOne("dnd_infra.Campaigns.Adventures.Rooms.Squares.DALs.SquareDal", "Square")
                         .WithOne()
                         .HasForeignKey("dnd_infra.Players.DALs.PlayerDal", "SquareId")
                         .OnDelete(DeleteBehavior.Restrict);
@@ -1134,6 +1134,8 @@ namespace dnd_infra.Migrations
                         .WithMany("Players")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Restrict);
+
+                    b.Navigation("Square");
                 });
 
             modelBuilder.Entity("dnd_infra.Players.DALs.PlayerMaxAttributesDal", b =>

@@ -25,6 +25,7 @@ export class PlayersPageComponent implements OnInit {
 	
 		this.playersService.getAsync(this.userId).subscribe((players: IPlayer[]) => {
 			this.players = this.forgeplayerCards(players);
+			this.currentPlayer = this.players[0];
 		});
 	}
 

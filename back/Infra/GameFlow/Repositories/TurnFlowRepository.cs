@@ -30,6 +30,11 @@ internal sealed class TurnFlowRepository : ITurnFlowRepository
     {
         CurrentPlayerDal? currentPlayer = await _context.CurrentPlayers
             .Include(cp => cp.Player)
+                .ThenInclude(p => p.Profile)
+             .Include(cp => cp.Player)
+                .ThenInclude(p => p.MaxAttributes)
+            .Include(cp => cp.Player)
+                .ThenInclude(p => p.Square)
             .FirstOrDefaultAsync(cp => cp.AdventureId == adventureId);
 
         List<TurnOrderDal> turnOrders = await GetTurnOrdersAsync(adventureId);
@@ -38,7 +43,7 @@ internal sealed class TurnFlowRepository : ITurnFlowRepository
         return currentPlayer!;
     }
 
-    public async Task<CurrentPlayer> GetNextCurrentPlayerAsync(int adventureId)
+    public async Task<CurrentPlayer> SetNextCurrentPlayerAsync(int adventureId)
     {
         List<TurnOrderDal> turnOrders = await GetTurnOrdersAsync(adventureId);
         

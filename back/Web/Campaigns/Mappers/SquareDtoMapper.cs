@@ -25,6 +25,6 @@ public static class SquareDtoMapper
             HasPillar = square.HasPillar,
             Position = square.Position,
             Trap = square.Trap,
-            Player = players.SingleOrDefault(h => h.SquareId == square.Id),
+            Player = players.SingleOrDefault(h => h.Square.Id == square.Id),
         };
 }

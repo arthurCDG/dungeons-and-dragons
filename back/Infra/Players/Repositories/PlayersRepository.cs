@@ -26,6 +26,8 @@ internal sealed class PlayersRepository : IPlayersRepository
         => _context.Players
             .Include(p => p.Profile)
             .Include(p => p.MaxAttributes)
+            .Include(p => p.Square)
+                .ThenInclude(s => s.Position)
             .Where(p => p.UserId == userId)
             .Select(h => h.ToDomain())
             .ToListAsync();
@@ -37,9 +39,10 @@ internal sealed class PlayersRepository : IPlayersRepository
             .Include(p => p.MaxAttributes)
             .Include(p => p.StoredItems)
             .Include(p => p.TurnOrder)
-            .Where(h => h.Id == id)
+             .Include(p => p.Square)
+                .ThenInclude(s => s.Position)
             .Select(h => h.ToDomain())
-            .SingleAsync();
+            .FirstAsync(p => p.Id == id);
 
     public async Task<Player> CreateAsync(int userId, PlayerCreationPayload playerCreationPayload)
     {

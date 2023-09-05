@@ -24,7 +24,7 @@ internal sealed class TurnFlowService : ITurnFlowService
         => _turnFlowRepository.GetCurrentPlayerAsync(campaignId);
 
     public Task<CurrentPlayer> GetNextCurrentPlayerAsync(int campaignId)
-        => _turnFlowRepository.GetNextCurrentPlayerAsync(campaignId);
+        => _turnFlowRepository.SetNextCurrentPlayerAsync(campaignId);
 
     public Task EnableCurrentPlayerAsync(int campaignId)
         => _turnFlowRepository.EnableCurrentPlayerAsync(campaignId);

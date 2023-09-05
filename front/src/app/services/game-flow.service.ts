@@ -15,7 +15,7 @@ export class GameFlowService {
 		return this.httpClient.get<ICurrentPlayerDto>(`${BASE_URL}/${campaignId}/current-player`);
 	}
 
-	public getNextCurrentPlayer(campaignId: number): Observable<ICurrentPlayerDto> {
+	public setNextCurrentPlayer(campaignId: number): Observable<ICurrentPlayerDto> {
 		return this.httpClient.get<ICurrentPlayerDto>(`${BASE_URL}/${campaignId}/next-player`);
 	}
 

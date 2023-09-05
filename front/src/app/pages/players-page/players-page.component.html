@@ -3,13 +3,6 @@
 	<a [routerLink]="['new']">Créer un nouveau joueur</a>
 </header>
 <div id="players-page">
-	<div *ngIf="currentPlayer" class="displayed-player">
-		<img *ngIf="currentPlayer.name === 'Regdar'" alt="Regdar picture" src="../../../assets/players/heroes/fighter-male.png" />
-		<img *ngIf="currentPlayer.name === 'Lidda'" alt="Lidda picture" src="../../../assets/players/heroes/rogue-female.png" />
-		<img *ngIf="currentPlayer.name === 'Jozan'" alt="Jozan picture" src="../../../assets/players/heroes/paladin-male.png" />
-		<img *ngIf="currentPlayer.name === 'Mialye'" alt="Mialye picture" src="../../../assets/players/heroes/wizzard-female.png" />
-		<img *ngIf="currentPlayer.type === 'dungeonMaster'" alt="Dungeon Master picture" src="../../../assets/players/monsters/Fomorian.png" />
-	</div>
 	<div id="player-cards-list">
 		<ng-container *ngFor="let player of players">
 			<div
@@ -40,5 +33,13 @@
 				</ng-template>
 			</div>
 		</ng-container>
+	</div>
+
+	<div *ngIf="currentPlayer" class="displayed-player">
+		<img *ngIf="currentPlayer.name === 'Regdar'" alt="Regdar picture" src="../../../assets/players/heroes/fighter-male.png" />
+		<img *ngIf="currentPlayer.name === 'Lidda'" alt="Lidda picture" src="../../../assets/players/heroes/rogue-female.png" />
+		<img *ngIf="currentPlayer.name === 'Jozan'" alt="Jozan picture" src="../../../assets/players/heroes/paladin-male.png" />
+		<img *ngIf="currentPlayer.name === 'Mialye'" alt="Mialye picture" src="../../../assets/players/heroes/wizzard-female.png" />
+		<img *ngIf="currentPlayer.type === 'dungeonMaster'" alt="Dungeon Master picture" src="../../../assets/players/monsters/Fomorian.png" />
 	</div>
 </div>
