@@ -2,6 +2,7 @@
 using dnd_domain.Campaigns.Models;
 using dungeons_and_dragons.Campaigns.DTOs;
 using dungeons_and_dragons.Campaigns.Mappers;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -12,6 +13,7 @@ using System.Threading.Tasks;
 
 namespace dungeons_and_dragons.Campaigns.Controllers;
 
+[Authorize]
 [SwaggerTag("Campaigns")]
 [ApiExplorerSettings(IgnoreApi = false)]
 [ApiController, Route(Route)]

@@ -1,0 +1,28 @@
+.temporary-nav {
+	width: 100vw;
+	height: 10vh;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.nav-logo {
+	width: 3rem;
+	margin-left: 2rem;
+}
+
+.nav-links {
+	display: flex;
+	justify-content: right;
+}
+
+.nav-button {
+	color: white;
+	background-color: rgba(0, 0, 0, 0.356);
+	border: none;
+}
+
+.nav-button:hover {
+	color: white;
+	background-color: rgba(0, 0, 0, 0.518);
+}

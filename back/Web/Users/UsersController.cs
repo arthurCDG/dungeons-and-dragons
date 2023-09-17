@@ -1,15 +1,18 @@
 ﻿using dnd_application.Users;
 using dnd_domain.Users;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 using Swashbuckle.AspNetCore.Annotations;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace dungeons_and_dragons.Users;
 
+[Authorize]
 [SwaggerTag("Users")]
 [ApiExplorerSettings(IgnoreApi = false)]
 [ApiController, Route(Route)]
@@ -21,7 +24,7 @@ public class UsersController : ControllerBase
 
     public UsersController(IUsersService usersService)
     {
-        _usersService = usersService ?? throw new System.ArgumentNullException(nameof(usersService));
+        _usersService = usersService ?? throw new ArgumentNullException(nameof(usersService));
     }
 
     [HttpGet]
@@ -37,11 +40,4 @@ public class UsersController : ControllerBase
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
     public Task<User> GetByIdAsync(int id)
       => _usersService.GetByIdAsync(id);
-
-    [HttpPost]
-    [ProducesResponseType(StatusCodes.Status201Created)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    [ProducesResponseType(StatusCodes.Status403Forbidden)]
-    public Task<User> PostAsync([FromBody] UserPayload userPayload)
-        => _usersService.CreateAsync(userPayload);
 }

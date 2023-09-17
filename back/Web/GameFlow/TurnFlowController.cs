@@ -1,6 +1,7 @@
 ﻿using dnd_application.GameFlow;
 using dnd_domain.GameFlow.Models;
 using dungeons_and_dragons.GameFlow;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -10,13 +11,14 @@ using System.Threading.Tasks;
 
 namespace dungeons_and_dragons.Campaigns.Controllers;
 
+[Authorize]
 [SwaggerTag("GameFlow")]
 [ApiExplorerSettings(IgnoreApi = false)]
 [ApiController, Route(Route)]
 [EnableCors]
 public class TurnFlowController : ControllerBase
 {
-    public const string Route = "api/campaigns/{campaignId}";
+    public const string Route = "services/adventures/{adventureId}";
     private readonly ITurnFlowService _turnFlowService;
 
     public TurnFlowController(ITurnFlowService turnFlowService)
@@ -28,9 +30,9 @@ public class TurnFlowController : ControllerBase
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
-    public async Task<CurrentPlayerDto> GetCurrentPlayer(int campaignId)
+    public async Task<CurrentPlayerDto> GetCurrentPlayer(int adventureId)
     {
-        CurrentPlayer currentPlayer = await _turnFlowService.GetCurrentPlayerAsync(campaignId);
+        CurrentPlayer currentPlayer = await _turnFlowService.GetCurrentPlayerAsync(adventureId);
         return CurrentPlayerDto.FromDomain(currentPlayer);
     }
 
@@ -38,9 +40,9 @@ public class TurnFlowController : ControllerBase
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
-    public async Task<CurrentPlayerDto> GetNextPlayer(int campaignId)
+    public async Task<CurrentPlayerDto> GetNextPlayer(int adventureId)
     {
-        CurrentPlayer currentPlayer = await _turnFlowService.GetNextCurrentPlayerAsync(campaignId);
+        CurrentPlayer currentPlayer = await _turnFlowService.GetNextCurrentPlayerAsync(adventureId);
         return CurrentPlayerDto.FromDomain(currentPlayer);
     }
 
@@ -48,6 +50,6 @@ public class TurnFlowController : ControllerBase
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
-    public Task EnableCurrentPlayer(int campaignId)
-        => _turnFlowService.EnableCurrentPlayerAsync(campaignId);
+    public Task EnableCurrentPlayer(int adventureId)
+        => _turnFlowService.EnableCurrentPlayerAsync(adventureId);
 }

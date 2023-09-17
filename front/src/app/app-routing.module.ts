@@ -14,7 +14,7 @@ const routes: Routes = [
 		component: WelcomePageComponent
 	},
 	{
-		path: 'authentification',
+		path: 'auth',
 		component: UserAuthentificationComponent
 	},
 	{

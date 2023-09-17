@@ -1,12 +1,12 @@
 <div class="action-bar">
 	<ng-container *ngIf="userPlayer?.id === currentPlayer?.id; else currentPlayerMessage">
 		<div class="action-bar-buttons">
-			<button (click)="onMeleeAttackAsync()" class="link-button"[disabled]="!userPlayer?.attributes?.attackCount">
+			<button (click)="onMeleeAttackAsync()" class="link-button" [disabled]="!userPlayer.attributes?.attackCount">
 				Attaquer au corps à corps
 			</button>
-			<button (click)="onRangeAttackAsync()" class="link-button" [disabled]="!userPlayer?.attributes?.attackCount">Attaquer à distance</button>
-			<button (click)="onHealAsync()" class="link-button" [disabled]="!userPlayer?.attributes?.healCount">Soigner</button>
-			<button (click)="onSearchAsync()" class="link-button" [disabled]="!userPlayer?.attributes?.chestSearchCount">Fouiller le coffre</button>
+			<button (click)="onRangeAttackAsync()" class="link-button" [disabled]="!userPlayer.attributes?.attackCount">Attaquer à distance</button>
+			<button (click)="onHealAsync()" class="link-button" [disabled]="!userPlayer.attributes?.healCount">Soigner</button>
+			<button (click)="onSearchAsync()" class="link-button" [disabled]="!userPlayer.attributes?.chestSearchCount">Fouiller le coffre</button>
 			<button (click)="onOpenDoorAsync()" class="link-button" *ngIf="canOpenDoor">Ouvrir la porte</button>
 			<button (click)="onEndTurnAsync()"  class="link-button">Finir son tour</button>
 		</div>
@@ -19,6 +19,6 @@
 	<div class="current-player-card">
 		<h5>Joueur en cours</h5>
 		<img src="../../../assets/players/heroes/fighter-male.png" alt="regdar icon">
-		<p>{{ currentPlayer?.profile?.firstName }}</p>
+		<p>{{ currentPlayer.profile.firstName }}</p>
 	</div>
 </div>

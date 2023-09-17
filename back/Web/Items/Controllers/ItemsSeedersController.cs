@@ -1,4 +1,5 @@
 ﻿using dnd_domain.Items.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -7,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace dungeons_and_dragons.Items.Controllers;
 
+[Authorize]
 [SwaggerTag("Seed")]
 [ApiExplorerSettings(IgnoreApi = false)]
 [ApiController, Route(Route)]

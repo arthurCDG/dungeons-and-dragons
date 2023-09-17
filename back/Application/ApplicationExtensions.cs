@@ -22,5 +22,6 @@ public static class ApplicationExtensions
         services.AddScoped<ICreatablePlayersService, CreatablePlayersService>();
         services.AddScoped<ICreatableCampaignsService, CreatableCampaignsService>();
         services.AddScoped<ICreatableAdventuresService, CreatableAdventuresService>();
+        services.AddScoped<IAuthService, AuthService>();
     }
 }

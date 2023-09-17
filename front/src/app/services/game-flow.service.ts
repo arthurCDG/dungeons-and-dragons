@@ -1,25 +1,25 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { CAMPAIGNS_URL, DEV_BACKEND_URL } from './_api.urls';
 import { ICurrentPlayerDto } from './../models';
+import { DEV_BACKEND_URL } from './_api.urls';
 
-const BASE_URL = `${DEV_BACKEND_URL}/api/${CAMPAIGNS_URL}`;
+const BASE_URL = `${DEV_BACKEND_URL}/services/adventures}`;
 
 @Injectable()
 export class GameFlowService {
 
 	constructor(private readonly httpClient: HttpClient) {}
 
-	public getCurrentPlayer(campaignId: number): Observable<ICurrentPlayerDto> {
-		return this.httpClient.get<ICurrentPlayerDto>(`${BASE_URL}/${campaignId}/current-player`);
+	public getCurrentPlayer(adventureId: number): Observable<ICurrentPlayerDto> {
+		return this.httpClient.get<ICurrentPlayerDto>(`${BASE_URL}/${adventureId}/current-player`);
 	}
 
-	public setNextCurrentPlayer(campaignId: number): Observable<ICurrentPlayerDto> {
-		return this.httpClient.get<ICurrentPlayerDto>(`${BASE_URL}/${campaignId}/next-player`);
+	public setNextCurrentPlayer(adventureId: number): Observable<ICurrentPlayerDto> {
+		return this.httpClient.get<ICurrentPlayerDto>(`${BASE_URL}/${adventureId}/next-player`);
 	}
 
-	public enableCurrentPlayer(campaignId: number): Observable<void> {
-		return this.httpClient.post<void>(`${BASE_URL}/${campaignId}/enable-current-player`, null);
+	public enableCurrentPlayer(adventureId: number): Observable<void> {
+		return this.httpClient.post<void>(`${BASE_URL}/${adventureId}/enable-current-player`, null);
 	}
 }

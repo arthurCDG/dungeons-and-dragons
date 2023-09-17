@@ -63,12 +63,6 @@ export class AdventurePageComponent implements OnInit {
 	}
 
 	private getUserPlayer(): void {
-		// this.playersService.getAsync(this.userId)
-		// .subscribe((userPlayers: IPlayer[]) => {
-		// 	console.log('userPlayers', userPlayers);
-		// 	this.userPlayer = userPlayers[3];
-		// });
-
 		this.playersService.getByIdAsync(this.userId, this.playerId)
 			.subscribe((userPlayer: IPlayer) => {
 				console.log('userPlayer', userPlayer);
@@ -77,9 +71,9 @@ export class AdventurePageComponent implements OnInit {
 	}
 
 	private getCurrentPlayer(): void {
-		this.gameFlowService.getCurrentPlayer(this.campaignId) // Should be adventureId here?
+		this.gameFlowService.getCurrentPlayer(this.adventureId)
 			.subscribe((currentPlayer: ICurrentPlayerDto) => {
-				console.log('current player', currentPlayer);
+				console.log('current player >>>>', currentPlayer);
 				if (currentPlayer.player?.id === this.userPlayer?.id) {
 					this.currentPlayer = currentPlayer.player;
 				}

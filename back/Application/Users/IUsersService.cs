@@ -8,5 +8,6 @@ public interface IUsersService
 {
     Task<List<User>> GetAsync();
     Task<User> GetByIdAsync(int id);
-    Task<User> CreateAsync(UserPayload payload);
+    Task<User> CreateAsync(UserPayload userPayload);
+    Task<User?> GetFromLoginPayloadAsync(LoginPayload loginPayload);
 }

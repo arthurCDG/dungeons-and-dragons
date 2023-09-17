@@ -1,5 +1,6 @@
 ﻿using dnd_application.Players;
 using dnd_domain.Players.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -9,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace dungeons_and_dragons.Players.Controllers;
 
+[Authorize]
 [SwaggerTag("Players")]
 [ApiExplorerSettings(IgnoreApi = false)]
 [ApiController, Route(Route)]

@@ -8,4 +8,5 @@ public interface IUsersRepository
     Task<List<User>> GetAsync();
     Task<User> GetByIdAsync(int id);
     Task<User> CreateAsync(UserPayload payload);
+    Task<User?> GetFromLoginPayloadAsync(LoginPayload loginPayload);
 }

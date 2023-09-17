@@ -1,5 +1,6 @@
 ﻿using dnd_application.Campaigns.Adventures.Rooms.Squares;
 using dnd_domain.Players.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -9,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace dungeons_and_dragons.Campaigns.Controllers;
 
+[Authorize]
 [SwaggerTag("Squares")]
 [ApiExplorerSettings(IgnoreApi = false)]
 [ApiController, Route(Route)]
@@ -22,13 +24,6 @@ public class SquaresController : ControllerBase
     {
         _squaresService = squaresService ?? throw new System.ArgumentNullException(nameof(squaresService));
     }
-
-    //[HttpGet]
-    //[ProducesResponseType(StatusCodes.Status200OK)]
-    //[ProducesResponseType(StatusCodes.Status400BadRequest)]
-    //[ProducesResponseType(StatusCodes.Status403Forbidden)]
-    //public Task<List<Square>> GetAsync(int campaignId)
-    //    => _squaresService.GetAsync(campaignId);
 
     [HttpGet("{squareId}")]
     [ProducesResponseType(StatusCodes.Status200OK)]

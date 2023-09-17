@@ -6,9 +6,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 using Swashbuckle.AspNetCore.Annotations;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 
 namespace dungeons_and_dragons.Campaigns.Controllers;
 
+[Authorize]
 [SwaggerTag("Attacks")]
 [ApiExplorerSettings(IgnoreApi = false)]
 [ApiController, Route(Route)]

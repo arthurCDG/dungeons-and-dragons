@@ -6,10 +6,16 @@ export interface IUserDto {
     password: string;
     pictureUrl?: string;
     players: IPlayer[];
+	token: string;
 }
 
 export interface IUserPayload {
-	name: string;
+	userName: string;
 	password: string;
 	pictureUrl?: string;
+}
+
+export interface ILoginPayload {
+	userName: string;
+	password: string;
 }

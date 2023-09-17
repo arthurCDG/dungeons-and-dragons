@@ -1,9 +1,12 @@
 using dnd_application;
 using dnd_infra;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace dungeons_and_dragons;
 
@@ -24,7 +27,6 @@ public class Program
                 });
         });
 
-
         builder.Services.AddControllers();
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
@@ -34,6 +36,22 @@ public class Program
         builder.Services.AddDomainExtensions();
         builder.Services.AddApplicationExtensions();
         builder.Services.AddWebExtensions();
+
+        // JWT authentication
+        builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(o =>
+        {
+            o.TokenValidationParameters = new()
+            {
+                ValidIssuer = builder.Configuration["JwtSettings:Issuer"],
+                ValidAudience = builder.Configuration["JwtSettings:Audience"],
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JwtSettings:Key"]!)),
+                ValidateIssuer = true,
+                ValidateAudience = true,
+                ValidateLifetime = true,
+                ValidateIssuerSigningKey = true
+            };
+        });
+        builder.Services.AddAuthorization();
 
         var app = builder.Build();
 
@@ -46,7 +64,8 @@ public class Program
 
         app.UseHttpsRedirection();
         app.UseCors();
-
+        app.UseAuthentication();
+        app.UseAuthorization();
         app.MapControllers();
 
         app.Run();

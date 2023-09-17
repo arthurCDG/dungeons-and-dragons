@@ -20,13 +20,13 @@ internal sealed class UsersRepository : IUsersRepository
     public Task<User> GetByIdAsync(int id)
         => _dbContext.Users.Where(u => u.Id == id).Select(u => u.ToDomain()).SingleAsync();
 
-    public async Task<User> CreateAsync(UserPayload payload)
+    public async Task<User> CreateAsync(UserPayload userPayload)
     {
         UserDal user = new()
         {
-            Name = payload.Name,
-            Password = payload.Password, // TODO add encrypted password logic
-            PictureUrl = payload.PictureUrl
+            Name = userPayload.UserName,
+            Password = userPayload.Password, // TODO add encrypted password logic
+            PictureUrl = userPayload.PictureUrl
         };
 
         _dbContext.Users.Add(user);
@@ -35,4 +35,11 @@ internal sealed class UsersRepository : IUsersRepository
         return user.ToDomain();
     }
 
+    public async Task<User?> GetFromLoginPayloadAsync(LoginPayload loginPayload)
+    {
+        UserDal? user = await _dbContext.Users
+            .FirstOrDefaultAsync(u => u.Name.ToLower() == loginPayload.UserName.ToLower() && u.Password == loginPayload.Password);
+
+        return user?.ToDomain();
+    }
 }
