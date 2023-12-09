@@ -1,9 +1,22 @@
-.temporary-nav {
+.nav-bar {
 	width: 100vw;
 	height: 10vh;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
+}
+
+.user-links {
+	display: flex;
+	justify-content: right;
+	align-items: center;
+}
+
+.user-logo {
+	width: 2.5rem;
+	height: 2.5rem;
+	border-radius: 2.5rem;
+	border: 2px solid white;
 }
 
 .nav-logo {
