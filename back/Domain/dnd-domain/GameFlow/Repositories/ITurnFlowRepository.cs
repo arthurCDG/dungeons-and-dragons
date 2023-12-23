@@ -7,5 +7,4 @@ public interface ITurnFlowRepository
 {
     Task<CurrentPlayer> GetCurrentPlayerAsync(int campaignId);
     Task<CurrentPlayer> SetNextCurrentPlayerAsync(int campaignId);
-    Task EnableCurrentPlayerAsync(int campaignId);
 }

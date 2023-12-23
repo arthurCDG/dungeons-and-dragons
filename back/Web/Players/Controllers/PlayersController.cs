@@ -31,15 +31,12 @@ public class PlayersController : ControllerBase
     public Task<List<Player>> GetAsync(int userId)
         => _playersService.GetAsync(userId);
 
-    [HttpGet("id")]
+    [HttpGet("{id}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
-    public async Task<Player> GetByIdAsync(int id)
-    {
-        var toto = await _playersService.GetByIdAsync(id);
-        return toto;
-    }
+    public Task<Player> GetByIdAsync(int id)
+        => _playersService.GetByIdAsync(id);
 
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created)]
@@ -48,7 +45,7 @@ public class PlayersController : ControllerBase
     public Task<Player> CreateAsync(int userId, [FromBody] PlayerCreationPayload playerCreationPayload)
         => _playersService.CreateAsync(userId, playerCreationPayload);
 
-    [HttpPost("dungeon-master")]
+    [HttpPost("{dungeon-master}")]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]

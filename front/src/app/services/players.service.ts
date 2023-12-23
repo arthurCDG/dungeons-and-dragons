@@ -8,21 +8,12 @@ import { DEV_BACKEND_URL } from './_api.urls';
 export class PlayersService {
 	constructor(private readonly httpClient: HttpClient) {}
 
-	public getAsync(userId: number): Observable<IPlayer[]> {
-		return this.httpClient
-			.get<IPlayer[]>(`${DEV_BACKEND_URL}/api/users/${userId}/players`);
-	}
+	public getAsync = (userId: number): Observable<IPlayer[]> =>
+		this.httpClient.get<IPlayer[]>(`${DEV_BACKEND_URL}/api/users/${userId}/players`);
 
-	public getByIdAsync(userId: number, playerId: number): Observable<IPlayer> {
-		console.log('userId', userId);
-		console.log('playerId', playerId);
-		
-		return this.httpClient
-			.get<IPlayer>(`${DEV_BACKEND_URL}/api/users/${userId}/players/${playerId}`);
-	}
+	public getByIdAsync = (userId: number, playerId: number): Observable<IPlayer> =>
+		this.httpClient.get<IPlayer>(`${DEV_BACKEND_URL}/api/users/${userId}/players/${playerId}`);
 
-	public createAsync(userId: number, playerCreationPayload: IPlayerCreationPayload): Observable<IPlayer> {
-		return this.httpClient
-			.post<IPlayer>(`${DEV_BACKEND_URL}/api/users/${userId}/players`, playerCreationPayload);
-	}
+	public createAsync = (userId: number, playerCreationPayload: IPlayerCreationPayload): Observable<IPlayer> =>
+		this.httpClient.post<IPlayer>(`${DEV_BACKEND_URL}/api/users/${userId}/players`, playerCreationPayload);
 }

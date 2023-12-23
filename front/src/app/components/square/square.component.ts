@@ -46,7 +46,7 @@ export class SquareComponent implements OnInit, OnChanges {
 
 	ngOnChanges(): void {
 		if (this.squareNeedsToReload) {
-			this.squaresService.getByIdAsync(this.square.id).subscribe((player: IPlayer) => {
+			this.squaresService.getPlayerIfAnyAsync(this.square.id).subscribe((player: IPlayer) => {
 				if (player) {
 					this.player = player;
 				} else {
@@ -75,7 +75,7 @@ export class SquareComponent implements OnInit, OnChanges {
 		this.squareMovementService.MoveToPositionAsync(payload).subscribe((movement: IMovement) => {
 			this.squareChanged.emit(movement.formerSquareId);
 
-			this.squaresService.getByIdAsync(this.square.id).subscribe((player: IPlayer) => {
+			this.squaresService.getPlayerIfAnyAsync(this.square.id).subscribe((player: IPlayer) => {
 				if (player != null) {
 					this.player = player;
 				}

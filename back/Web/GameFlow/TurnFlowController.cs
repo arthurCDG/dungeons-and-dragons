@@ -45,11 +45,4 @@ public class TurnFlowController : ControllerBase
         CurrentPlayer currentPlayer = await _turnFlowService.GetNextCurrentPlayerAsync(adventureId);
         return CurrentPlayerDto.FromDomain(currentPlayer);
     }
-
-    [HttpPost("enable-current-player")]
-    [ProducesResponseType(StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    [ProducesResponseType(StatusCodes.Status403Forbidden)]
-    public Task EnableCurrentPlayer(int adventureId)
-        => _turnFlowService.EnableCurrentPlayerAsync(adventureId);
 }

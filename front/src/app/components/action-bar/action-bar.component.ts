@@ -22,7 +22,7 @@ export class ActionBarComponent implements OnInit, OnChanges {
 	public canMeleeAttack?: boolean;
 	
 	private playerId: number;
-	private campaignId: number;
+	private adventureId: number;
 
 	constructor(
 		private readonly attacksService: AttacksService,
@@ -33,7 +33,7 @@ export class ActionBarComponent implements OnInit, OnChanges {
 	ngOnInit(): void {
 		this.activatedRoute.params.subscribe(params => {
 			this.playerId = Number(params['playerId']);
-			this.campaignId = Number(params['campaignId']);
+			this.adventureId = Number(params['adventureId']);
 		});
 
 		this.canOpenDoor = this.selectedSquare?.isDoor && this.isAdjacentPosition(this.selectedSquare?.position);
@@ -76,10 +76,8 @@ export class ActionBarComponent implements OnInit, OnChanges {
 	}
 
 	private setNextCurrentPlayer(): void {
-		this.gameFlowService.setNextCurrentPlayer(this.campaignId) // Should be adventureId here?
-			.subscribe((currentPlayer: ICurrentPlayerDto) => {
-				console.log('next current player', currentPlayer);
-			});
+		this.gameFlowService.setNextCurrentPlayer(this.adventureId)
+							.subscribe();
 	}
 
 	private isAdjacentPosition = (targetPosition: IPosition): boolean => {
@@ -88,6 +86,7 @@ export class ActionBarComponent implements OnInit, OnChanges {
 		console.log('this.userPlayer.square.position.y', this.userPlayer.square.position.y);
 		console.log('targetPosition.y', targetPosition.y);
 		
-		return Math.abs(this.userPlayer.square.position.x - targetPosition.x) + Math.abs(this.userPlayer.square.position.y - targetPosition.y) <= 1
+		const currentPosition = this.userPlayer.square.position;
+		return	Math.abs(currentPosition.x - targetPosition.x) + Math.abs(currentPosition.y - targetPosition.y) <= 1
 	};
 }

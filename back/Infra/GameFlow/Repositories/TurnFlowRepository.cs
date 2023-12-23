@@ -1,5 +1,6 @@
 ﻿using dnd_domain.GameFlow.Models;
 using dnd_domain.GameFlow.Repositories;
+using dnd_domain.Players.Models;
 using dnd_infra.Campaigns;
 using dnd_infra.GameFlow.DALs;
 using dnd_infra.Players.DALs;
@@ -28,19 +29,29 @@ internal sealed class TurnFlowRepository : ITurnFlowRepository
 
     private async Task<CurrentPlayerDal> GetCurrentPlayerDalAsync(int adventureId)
     {
-        CurrentPlayerDal? currentPlayer = await _context.CurrentPlayers
-            .Include(cp => cp.Player)
-                .ThenInclude(p => p.Profile)
-             .Include(cp => cp.Player)
-                .ThenInclude(p => p.MaxAttributes)
-            .Include(cp => cp.Player)
-                .ThenInclude(p => p.Square)
-                    .ThenInclude(s => s.Position)
-            .FirstOrDefaultAsync(cp => cp.AdventureId == adventureId);
+        CurrentPlayerDal currentPlayer = await _context.CurrentPlayers.FirstOrDefaultAsync(cp => cp.AdventureId == adventureId)
+                                         ?? await CreateCurrentPlayerAsync(adventureId);
 
-        List<TurnOrderDal> turnOrders = await GetTurnOrdersAsync(adventureId); // Should be called in CreareCurrentPlayersAsync
-        currentPlayer ??= await CreateCurrentPlayerAsync(adventureId, turnOrders);
+        PlayerDal player = await _context.Players
+            .Include(p => p.Attributes)
+            .Include(p => p.MaxAttributes)
+            .Include(p => p.Profile)
+            .SingleAsync(h => h.Id == currentPlayer.PlayerId);
 
+        player.Attributes = new()
+        {
+            PlayerId = currentPlayer.PlayerId,
+            LifePoints = player.MaxAttributes.MaxLifePoints,
+            ManaPoints = player.MaxAttributes.MaxManaPoints,
+            FootSteps = player.MaxAttributes.MaxFootSteps,
+            Shield = player.MaxAttributes.MaxShield,
+            AttackCount = player.MaxAttributes.MaxAttackCount,
+            HealCount = player.MaxAttributes.MaxHealCount,
+            ChestSearchCount = player.MaxAttributes.MaxChestSearchCount,
+            TrapSearchCount = player.MaxAttributes.MaxTrapSearchCount
+        };
+
+        currentPlayer.Player = player;
         return currentPlayer!;
     }
 
@@ -73,32 +84,32 @@ internal sealed class TurnFlowRepository : ITurnFlowRepository
         return nextCurrentPlayer;
     }
 
-    public async Task EnableCurrentPlayerAsync(int adventureId)
-    {
-        CurrentPlayerDal? currentPlayer = await _context.CurrentPlayers.FirstOrDefaultAsync(cp => cp.AdventureId == adventureId);
-        List<TurnOrderDal> turnOrders = await GetTurnOrdersAsync(adventureId);
-        currentPlayer ??= await CreateCurrentPlayerAsync(adventureId, turnOrders);
+    //public async Task EnableCurrentPlayerAsync(int adventureId)
+    //{
+    //    CurrentPlayerDal? currentPlayer = await _context.CurrentPlayers.FirstOrDefaultAsync(cp => cp.AdventureId == adventureId);
+    //    List<TurnOrderDal> turnOrders = await GetTurnOrdersAsync(adventureId);
+    //    currentPlayer ??= await CreateCurrentPlayerAsync(adventureId, turnOrders);
 
-        PlayerDal player = await _context.Players
-            .Include(p => p.Attributes)
-            .Include(p => p.MaxAttributes)
-            .SingleAsync(h => h.Id == currentPlayer!.PlayerId);
+    //    PlayerDal player = await _context.Players
+    //        .Include(p => p.Attributes)
+    //        .Include(p => p.MaxAttributes)
+    //        .SingleAsync(h => h.Id == currentPlayer!.PlayerId);
 
-        player.Attributes = new()
-        {
-            PlayerId = currentPlayer!.PlayerId,
-            LifePoints = player.MaxAttributes.MaxLifePoints,
-            ManaPoints = player.MaxAttributes.MaxManaPoints,
-            FootSteps = player.MaxAttributes.MaxFootSteps,
-            Shield = player.MaxAttributes.MaxShield,
-            AttackCount = player.MaxAttributes.MaxAttackCount,
-            HealCount = player.MaxAttributes.MaxHealCount,
-            ChestSearchCount = player.MaxAttributes.MaxChestSearchCount,
-            TrapSearchCount = player.MaxAttributes.MaxTrapSearchCount
-        };
+    //    player.Attributes = new()
+    //    {
+    //        PlayerId = currentPlayer!.PlayerId,
+    //        LifePoints = player.MaxAttributes.MaxLifePoints,
+    //        ManaPoints = player.MaxAttributes.MaxManaPoints,
+    //        FootSteps = player.MaxAttributes.MaxFootSteps,
+    //        Shield = player.MaxAttributes.MaxShield,
+    //        AttackCount = player.MaxAttributes.MaxAttackCount,
+    //        HealCount = player.MaxAttributes.MaxHealCount,
+    //        ChestSearchCount = player.MaxAttributes.MaxChestSearchCount,
+    //        TrapSearchCount = player.MaxAttributes.MaxTrapSearchCount
+    //    };
 
-        await _context.SaveChangesAsync(); 
-    }
+    //    await _context.SaveChangesAsync(); 
+    //}
 
     private async Task<List<TurnOrderDal>> GetTurnOrdersAsync(int adventureId)
     {
@@ -176,14 +187,15 @@ internal sealed class TurnFlowRepository : ITurnFlowRepository
         return randomOrder;
     }
 
-    private async Task<CurrentPlayerDal?> CreateCurrentPlayerAsync(int adventureId, List<TurnOrderDal> turnOrders)
+    private async Task<CurrentPlayerDal> CreateCurrentPlayerAsync(int adventureId)
     {
-        TurnOrderDal turnOrder = turnOrders.OrderBy(to => to.Order).First();
+        List<TurnOrderDal> turnOrders = await GetTurnOrdersAsync(adventureId);
+        TurnOrderDal firstPlayerTurnOrder = turnOrders.OrderBy(to => to.Order).First();
 
         CurrentPlayerDal currentPlayer = new()
         {
             AdventureId = adventureId,
-            PlayerId = turnOrder.PlayerId
+            PlayerId = firstPlayerTurnOrder.PlayerId
         };
 
         _context.CurrentPlayers.Add(currentPlayer);

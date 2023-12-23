@@ -28,12 +28,18 @@ internal sealed class SquaresRepository : ISquaresRepository
         return squares.ConvertAll(s => s.ToDomain());
     }
 
-    public async Task<Player?> GetSquarePlayerIfAnyAsync(int squareId)
+    public async Task<Square> GetByIdAsync(int id)
+    {
+        SquareDal square = await _context.Squares.Include(s => s.Position).SingleAsync(s => s.Id == id);
+        return square.ToDomain();
+    }
+
+    public async Task<Player?> GetSquarePlayerIfAnyAsync(int id)
     {
         PlayerDal? playerDal = await _context.Players
             .Include(p => p.Profile)
             .Include(p => p.MaxAttributes)
-            .SingleOrDefaultAsync(h => h.SquareId == squareId);
+            .SingleOrDefaultAsync(h => h.SquareId == id);
 
         return playerDal?.ToDomain() ?? null;
     }

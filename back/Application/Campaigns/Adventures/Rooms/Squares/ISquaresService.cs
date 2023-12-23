@@ -8,6 +8,7 @@ namespace dnd_application.Campaigns.Adventures.Rooms.Squares;
 public interface ISquaresService
 {
     Task<List<Square>> GetAsync(int campaignId);
-    Task<Player?> GetSquarePlayerIfAnyAsync(int squareId);
+    Task<Square> GetByIdAsync(int id);
+    Task<Player?> GetSquarePlayerIfAnyAsync(int id);
     Task PlaceHeroesOnSquaresAsync(int campaignId);
 }

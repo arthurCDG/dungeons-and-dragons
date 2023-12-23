@@ -10,11 +10,12 @@ export class SquaresService {
 
 	constructor(private readonly httpClient: HttpClient) {}
 
-	public getAllAsync(campaignId: number): Observable<ISquare[]> {
-		return this.httpClient.get<ISquare[]>(`${DEV_BACKEND_URL}/${SQUARES_URL}/campaign/${campaignId}`);
-	}
+	public getAllAsync = (campaignId: number): Observable<ISquare[]> =>
+		this.httpClient.get<ISquare[]>(`${DEV_BACKEND_URL}/${SQUARES_URL}/campaign/${campaignId}`);
 
-	public getByIdAsync(squareId: number): Observable<IPlayer> {
-		return this.httpClient.get<IPlayer>(`${DEV_BACKEND_URL}/${SQUARES_URL}/${squareId}`);
-	}
+	public getByIdAsync = (squareId: number): Observable<ISquare> =>
+		this.httpClient.get<ISquare>(`${DEV_BACKEND_URL}/${SQUARES_URL}/${squareId}`);
+
+	public getPlayerIfAnyAsync = (squareId: number): Observable<IPlayer> =>
+		this.httpClient.get<IPlayer>(`${DEV_BACKEND_URL}/${SQUARES_URL}/${squareId}/player`);
 }

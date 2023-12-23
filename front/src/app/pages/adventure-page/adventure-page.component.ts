@@ -4,7 +4,7 @@ import { ActivatedRoute, RouterModule } from '@angular/router';
 import { ActionBarComponent } from '../../components/action-bar/action-bar.component';
 import { IAdventure, ICurrentPlayerDto, IPlayer, ISquare } from '../../models';
 import { SquareComponent } from '../../components/square/square.component';
-import { PlayersService, AdventuresService, GameFlowService } from '../../services';
+import { PlayersService, AdventuresService, GameFlowService, SquaresService } from '../../services';
 
 @Component({
   selector: 'app-adventure-page',
@@ -12,7 +12,7 @@ import { PlayersService, AdventuresService, GameFlowService } from '../../servic
   imports: [CommonModule, RouterModule, ActionBarComponent, SquareComponent],
   templateUrl: './adventure-page.component.html',
   styleUrls: ['./adventure-page.component.css'],
-  providers: [AdventuresService, PlayersService, GameFlowService]
+  providers: [AdventuresService, PlayersService, GameFlowService, SquaresService]
 })
 export class AdventurePageComponent implements OnInit {
 	public adventure: IAdventure;
@@ -33,7 +33,8 @@ export class AdventurePageComponent implements OnInit {
 		private readonly playersService: PlayersService,
 		private readonly adventuresService: AdventuresService,
 		private readonly gameFlowService: GameFlowService,
-		private readonly activatedRoute: ActivatedRoute
+		private readonly activatedRoute: ActivatedRoute,
+		private readonly squaresService: SquaresService
 	) { }
 
 	ngOnInit(): void {
@@ -57,7 +58,9 @@ export class AdventurePageComponent implements OnInit {
 
 	onSquareChanged(formerSquaredId: number): void {
 		this.squaredIdThatNeedsToReload = formerSquaredId;
-		// Update userPlayer's position to be this.s
+
+		this.squaresService.getByIdAsync(formerSquaredId)
+						   .subscribe((square: ISquare) => this.userPlayer =  { ...this.userPlayer, square });
 	}
 
 	onSquareSelected(squareId: number): void {
@@ -67,20 +70,16 @@ export class AdventurePageComponent implements OnInit {
 
 	private getUserPlayer(): void {
 		this.playersService.getByIdAsync(this.userId, this.playerId)
-			.subscribe((userPlayer: IPlayer) => {
-				console.log('userPlayer', userPlayer);
-				this.userPlayer = userPlayer;
-			});
+						   .subscribe((userPlayer: IPlayer) => this.userPlayer = userPlayer);
 	}
 
 	private getCurrentPlayer(): void {
 		this.gameFlowService.getCurrentPlayer(this.adventureId)
-			.subscribe((currentPlayer: ICurrentPlayerDto) => {
-				console.log('current player >>>>', currentPlayer);
-				if (currentPlayer.player?.id === this.userPlayer?.id) {
-					this.currentPlayer = currentPlayer.player;
-				}
-			});
+							.subscribe((currentPlayer: ICurrentPlayerDto) => {
+								if (currentPlayer.player?.id === this.userPlayer?.id) {
+									this.currentPlayer = currentPlayer.player;	
+								}
+							});
 	}
 
 }

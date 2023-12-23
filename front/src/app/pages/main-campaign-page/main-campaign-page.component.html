@@ -24,7 +24,7 @@
 					<h3>{{ adventure.name }}</h3>
 					<a
 						*ngIf="adventure.status === 1"
-						[routerLink]="['adventures	', adventure.id.toString()]"
+						[routerLink]="['adventures', adventure.id]"
 						class="link-button"
 					>
 						<span>Jouer l'aventure</span>
