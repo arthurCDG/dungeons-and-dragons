@@ -4,8 +4,7 @@ public class Square
 {
     public int Id { get; set; }
     public int RoomId { get; set; }
-    public string ImageUrl { get; set; } = string.Empty;
-    public Position Position { get; set; } = new();
+    public Position Position { get; set; } = null!;
 
     public bool? HasTopWall { get; set; }
     public bool? HasRightWall { get; set; }
@@ -15,6 +14,7 @@ public class Square
     public bool? HasOpenedChest { get; set; }
     public bool? HasPillar { get; set; }
 
+    public string? ImageUrl { get; set; }
     public bool? IsDisabled { get; set; }
     public bool? IsDoor { get; set; }
     public SquareTrap? Trap { get; set; }

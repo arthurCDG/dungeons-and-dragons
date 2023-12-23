@@ -3,14 +3,12 @@ using dnd_infra.Campaigns.Adventures;
 using dnd_infra.Campaigns.Adventures.Rooms;
 using dnd_infra.Campaigns.Adventures.Rooms.Squares.DALs;
 using dnd_infra.Dice;
-using dnd_infra.GameFlow.Configurations;
 using dnd_infra.GameFlow.DALs;
-using dnd_infra.Items.Configurations;
 using dnd_infra.Items.DALs;
-using dnd_infra.Players.Configurations;
 using dnd_infra.Players.DALs;
 using dnd_infra.Users;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection;
 
 namespace dnd_infra;
 
@@ -26,14 +24,8 @@ internal sealed class GlobalDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.ApplyItemConfigurations();
-        modelBuilder.ApplyPlayerConfigurations();
-        modelBuilder.ApplyConfiguration(new UserDalConfiguration());
-
-        modelBuilder.ApplyConfiguration(new DieAssociationDalConfiguration());
-
-        modelBuilder.ApplyCampaignsConfigurations();
-        modelBuilder.ApplyGameFlowConfigurations();
+        modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+        base.OnModelCreating(modelBuilder);
     }
 
     public DbSet<StoredItemDal> StoredItems { get; set; }

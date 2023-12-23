@@ -21,14 +21,13 @@ internal sealed class CreatableAdventuresService : ICreatableAdventuresService
     public async Task<List<CreatableAdventure>> GetAsync(int campaignId)
     {
         Campaign campaign = await _campaignsRepository.GetByIdAsync(campaignId);
-        List<AdventureType> createdAdventures = campaign.Adventures
+        List<Adventure> createdAdventures = campaign.Adventures
             .Where(a => a.Status == AdventureStatus.Finished || a.Status == AdventureStatus.Started)
-            .Select(a => a.Type)
             .ToList();
 
         List<CreatableAdventure> creatableAdventures = campaign.Type switch
         {
-            CampaignType.HollbrooksLiberation => GetLevel1CreatableAdventures().Where(ca => !createdAdventures.Contains(ca.Type)).ToList(),
+            CampaignType.HollbrooksLiberation => GetLevel1CreatableAdventures().Where(ca => !createdAdventures.Select(a => a.Type).Contains(ca.Type)).ToList(),
             _ => throw new InvalidOperationException($"Unknown campaign type: {campaign.Type}.")
         };
 
@@ -37,7 +36,10 @@ internal sealed class CreatableAdventuresService : ICreatableAdventuresService
             return new();
         }
 
-        creatableAdventures.First().CanBeStarted = true;
+        if (createdAdventures.All(ca => ca.Status == AdventureStatus.Finished))
+        {
+            creatableAdventures.First().CanBeStarted = true;
+        }
 
         return creatableAdventures;
     }

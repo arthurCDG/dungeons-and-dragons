@@ -10,4 +10,7 @@
 		</app-square>
 	</ng-container>
 </div>
-<app-action-bar [selectedSquare]="selectedSquare" [userPlayer]="userPlayer" [currentPlayer]="currentPlayer"></app-action-bar>
+
+<ng-container *ngIf="!isLoading">
+	<app-action-bar [selectedSquare]="selectedSquare" [userPlayer]="userPlayer" [currentPlayer]="currentPlayer"></app-action-bar>
+</ng-container>

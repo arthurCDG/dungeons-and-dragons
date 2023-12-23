@@ -13,7 +13,6 @@ namespace dungeons_and_dragons.Campaigns.Controllers;
 
 [Authorize]
 [SwaggerTag("Adventures")]
-[ApiExplorerSettings(IgnoreApi = false)]
 [ApiController, Route(Route)]
 [EnableCors]
 public class CreatableAdventuresServiceController : ControllerBase

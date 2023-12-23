@@ -22,6 +22,7 @@ export class AdventurePageComponent implements OnInit {
 	public selectedSquare?: ISquare;
 	public userPlayer: IPlayer;
 	public currentPlayer: IPlayer;
+	public isLoading = true;
 	
 	private campaignId: number;
 	private adventureId: number;
@@ -50,6 +51,8 @@ export class AdventurePageComponent implements OnInit {
 
 		this.getUserPlayer();
 		this.getCurrentPlayer();
+
+		this.isLoading = false;
 	}
 
 	onSquareChanged(formerSquaredId: number): void {

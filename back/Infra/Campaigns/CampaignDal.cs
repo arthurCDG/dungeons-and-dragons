@@ -10,11 +10,11 @@ namespace dnd_infra.Campaigns;
 internal sealed class CampaignDal
 {
     public int Id { get; set; }
-    public string Name { get; set; } = string.Empty;
-    public string Description { get; set; } = string.Empty;
-    public CampaignType Type { get; set; }
-    public DateTime StartsAt { get; set; }
+    public string? Description { get; set; }
     public DateTime? EndsAt { get; set; }
+    public required string Name { get; set; }
+    public DateTime StartsAt { get; set; }
+    public CampaignType Type { get; set; }
 
     public List<AdventureDal> Adventures { get; set; } = new();
     public List<PlayerDal> Players { get; set; } = new();

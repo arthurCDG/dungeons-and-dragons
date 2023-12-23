@@ -6,6 +6,9 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.Net.Http.Headers;
+using Microsoft.OpenApi.Models;
+using System;
 using System.Text;
 
 namespace dungeons_and_dragons;
@@ -29,7 +32,39 @@ public class Program
 
         builder.Services.AddControllers();
         builder.Services.AddEndpointsApiExplorer();
-        builder.Services.AddSwaggerGen();
+        builder.Services.AddSwaggerGen(
+            c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "ApiPlayground", Version = "v1" });
+                c.AddSecurityDefinition(
+                    "token",
+                    new OpenApiSecurityScheme
+                    {
+                        Type = SecuritySchemeType.Http,
+                        BearerFormat = "JWT",
+                        Scheme = "Bearer",
+                        In = ParameterLocation.Header,
+                        Name = HeaderNames.Authorization
+                    }
+                );
+                c.AddSecurityRequirement(
+                    new OpenApiSecurityRequirement
+                    {
+                        {
+                            new OpenApiSecurityScheme
+                            {
+                                Reference = new OpenApiReference
+                                {
+                                    Type = ReferenceType.SecurityScheme,
+                                    Id = "token"
+                                },
+                            },
+                            Array.Empty<string>()
+                        }
+                    }
+                );
+            }
+        );
 
         // Scope services from other Bounded Contexts
         builder.Services.AddInfraExtensions();

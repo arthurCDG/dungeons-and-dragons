@@ -1,5 +1,4 @@
 ﻿using dnd_domain.Players.Models;
-using dnd_infra.Campaigns;
 using dnd_infra.Campaigns.Adventures.Rooms.Squares.DALs;
 using dnd_infra.GameFlow.DALs;
 using dnd_infra.Items.DALs;
@@ -16,8 +15,8 @@ internal sealed class PlayerDal
     public SquareDal? Square { get; set; }
     public int? CampaignId { get; set; }
 
-    public PlayerProfileDal? Profile { get; set; } = null!;
-    public PlayerMaxAttributesDal? MaxAttributes { get; set; } = null!;
+    public PlayerProfileDal Profile { get; set; } = null!;
+    public PlayerMaxAttributesDal MaxAttributes { get; set; } = null!;
     public PlayerAttributesDal? Attributes { get; set; }
     public TurnOrderDal? TurnOrder { get; set; }
 

@@ -12,7 +12,6 @@ namespace dungeons_and_dragons.Players.Controllers;
 
 [Authorize]
 [SwaggerTag("Players")]
-[ApiExplorerSettings(IgnoreApi = false)]
 [ApiController, Route(Route)]
 [EnableCors]
 public class PlayersController : ControllerBase

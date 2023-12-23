@@ -35,9 +35,10 @@ internal sealed class TurnFlowRepository : ITurnFlowRepository
                 .ThenInclude(p => p.MaxAttributes)
             .Include(cp => cp.Player)
                 .ThenInclude(p => p.Square)
+                    .ThenInclude(s => s.Position)
             .FirstOrDefaultAsync(cp => cp.AdventureId == adventureId);
 
-        List<TurnOrderDal> turnOrders = await GetTurnOrdersAsync(adventureId);
+        List<TurnOrderDal> turnOrders = await GetTurnOrdersAsync(adventureId); // Should be called in CreareCurrentPlayersAsync
         currentPlayer ??= await CreateCurrentPlayerAsync(adventureId, turnOrders);
 
         return currentPlayer!;
@@ -45,11 +46,12 @@ internal sealed class TurnFlowRepository : ITurnFlowRepository
 
     public async Task<CurrentPlayer> SetNextCurrentPlayerAsync(int adventureId)
     {
+        // Add temporary validation to ensure that nextPlayer exists - else it'll be abusively created by adding an inexistant playerId ..?
         List<TurnOrderDal> turnOrders = await GetTurnOrdersAsync(adventureId);
         
         CurrentPlayerDal currentPlayer = await GetCurrentPlayerDalAsync(adventureId);
 
-        int currentTurnOrder = turnOrders.Single(to => to.PlayerId == currentPlayer.Id).Order;
+        int currentTurnOrder = turnOrders.Single(to => to.PlayerId == currentPlayer.PlayerId).Order;
         TurnOrderDal nextTurnOrder = turnOrders.FirstOrDefault(to => to.Order > currentTurnOrder) ?? turnOrders.First();
         CurrentPlayerDal nextCurrentPlayer = ForgeNextCurrentPlayerDal(nextTurnOrder, adventureId);
         
@@ -108,12 +110,12 @@ internal sealed class TurnFlowRepository : ITurnFlowRepository
 
         List<PlayerDal> players = campaign.Players;
 
-        List<TurnOrderDal?> turnOrders = players.Select(p => p.TurnOrder).ToList();
+        List<TurnOrderDal> turnOrders = players.Where(p => p.TurnOrder != null).Select(p => p.TurnOrder!).ToList();
 
         bool allPlayersHaveTurnOrders = turnOrders.Any() && players.All(p => p.TurnOrder is not null);
 
         return allPlayersHaveTurnOrders
-            ? turnOrders.OrderBy(to => to?.Order).ToList()
+            ? turnOrders.OrderBy(to => to.Order).ToList()
             : await CreateTurnOrdersAsync(adventureId);
     }
 
@@ -138,6 +140,8 @@ internal sealed class TurnFlowRepository : ITurnFlowRepository
         List<int> playersOrders = Enumerable.Range(1, heroes.Count).ToList();
         List<int> monstersOrders = Enumerable.Range(heroes.Count + 1, monsters.Count).ToList();
         List<TurnOrderDal> turnOrders = new();
+
+        // Should remove any existing turnOrder before ??
 
         foreach (PlayerDal hero in heroes)
         {

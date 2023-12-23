@@ -14,7 +14,6 @@ namespace dungeons_and_dragons.Users;
 
 [Authorize]
 [SwaggerTag("Users")]
-[ApiExplorerSettings(IgnoreApi = false)]
 [ApiController, Route(Route)]
 [EnableCors]
 public class UsersController : ControllerBase

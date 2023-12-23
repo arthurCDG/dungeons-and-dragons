@@ -6,8 +6,7 @@ internal sealed class SquareDal
 {
     public int Id { get; set; }
     public int RoomId { get; set; }
-    public string ImageUrl { get; set; } = string.Empty;
-    public PositionDal Position { get; set; } = new();
+    public PositionDal Position { get; set; } = null!;
 
     public bool? HasTopWall { get; set; }
     public bool? HasRightWall { get; set; }
@@ -17,6 +16,7 @@ internal sealed class SquareDal
     public bool? HasOpenedChest { get; set; }
     public bool? HasPillar { get; set; }
 
+    public string? ImageUrl { get; set; }
     public bool? IsDisabled { get; set; }
     public bool? IsDoor { get; set; }
     public SquareTrapDal? Trap { get; set; }

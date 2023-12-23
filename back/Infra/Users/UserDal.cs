@@ -7,8 +7,8 @@ namespace dnd_infra.Users;
 internal sealed class UserDal
 {
     public int Id { get; set; }
-    public string Name { get; set; } = string.Empty;
-    public string Password { get; set; } = string.Empty;
+    public required string Name { get; set; }
+    public required string Password { get; set; }
     public string? PictureUrl { get; set; }
 
     public List<PlayerDal> Players { get; set; } = new();

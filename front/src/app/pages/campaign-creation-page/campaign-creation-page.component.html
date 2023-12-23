@@ -1,7 +1,7 @@
 <h2>Page de création d'une campagne</h2>
 <ng-container *ngIf="!isLoading; else loading">
 	<div *ngIf="creatableCampaigns.length; else emptyState">
-		<!-- Players list -->
+		<!-- campaigns list -->
 		<form (ngSubmit)="onSubmit()" [formGroup]="campaignCreationForm" class="user-form">
 			<div class="form-element">
 				<label class="form-label">Choisir le joueur à créer</label>
@@ -18,7 +18,7 @@
 			</div>
 			<button class="form-element" type="submit" [disabled]="campaignCreationForm.invalid">Créer la campagne</button>
 		</form>
-		<!-- Selected player display -->
+		<!-- Selected campaign display -->
 		<div *ngIf="selectedCampaign">
 			<h3>{{ selectedCampaign.name }}</h3>
 			<img

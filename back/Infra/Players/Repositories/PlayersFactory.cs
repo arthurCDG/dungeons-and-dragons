@@ -73,7 +73,7 @@ internal sealed class PlayersFactory
     private static PlayerDal ForgeRegdar(int userId, List<ArtefactDal> artefacts, List<SpellDal> spells, List<WeaponDal> weapons)
         => new()
         {
-            Profile = new()
+            Profile = new PlayerProfileDal
             {
                 FirstName = "Regdar",
                 ImageUrl = "",
@@ -81,7 +81,7 @@ internal sealed class PlayersFactory
                 Class = HeroClass.Warrior,
                 Gender = PlayerGender.Male
             },
-            MaxAttributes = new()
+            MaxAttributes = new PlayerMaxAttributesDal
             {
                 MaxLifePoints = 8,
                 MaxManaPoints = 0,
@@ -92,7 +92,7 @@ internal sealed class PlayersFactory
                 MaxChestSearchCount = 1,
                 MaxTrapSearchCount = 0
             },
-            StoredItems = new()
+            StoredItems = new List<StoredItemDal>
             {
                 new StoredItemDal
                 {
@@ -106,7 +106,7 @@ internal sealed class PlayersFactory
     private static PlayerDal ForgeLidda(int userId, List<ArtefactDal> artefacts, List<SpellDal> spells, List<WeaponDal> weapons)
         => new()
         {
-            Profile = new PlayerProfileDal()
+            Profile = new PlayerProfileDal
             {
                 FirstName = "Lidda",
                 ImageUrl = "",
@@ -114,7 +114,7 @@ internal sealed class PlayersFactory
                 Class = HeroClass.Rogue,
                 Gender = PlayerGender.Female
             },
-            MaxAttributes = new()
+            MaxAttributes = new PlayerMaxAttributesDal
             {
                 MaxLifePoints = 5,
                 MaxManaPoints = 0,
@@ -125,7 +125,7 @@ internal sealed class PlayersFactory
                 MaxChestSearchCount = 2,
                 MaxTrapSearchCount = 1
             },
-            StoredItems = new()
+            StoredItems = new List<StoredItemDal>
             {
                 new StoredItemDal
                 {
@@ -144,7 +144,7 @@ internal sealed class PlayersFactory
     private static PlayerDal ForgeJozan(int userId, List<ArtefactDal> artefacts, List<SpellDal> spells, List<WeaponDal> weapons)
         => new()
         {
-            Profile = new PlayerProfileDal()
+            Profile = new PlayerProfileDal
             {
                 FirstName = "Jozan",
                 ImageUrl = "",
@@ -152,7 +152,7 @@ internal sealed class PlayersFactory
                 Class = HeroClass.Cleric,
                 Gender = PlayerGender.Male
             },
-            MaxAttributes = new()
+            MaxAttributes = new PlayerMaxAttributesDal
             {
                 MaxLifePoints = 5,
                 MaxManaPoints = 5,
@@ -163,7 +163,7 @@ internal sealed class PlayersFactory
                 MaxChestSearchCount = 1,
                 MaxTrapSearchCount = 0
             },
-            StoredItems = new()
+            StoredItems = new List<StoredItemDal>
             {
                 new StoredItemDal
                 {
@@ -182,7 +182,7 @@ internal sealed class PlayersFactory
     private static PlayerDal ForgeMialye(int userId, List<ArtefactDal> artefacts, List<SpellDal> spells, List<WeaponDal> weapons)
         => new()
         {
-            Profile = new PlayerProfileDal()
+            Profile = new PlayerProfileDal
             {
                 FirstName = "Mialye",
                 ImageUrl = "",
@@ -190,7 +190,7 @@ internal sealed class PlayersFactory
                 Class = HeroClass.Wizard,
                 Gender = PlayerGender.Female
             },
-            MaxAttributes = new()
+            MaxAttributes = new PlayerMaxAttributesDal
             {
                 MaxLifePoints = 5,
                 MaxManaPoints = 5,
@@ -201,7 +201,7 @@ internal sealed class PlayersFactory
                 MaxChestSearchCount = 1,
                 MaxTrapSearchCount = 0,
             },
-            StoredItems = new()
+            StoredItems = new List<StoredItemDal>
             {
                 new StoredItemDal
                 {
@@ -227,13 +227,14 @@ internal sealed class PlayersFactory
         {
             new PlayerDal
             {
-                Profile = new PlayerProfileDal() {
+                Profile = new PlayerProfileDal
+                {
                     FirstName = "Zoc",
                     MonsterType = MonsterType.Goblin,
                     ImageUrl = "",
                     Gender = PlayerGender.Male
                 },
-                MaxAttributes = new()
+                MaxAttributes = new PlayerMaxAttributesDal
                 {
                     MaxLifePoints = 4,
                     MaxManaPoints = 0,
@@ -245,7 +246,7 @@ internal sealed class PlayersFactory
                     MaxTrapSearchCount = 0,
                 },
                 SquareId = squares.Single(s => s.Position.X == 10 && s.Position.Y == 19).Id,
-                StoredItems = new()
+                StoredItems = new List<StoredItemDal>
                 {
                     new StoredItemDal
                     {
@@ -256,13 +257,14 @@ internal sealed class PlayersFactory
             },
             new PlayerDal
             {
-                Profile = new PlayerProfileDal() {
+                Profile = new PlayerProfileDal
+                {
                     FirstName = "Slusb",
                     MonsterType = MonsterType.Goblin,
                     ImageUrl = "",
                     Gender = PlayerGender.Male
                 },
-                MaxAttributes = new()
+                MaxAttributes = new PlayerMaxAttributesDal
                 {
                     MaxLifePoints = 4,
                     MaxManaPoints = 0,
@@ -274,7 +276,7 @@ internal sealed class PlayersFactory
                     MaxTrapSearchCount = 0,
                 },
                 SquareId = squares.Single(s => s.Position.X == 8 && s.Position.Y == 2).Id,
-                StoredItems = new()
+                StoredItems = new List<StoredItemDal>
                 {
                     new StoredItemDal
                     {
@@ -285,13 +287,14 @@ internal sealed class PlayersFactory
             },
             new PlayerDal
             {
-                Profile = new PlayerProfileDal() {
+                Profile = new PlayerProfileDal
+                {
                     FirstName = "Klezz",
                     MonsterType = MonsterType.Goblin,
                     ImageUrl = "",
                     Gender = PlayerGender.Male
                 },
-                MaxAttributes = new()
+                MaxAttributes = new PlayerMaxAttributesDal
                 {
                     MaxLifePoints = 4,
                     MaxManaPoints = 0,
@@ -303,7 +306,7 @@ internal sealed class PlayersFactory
                     MaxTrapSearchCount = 0,
                 },
                 SquareId = squares.Single(s => s.Position.X == 11 && s.Position.Y == 4).Id,
-                StoredItems = new()
+                StoredItems = new List<StoredItemDal>
                 {
                     new StoredItemDal
                     {
@@ -314,13 +317,14 @@ internal sealed class PlayersFactory
             },
             new PlayerDal
             {
-                Profile = new PlayerProfileDal() {
+                Profile = new PlayerProfileDal
+                {
                     FirstName = "Guburk",
                     MonsterType = MonsterType.Goblin,
                     ImageUrl = "",
                     Gender = PlayerGender.Male
                 },
-                MaxAttributes = new()
+                MaxAttributes = new PlayerMaxAttributesDal
                 {
                     MaxLifePoints = 4,
                     MaxManaPoints = 0,
@@ -332,7 +336,7 @@ internal sealed class PlayersFactory
                     MaxTrapSearchCount = 0,
                 },
                 SquareId = squares.Single(s => s.Position.X == 6 && s.Position.Y == 13).Id,
-                StoredItems = new()
+                StoredItems = new List<StoredItemDal>
                 {
                     new StoredItemDal
                     {
@@ -343,13 +347,14 @@ internal sealed class PlayersFactory
             },
             new PlayerDal
             {
-                Profile = new PlayerProfileDal() {
+                Profile = new PlayerProfileDal
+                {
                     FirstName = "Praq",
                     MonsterType = MonsterType.Goblin,
                     ImageUrl = "",
                     Gender = PlayerGender.Male
                 },
-                MaxAttributes = new()
+                MaxAttributes = new PlayerMaxAttributesDal
                 {
                     MaxLifePoints = 4,
                     MaxManaPoints = 0,
@@ -361,7 +366,7 @@ internal sealed class PlayersFactory
                     MaxTrapSearchCount = 0,
                 },
                 SquareId = squares.Single(s => s.Position.X == 7 && s.Position.Y == 16).Id,
-                StoredItems = new()
+                StoredItems = new List<StoredItemDal>
                 {
                     new StoredItemDal
                     {
@@ -372,13 +377,14 @@ internal sealed class PlayersFactory
             },
             new PlayerDal
             {
-                Profile = new PlayerProfileDal() {
+                Profile = new PlayerProfileDal
+                {
                     FirstName = "Cukx",
                     MonsterType = MonsterType.Goblin,
                     ImageUrl = "",
                     Gender = PlayerGender.Male
                 },
-                MaxAttributes = new()
+                MaxAttributes = new PlayerMaxAttributesDal
                 {
                     MaxLifePoints = 4,
                     MaxManaPoints = 0,
@@ -390,7 +396,7 @@ internal sealed class PlayersFactory
                     MaxTrapSearchCount = 0,
                 },
                 SquareId = squares.Single(s => s.Position.X == 2 && s.Position.Y == 17).Id,
-                StoredItems = new()
+                StoredItems = new List<StoredItemDal>
                 {
                     new StoredItemDal
                     {

@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { ICurrentPlayerDto } from './../models';
 import { DEV_BACKEND_URL } from './_api.urls';
 
-const BASE_URL = `${DEV_BACKEND_URL}/services/adventures}`;
+const BASE_URL = `${DEV_BACKEND_URL}/services/adventures`;
 
 @Injectable()
 export class GameFlowService {

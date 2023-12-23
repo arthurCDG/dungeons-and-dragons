@@ -8,7 +8,7 @@ internal sealed class CurrentPlayerDal
     public int Id { get; set; }
     public int AdventureId { get; set; }
     public int PlayerId { get; set; }
-    public PlayerDal Player { get; set; } = new();
+    public PlayerDal Player { get; set; } = null!;
 
     public CurrentPlayer ToDomain()
         => new()
