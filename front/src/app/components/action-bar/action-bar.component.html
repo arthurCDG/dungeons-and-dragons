@@ -3,16 +3,16 @@
 		<div class="action-bar-buttons">
 			<button
 				(click)="onMeleeAttackAsync()"
-				class="link-button"
+				class="base-button"
 				[disabled]="!currentPlayer.attributes?.attackCount"
 			>
 				Attaquer au corps à corps
 			</button>
-			<button (click)="onRangeAttackAsync()" class="link-button" [disabled]="!currentPlayer.attributes?.attackCount">Attaquer à distance</button>
-			<button (click)="onHealAsync()" class="link-button" [disabled]="!currentPlayer.attributes?.healCount">Soigner</button>
-			<button (click)="onSearchAsync()" class="link-button" [disabled]="!currentPlayer.attributes?.chestSearchCount">Fouiller le coffre</button>
-			<button (click)="onOpenDoorAsync()" class="link-button" *ngIf="canOpenDoor">Ouvrir la porte</button>
-			<button (click)="onEndTurnAsync()"  class="link-button">Finir son tour</button>
+			<button (click)="onRangeAttackAsync()" class="base-button" [disabled]="!currentPlayer.attributes?.attackCount">Attaquer à distance</button>
+			<button (click)="onHealAsync()" class="base-button" [disabled]="!currentPlayer.attributes?.healCount">Soigner</button>
+			<button (click)="onSearchAsync()" class="base-button" [disabled]="!currentPlayer.attributes?.chestSearchCount">Fouiller le coffre</button>
+			<button (click)="onOpenDoorAsync()" class="base-button" *ngIf="canOpenDoor">Ouvrir la porte</button>
+			<button (click)="onEndTurnAsync()"  class="base-button">Finir son tour</button>
 		</div>
 	</ng-container>
 

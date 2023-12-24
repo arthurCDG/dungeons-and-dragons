@@ -1,0 +1,19 @@
+<a [routerLink]="[campaign.id]" class="card">
+	<div
+		class="card-background-image"
+		[class.hollbrook-background-image]="campaign.type === 1"
+		[class.aos-background-image]="campaign.type === 2"
+		[class.wotl-background-image]="campaign.type === 3"
+	>
+		<div id="campaign-card-content">
+			<div id="campaign-card-description">
+				<h3>{{ campaign.name }}</h3>
+				<p *ngIf="campaign.endsAt; else currentCampaign">Terminée le {{ campaign.endsAt }}</p>
+				<ng-template #currentCampaign>Démarrée le {{ campaign.startsAt | date: 'short' }}</ng-template>
+			</div>
+			<div id="current-campaign-status">
+				<p *ngIf="!campaign.endsAt" id="current-campaign-status-badge">En cours</p>
+			</div>
+		</div>
+	</div>
+</a>

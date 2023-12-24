@@ -2,15 +2,15 @@
 	<nav class="nav-bar">
 		<img alt="logo" src="../../../assets/logo/dungeons-and-dragons.png" class="nav-logo" />
 		<div class="nav-links">
-			<a [routerLink]="['users', 1, 'players']" class="link-button nav-button">Voir mes joueurs</a>
+			<a [routerLink]="['users', 1, 'players']" class="link-button base-button nav-button">Voir mes joueurs</a>
 			<ng-container *ngIf="isLoggedIn; else loggedOut">
 				<div class="user-links">
 					<img class="user-logo" src="../../../assets/logo/user-logo-wizard.png" />
-					<button (click)="onLogout()" class="link-button nav-button">Se déconnecter</button>
+					<button (click)="onLogout()" class="base-button base-button nav-button">Se déconnecter</button>
 				</div>
 			</ng-container>
 			<ng-template #loggedOut>
-				<a [routerLink]="['auth']" class="link-button nav-button">Se connecter / Se créer un compte</a>
+				<a [routerLink]="['auth']" class="link-button base-button nav-button">Se connecter / Se créer un compte</a>
 			</ng-template>
 		</div>
 	</nav>

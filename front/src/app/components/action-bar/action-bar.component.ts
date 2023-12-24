@@ -42,15 +42,12 @@ export class ActionBarComponent implements OnInit, OnChanges {
 
 	ngOnChanges(): void {
 		this.canOpenDoor = this.selectedSquare?.isDoor && this.isAdjacentPosition(this.selectedSquare?.position);
-		console.log('canOpenDoor', this.canOpenDoor);
-		
 		this.canMeleeAttack = this.selectedSquare?.player && this.isAdjacentPosition(this.selectedSquare?.position);
-		console.log('canMeleeAttack', this.canMeleeAttack);
 	}
 
 	public onMeleeAttackAsync(): void {
 		const playerId = this.playerId;
-		const attack: IAttackPayload = { meleeAttack: 2 };
+		const attack: IAttackPayload = { meleeAttack: 2 }; // Test - TODO remove
 
 		this.attacksService.attackPlayerAsync(playerId, attack).subscribe(() => console.log('attacked'));
 	}
@@ -77,15 +74,14 @@ export class ActionBarComponent implements OnInit, OnChanges {
 
 	private setNextCurrentPlayer(): void {
 		this.gameFlowService.setNextCurrentPlayer(this.adventureId)
-							.subscribe();
+							.subscribe((currentPlayer: ICurrentPlayerDto) => {
+								if (currentPlayer.player) {
+									this.currentPlayer = currentPlayer.player;
+								}
+							});
 	}
 
 	private isAdjacentPosition = (targetPosition: IPosition): boolean => {
-		console.log('this.userPlayer.square.position.x', this.userPlayer.square.position.x);
-		console.log('targetPosition.x', targetPosition.x);
-		console.log('this.userPlayer.square.position.y', this.userPlayer.square.position.y);
-		console.log('targetPosition.y', targetPosition.y);
-		
 		const currentPosition = this.userPlayer.square.position;
 		return	Math.abs(currentPosition.x - targetPosition.x) + Math.abs(currentPosition.y - targetPosition.y) <= 1
 	};

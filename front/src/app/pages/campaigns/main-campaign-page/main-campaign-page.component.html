@@ -1,21 +1,21 @@
 <h1>Page des campagnes</h1>
 
 <ng-container *ngIf="!mainCampaign; else campaignDisplay">
-	<a class="link-button" [routerLink]="'new'">Créer une campagne</a>
-	<button class="link-button" disabled>[Soon] Rejoindre une campagne</button>
+	<a class="link-button base-button" [routerLink]="'new'">Créer une campagne</a>
+	<button class="base-button" disabled>[Soon] Rejoindre une campagne</button>
 	<!-- TODO - empty state image or text -->
 </ng-container>
 
 <ng-template #campaignDisplay>
 	<div
-		class="campaign-background-image"
+		class="card-background-image"
 		[class.hollbrook-background-image]="mainCampaign.type === 1"
 		[class.aos-background-image]="mainCampaign.type === 2"
 		[class.wotl-background-image]="mainCampaign.type === 3"
 	>
 		<h3>{{ mainCampaign.name }}</h3>
 		<p>Démarrée le {{ mainCampaign.startsAt }}</p>
-		<button class="link-button" disabled>[soon] Ajouter des joueurs à la campagne</button>
+		<button class="base-button" disabled>[soon] Ajouter des joueurs à la campagne</button>
 	</div>
 	<div>
 		<ul>
@@ -25,7 +25,7 @@
 					<a
 						*ngIf="adventure.status === 1"
 						[routerLink]="['adventures', adventure.id]"
-						class="link-button"
+						class="link-button base-button"
 					>
 						<span>Jouer l'aventure</span>
 					</a>
@@ -38,7 +38,7 @@
 						<h3>{{ creatableAdventure.name }}</h3>
 						<p>{{ creatableAdventure.description }}</p>
 					</div>
-					<button (click)="startAdventureAsync(creatableAdventure.type)" class="link-button">Créer l'aventure</button>
+					<button (click)="startAdventureAsync(creatableAdventure.type)" class="base-button">Créer l'aventure</button>
 				</div>
 				<ng-template #lockedAdventure>
 					<div class="adventure-card locked">

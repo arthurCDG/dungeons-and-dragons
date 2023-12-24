@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { AdventureType, IAdventure, ICampaign, ICreatableAdventure } from '../../models';
-import { AdventuresService, CampaignsService, CreatableAdventuresService } from '../../services';
+import { AdventureType, IAdventure, ICampaign, ICreatableAdventure } from '../../../models';
+import { AdventuresService, CampaignsService, CreatableAdventuresService } from '../../../services';
 import { CommonModule } from '@angular/common';
 
 @Component({

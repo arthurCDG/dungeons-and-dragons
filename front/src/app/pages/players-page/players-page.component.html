@@ -1,7 +1,12 @@
-<h1>Page des joueurs</h1>
 <header>
-	<a [routerLink]="['new']">Créer un nouveau joueur</a>
+	<div class="page-description-wrapper">
+		<h1>Page des joueurs</h1>
+	</div>
+	<div class="call-to-action-wrapper">
+		<a [routerLink]="['new']" class="link-button base-button">Créer un nouveau joueur</a>
+	</div>
 </header>
+
 <div id="players-page">
 	<div id="player-cards-list">
 		<ng-container *ngFor="let player of players">
@@ -19,18 +24,11 @@
 					<img class="player-logo" *ngIf="player.type === 'dungeonMaster'" alt="" src="../../../assets/hero-classes/crane.png" />
 					<span>{{ player.name }}</span>
 				</div>
-				<a
-					*ngIf="player.campaignId; else newCampaignLink"
-					class="link-button"
-					[routerLink]="[player.id, 'campaigns', player.campaignId]"
-				>
-					<span>Jouer avec {{ player.name }}</span>
-				</a>
-				<ng-template #newCampaignLink>
-					<a class="link-button" [routerLink]="[player.id, 'campaigns', 'new']">
+				<div class="main-button-wrapper">
+					<a	class="link-button base-button"	[routerLink]="[player.id, 'campaigns']">
 						<span>Jouer avec {{ player.name }}</span>
 					</a>
-				</ng-template>
+				</div>
 			</div>
 		</ng-container>
 	</div>
