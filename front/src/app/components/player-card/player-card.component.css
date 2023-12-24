@@ -12,12 +12,9 @@
 	box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
 }
 
-.hero-card {
-	background-color: rgb(206, 239, 239);
-}
-
-.dm-card {
-	background-color: rgb(255, 205, 205);
+.selected {
+	background-color: rgb(182, 238, 238);
+	box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
 }
 
 .player-logo {

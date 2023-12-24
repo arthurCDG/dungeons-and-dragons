@@ -1,7 +1,6 @@
 <div
 	class="player-card"
-	[class.hero-card]="player.profile.monsterType"
-	[class.dm-card]="player.profile.class && player.profile.race"
+	[class.selected]="isSelected"
 	(click)="onPlayerCardClick()"	
 >
 	<div>

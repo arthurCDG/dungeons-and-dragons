@@ -1,10 +1,13 @@
-<h2>Page de création d'une campagne</h2>
+<div class="page-description-wrapper">
+	<h2>Page de création d'une campagne</h2>
+</div>
+
 <ng-container *ngIf="!isLoading; else loading">
 	<div *ngIf="creatableCampaigns.length; else emptyState">
 		<!-- campaigns list -->
 		<form (ngSubmit)="onSubmit()" [formGroup]="campaignCreationForm" class="user-form">
 			<div class="form-element">
-				<label class="form-label">Choisir le joueur à créer</label>
+				<label class="form-label">Choisir la campagne à créer</label>
 				<mat-radio-group formControlName="campaignType" aria-label="Select an option" class="form-input creatable-players-list">
 					<ng-container *ngFor="let campaign of creatableCampaigns">
 						<mat-radio-button type="radio" [value]="campaign.type"  [attr.name]="campaign.type" >
@@ -14,10 +17,11 @@
 				</mat-radio-group>
 			</div>
 			<div *ngIf="campaignTypeCtrl.dirty && campaignTypeCtrl.hasError('required')" class="error-message form-element">
-				Vous devez sélectionner un joueur.
+				Vous devez sélectionner une campagne.
 			</div>
 			<button class="form-element" type="submit" [disabled]="campaignCreationForm.invalid">Créer la campagne</button>
 		</form>
+
 		<!-- Selected campaign display -->
 		<div *ngIf="selectedCampaign">
 			<h3>{{ selectedCampaign.name }}</h3>

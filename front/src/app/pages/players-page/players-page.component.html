@@ -1,24 +1,24 @@
-<header>
-	<div class="page-description-wrapper">
-		<h1>Page des joueurs</h1>
-	</div>
-	<div class="call-to-action-wrapper">
-		<a [routerLink]="['new']" class="link-button base-button">Créer un nouveau joueur</a>
-	</div>
-</header>
-
 <div id="players-page">
+	<div class="displayed-player">
+		<ng-container *ngIf="currentPlayer; else emptyCurrentPlayerState">
+			<img *ngIf="currentPlayer.profile.firstName === 'Regdar'" alt="Regdar picture" src="../../../assets/players/heroes/fighter-male.png" />
+			<img *ngIf="currentPlayer.profile.firstName === 'Lidda'" alt="Lidda picture" src="../../../assets/players/heroes/rogue-female.png" />
+			<img *ngIf="currentPlayer.profile.firstName === 'Jozan'" alt="Jozan picture" src="../../../assets/players/heroes/paladin-male.png" />
+			<img *ngIf="currentPlayer.profile.firstName === 'Mialye'" alt="Mialye picture" src="../../../assets/players/heroes/wizzard-female.png" />
+			<img *ngIf="currentPlayer.profile.monsterType" alt="Dungeon Master picture" src="../../../assets/players/monsters/Fomorian.png" />
+		</ng-container>
+
+		<ng-template #emptyCurrentPlayerState>
+			<img alt="Empty player picture" src="../../../assets/players/empty-player.png" />
+		</ng-template>
+	</div>
+
 	<div id="player-cards-list">
 		<ng-container *ngFor="let player of players">
-			<app-player-card [player]="player" (playerSelected)="onPlayerSelected(player)"></app-player-card>
+			<app-player-card [player]="player" [isSelected]="isSelected(player)" (playerSelected)="onPlayerSelected(player)"></app-player-card>
 		</ng-container>
-	</div>
-
-	<div *ngIf="currentPlayer" class="displayed-player">
-		<img *ngIf="currentPlayer.profile.firstName === 'Regdar'" alt="Regdar picture" src="../../../assets/players/heroes/fighter-male.png" />
-		<img *ngIf="currentPlayer.profile.firstName === 'Lidda'" alt="Lidda picture" src="../../../assets/players/heroes/rogue-female.png" />
-		<img *ngIf="currentPlayer.profile.firstName === 'Jozan'" alt="Jozan picture" src="../../../assets/players/heroes/paladin-male.png" />
-		<img *ngIf="currentPlayer.profile.firstName === 'Mialye'" alt="Mialye picture" src="../../../assets/players/heroes/wizzard-female.png" />
-		<img *ngIf="currentPlayer.profile.monsterType" alt="Dungeon Master picture" src="../../../assets/players/monsters/Fomorian.png" />
+		<div class="main-button-wrapper">
+			<a [routerLink]="['new']" class="link-button base-button">Créer un nouveau joueur</a>
+		</div>
 	</div>
 </div>

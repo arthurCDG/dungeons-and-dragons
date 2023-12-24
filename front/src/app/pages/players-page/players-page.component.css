@@ -1,10 +1,11 @@
 #players-page {
 	display: flex;
+	height: 100vh;
 	justify-content: space-between;
-	margin-top: 3rem;
 }
 
 #player-cards-list {
+	background-color: rgb(149, 128, 77);
 	display: flex;
 	flex-direction: column;
 	width: 20vw;

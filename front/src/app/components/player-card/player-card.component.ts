@@ -12,6 +12,7 @@ import { IPlayer } from 'src/app/models';
 })
 export class PlayerCardComponent {
 	@Input() public player: IPlayer;
+	@Input() public isSelected: boolean;
 	@Output() playerSelected = new EventEmitter<IPlayer>();
 
 	public onPlayerCardClick(): void {

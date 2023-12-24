@@ -34,6 +34,10 @@ export class PlayersPageComponent implements OnInit {
 			});
 	}
 
+	public isSelected(player: IPlayer): boolean {
+		return this.currentPlayer === player;
+	}
+
 	public onPlayerSelected(player: IPlayer): void {
 		this.currentPlayer = player;
 	}
