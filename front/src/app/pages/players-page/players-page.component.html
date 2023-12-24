@@ -10,34 +10,15 @@
 <div id="players-page">
 	<div id="player-cards-list">
 		<ng-container *ngFor="let player of players">
-			<div
-				class="player-card"
-				[class.hero-card]="player.type === 'hero'"
-				[class.dm-card]="player.type === 'dungeonMaster'"
-				(click)="onPlayerCardClick(player)"
-			>
-				<div>
-					<img class="player-logo" *ngIf="player.class === 0"	alt="" src="../../../assets/hero-classes/epees.png" />
-					<img class="player-logo" *ngIf="player.class === 4" alt="" src="../../../assets/hero-classes/religion.png" />
-					<img class="player-logo" *ngIf="player.class === 6" alt="" src="../../../assets/hero-classes/haches.png" />
-					<img class="player-logo" *ngIf="player.class === 7" alt="" src="../../../assets/hero-classes/baguette-magique.png" />
-					<img class="player-logo" *ngIf="player.type === 'dungeonMaster'" alt="" src="../../../assets/hero-classes/crane.png" />
-					<span>{{ player.name }}</span>
-				</div>
-				<div class="main-button-wrapper">
-					<a	class="link-button base-button"	[routerLink]="[player.id, 'campaigns']">
-						<span>Jouer avec {{ player.name }}</span>
-					</a>
-				</div>
-			</div>
+			<app-player-card [player]="player" (playerSelected)="onPlayerSelected(player)"></app-player-card>
 		</ng-container>
 	</div>
 
 	<div *ngIf="currentPlayer" class="displayed-player">
-		<img *ngIf="currentPlayer.name === 'Regdar'" alt="Regdar picture" src="../../../assets/players/heroes/fighter-male.png" />
-		<img *ngIf="currentPlayer.name === 'Lidda'" alt="Lidda picture" src="../../../assets/players/heroes/rogue-female.png" />
-		<img *ngIf="currentPlayer.name === 'Jozan'" alt="Jozan picture" src="../../../assets/players/heroes/paladin-male.png" />
-		<img *ngIf="currentPlayer.name === 'Mialye'" alt="Mialye picture" src="../../../assets/players/heroes/wizzard-female.png" />
-		<img *ngIf="currentPlayer.type === 'dungeonMaster'" alt="Dungeon Master picture" src="../../../assets/players/monsters/Fomorian.png" />
+		<img *ngIf="currentPlayer.profile.firstName === 'Regdar'" alt="Regdar picture" src="../../../assets/players/heroes/fighter-male.png" />
+		<img *ngIf="currentPlayer.profile.firstName === 'Lidda'" alt="Lidda picture" src="../../../assets/players/heroes/rogue-female.png" />
+		<img *ngIf="currentPlayer.profile.firstName === 'Jozan'" alt="Jozan picture" src="../../../assets/players/heroes/paladin-male.png" />
+		<img *ngIf="currentPlayer.profile.firstName === 'Mialye'" alt="Mialye picture" src="../../../assets/players/heroes/wizzard-female.png" />
+		<img *ngIf="currentPlayer.profile.monsterType" alt="Dungeon Master picture" src="../../../assets/players/monsters/Fomorian.png" />
 	</div>
 </div>

@@ -37,6 +37,19 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 	padding: 2rem;
 }
 
+.body-background-image {
+	height: 100%;
+	padding: 2rem;
+}
+
+.white-title {
+	color: white;
+}
+
+.white-description {
+	color: white;
+}
+
 /* BUTTONS */
 
 .call-to-action-wrapper {

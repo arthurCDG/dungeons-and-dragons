@@ -10,31 +10,6 @@
 	width: 20vw;
 }
 
-.player-card {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	cursor: pointer;
-	pointer-events: stroke;
-}
-
-.player-card:hover {
-	background-color: rgb(182, 238, 238);
-	box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
-}
-
-.hero-card {
-	background-color: rgb(206, 239, 239);
-}
-
-.dm-card {
-	background-color: rgb(255, 205, 205);
-}
-
-.player-logo {
-	width: 30px;
-}
-
 .displayed-player {
 	background-image: url('../../../assets//campaigns/hollbrook-background-campaign-image.jpg');
 	background-repeat: no-repeat;
