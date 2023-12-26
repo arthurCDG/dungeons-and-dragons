@@ -1,5 +1,6 @@
 ﻿using dnd_domain.Campaigns.Adventures;
 using dnd_domain.Players.Models;
+using dnd_domain.Players.Payloads;
 using dnd_domain.Players.Repositories;
 using dnd_infra.Campaigns;
 using dnd_infra.Players.DALs;

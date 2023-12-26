@@ -1,6 +1,6 @@
 ﻿using dnd_domain.Campaigns.Adventures;
 using dnd_domain.Players.Enums;
-using dnd_domain.Players.Models;
+using dnd_domain.Players.Payloads;
 using dnd_infra.Campaigns;
 using dnd_infra.Campaigns.Adventures.Rooms.Squares.DALs;
 using dnd_infra.Items.DALs;

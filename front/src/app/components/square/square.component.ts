@@ -3,7 +3,7 @@ import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angu
 import { PlayerComponent } from '../player/player.component';
 import { InteractiveElementComponent } from '../interactive-element/interactive-element.component';
 import { IMovement, IMovementRequestPayload, ISquare } from './../../../app/models/campaign.models';
-import { IPlayer } from './../../../app/models/players.models';
+import { IPlayer } from '../../models/players.models';
 import { SquareMovementService, SquaresService } from './../../../app/services';
 import { DecorativeElementComponent } from '../decorative-element/decorative-element.component';
 import { ActivatedRoute } from '@angular/router';

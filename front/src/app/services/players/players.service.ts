@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { IPlayer, IPlayerCreationPayload } from '../models';
-import { DEV_BACKEND_URL } from './_api.urls';
+import { IPlayer, IPlayerCreationPayload } from '../../models';
+import { DEV_BACKEND_URL } from '../_api.urls';
 
 @Injectable()
 export class PlayersService {

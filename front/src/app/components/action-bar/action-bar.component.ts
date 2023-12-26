@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ICurrentPlayerDto, IPosition, ISquare } from '../../../app/models';
-import { IAttackPayload, IPlayer } from '../../../app/models/players.models';
+import { IAttackPayload, IPlayer } from '../../models/players.models';
 import { AttacksService, GameFlowService } from '../../../app/services';
 
 @Component({

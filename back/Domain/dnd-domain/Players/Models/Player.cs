@@ -9,6 +9,7 @@ public class Player
 {
     public int Id { get; set; }
     public int? UserId { get; set; }
+    public bool IsAvailable { get; set; } = false;
     public bool IsDead { get; set; } = false;
     public Square? Square { get; set; }
     public int? CampaignId { get; set; }

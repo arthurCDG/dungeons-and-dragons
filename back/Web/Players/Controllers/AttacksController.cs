@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Routing;
 using Swashbuckle.AspNetCore.Annotations;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using dnd_domain.Players.Payloads;
 
 namespace dungeons_and_dragons.Campaigns.Controllers;
 

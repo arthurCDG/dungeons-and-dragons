@@ -12,16 +12,18 @@ public static class ApplicationExtensions
 {
     public static void AddApplicationExtensions(this IServiceCollection services)
     {
-        services.AddScoped<ICampaignsService, CampaignsService>();
-        services.AddScoped<ISquaresService, SquaresService>();
-        services.AddScoped<IAttacksService, AttacksService>();
-        services.AddScoped<ITurnFlowService, TurnFlowService>();
-        services.AddScoped<IUsersService, UsersService>();
-        services.AddScoped<IPlayersService, PlayersService>();
-        services.AddScoped<IAdventuresService, AdventuresService>();
-        services.AddScoped<ICreatablePlayersService, CreatablePlayersService>();
-        services.AddScoped<ICreatableCampaignsService, CreatableCampaignsService>();
-        services.AddScoped<ICreatableAdventuresService, CreatableAdventuresService>();
-        services.AddScoped<IAuthService, AuthService>();
+        services.AddScoped<ICampaignsService, CampaignsService>()
+                .AddScoped<ISquaresService, SquaresService>()
+                .AddScoped<IAttacksService, AttacksService>()
+                .AddScoped<ITurnFlowService, TurnFlowService>()
+                .AddScoped<IUsersService, UsersService>()
+                .AddScoped<IPlayersService, PlayersService>()
+                .AddScoped<IAdventuresService, AdventuresService>()
+                .AddScoped<ICreatablePlayersService, CreatablePlayersService>()
+                .AddScoped<ICreatableCampaignsService, CreatableCampaignsService>()
+                .AddScoped<ICreatableAdventuresService, CreatableAdventuresService>()
+                .AddScoped<IAuthService, AuthService>()
+                .AddScoped<IAvailableUsersService, AvailableUsersService>()
+                .AddScoped<IAvailablePlayersService, AvailablePlayersService>();
     }
 }

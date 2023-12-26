@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { DEV_BACKEND_URL } from './_api.urls';
-import { ICreatablePlayer } from '../models';
+import { DEV_BACKEND_URL } from '../_api.urls';
+import { ICreatablePlayer } from '../../models';
 
 @Injectable()
 export class CreatablePlayersService {

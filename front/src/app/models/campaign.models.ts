@@ -91,9 +91,10 @@ export enum SquareTrapType {
 }
 
 export interface ICampaignPayload {
-	type: CampaignType;
-	playerIds: number[];
 	adventurePayload: IAdventurePayload;
+	dungeonMasterUserId?: number;
+	playerIds: number[];
+	type: CampaignType;
 }
 
 export interface IAdventurePayload {

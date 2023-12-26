@@ -9,11 +9,12 @@ namespace dnd_infra.Players.DALs;
 internal sealed class PlayerDal
 {
     public int Id { get; set; }
-    public int? UserId { get; set; }
+    public int? CampaignId { get; set; }
+    public bool IsAvailable { get; set; } = false;
     public bool IsDead { get; set; } = false;
     public int? SquareId { get; set; }
     public SquareDal? Square { get; set; }
-    public int? CampaignId { get; set; }
+    public int? UserId { get; set; }
 
     public PlayerProfileDal Profile { get; set; } = null!;
     public PlayerMaxAttributesDal MaxAttributes { get; set; } = null!;
@@ -29,6 +30,7 @@ internal sealed class PlayerDal
             UserId = UserId,
             Square = Square?.ToDomain(),
             CampaignId = CampaignId,
+            IsAvailable = IsAvailable,
             IsDead = IsDead,
             Profile = Profile?.ToDomain(),
             Attributes = Attributes?.ToDomain(),

@@ -1,6 +1,6 @@
 ﻿using dnd_domain.Items.Models;
 
-namespace dnd_domain.Players.Models;
+namespace dnd_domain.Players.Payloads;
 
 public class PlayerPayload
 {

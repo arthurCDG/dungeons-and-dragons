@@ -3,27 +3,48 @@
 </div>
 
 <ng-container *ngIf="!isLoading; else loading">
-	<div *ngIf="creatableCampaigns.length; else emptyState">
+	<ng-container *ngIf="creatableCampaigns.length; else emptyState">
 		<!-- campaigns list -->
+		<div class="campaign-cards-wrapper">
+			<ng-container *ngFor="let campaign of creatableCampaigns">
+				<app-creatable-campaign-card [campaign]="campaign" (click)="onCreatableCampaignClicked(campaign)"/>
+			</ng-container>
+		</div>
+
+		<!-- FORM -->
 		<form (ngSubmit)="onSubmit()" [formGroup]="campaignCreationForm" class="user-form">
-			<div class="form-element">
-				<label class="form-label">Choisir la campagne à créer</label>
-				<mat-radio-group formControlName="campaignType" aria-label="Select an option" class="form-input creatable-players-list">
-					<ng-container *ngFor="let campaign of creatableCampaigns">
-						<mat-radio-button type="radio" [value]="campaign.type"  [attr.name]="campaign.type" >
-							{{ campaign.name }}
-						</mat-radio-button>
+
+			<!-- Heroes fields -->
+			<mat-form-field class="form-element">
+				<mat-label class="form-label">Choisir le joueur</mat-label>
+				<mat-select formControlName="campaignType" aria-label="Select a player" class="form-input creatable-players-list">
+					<ng-container *ngFor="let player of players$ | async">
+						<mat-option type="radio" [value]="player.id">
+							{{ player.name }}
+						</mat-option>
 					</ng-container>
-				</mat-radio-group>
-			</div>
-			<div *ngIf="campaignTypeCtrl.dirty && campaignTypeCtrl.hasError('required')" class="error-message form-element">
+				</mat-select>
+			</mat-form-field>
+
+			<!-- Dungeon master field -->
+			<mat-form-field class="form-element">
+				<mat-label class="form-label">Choisir le maître du donjon</mat-label>
+				<mat-select formControlName="campaignType" aria-label="Select a user" class="form-input creatable-players-list">
+					<ng-container *ngFor="let user of users$ | async">
+						<mat-option type="radio" [value]="user.id">
+							{{ user.name }}
+						</mat-option>
+					</ng-container>
+				</mat-select>
+			</mat-form-field>
+			<!-- <div *ngIf="campaignTypeCtrl.dirty && campaignTypeCtrl.hasError('required')" class="error-message form-element">
 				Vous devez sélectionner une campagne.
-			</div>
+			</div> -->
 			<button class="form-element" type="submit" [disabled]="campaignCreationForm.invalid">Créer la campagne</button>
 		</form>
 
 		<!-- Selected campaign display -->
-		<div *ngIf="selectedCampaign">
+		<!-- <div *ngIf="selectedCampaign">
 			<h3>{{ selectedCampaign.name }}</h3>
 			<img
 				*ngIf="selectedCampaign?.type === 1"
@@ -44,8 +65,8 @@
 				src="../../../assets/campaigns/wrath-of-the-lich-background-campaign-image.avif"
 			>
 			<p>{{ selectedCampaign.description }}</p>
-		</div>
-	</div>
+		</div> -->
+	</ng-container>
 
 	<ng-template #emptyState>
 		<p>Vous avez débloqué et créé toutes les campagnes (message à changer)</p>

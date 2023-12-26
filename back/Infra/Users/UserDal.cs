@@ -7,6 +7,7 @@ namespace dnd_infra.Users;
 internal sealed class UserDal
 {
     public int Id { get; set; }
+    public bool IsAvailable { get; set; } = false;
     public required string Name { get; set; }
     public required string Password { get; set; }
     public string? PictureUrl { get; set; }

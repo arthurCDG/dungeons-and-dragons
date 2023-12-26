@@ -22,14 +22,16 @@ public static class InfraExtensions
     {
         services.AddDbContext<GlobalDbContext>();
 
-        services.AddScoped<ICampaignsRepository, CampaignsRepository>();
-        services.AddScoped<IAdventuresRepository, AdventuresRepository>();
-        services.AddScoped<ISquareMovementRepository, SquareMovementRepository>();
-        services.AddScoped<ISquaresRepository, SquaresRepository>();
+        services.AddScoped<ICampaignsRepository, CampaignsRepository>()
+                .AddScoped<IAdventuresRepository, AdventuresRepository>()
+                .AddScoped<ISquareMovementRepository, SquareMovementRepository>()
+                .AddScoped<ISquaresRepository, SquaresRepository>();
 
-        services.AddScoped<IPlayersRepository, PlayersRepository>();
-        services.AddScoped<IUsersRepository, UsersRepository>();
-        services.AddScoped<PlayersFactory>();
+        services.AddScoped<IPlayersRepository, PlayersRepository>()
+                .AddScoped<IUsersRepository, UsersRepository>()
+                .AddScoped<IAvailablePlayersRepository, AvailablePlayersRepository>()
+                .AddScoped<IAvailableUsersRepository, AvailableUsersRepository>()
+                .AddScoped<PlayersFactory>();
 
         services.AddScoped<IItemsSeederService,ItemsSeederService>();
 

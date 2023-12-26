@@ -1,4 +1,4 @@
-﻿namespace dnd_domain.Players.Models;
+﻿namespace dnd_domain.Players.Payloads;
 
 public class AttackPayload
 {

@@ -1,5 +1,6 @@
 ﻿using dnd_application.Players;
 using dnd_domain.Players.Models;
+using dnd_domain.Players.Payloads;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
