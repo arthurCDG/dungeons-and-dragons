@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ICreatableCampaign } from 'src/app/models';
 
 @Component({
@@ -11,4 +11,6 @@ import { ICreatableCampaign } from 'src/app/models';
 })
 export class CreatableCampaignCardComponent {
 	@Input() public campaign: ICreatableCampaign;
+	@Input() public isSelected: boolean;
+	@Output() selectedCampaign = new EventEmitter<ICreatableCampaign>();
 }

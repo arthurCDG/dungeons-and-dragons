@@ -1,8 +1,9 @@
 import { IPlayer } from "./players.models";
 
 export interface ICreatableCampaign {
-	name: string;
 	description: string;
+	name: string;
+	maxPlayers: number;
 	type: CampaignType;
 }
 
@@ -91,8 +92,7 @@ export enum SquareTrapType {
 }
 
 export interface ICampaignPayload {
-	adventurePayload: IAdventurePayload;
-	dungeonMasterUserId?: number;
+	dungeonMasterUserId?: number | null;
 	playerIds: number[];
 	type: CampaignType;
 }

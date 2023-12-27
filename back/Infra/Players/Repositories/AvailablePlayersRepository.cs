@@ -20,6 +20,7 @@ internal sealed class AvailablePlayersRepository : IAvailablePlayersRepository
 
     public Task<List<Player>> GetAsync()
         => _context.Players.Where(p => p.IsAvailable)
+                           .Include(p => p.Profile)
                            .Select(ap => ap.ToDomain())
                            .ToListAsync();
 

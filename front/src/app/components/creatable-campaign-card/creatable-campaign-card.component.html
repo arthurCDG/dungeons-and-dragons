@@ -1,5 +1,12 @@
-<div class="campaign-card-wrapper">
-	<h2 class="white-title">{{ campaign.name }}</h2>
-	<p class="white-description">{{ campaign.description }}</p>
-	<button class="base-button">Choisir la campagne</button>
+<div [class.grey]="!isSelected">
+	<div class="campaign-card-wrapper"
+		[class.selected]="isSelected"
+		[class.hollbrook-background-image]="campaign.type === 1"
+		[class.aos-background-image]="campaign.type === 2"
+		[class.wotl-background-image]="campaign.type === 3"
+		(click)="selectedCampaign.emit()"
+	>
+		<h2 class="white-title">{{ campaign.name }}</h2>
+		<p class="white-description">{{ campaign.description }}</p>
+	</div>
 </div>

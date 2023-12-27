@@ -1,6 +1,4 @@
-﻿using dnd_application.Players;
-using dnd_domain.Players.Models;
-using dnd_domain.Players.Payloads;
+﻿using dnd_application.Users;
 using dnd_domain.Users;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
@@ -13,37 +11,37 @@ using System.Threading.Tasks;
 namespace dungeons_and_dragons.Players.Controllers;
 
 [Authorize]
-[SwaggerTag("Availability service")]
+[SwaggerTag("Available dungeon masters")]
 [ApiController, Route(Route)]
 [EnableCors]
-public class AvailablePlayersServiceController : ControllerBase
+public class AvailableDungeonMastersController : ControllerBase
 {
-    public const string Route = "service/available-players";
-    private readonly IAvailablePlayersService _service;
+    public const string Route = "api/available-dungeon-masters";
+    private readonly IAvailableUsersService _service;
 
-    public AvailablePlayersServiceController(IAvailablePlayersService availablePlayersService)
+    public AvailableDungeonMastersController(IAvailableUsersService service)
     {
-        _service = availablePlayersService ?? throw new System.ArgumentNullException(nameof(availablePlayersService));
+        _service = service ?? throw new System.ArgumentNullException(nameof(service));
     }
 
-    [HttpGet("players")]
+    [HttpGet]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
-    public Task<List<Player>> GetAsync()
+    public Task<List<User>> GetAsync()
         => _service.GetAsync();
 
-    [HttpPost("players")]
+    [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
-    public Task MarkAsAvailablePlayerAsync([FromBody] int playerId)
-        => _service.MarkAsAvailableAsync(playerId);
+    public Task MarkAsAvailableAsync([FromBody] int userId)
+        => _service.MarkAsAvailableAsync(userId);
 
-    [HttpDelete("players/{playerId}")]
+    [HttpDelete("{userId}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
-    public Task MarkAsUnavailableAsync(int playerId)
-        => _service.MarkAsUnavailableAsync(playerId);
+    public Task MarkAsUnavailableAsync(int userId)
+        => _service.MarkAsUnavailableAsync(userId);
 }

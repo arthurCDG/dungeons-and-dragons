@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { IUserDto } from '../models/users.models';
-import { DEV_BACKEND_URL } from './_api.urls';
+import { IUserDto } from '../../models/users.models';
+import { DEV_BACKEND_URL } from '../_api.urls';
 
 const API_URL: string = 'api/users';
 

@@ -6,66 +6,62 @@
 	<ng-container *ngIf="creatableCampaigns.length; else emptyState">
 		<!-- campaigns list -->
 		<div class="campaign-cards-wrapper">
-			<ng-container *ngFor="let campaign of creatableCampaigns">
-				<app-creatable-campaign-card [campaign]="campaign" (click)="onCreatableCampaignClicked(campaign)"/>
+			<ng-container *ngFor="let creatableCampaign of creatableCampaigns">
+				<app-creatable-campaign-card
+					[campaign]="creatableCampaign"
+					(selectedCampaign)="onCreatableCampaignClicked(creatableCampaign)"
+					[isSelected]="selectedCampaign && selectedCampaign.name === creatableCampaign.name"
+				>
+				</app-creatable-campaign-card>
 			</ng-container>
 		</div>
 
 		<!-- FORM -->
-		<form (ngSubmit)="onSubmit()" [formGroup]="campaignCreationForm" class="user-form">
+		<ng-container *ngIf="selectedCampaign">
+			<form (ngSubmit)="onSubmit()" [formGroup]="campaignCreationForm" class="form-content">
 
-			<!-- Heroes fields -->
-			<mat-form-field class="form-element">
-				<mat-label class="form-label">Choisir le joueur</mat-label>
-				<mat-select formControlName="campaignType" aria-label="Select a player" class="form-input creatable-players-list">
-					<ng-container *ngFor="let player of players$ | async">
-						<mat-option type="radio" [value]="player.id">
-							{{ player.name }}
-						</mat-option>
+				<!-- Players fields -->
+				<div formGroupName="heroes">
+					<ng-container *ngFor="let _ of [].constructor(selectedCampaign.maxPlayers); let playerIndex = index">
+						<h3>Héro {{ playerIndex + 1}}</h3>
+						<mat-form-field class="form-element">
+							<mat-label class="form-label">Choisir le joueur</mat-label>
+							<mat-select
+								[formControlName]="playerIndex"
+								aria-label="Select a player"
+								class="form-input creatable-players-list"
+							>
+								<ng-container *ngFor="let player of players$ | async">
+									<mat-option [value]="player.id">
+										{{ player.profile.firstName }}
+									</mat-option>
+								</ng-container>
+								<mat-select-trigger>
+									<span (click)="onDeleteClicked(playerIndex)">
+										<mat-icon>clear</mat-icon>
+									</span>
+								</mat-select-trigger>
+							</mat-select>
+						</mat-form-field>
 					</ng-container>
-				</mat-select>
-			</mat-form-field>
+				</div>
 
-			<!-- Dungeon master field -->
-			<mat-form-field class="form-element">
-				<mat-label class="form-label">Choisir le maître du donjon</mat-label>
-				<mat-select formControlName="campaignType" aria-label="Select a user" class="form-input creatable-players-list">
-					<ng-container *ngFor="let user of users$ | async">
-						<mat-option type="radio" [value]="user.id">
-							{{ user.name }}
-						</mat-option>
-					</ng-container>
-				</mat-select>
-			</mat-form-field>
-			<!-- <div *ngIf="campaignTypeCtrl.dirty && campaignTypeCtrl.hasError('required')" class="error-message form-element">
-				Vous devez sélectionner une campagne.
-			</div> -->
-			<button class="form-element" type="submit" [disabled]="campaignCreationForm.invalid">Créer la campagne</button>
-		</form>
+				<!-- Dungeon master field -->
+				<h3>Maître du donjon</h3>
+				<mat-form-field class="form-element">
+					<mat-label class="form-label">Choisir le maître du donjon</mat-label>
+					<mat-select formControlName="dungeonMaster" aria-label="Select a user" class="form-input creatable-players-list">
+						<ng-container *ngFor="let user of users$ | async">
+							<mat-option [value]="user.id">
+								{{ user.name }}
+							</mat-option>
+						</ng-container>
+					</mat-select>
+				</mat-form-field>
 
-		<!-- Selected campaign display -->
-		<!-- <div *ngIf="selectedCampaign">
-			<h3>{{ selectedCampaign.name }}</h3>
-			<img
-				*ngIf="selectedCampaign?.type === 1"
-				class="selected-player-img"
-				alt="Hollbrook's liberation image preview"
-				src="../../../assets/campaigns/hollbrook-background-campaign-image.jpg"
-			>
-			<img
-				*ngIf="selectedCampaign?.type === 2"
-				class="selected-player-img"
-				alt="Army of shadow image preview"
-				src="../../../assets/campaigns/army-of-shadow-background-campaign-image.jpg"
-			>
-			<img
-				*ngIf="selectedCampaign?.type === 3"
-				class="selected-player-img"
-				alt="Wrath of the lich campaign image preview"
-				src="../../../assets/campaigns/wrath-of-the-lich-background-campaign-image.avif"
-			>
-			<p>{{ selectedCampaign.description }}</p>
-		</div> -->
+				<button class="form-element" type="submit" [disabled]="campaignCreationForm.invalid">Créer la campagne</button>
+			</form>
+		</ng-container>
 	</ng-container>
 
 	<ng-template #emptyState>

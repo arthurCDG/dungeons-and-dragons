@@ -77,12 +77,6 @@ export interface IActions {
 	monsterId?: number;
 }
 
-export interface IAvailablePlayer {
-	id: number;
-	playerId: number;
-	role: PlayerRole;
-}
-
 /* Payloads */
 
 export interface IAttackPayload {
@@ -92,11 +86,6 @@ export interface IAttackPayload {
 
 export interface IPlayerCreationPayload {
 	playerType: PlayerType;
-}
-
-export interface IAvailablePlayerCreationPayload {
-	playerId: number;
-	role: PlayerRole;
 }
 
 /* Enums */
@@ -151,11 +140,4 @@ export enum PlayerType {
     Jozian,
     Mialye,
     DungeonMaster
-}
-
-export enum PlayerRole {
-	None,
-	Hero,
-	Monster,
-	Both
 }

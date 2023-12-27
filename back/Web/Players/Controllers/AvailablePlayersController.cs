@@ -1,4 +1,6 @@
-﻿using dnd_application.Users;
+﻿using dnd_application.Players;
+using dnd_domain.Players.Models;
+using dnd_domain.Players.Payloads;
 using dnd_domain.Users;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
@@ -11,37 +13,37 @@ using System.Threading.Tasks;
 namespace dungeons_and_dragons.Players.Controllers;
 
 [Authorize]
-[SwaggerTag("Available dungeon masters")]
+[SwaggerTag("Available players")]
 [ApiController, Route(Route)]
 [EnableCors]
-public class AvailableDungeonMastersServiceController : ControllerBase
+public class AvailablePlayersController : ControllerBase
 {
-    public const string Route = "service/available-dungeon-masters";
-    private readonly IAvailableUsersService _service;
+    public const string Route = "api/available-players";
+    private readonly IAvailablePlayersService _service;
 
-    public AvailableDungeonMastersServiceController(IAvailableUsersService service)
+    public AvailablePlayersController(IAvailablePlayersService availablePlayersService)
     {
-        _service = service ?? throw new System.ArgumentNullException(nameof(service));
+        _service = availablePlayersService ?? throw new System.ArgumentNullException(nameof(availablePlayersService));
     }
 
     [HttpGet]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
-    public Task<List<User>> GetAsync()
+    public Task<List<Player>> GetAsync()
         => _service.GetAsync();
 
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
-    public Task MarkAsAvailableAsync([FromBody] int userId)
-    => _service.MarkAsAvailableAsync(userId);
+    public Task MarkAsAvailablePlayerAsync([FromBody] int playerId)
+        => _service.MarkAsAvailableAsync(playerId);
 
-    [HttpDelete("{userId}")]
+    [HttpDelete("{playerId}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
-    public Task MarkAsUnavailableAsync(int userId)
-        => _service.MarkAsUnavailableAsync(userId);
+    public Task MarkAsUnavailableAsync(int playerId)
+        => _service.MarkAsUnavailableAsync(playerId);
 }
