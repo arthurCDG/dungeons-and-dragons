@@ -1,0 +1,35 @@
+<!-- PROFILE -->
+<h3>{{ player.profile.firstName }}</h3>
+<ng-container *ngIf="player.profile.lastName">
+	<span> {{ player.profile.lastName.toLocaleUpperCase() }}</span>
+</ng-container>
+
+<!-- ATTRIBUTES -->
+<p>Attack: {{ player.attributes?.lifePoints }}</p>
+<p>Mana: {{ player.attributes?.manaPoints }}</p>
+<p>Shield: {{ player.attributes?.shield }}</p>
+
+<!-- ACTIONS -->
+<p>Attack: {{ player.attributes?.attackCount }}</p>
+<p>Heal: {{ player.attributes?.healCount }}</p>
+<p>Chests: {{ player.attributes?.chestSearchCount }}</p>
+<p>Traps: {{ player.attributes?.trapSearchCount }}</p>
+<p>Steps: {{ player.attributes?.footSteps }}</p>
+
+<!-- INVENTORY -->
+<div id="inventory-content">
+	<ng-container *ngFor="let item of player.storedItems">
+		<ng-container *ngIf="item.weapon">
+			<p>{{ item.weapon.name }}</p>
+		</ng-container>
+		<ng-container *ngIf="item.spell">
+			<p>{{ item.spell.name }}</p>
+		</ng-container>
+		<ng-container *ngIf="item.potion">
+			<p>{{ item.potion.name }}</p>
+		</ng-container>
+		<ng-container *ngIf="item.artefact">
+			<p>{{ item.artefact.name }}</p>
+		</ng-container>
+	</ng-container>
+</div>

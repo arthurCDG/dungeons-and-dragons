@@ -7,10 +7,14 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { AuthService } from './services';
+import { PlayerCardComponentComponent } from './components/player-card-component/player-card-component.component';
+import { PlayerInformationCardComponent } from './components/player-information-card/player-information-card.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    PlayerCardComponentComponent,
+    PlayerInformationCardComponent
 ],
   imports: [
     BrowserModule,

@@ -3,4 +3,6 @@
 	height: calc(11*4rem);
 	display: grid;
 	grid-template-columns: repeat(22, 1fr);
+	max-width: 95vw;
+	max-width: 90vh;
 }

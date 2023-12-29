@@ -1,10 +1,6 @@
 ﻿using dnd_domain.Campaigns;
 using dnd_domain.Campaigns.Enums;
 using dnd_domain.Campaigns.Models;
-using dnd_domain.Players.Repositories;
-using dnd_infra.Campaigns.Adventures;
-using dnd_infra.Campaigns.Adventures.Rooms;
-using dnd_infra.Campaigns.Adventures.Rooms.Squares.DALs;
 using dnd_infra.Players.DALs;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -17,12 +13,10 @@ namespace dnd_infra.Campaigns;
 internal sealed class CampaignsRepository : ICampaignsRepository
 {
     private readonly GlobalDbContext _context;
-    private readonly IPlayersRepository _playersRepository;
 
-    public CampaignsRepository(GlobalDbContext context, IPlayersRepository playersRepository)
+    public CampaignsRepository(GlobalDbContext context)
     {
         _context = context ?? throw new ArgumentNullException(nameof(context));
-        _playersRepository = playersRepository ?? throw new ArgumentNullException(nameof(playersRepository));
     }
 
     public async Task<List<Campaign>> GetAsync(int playerId)
