@@ -1,5 +1,6 @@
 ﻿using dnd_domain.Users;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -12,7 +13,7 @@ internal sealed class UsersRepository : IUsersRepository
 
     public UsersRepository(GlobalDbContext dbContext)
     {
-        _dbContext = dbContext ?? throw new System.ArgumentNullException(nameof(dbContext));
+        _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
     }
     public Task<List<User>> GetAsync()
         => _dbContext.Users.Select(u => u.ToDomain()).ToListAsync();

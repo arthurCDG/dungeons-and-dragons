@@ -27,16 +27,17 @@
 						<mat-form-field class="form-element">
 							<mat-label class="form-label">Choisir le joueur</mat-label>
 							<mat-select
-								[formControlName]="playerIndex"
+								formControlName="{{ 'hero_' + playerIndex }}"
 								aria-label="Select a player"
 								class="form-input creatable-players-list"
 							>
 								<ng-container *ngFor="let player of players$ | async">
-									<mat-option [value]="player.id">
+									<mat-option [value]="player">
 										{{ player.profile.firstName }}
 									</mat-option>
 								</ng-container>
-								<mat-select-trigger>
+								<mat-select-trigger *ngIf="heroesCtrl.controls['hero_' + playerIndex]?.value" class="select-content">
+									{{ heroesCtrl.controls["hero_" + playerIndex].value!.profile.firstName }}
 									<span (click)="onDeleteClicked(playerIndex)">
 										<mat-icon>clear</mat-icon>
 									</span>

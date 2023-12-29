@@ -41,10 +41,10 @@ export class CampaignCreationPageComponent implements OnInit {
 	private playerId: number;
 
 	dungeonMasterCtrl = this.fb.control<number | null>(null);
-	playersCtrl = this.fb.array<number>([]);
+	heroesCtrl = this.fb.record<IPlayer>({});
 	campaignCreationForm = this.fb.group({
 		dungeonMaster: this.dungeonMasterCtrl,
-		heroes: this.playersCtrl
+		heroes: this.heroesCtrl
 	});
 
 	constructor(
@@ -73,20 +73,32 @@ export class CampaignCreationPageComponent implements OnInit {
 	}
 
 	ngOnChanges(): void {
-		if (this.selectedCampaign) {
-			for (let i = 0; i < this.selectedCampaign.maxPlayers; i++) {
-				this.playersCtrl.push(this.fb.control(null)); // Probably does not work ... need to bind name to control
-			}
-		}
+		// console.log('passing here?');
+		// if (this.selectedCampaign) {
+		// console.log('and here?');
+		
+		// 	for (let i = 0; i < this.selectedCampaign.maxPlayers; i++) {
+		// 		this.heroesCtrl.addControl(`hero_${i}`, this.fb.control<IPlayer | null>(null))
+		// 	}
+		// }
+
+		// console.log('this.heroesCtrl', this.heroesCtrl);
+		// console.log('this.heroesCtrl.controls', this.heroesCtrl.controls);
+		
 	}
 
 	onSubmit(): void {
+		const playerIds: number[] = [this.playerId];
+		for (let heroField in this.heroesCtrl.controls) {
+			if (this.heroesCtrl.controls[heroField].value) {
+				console.log('this.heroesCtrl.controls[heroField].value',this.heroesCtrl.controls[heroField].value);
+				playerIds.push(this.heroesCtrl.controls[heroField].value!.id);
+			}
+		}
+
 		const payload: ICampaignPayload = {
 			type: this.selectedCampaign.type,
-			playerIds: [
-				this.playerId,
-				// ...this.playersCtrl.value // + add values from controls
-			],
+			playerIds,
 			dungeonMasterUserId: this.dungeonMasterCtrl.value
 		};
 
@@ -96,10 +108,22 @@ export class CampaignCreationPageComponent implements OnInit {
 	}
 
 	onCreatableCampaignClicked(creatableCampaign: ICreatableCampaign): void {
+		console.log('passing here?');
+		console.log('and here?');
+
+		for (let i = 0; i < creatableCampaign.maxPlayers; i++) {
+			this.heroesCtrl.addControl(`hero_${i}`, this.fb.control<IPlayer | null>(null))
+		}
+
+		console.log('this.heroesCtrl', this.heroesCtrl);
+		console.log('this.heroesCtrl.controls', this.heroesCtrl.controls);
+
 		this.selectedCampaign = creatableCampaign;
 	}
 
 	onDeleteClicked(index: number): void {
-		this.playersCtrl.at(index).setValue(null);
+		console.log('this.heroesCtrl.controls[`hero_${index}`]', this.heroesCtrl.controls[`hero_${index}`]);
+		this.heroesCtrl.controls[`hero_${index}`]?.setValue(null);
+		console.log('this.heroesCtrl.controls[`hero_${index}`]', this.heroesCtrl.controls[`hero_${index}`]);
 	}
 }
