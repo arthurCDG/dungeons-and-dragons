@@ -38,7 +38,7 @@
 								</ng-container>
 								<mat-select-trigger *ngIf="heroesCtrl.controls['hero_' + playerIndex]?.value" class="select-content">
 									{{ heroesCtrl.controls["hero_" + playerIndex].value!.profile.firstName }}
-									<span (click)="onDeleteClicked(playerIndex)">
+									<span (click)="onDeleteClicked($event, playerIndex)">
 										<mat-icon>clear</mat-icon>
 									</span>
 								</mat-select-trigger>

@@ -1,11 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from "@angular/material/icon";
+import { MatSelectModule } from '@angular/material/select';
 import { Observable } from 'rxjs';
 import { CreatableCampaignCardComponent } from '../../../components/creatable-campaign-card/creatable-campaign-card.component';
 import { ICampaign, ICampaignPayload, ICreatableCampaign, IPlayer, IUserDto } from '../../../models';
@@ -41,7 +41,7 @@ export class CampaignCreationPageComponent implements OnInit {
 	private playerId: number;
 
 	dungeonMasterCtrl = this.fb.control<number | null>(null);
-	heroesCtrl = this.fb.record<IPlayer>({});
+	heroesCtrl = this.fb.record<IPlayer | null>({});
 	campaignCreationForm = this.fb.group({
 		dungeonMaster: this.dungeonMasterCtrl,
 		heroes: this.heroesCtrl
@@ -72,26 +72,10 @@ export class CampaignCreationPageComponent implements OnInit {
 		this.isLoading = false;
 	}
 
-	ngOnChanges(): void {
-		// console.log('passing here?');
-		// if (this.selectedCampaign) {
-		// console.log('and here?');
-		
-		// 	for (let i = 0; i < this.selectedCampaign.maxPlayers; i++) {
-		// 		this.heroesCtrl.addControl(`hero_${i}`, this.fb.control<IPlayer | null>(null))
-		// 	}
-		// }
-
-		// console.log('this.heroesCtrl', this.heroesCtrl);
-		// console.log('this.heroesCtrl.controls', this.heroesCtrl.controls);
-		
-	}
-
 	onSubmit(): void {
 		const playerIds: number[] = [this.playerId];
 		for (let heroField in this.heroesCtrl.controls) {
 			if (this.heroesCtrl.controls[heroField].value) {
-				console.log('this.heroesCtrl.controls[heroField].value',this.heroesCtrl.controls[heroField].value);
 				playerIds.push(this.heroesCtrl.controls[heroField].value!.id);
 			}
 		}
@@ -108,22 +92,15 @@ export class CampaignCreationPageComponent implements OnInit {
 	}
 
 	onCreatableCampaignClicked(creatableCampaign: ICreatableCampaign): void {
-		console.log('passing here?');
-		console.log('and here?');
-
 		for (let i = 0; i < creatableCampaign.maxPlayers; i++) {
 			this.heroesCtrl.addControl(`hero_${i}`, this.fb.control<IPlayer | null>(null))
 		}
 
-		console.log('this.heroesCtrl', this.heroesCtrl);
-		console.log('this.heroesCtrl.controls', this.heroesCtrl.controls);
-
 		this.selectedCampaign = creatableCampaign;
 	}
 
-	onDeleteClicked(index: number): void {
-		console.log('this.heroesCtrl.controls[`hero_${index}`]', this.heroesCtrl.controls[`hero_${index}`]);
+	onDeleteClicked(event: Event, index: number): void {
+		event.stopPropagation();
 		this.heroesCtrl.controls[`hero_${index}`]?.setValue(null);
-		console.log('this.heroesCtrl.controls[`hero_${index}`]', this.heroesCtrl.controls[`hero_${index}`]);
 	}
 }
