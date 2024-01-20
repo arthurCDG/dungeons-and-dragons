@@ -1,27 +1,16 @@
-<div [class.grey]="!isSelected">
+<ng-container *ngIf="creatableCampaign.canBeCreated; else nonCreatableCampaign">
 	<div class="campaign-card-wrapper"
-		[class.selected]="isSelected"
-		[class.hollbrook-background-image]="campaign.type === 1"
-		[class.aos-background-image]="campaign.type === 2"
-		[class.wotl-background-image]="campaign.type === 3"
-		(click)="selectedCampaign.emit()"
+		[class.hollbrook-background-image]="creatableCampaign.type === 1"
+		[class.aos-background-image]="creatableCampaign.type === 2"
+		[class.wotl-background-image]="creatableCampaign.type === 3"
 	>
-		<h2 class="white-title">{{ campaign.name }}</h2>
-		<p class="white-description">{{ campaign.description }}</p>
-	</div>
-</div>
-
-<ng-container *ngIf="creatableCampaign.canBeStarted; else nonCreatableCampaign">
-	<div> 
-		<div>
-			<h3>{{ creatableCampaign.name }}</h3>
-			<p>{{ creatableCampaign.description }}</p>
-		</div>
-		<button (click)="startCampaignAsync(creatableCampaign.type)" class="base-button">Créer l'aventure</button>
+		<h2 class="white-title">{{ creatableCampaign.name }}</h2>
+		<p class="white-description">{{ creatableCampaign.description }}</p>
+		<a [routerLink]="['new']" class="routerLink-button">Créer l'aventure</a>
 	</div>
 </ng-container>
+
 <ng-template #nonCreatableCampaign>
-	<ng-container *ngIf="creatableCampaign."></ng-container>
 	<div class="locked">
 		<div>
 			<h3>{{ creatableCampaign.name }}</h3>

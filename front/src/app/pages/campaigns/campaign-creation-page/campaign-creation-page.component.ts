@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -19,21 +19,19 @@ import { AvailableDungeonMastersService, AvailablePlayersService, CampaignsServi
 	ReactiveFormsModule,
 	MatSelectModule,
 	MatFormFieldModule,
-	MatIconModule,
-	CreatableCampaignCardComponent
+	MatIconModule
 ],
   templateUrl: './campaign-creation-page.component.html',
   styleUrls: ['./campaign-creation-page.component.css'],
   providers: [
-	CreatableCampaignsService,
 	CampaignsService,
 	AvailableDungeonMastersService,
 	AvailablePlayersService
   ]
 })
 export class CampaignCreationPageComponent implements OnInit {
-	public creatableCampaigns: ICreatableCampaign[] = [];
-	public selectedCampaign: ICreatableCampaign;
+	@Input() public selectedCampaign: ICreatableCampaign;
+
 	public users$: Observable<IUserDto[]>;
 	public players$: Observable<IPlayer[]>;
 	public isLoading: boolean = true;
@@ -50,7 +48,6 @@ export class CampaignCreationPageComponent implements OnInit {
 	constructor(
 		private readonly fb: FormBuilder,
 		private readonly campaignsService: CampaignsService,
-		private readonly creatableCampaignsService: CreatableCampaignsService,
 		private readonly availableDungeonMastersService: AvailableDungeonMastersService,
 		private readonly availablePlayersService: AvailablePlayersService,
 		private readonly router: Router,
@@ -60,14 +57,12 @@ export class CampaignCreationPageComponent implements OnInit {
 	ngOnInit(): void {
 		this.activatedRoute.params.subscribe(params => this.playerId = Number(params['playerId']));
 
-		this.creatableCampaignsService
-			.getAsync(this.playerId)
-			.subscribe(creatableCampaigns => {
-				this.creatableCampaigns = creatableCampaigns;
-			});
-
 		this.users$ = this.availableDungeonMastersService.getAsync();
 		this.players$ = this.availablePlayersService.getAsync();
+
+		for (let i = 0; i < this.selectedCampaign.maxPlayers; i++) {
+			this.heroesCtrl.addControl(`hero_${i}`, this.fb.control<IPlayer | null>(null))
+		}
 
 		this.isLoading = false;
 	}
@@ -89,14 +84,6 @@ export class CampaignCreationPageComponent implements OnInit {
 		this.campaignsService
 			.postAsync(payload)
 			.subscribe((campaign: ICampaign) => this.router.navigate(['..', campaign.id], { relativeTo: this.activatedRoute }));
-	}
-
-	onCreatableCampaignClicked(creatableCampaign: ICreatableCampaign): void {
-		for (let i = 0; i < creatableCampaign.maxPlayers; i++) {
-			this.heroesCtrl.addControl(`hero_${i}`, this.fb.control<IPlayer | null>(null))
-		}
-
-		this.selectedCampaign = creatableCampaign;
 	}
 
 	onDeleteClicked(event: Event, index: number): void {

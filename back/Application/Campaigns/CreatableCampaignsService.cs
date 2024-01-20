@@ -29,7 +29,7 @@ internal sealed class CreatableCampaignsService : ICreatableCampaignsService
                 Type = CampaignType.HollbrooksLiberation,
                 Description = "Dans cette campagne, les aventuriers vont aider le shérif de la petite ville de Hollbrooks.",
                 MaxPlayers = 4,
-                Status = GetCampaignStatus(CampaignType.HollbrooksLiberation, existingCampaigns)
+                CanBeCreated = CanBeCreated(CampaignType.HollbrooksLiberation, existingCampaigns)
             },
             new CreatableCampaign
             {
@@ -37,7 +37,7 @@ internal sealed class CreatableCampaignsService : ICreatableCampaignsService
                 Type = CampaignType.InpursuitOfTheDarkArmy,
                 Description = "Dans cette campagne, les aventuriers vont poursuivre leur enquête en se renseignant sur l'armée des ombres qui grandit chaque jour.",
                 MaxPlayers = 4,
-                Status = GetCampaignStatus(CampaignType.InpursuitOfTheDarkArmy, existingCampaigns)
+                CanBeCreated = CanBeCreated(CampaignType.InpursuitOfTheDarkArmy, existingCampaigns)
             },
             new CreatableCampaign
             {
@@ -45,7 +45,7 @@ internal sealed class CreatableCampaignsService : ICreatableCampaignsService
                 Type = CampaignType.WrathOfTheLich,
                 Description = "Dans cette campagne, les aventuriers vont affronter Nécratim, le roi Liche.",
                 MaxPlayers = 4,
-                Status = GetCampaignStatus(CampaignType.WrathOfTheLich, existingCampaigns)
+                CanBeCreated = CanBeCreated(CampaignType.WrathOfTheLich, existingCampaigns)
             }
         };
 
@@ -54,17 +54,22 @@ internal sealed class CreatableCampaignsService : ICreatableCampaignsService
         return creatableCampaigns;
     }
 
-    private static CampaignStatus GetCampaignStatus(CampaignType campaignType, List<Campaign> existingCampaigns)
+    private static bool CanBeCreated(CampaignType campaignType, List<Campaign> existingCampaigns)
     {
         Campaign? campaign = existingCampaigns.SingleOrDefault(c => c.Type == campaignType);
 
-        if (campaign is null)
-            return CampaignStatus.Available;
+        if (campaign is not null)
+            return false;
 
-        // Handle campaignStatus == locked if the campaign before has not been achieved
+        if (campaignType == CampaignType.HollbrooksLiberation)
+            return true;
 
-        return campaign.EndsAt is null
-            ? CampaignStatus.InProgress
-            : CampaignStatus.Achieved;
+        if (campaignType == CampaignType.InpursuitOfTheDarkArmy && existingCampaigns.Any(ec => ec.Type == CampaignType.HollbrooksLiberation && ec.EndsAt != null))
+            return true;
+
+        if (campaignType == CampaignType.WrathOfTheLich && existingCampaigns.Any(ec => ec.Type == CampaignType.InpursuitOfTheDarkArmy && ec.EndsAt != null))
+            return true;
+
+        return false;
     }
 }

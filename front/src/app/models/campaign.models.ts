@@ -5,6 +5,7 @@ export interface ICreatableCampaign {
 	name: string;
 	maxPlayers: number;
 	type: CampaignType;
+	canBeCreated: boolean;
 }
 
 export interface ICampaign {

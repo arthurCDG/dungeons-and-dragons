@@ -1,73 +1,55 @@
 <div class="page-description-wrapper">
-	<h2>Page de création d'une campagne</h2>
+	<h2>Page de création de la campagne: {{ selectedCampaign.name }}</h2>
 </div>
 
 <ng-container *ngIf="!isLoading; else loading">
-	<ng-container *ngIf="creatableCampaigns.length; else emptyState">
-		<!-- campaigns list -->
-		<div class="campaign-cards-wrapper">
-			<ng-container *ngFor="let creatableCampaign of creatableCampaigns">
-				<app-creatable-campaign-card
-					[campaign]="creatableCampaign"
-					(selectedCampaign)="onCreatableCampaignClicked(creatableCampaign)"
-					[isSelected]="selectedCampaign && selectedCampaign.name === creatableCampaign.name"
-				>
-				</app-creatable-campaign-card>
-			</ng-container>
-		</div>
+	<!-- FORM -->
+	<ng-container *ngIf="selectedCampaign">
+		<form (ngSubmit)="onSubmit()" [formGroup]="campaignCreationForm" class="form-content">
 
-		<!-- FORM -->
-		<ng-container *ngIf="selectedCampaign">
-			<form (ngSubmit)="onSubmit()" [formGroup]="campaignCreationForm" class="form-content">
+			<!-- Players fields -->
+			<div formGroupName="heroes">
+				<ng-container *ngFor="let _ of [].constructor(selectedCampaign.maxPlayers); let playerIndex = index">
+					<h3>Héro {{ playerIndex + 1}}</h3>
+					<mat-form-field class="form-element">
+						<mat-label class="form-label">Choisir le joueur</mat-label>
+						<mat-select
+							formControlName="{{ 'hero_' + playerIndex }}"
+							aria-label="Select a player"
+							class="form-input creatable-players-list"
+						>
+							<ng-container *ngFor="let player of players$ | async">
+								<mat-option [value]="player">
+									{{ player.profile.firstName }}
+								</mat-option>
+							</ng-container>
+							<mat-select-trigger *ngIf="heroesCtrl.controls['hero_' + playerIndex]?.value" class="select-content">
+								{{ heroesCtrl.controls["hero_" + playerIndex].value!.profile.firstName }}
+								<span (click)="onDeleteClicked($event, playerIndex)">
+									<mat-icon>clear</mat-icon>
+								</span>
+							</mat-select-trigger>
+						</mat-select>
+					</mat-form-field>
+				</ng-container>
+			</div>
 
-				<!-- Players fields -->
-				<div formGroupName="heroes">
-					<ng-container *ngFor="let _ of [].constructor(selectedCampaign.maxPlayers); let playerIndex = index">
-						<h3>Héro {{ playerIndex + 1}}</h3>
-						<mat-form-field class="form-element">
-							<mat-label class="form-label">Choisir le joueur</mat-label>
-							<mat-select
-								formControlName="{{ 'hero_' + playerIndex }}"
-								aria-label="Select a player"
-								class="form-input creatable-players-list"
-							>
-								<ng-container *ngFor="let player of players$ | async">
-									<mat-option [value]="player">
-										{{ player.profile.firstName }}
-									</mat-option>
-								</ng-container>
-								<mat-select-trigger *ngIf="heroesCtrl.controls['hero_' + playerIndex]?.value" class="select-content">
-									{{ heroesCtrl.controls["hero_" + playerIndex].value!.profile.firstName }}
-									<span (click)="onDeleteClicked($event, playerIndex)">
-										<mat-icon>clear</mat-icon>
-									</span>
-								</mat-select-trigger>
-							</mat-select>
-						</mat-form-field>
+			<!-- Dungeon master field -->
+			<h3>Maître du donjon</h3>
+			<mat-form-field class="form-element">
+				<mat-label class="form-label">Choisir le maître du donjon</mat-label>
+				<mat-select formControlName="dungeonMaster" aria-label="Select a user" class="form-input creatable-players-list">
+					<ng-container *ngFor="let user of users$ | async">
+						<mat-option [value]="user.id">
+							{{ user.name }}
+						</mat-option>
 					</ng-container>
-				</div>
+				</mat-select>
+			</mat-form-field>
 
-				<!-- Dungeon master field -->
-				<h3>Maître du donjon</h3>
-				<mat-form-field class="form-element">
-					<mat-label class="form-label">Choisir le maître du donjon</mat-label>
-					<mat-select formControlName="dungeonMaster" aria-label="Select a user" class="form-input creatable-players-list">
-						<ng-container *ngFor="let user of users$ | async">
-							<mat-option [value]="user.id">
-								{{ user.name }}
-							</mat-option>
-						</ng-container>
-					</mat-select>
-				</mat-form-field>
-
-				<button class="form-element" type="submit" [disabled]="campaignCreationForm.invalid">Créer la campagne</button>
-			</form>
-		</ng-container>
+			<button class="form-element" type="submit" [disabled]="campaignCreationForm.invalid">Créer la campagne</button>
+		</form>
 	</ng-container>
-
-	<ng-template #emptyState>
-		<p>Vous avez débloqué et créé toutes les campagnes (message à changer)</p>
-	</ng-template>
 </ng-container>
 
 <ng-template #loading>
