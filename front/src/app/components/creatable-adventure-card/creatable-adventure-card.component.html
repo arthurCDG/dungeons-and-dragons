@@ -1,0 +1,16 @@
+<div *ngIf="creatableAdventure.canBeStarted; else lockedAdventure" class="adventure-card unlocked">
+	<div>
+		<h3>{{ creatableAdventure.name }}</h3>
+		<p>{{ creatableAdventure.description }}</p>
+	</div>
+	<button (click)="startAdventureAsync(creatableAdventure.type)" class="base-button">Créer l'aventure</button>
+</div>
+<ng-template #lockedAdventure>
+	<div class="adventure-card locked">
+		<div>
+			<h3>{{ creatableAdventure.name }}</h3>
+			<span>Aventure non débloquée</span>
+		</div>
+		<img src="../../../assets/icons/lock.png" class="lock-icon"/>
+	</div>
+</ng-template>

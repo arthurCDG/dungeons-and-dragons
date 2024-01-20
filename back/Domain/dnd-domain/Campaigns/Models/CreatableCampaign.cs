@@ -8,4 +8,5 @@ public class CreatableCampaign
     public required string Name { get; set; }
     public required int MaxPlayers { get; set; }
     public required CampaignType Type { get; set; }
+    public required CampaignStatus Status { get; set; }
 }

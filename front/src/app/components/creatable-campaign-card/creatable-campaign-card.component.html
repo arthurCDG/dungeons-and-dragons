@@ -10,3 +10,22 @@
 		<p class="white-description">{{ campaign.description }}</p>
 	</div>
 </div>
+
+<ng-container *ngIf="creatableCampaign.canBeStarted; else nonCreatableCampaign">
+	<div> 
+		<div>
+			<h3>{{ creatableCampaign.name }}</h3>
+			<p>{{ creatableCampaign.description }}</p>
+		</div>
+		<button (click)="startCampaignAsync(creatableCampaign.type)" class="base-button">Créer l'aventure</button>
+	</div>
+</ng-container>
+<ng-template #nonCreatableCampaign>
+	<div class="locked">
+		<div>
+			<h3>{{ creatableCampaign.name }}</h3>
+			<span>Aventure non débloquée</span>
+		</div>
+		<img src="../../../assets/icons/lock.png" class="lock-icon"/>
+	</div>
+</ng-template>

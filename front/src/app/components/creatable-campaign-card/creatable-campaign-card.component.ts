@@ -10,7 +10,7 @@ import { ICreatableCampaign } from 'src/app/models';
   styleUrls: ['./creatable-campaign-card.component.css']
 })
 export class CreatableCampaignCardComponent {
-	@Input() public campaign: ICreatableCampaign;
+	@Input() public creatableCampaign: ICreatableCampaign;
 	@Input() public isSelected: boolean;
 	@Output() selectedCampaign = new EventEmitter<ICreatableCampaign>();
 }

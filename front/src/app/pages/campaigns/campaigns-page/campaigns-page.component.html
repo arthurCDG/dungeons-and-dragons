@@ -4,9 +4,9 @@
 	<p>Vous pouvez créer une nouvelle campagne, ou rejoindre une campagne existante</p>
 </div>
 
-<div class="call-to-action-wrapper">
+<!-- <div class="call-to-action-wrapper">
 	<a [routerLink]="['new']" class="link-button base-button">Créer une nouvelle campagne</a>
-</div>
+</div> -->
 
 <ng-container *ngFor="let campaign of campaigns$ | async">
 	<app-campaign-card [campaign]="campaign"></app-campaign-card>
