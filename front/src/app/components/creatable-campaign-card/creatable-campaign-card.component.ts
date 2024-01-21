@@ -13,9 +13,25 @@ import { ICreatableCampaign } from 'src/app/models';
 export class CreatableCampaignCardComponent {
 	@Input() public creatableCampaign: ICreatableCampaign;
 
+	private playerId: number;
+	private userId: number;
+
 	constructor(private readonly router: Router, private readonly activatedRoute: ActivatedRoute) { }
 
+	ngOnInit(): void {
+		this.activatedRoute.params.subscribe(params => {
+			this.playerId = Number(params['playerId']);
+			this.userId = Number(params['userId']);
+		});
+	}
+
 	onCreatableCampaignClicked(): void {
-		this.router.navigateByUrl('/new', { state: { creatableCampaign: this.creatableCampaign }});
+		this.router.navigate(
+			['new'],
+			{
+				state: { creatableCampaign: this.creatableCampaign },
+				relativeTo: this.activatedRoute
+			}
+		);
 	}
 }

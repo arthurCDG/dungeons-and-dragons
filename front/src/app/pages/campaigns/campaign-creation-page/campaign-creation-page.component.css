@@ -4,12 +4,6 @@
 	padding: 2rem;
 }
 
-.form-content {
-	display: flex;
-	flex-direction: column;
-	margin: 3rem;
-}
-
 .select-content {
 	display: flex;
 	justify-content: space-between;

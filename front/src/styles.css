@@ -11,19 +11,42 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 /* FORM COMMON STYLES */
 
+.form-title {
+	padding: 2rem 0 0 0;
+}
+
+.form-content {
+	display: flex;
+	flex-direction: column;
+	margin: 3rem;
+}
+
+.form-section {
+	display: flex;
+	justify-content: space-evenly;
+	background-color: rgba(0, 0, 0, 0.5);
+	gap: 1rem;
+	padding: 2rem;
+	border-radius: 1rem;
+}
+
 .form-element {
 	margin: 1rem;
 	display: flex;
+	flex-direction: column;
 	justify-content: space-between;
+	align-items: center;
+}
+
+.form-input {
+	display: flex;
+	justify-content: space-between;
+	min-width: 200px;
 }
 
 .form-label {
 	min-width: 200px;
 	margin-right: 1rem;
-}
-
-.form-input {
-	min-width: 200px;
 }
 
 .error-message {
@@ -97,9 +120,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 /* CAMPAIGNS COMMON STYLES */
 
 .card-background-image {
-	width: 100%;
 	height: 200px;
-	border-radius: var(--border-radius);
 }
 
 .card {
@@ -144,16 +165,25 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 	flex-direction: column;
 }
 
-.hollbrook-background-image {
+.hollbrook-campaign {
 	background-image: url('./assets/campaigns/hollbrook-background-campaign-image.jpg');
+	background-position: center;
+	background-size: cover;
+	background-repeat: no-repeat;
 }
 
-.aos-background-image {
+.aos-campaign {
 	background-image: url('./assets/campaigns/army-of-shadow-background-campaign-image.jpg');
+	background-position: center;
+	background-size: cover;
+	background-repeat: no-repeat;
 }
 
-.wotl-background-image {
+.wotl-campaign {
 	background-image: url('./assets/campaigns/wrath-of-the-lich-background-campaign-image.avif');
+	background-position: center;
+	background-size: cover;
+	background-repeat: no-repeat;
 }
 
 /* VARIABLES */

@@ -1,55 +1,80 @@
-<div class="page-description-wrapper">
-	<h2>Page de création de la campagne: {{ selectedCampaign.name }}</h2>
-</div>
-
 <ng-container *ngIf="!isLoading; else loading">
-	<!-- FORM -->
-	<ng-container *ngIf="selectedCampaign">
-		<form (ngSubmit)="onSubmit()" [formGroup]="campaignCreationForm" class="form-content">
+	<div
+		class="body-background-image"
+		[class.hollbrook-campaign]="selectedCampaign.type === 1"
+		[class.aos-campaign]="selectedCampaign.type === 2"
+		[class.wotl-campaign]="selectedCampaign.type === 3"
+	>
+		<div class="page-description-wrapper">
+			<h1 class="white-title">Page de création de la campagne: {{ selectedCampaign.name }}</h1>
+		</div>
 
-			<!-- Players fields -->
-			<div formGroupName="heroes">
-				<ng-container *ngFor="let _ of [].constructor(selectedCampaign.maxPlayers); let playerIndex = index">
-					<h3>Héro {{ playerIndex + 1}}</h3>
-					<mat-form-field class="form-element">
-						<mat-label class="form-label">Choisir le joueur</mat-label>
-						<mat-select
-							formControlName="{{ 'hero_' + playerIndex }}"
-							aria-label="Select a player"
-							class="form-input creatable-players-list"
-						>
-							<ng-container *ngFor="let player of players$ | async">
-								<mat-option [value]="player">
-									{{ player.profile.firstName }}
-								</mat-option>
-							</ng-container>
-							<mat-select-trigger *ngIf="heroesCtrl.controls['hero_' + playerIndex]?.value" class="select-content">
-								{{ heroesCtrl.controls["hero_" + playerIndex].value!.profile.firstName }}
-								<span (click)="onDeleteClicked($event, playerIndex)">
-									<mat-icon>clear</mat-icon>
-								</span>
-							</mat-select-trigger>
-						</mat-select>
-					</mat-form-field>
-				</ng-container>
-			</div>
-
-			<!-- Dungeon master field -->
-			<h3>Maître du donjon</h3>
-			<mat-form-field class="form-element">
-				<mat-label class="form-label">Choisir le maître du donjon</mat-label>
-				<mat-select formControlName="dungeonMaster" aria-label="Select a user" class="form-input creatable-players-list">
-					<ng-container *ngFor="let user of users$ | async">
-						<mat-option [value]="user.id">
-							{{ user.name }}
-						</mat-option>
+		<!-- FORM -->
+		<ng-container *ngIf="selectedCampaign">
+			<form (ngSubmit)="onSubmit()" [formGroup]="campaignCreationForm" class="form-content">
+				
+				<h2 class="white-title form-title">Choix des héros pour la campagne</h2>
+				<!-- Players fields -->
+				<div class="form-section" formGroupName="heroes">
+					<ng-container *ngFor="let _ of [].constructor(selectedCampaign.maxPlayers); let playerIndex = index">
+						<div class="form-element">
+							<h3 class="white-description">Héro {{ playerIndex + 1}}</h3>
+							<mat-form-field class="form-input">
+								<mat-label class="form-label white-description">Choisir le joueur</mat-label>
+								<mat-select
+									formControlName="{{ 'hero_' + playerIndex }}"
+									aria-label="Select a player"
+									class="form-input creatable-players-list"
+								>
+									<ng-container *ngFor="let player of players$ | async">
+										<mat-option [value]="player">
+											{{ player.profile.firstName }}
+										</mat-option>
+									</ng-container>
+									<ng-container *ngIf="heroesCtrl.controls['hero_' + playerIndex]?.value">
+										<!-- <mat-select-trigger class="select-content white-description">
+											{{ heroesCtrl.controls["hero_" + playerIndex].value!.profile.firstName }}
+											<span (click)="onDeleteClicked($event, playerIndex)">
+												<mat-icon>clear</mat-icon>
+											</span>
+										</mat-select-trigger> -->
+									</ng-container>
+								</mat-select>
+							</mat-form-field>
+						</div>
 					</ng-container>
-				</mat-select>
-			</mat-form-field>
-
-			<button class="form-element" type="submit" [disabled]="campaignCreationForm.invalid">Créer la campagne</button>
-		</form>
-	</ng-container>
+				</div>
+			
+				<!-- Dungeon master field -->
+				<h2 class="white-title form-title">Choix du maître du donjon pour la campagne</h2>
+				<div class="form-section">
+					<div class="form-element">
+						<h3 class="white-description">Maître du donjon</h3>
+						<mat-form-field class="form-input">
+							<mat-label class="form-label white-description">Choisir le maître du donjon</mat-label>
+							<mat-select formControlName="dungeonMaster" aria-label="Select a user" class="form-input creatable-players-list">
+								<ng-container *ngFor="let user of users$ | async">
+									<mat-option [value]="user.id">
+										{{ user.name }}
+									</mat-option>
+								</ng-container>
+								<!-- <mat-select-trigger class="select-content white-description">
+									{{ dungeonMasterCtrl.value! }}
+									<span (click)="onDeleteClicked($event, playerIndex)">
+										<mat-icon>clear</mat-icon>
+									</span>
+								</mat-select-trigger> -->
+							</mat-select>
+						</mat-form-field>
+					</div>
+				</div>
+			
+				<div class="main-button-wrapper">
+					<button class="form-input base-button" type="submit" [disabled]="campaignCreationForm.invalid">Créer la campagne</button>
+				</div>
+			</form>
+		</ng-container>
+	</div>
 </ng-container>
 
 <ng-template #loading>

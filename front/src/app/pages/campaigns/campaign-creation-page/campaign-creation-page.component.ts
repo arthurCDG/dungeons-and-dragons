@@ -9,6 +9,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { Observable } from 'rxjs';
 import { ICampaign, ICampaignPayload, ICreatableCampaign, IPlayer, IUserDto } from '../../../models';
 import { AvailableDungeonMastersService, AvailablePlayersService, CampaignsService } from '../../../services';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-campaign-creation-page',
@@ -36,8 +37,9 @@ export class CampaignCreationPageComponent implements OnInit {
 	public isLoading: boolean = true;
 	
 	private playerId: number;
+	private routeData: ICampaignCreationPageRouteData;
 
-	dungeonMasterCtrl = this.fb.control<number | null>(null);
+	dungeonMasterCtrl = this.fb.control<IUserDto | null>(null);
 	heroesCtrl = this.fb.record<IPlayer | null>({});
 	campaignCreationForm = this.fb.group({
 		dungeonMaster: this.dungeonMasterCtrl,
@@ -50,7 +52,8 @@ export class CampaignCreationPageComponent implements OnInit {
 		private readonly availableDungeonMastersService: AvailableDungeonMastersService,
 		private readonly availablePlayersService: AvailablePlayersService,
 		private readonly router: Router,
-		private readonly activatedRoute: ActivatedRoute
+		private readonly activatedRoute: ActivatedRoute,
+		private readonly location: Location
 	) { }
 
 	ngOnInit(): void {
@@ -59,11 +62,12 @@ export class CampaignCreationPageComponent implements OnInit {
 		this.users$ = this.availableDungeonMastersService.getAsync();
 		this.players$ = this.availablePlayersService.getAsync();
 
-		const routeData = this.router.getCurrentNavigation()?.extras.state as ICampaignCreationPageRouteData;
-		console.log(routeData);
-		console.log(this.activatedRoute.snapshot.data);
+		this.routeData = this.location.getState() as ICampaignCreationPageRouteData;
+		if (!this.routeData.creatableCampaign) {
+			this.router.navigate(['..'], { relativeTo: this.activatedRoute });
+		}
 		
-		this.selectedCampaign = routeData.campaign;
+		this.selectedCampaign = this.routeData.creatableCampaign;
 		for (let i = 0; i < this.selectedCampaign.maxPlayers; i++) {
 			this.heroesCtrl.addControl(`hero_${i}`, this.fb.control<IPlayer | null>(null))
 		}
@@ -82,7 +86,7 @@ export class CampaignCreationPageComponent implements OnInit {
 		const payload: ICampaignPayload = {
 			type: this.selectedCampaign.type,
 			playerIds,
-			dungeonMasterUserId: this.dungeonMasterCtrl.value
+			dungeonMasterUserId: this.dungeonMasterCtrl.value?.id
 		};
 
 		this.campaignsService
@@ -97,5 +101,5 @@ export class CampaignCreationPageComponent implements OnInit {
 }
 
 interface ICampaignCreationPageRouteData {
-	campaign: ICreatableCampaign;
+	creatableCampaign: ICreatableCampaign;
 }

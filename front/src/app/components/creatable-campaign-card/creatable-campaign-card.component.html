@@ -1,8 +1,8 @@
 <ng-container *ngIf="creatableCampaign.canBeCreated; else nonCreatableCampaign">
 	<div class="card unlocked"
-		[class.hollbrook-background-image]="creatableCampaign.type === 1"
-		[class.aos-background-image]="creatableCampaign.type === 2"
-		[class.wotl-background-image]="creatableCampaign.type === 3"
+		[class.hollbrook-campaign]="creatableCampaign.type === 1"
+		[class.aos-campaign]="creatableCampaign.type === 2"
+		[class.wotl-campaign]="creatableCampaign.type === 3"
 	>
 		<div class="card-content-wrapper">
 			<h2 class="white-title">{{ creatableCampaign.name }}</h2>

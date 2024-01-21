@@ -2,9 +2,9 @@
 <a [routerLink]="[campaign.id]" class="card">
 	<div
 		class="card-background-image"
-		[class.hollbrook-background-image]="campaign.type === 1"
-		[class.aos-background-image]="campaign.type === 2"
-		[class.wotl-background-image]="campaign.type === 3"
+		[class.hollbrook-campaign]="campaign.type === 1"
+		[class.aos-campaign]="campaign.type === 2"
+		[class.wotl-campaign]="campaign.type === 3"
 	>
 		<div id="campaign-card-content">
 			<div id="campaign-card-description">

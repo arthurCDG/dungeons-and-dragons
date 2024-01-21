@@ -5,9 +5,9 @@
 <ng-template #campaignDisplay>
 	<div
 		class="body-background-image"
-		[class.hollbrook-background-image]="mainCampaign.type === 1"
-		[class.aos-background-image]="mainCampaign.type === 2"
-		[class.wotl-background-image]="mainCampaign.type === 3"
+		[class.hollbrook-campaign]="mainCampaign.type === 1"
+		[class.aos-campaign]="mainCampaign.type === 2"
+		[class.wotl-campaign]="mainCampaign.type === 3"
 	>
 		<h1 class="white-title">{{ mainCampaign.name }}</h1>
 		<p class="white-description">Démarrée le {{ mainCampaign.startsAt }}</p>
