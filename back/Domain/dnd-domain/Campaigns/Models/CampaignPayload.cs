@@ -5,7 +5,7 @@ namespace dnd_domain.Campaigns.Models;
 
 public class CampaignPayload
 {
-    public int? DungeonMasterUserId { get; set; }
+    public int? DungeonMasterId { get; set; }
     public HashSet<int> PlayerIds { get; set; } = new();
     public CampaignType Type { get; set; }
 }

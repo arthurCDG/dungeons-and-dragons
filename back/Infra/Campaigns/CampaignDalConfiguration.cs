@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using dnd_infra.Users;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace dnd_infra.Campaigns;
@@ -21,6 +22,11 @@ internal sealed class CampaignDalConfiguration : IEntityTypeConfiguration<Campai
         builder.HasMany(campaign => campaign.Adventures)
             .WithOne()
             .HasForeignKey(adventure => adventure.CampaignId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasOne<UserDal>()
+            .WithMany()
+            .HasForeignKey(campaign => campaign.DungeonMasterId)
             .OnDelete(DeleteBehavior.Restrict);
     }
 }

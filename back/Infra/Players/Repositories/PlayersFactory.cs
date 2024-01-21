@@ -43,11 +43,17 @@ internal sealed class PlayersFactory
     public async Task ForgeMonstersFromAdventureAsync(int campaignId, int adventureId)
     {
         CampaignDal campaign = await _context.Campaigns
+            .Include(c => c.Players)
             .Include(c => c.Adventures)
                 .ThenInclude(a => a.Rooms)
                     .ThenInclude(r => r.Squares)
                         .ThenInclude(s => s.Position)
-            .FirstAsync(c => c.Id == campaignId); // Includes
+            .FirstAsync(c => c.Id == campaignId);
+
+        // TODO force dungeon master in interface until my program can handle autonomous monsters with AI
+        int dungeonMasterId = campaign.DungeonMasterId
+            ?? campaign.Players.FirstOrDefault()?.UserId
+            ?? throw new InvalidProgramException("No dungeon master nor player found in campaign.");
 
         AdventureDal adventure = campaign.Adventures.Single(a => a.Id == adventureId);
         List<SquareDal> squares = adventure.Rooms.SelectMany(r => r.Squares).ToList();

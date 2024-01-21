@@ -67,14 +67,15 @@ internal sealed class CampaignsRepository : ICampaignsRepository
             _context.Campaigns.Add(campaign);
             await _context.SaveChangesAsync();
 
-            if (campaignPayload.PlayerIds.Any())
+            if (campaignPayload.DungeonMasterId.HasValue)
             {
-                List<PlayerDal> players = await _context.Players.Where(p => campaignPayload.PlayerIds.Contains(p.Id)).ToListAsync();
-                
-                foreach (PlayerDal player in players)
-                {
-                    player.CampaignId = campaign.Id;
-                }
+                campaign.DungeonMasterId = campaignPayload.DungeonMasterId.Value;
+            }
+
+            List<PlayerDal> players = await _context.Players.Where(p => campaignPayload.PlayerIds.Contains(p.Id)).ToListAsync();
+            foreach (PlayerDal player in players)
+            {
+                player.CampaignId = campaign.Id;
             }
 
             await _context.SaveChangesAsync();

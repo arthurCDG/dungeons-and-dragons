@@ -11,10 +11,11 @@ internal sealed class CampaignDal
 {
     public int Id { get; set; }
     public required string Description { get; set; }
-    public DateTimeOffset? EndsAt { get; set; }
     public required string Name { get; set; }
     public required DateTimeOffset StartsAt { get; set; }
     public required CampaignType Type { get; set; }
+    public int? DungeonMasterId { get; set; }
+    public DateTimeOffset? EndsAt { get; set; }
 
     public List<AdventureDal> Adventures { get; set; } = new();
     public List<PlayerDal> Players { get; set; } = new();
@@ -23,6 +24,7 @@ internal sealed class CampaignDal
         => new()
         {
             Id = Id,
+            DungeonMasterId = DungeonMasterId,
             Name = Name,
             Description = Description,
             Type = Type,
