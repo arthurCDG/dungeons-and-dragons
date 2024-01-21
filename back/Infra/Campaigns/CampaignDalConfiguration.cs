@@ -13,12 +13,6 @@ internal sealed class CampaignDalConfiguration : IEntityTypeConfiguration<Campai
 
         builder.Property(campaign => campaign.Name).HasMaxLength(255);
 
-        builder.Property(campaign => campaign.StartsAt)
-            .HasColumnType("datetime2(2)");
-
-        builder.Property(campaign => campaign.EndsAt)
-             .HasColumnType("datetime2(2)");
-
         builder.HasMany(c => c.Players)
             .WithOne()
             .HasForeignKey(p => p.CampaignId)

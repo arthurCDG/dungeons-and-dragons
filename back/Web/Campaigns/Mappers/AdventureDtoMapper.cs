@@ -27,6 +27,7 @@ public class AdventureDtoMapper
             return new AdventureDto
             {
                 Id = a.Id,
+                CampaignId = campaign.Id,
                 Name = a.Name,
                 Type = a.Type,
                 StartsAt = a.StartsAt,
@@ -46,6 +47,7 @@ public class AdventureDtoMapper
         return new AdventureDto
         {
             Id = adventure.Id,
+            CampaignId = campaign.Id,
             Name = adventure.Name,
             Type = adventure.Type,
             StartsAt = adventure.StartsAt,

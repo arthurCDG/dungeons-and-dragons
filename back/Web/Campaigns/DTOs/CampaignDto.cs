@@ -7,11 +7,11 @@ namespace dungeons_and_dragons.Campaigns.DTOs;
 public class CampaignDto
 {
     public int Id { get; set; }
-    public string Name { get; set; } = string.Empty;
-    public string Description { get; set; } = string.Empty;
-    public CampaignType Type { get; set; }
-    public DateTime StartsAt { get; set; }
-    public DateTime? EndsAt { get; set; }
+    public required string Name { get; set; }
+    public required string Description { get; set; }
+    public required CampaignType Type { get; set; }
+    public required DateTimeOffset StartsAt { get; set; }
+    public DateTimeOffset? EndsAt { get; set; }
 
     public List<AdventureDto> Adventures { get; set; } = new();
 }

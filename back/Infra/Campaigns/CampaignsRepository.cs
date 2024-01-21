@@ -59,6 +59,7 @@ internal sealed class CampaignsRepository : ICampaignsRepository
             CampaignDal campaign = new()
             {
                 Name = GetCampaignName(campaignPayload.Type),
+                Description = GetCampaignDescription(campaignPayload.Type),
                 Type = campaignPayload.Type,
                 StartsAt = DateTime.UtcNow,
             };
@@ -101,6 +102,15 @@ internal sealed class CampaignsRepository : ICampaignsRepository
             CampaignType.HollbrooksLiberation => "La libération de Hollbrooks", // TODO lokalise name
             CampaignType.InpursuitOfTheDarkArmy => "A la poursuite de l'armée sombre", // TODO lokalise name
             CampaignType.WrathOfTheLich => "La colère de la liche", // TODO lokalise name
+            _ => throw new ArgumentException($"Unknown campaign type: {type}.")
+        };
+
+    private static string GetCampaignDescription(CampaignType type)
+        => type switch
+        {
+            CampaignType.HollbrooksLiberation => "Heroes will try to save the village of Hollbrooks from an unknown evil.",
+            CampaignType.InpursuitOfTheDarkArmy => "Heroes managed to push back evil but still need to investigate what it was and find its source.",
+            CampaignType.WrathOfTheLich => "Heroes understood the source of evil is the Lich King. They will hunt it.",
             _ => throw new ArgumentException($"Unknown campaign type: {type}.")
         };
 }
