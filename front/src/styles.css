@@ -71,7 +71,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 	padding: 0.5rem;
 	border-radius: var(--border-radius);
 	box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.2);
-	color: black
+	color: black;
 }
 
 .link-button {
@@ -81,6 +81,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .base-button:hover {
 	background-color: rgb(246, 246, 246);
 	box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+	cursor: pointer;
 }
 
 /* ADVENTURE COMMON STYLES */
@@ -105,8 +106,42 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 	margin: 2rem 1rem;
 	padding: 1rem;
 	display: flex;
+	border-radius: var(--border-radius);;
 	justify-content: space-between;
 	align-items: center;
+}
+
+.locked {
+	background-color: #c1c5c3;
+}
+
+.unlocked {
+	background-color: aliceblue;
+}
+
+.unlocked:hover {
+	background-color: rgb(217, 232, 244);
+	cursor: pointer;
+	box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+	transform: scale(1.01);
+}
+
+.lock-icon {
+	width: 2rem;
+	height: 2rem;
+}
+
+.card-wrapper {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	border-radius: var(--border-radius);
+	padding: 2rem;
+}
+
+.card-content-wrapper {
+	display: flex;
+	flex-direction: column;
 }
 
 .hollbrook-background-image {

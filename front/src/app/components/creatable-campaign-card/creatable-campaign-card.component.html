@@ -1,20 +1,24 @@
 <ng-container *ngIf="creatableCampaign.canBeCreated; else nonCreatableCampaign">
-	<div class="campaign-card-wrapper"
+	<div class="card unlocked"
 		[class.hollbrook-background-image]="creatableCampaign.type === 1"
 		[class.aos-background-image]="creatableCampaign.type === 2"
 		[class.wotl-background-image]="creatableCampaign.type === 3"
 	>
-		<h2 class="white-title">{{ creatableCampaign.name }}</h2>
-		<p class="white-description">{{ creatableCampaign.description }}</p>
-		<button (click)="onCreatableCampaignClicked()" class="base-button">Créer l'aventure</button>
+		<div class="card-content-wrapper">
+			<h2 class="white-title">{{ creatableCampaign.name }}</h2>
+			<p class="white-description">{{ creatableCampaign.description }}</p>
+		</div>
+		<div>
+			<button (click)="onCreatableCampaignClicked()" class="base-button">Créer la campagne</button>
+		</div>
 	</div>
 </ng-container>
 
 <ng-template #nonCreatableCampaign>
-	<div class="locked">
+	<div class="card locked">
 		<div>
 			<h3>{{ creatableCampaign.name }}</h3>
-			<span>Aventure non débloquée</span>
+			<span>Campagne non débloquée</span>
 		</div>
 		<img src="../../../assets/icons/lock.png" class="lock-icon"/>
 	</div>

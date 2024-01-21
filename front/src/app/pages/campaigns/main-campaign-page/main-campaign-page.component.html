@@ -16,16 +16,14 @@
 			<button class="base-button" disabled>[soon] Ajouter des joueurs à la campagne</button>
 		</div>
 
-		<div>
-			<ul>
-				<li *ngFor="let adventure of mainCampaign.adventures">
-					<app-adventure-card [adventure]="adventure"></app-adventure-card>
-				</li>
-				<li *ngFor="let creatableAdventure of creatableAdventures">
-					<app-creatable-adventure-card [creatableAdventure]="creatableAdventure"></app-creatable-adventure-card>
-				</li>
-			</ul>
-		</div>
+		<ul>
+			<li *ngFor="let adventure of mainCampaign.adventures">
+				<app-adventure-card [adventure]="adventure"></app-adventure-card>
+			</li>
+			<li *ngFor="let creatableAdventure of creatableAdventures">
+				<app-creatable-adventure-card [creatableAdventure]="creatableAdventure"></app-creatable-adventure-card>
+			</li>
+		</ul>
 	</div>
 
 </ng-template>

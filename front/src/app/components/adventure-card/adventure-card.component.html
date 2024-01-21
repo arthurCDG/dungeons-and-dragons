@@ -1,11 +1,9 @@
-<div class="adventure-card unlocked">
+<div class="card unlocked">
 	<h3>{{ adventure.name }}</h3>
-	<a
-		*ngIf="adventure.status === 1"
-		[routerLink]="['adventures', adventure.id]"
-		class="link-button base-button"
-	>
-		<span>Jouer l'aventure</span>
-	</a>
+	<ng-container *ngIf="adventure.status === 1">
+		<a [routerLink]="['adventures', adventure.id]" class="link-button base-button">
+			<span>Jouer l'aventure</span>
+		</a>
+	</ng-container>
 	<span *ngIf="adventure.status === 2">Aventure terminée</span>
 </div>
