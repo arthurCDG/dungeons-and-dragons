@@ -9,5 +9,5 @@ public interface ISquaresRepository
     Task<List<Square>> GetAsync(int campaignId);
     Task<Square> GetByIdAsync(int id);
     Task<Player?> GetSquarePlayerIfAnyAsync(int id);
-    Task PlaceHeroesOnSquaresAsync(int campaignId);
+    Task PlaceHeroesOnSquaresAsync(int campaignId, int adventureId);
 }

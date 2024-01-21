@@ -24,6 +24,6 @@ internal sealed class SquaresService : ISquaresService
     public Task<Player?> GetSquarePlayerIfAnyAsync(int id)
         => _squaresRepository.GetSquarePlayerIfAnyAsync(id);
 
-    public Task PlaceHeroesOnSquaresAsync(int campaignId)
-        => _squaresRepository.PlaceHeroesOnSquaresAsync(campaignId);
+    public Task PlaceHeroesOnSquaresAsync(int campaignId, int adventureId)
+        => _squaresRepository.PlaceHeroesOnSquaresAsync(campaignId, adventureId);
 }

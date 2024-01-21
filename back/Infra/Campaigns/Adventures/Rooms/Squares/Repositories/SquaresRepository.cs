@@ -44,7 +44,7 @@ internal sealed class SquaresRepository : ISquaresRepository
         return playerDal?.ToDomain() ?? null;
     }
 
-    public async Task PlaceHeroesOnSquaresAsync(int campaignId)
+    public async Task PlaceHeroesOnSquaresAsync(int campaignId, int adventureId)
     {
         CampaignDal campaign = await _context.Campaigns
             .Include(c => c.Players)
@@ -62,7 +62,7 @@ internal sealed class SquaresRepository : ISquaresRepository
             .SingleAsync(c => c.Id == campaignId);
 
         List<PlayerDal> players = campaign.Players;
-        AdventureDal adventure = campaign.Adventures.Single(a => a.Status == AdventureStatus.Started);
+        AdventureDal adventure = campaign.Adventures.Single(a => a.Id == adventureId);
 
         switch (adventure.Type)
         {

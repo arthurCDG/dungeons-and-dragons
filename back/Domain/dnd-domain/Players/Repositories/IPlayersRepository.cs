@@ -15,7 +15,7 @@ public interface IPlayersRepository
     
     Task<Player> UpdateAsync(int id, PlayerPayload playerPayload);
 
-    Task SeedMonstersAsync(int campaignId, AdventureType type);
+    Task SeedMonstersAsync(int campaignId, int adventureId);
 
     Task<Player> AttackAsync(int id, AttackPayload attack);
 }

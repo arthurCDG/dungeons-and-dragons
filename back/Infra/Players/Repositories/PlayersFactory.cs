@@ -2,6 +2,7 @@
 using dnd_domain.Players.Enums;
 using dnd_domain.Players.Payloads;
 using dnd_infra.Campaigns;
+using dnd_infra.Campaigns.Adventures;
 using dnd_infra.Campaigns.Adventures.Rooms.Squares.DALs;
 using dnd_infra.Items.DALs;
 using dnd_infra.Players.DALs;
@@ -39,7 +40,7 @@ internal sealed class PlayersFactory
         };
     }
 
-    public async Task ForgeMonstersFromAdventureAsync(int campaignId, AdventureType adventureType)
+    public async Task ForgeMonstersFromAdventureAsync(int campaignId, int adventureId)
     {
         CampaignDal campaign = await _context.Campaigns
             .Include(c => c.Adventures)
@@ -48,22 +49,19 @@ internal sealed class PlayersFactory
                         .ThenInclude(s => s.Position)
             .FirstAsync(c => c.Id == campaignId); // Includes
 
-        List<SquareDal> squares = campaign.Adventures
-            .Where(a => a.Status == AdventureStatus.Started)
-            .SelectMany(a => a.Rooms)
-            .SelectMany(r => r.Squares)
-            .ToList();
+        AdventureDal adventure = campaign.Adventures.Single(a => a.Id == adventureId);
+        List<SquareDal> squares = adventure.Rooms.SelectMany(r => r.Squares).ToList();
 
         List<WeaponDal> weapons = await _context.Weapons.ToListAsync();
         List<PlayerDal> monsters = new();
 
-        switch (adventureType)
+        switch (adventure.Type)
         {
             case AdventureType.GoblinBandits:
                 monsters = ForgeGoblinBanditsAdventureMonsters(weapons, squares);
                 break;
             default:
-                throw new InvalidOperationException($"Unknown adventure type: {adventureType}.");
+                throw new InvalidOperationException($"Unknown adventure type: {adventure.Type}.");
         }
 
         campaign.Players.AddRange(monsters);

@@ -42,7 +42,7 @@ internal sealed class AdventuresRepository : IAdventuresRepository
     {
         AdventureDal adventure = await SeedAdventureAsync(campaignId, adventureType); // Type should be retrieved from campaign in a helper or factory
 
-        adventure.Status = AdventureStatus.Started;
+        adventure.StartsAt = DateTimeOffset.UtcNow;
         await _context.SaveChangesAsync();
 
         return adventure.ToDomain();
@@ -57,16 +57,16 @@ internal sealed class AdventuresRepository : IAdventuresRepository
                 Name = AdventureFactoryHelper.GetAdventureName(type),
                 Type = type,
                 CampaignId = campaignId,
-                Status = AdventureStatus.Started
+                StartsAt = DateTimeOffset.UtcNow
             };
 
             _context.Adventures.Add(adventure);
             await _context.SaveChangesAsync();
 
             await SeedRoomsAsync(adventure.Id, type);
-            await _playersRepository.SeedMonstersAsync(campaignId, type);
+            await _playersRepository.SeedMonstersAsync(campaignId, adventure.Id);
 
-            await _squaresRepository.PlaceHeroesOnSquaresAsync(campaignId);
+            await _squaresRepository.PlaceHeroesOnSquaresAsync(campaignId, adventure.Id);
 
             return adventure;
         }

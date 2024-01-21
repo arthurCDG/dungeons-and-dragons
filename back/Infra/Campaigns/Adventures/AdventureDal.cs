@@ -1,5 +1,6 @@
 ﻿using dnd_domain.Campaigns.Adventures;
 using dnd_infra.Campaigns.Adventures.Rooms;
+using System;
 using System.Collections.Generic;
 
 namespace dnd_infra.Campaigns.Adventures;
@@ -10,7 +11,8 @@ internal class AdventureDal
     public int CampaignId { get; set; }
     public required string Name { get; set; }
     public AdventureType Type { get; set; }
-    public AdventureStatus Status { get; set; }
+    public DateTimeOffset StartsAt { get; set; }
+    public DateTimeOffset? EndsAt { get; set; }
 
     public List<RoomDal> Rooms { get; set; } = new();
 
@@ -21,7 +23,8 @@ internal class AdventureDal
             CampaignId = CampaignId,
             Name = Name,
             Type = Type,
-            Status = Status,
+            StartsAt = StartsAt,
+            EndsAt = EndsAt,
             Rooms = Rooms.ConvertAll(p => p.ToDomain())
         };
 }

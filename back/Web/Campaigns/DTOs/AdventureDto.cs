@@ -1,4 +1,5 @@
 ﻿using dnd_domain.Campaigns.Adventures;
+using System;
 using System.Collections.Generic;
 
 namespace dungeons_and_dragons.Campaigns.DTOs;
@@ -9,7 +10,8 @@ public class AdventureDto
     public int CampaignId { get; set; }
     public string Name { get; set; } = string.Empty;
     public AdventureType Type { get; set; }
-    public AdventureStatus Status { get; set; }
+    public DateTimeOffset StartsAt { get; set; }
+    public DateTimeOffset? EndsAt { get; set; }
 
     public List<SquareDto> Squares { get; set; } = new();
 
@@ -20,7 +22,8 @@ public class AdventureDto
             CampaignId = CampaignId,
             Name = Name,
             Type = Type,
-            Status = Status,
+            StartsAt = StartsAt,
+            EndsAt = EndsAt,
             Squares = squares
         };
 }

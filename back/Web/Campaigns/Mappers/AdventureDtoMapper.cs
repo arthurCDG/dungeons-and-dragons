@@ -29,13 +29,14 @@ public class AdventureDtoMapper
                 Id = a.Id,
                 Name = a.Name,
                 Type = a.Type,
-                Status = a.Status,
-                Squares = a.Rooms
-                .SelectMany(r => r.Squares)
-                .Select(s => SquareDtoMapper.ToDto(s, campaign.Players))
-                .ToList()
+                StartsAt = a.StartsAt,
+                EndsAt = a.EndsAt,
+                Squares = a.Rooms.SelectMany(r => r.Squares)
+                                 .Select(s => SquareDtoMapper.ToDto(s, campaign.Players))
+                                 .ToList()
             };
-        }).ToList();
+        })
+        .ToList();
 
     public async Task<AdventureDto> ToDtoAsync(Adventure adventure)
     {
@@ -47,12 +48,12 @@ public class AdventureDtoMapper
             Id = adventure.Id,
             Name = adventure.Name,
             Type = adventure.Type,
-            Status = adventure.Status,
-            Squares = adventure.Rooms
-                .SelectMany(r => r.Squares)
-                .Select(s => SquareDtoMapper.ToDto(s, players))
-                .OrderBy(s => s.Id)
-                .ToList()
+            StartsAt = adventure.StartsAt,
+            EndsAt = adventure.EndsAt,
+            Squares = adventure.Rooms.SelectMany(r => r.Squares)
+                                     .Select(s => SquareDtoMapper.ToDto(s, players))
+                                     .OrderBy(s => s.Id)
+                                     .ToList()
         };
     }
 }

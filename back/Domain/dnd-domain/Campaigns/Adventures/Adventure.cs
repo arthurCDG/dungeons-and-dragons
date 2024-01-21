@@ -10,8 +10,8 @@ public class Adventure
     public int CampaignId { get; set; }
     public string Name { get; set; } = string.Empty;
     public AdventureType Type { get; set; }
-    public DateTime StartsAt { get; set; }
-    public DateTime? EndsAt { get; set; }
+    public DateTimeOffset StartsAt { get; set; }
+    public DateTimeOffset? EndsAt { get; set; }
 
     public List<Room> Rooms { get; set; } = new();
 }

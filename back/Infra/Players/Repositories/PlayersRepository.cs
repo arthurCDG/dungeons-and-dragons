@@ -58,8 +58,8 @@ internal sealed class PlayersRepository : IPlayersRepository
         return player.ToDomain();
     }
 
-    public Task SeedMonstersAsync(int campaignId, AdventureType type)
-        => _playersFactory.ForgeMonstersFromAdventureAsync(campaignId, type);
+    public Task SeedMonstersAsync(int campaignId, int adventureId)
+        => _playersFactory.ForgeMonstersFromAdventureAsync(campaignId, adventureId);
 
     public async Task CreateDungeonMasterAsync(int campaignId, int userId, PlayerCreationPayload playerCreationPayload)
     {
