@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { ICreatableCampaign } from 'src/app/models';
 
 @Component({
@@ -12,4 +12,10 @@ import { ICreatableCampaign } from 'src/app/models';
 })
 export class CreatableCampaignCardComponent {
 	@Input() public creatableCampaign: ICreatableCampaign;
+
+	constructor(private readonly router: Router, private readonly activatedRoute: ActivatedRoute) { }
+
+	onCreatableCampaignClicked(): void {
+		this.router.navigateByUrl('/new', { state: { creatableCampaign: this.creatableCampaign }});
+	}
 }

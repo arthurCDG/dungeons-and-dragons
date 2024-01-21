@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -7,9 +7,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from "@angular/material/icon";
 import { MatSelectModule } from '@angular/material/select';
 import { Observable } from 'rxjs';
-import { CreatableCampaignCardComponent } from '../../../components/creatable-campaign-card/creatable-campaign-card.component';
 import { ICampaign, ICampaignPayload, ICreatableCampaign, IPlayer, IUserDto } from '../../../models';
-import { AvailableDungeonMastersService, AvailablePlayersService, CampaignsService, CreatableCampaignsService } from '../../../services';
+import { AvailableDungeonMastersService, AvailablePlayersService, CampaignsService } from '../../../services';
 
 @Component({
   selector: 'app-campaign-creation-page',
@@ -30,7 +29,7 @@ import { AvailableDungeonMastersService, AvailablePlayersService, CampaignsServi
   ]
 })
 export class CampaignCreationPageComponent implements OnInit {
-	@Input() public selectedCampaign: ICreatableCampaign;
+	public selectedCampaign: ICreatableCampaign;
 
 	public users$: Observable<IUserDto[]>;
 	public players$: Observable<IPlayer[]>;
@@ -60,6 +59,11 @@ export class CampaignCreationPageComponent implements OnInit {
 		this.users$ = this.availableDungeonMastersService.getAsync();
 		this.players$ = this.availablePlayersService.getAsync();
 
+		const routeData = this.router.getCurrentNavigation()?.extras.state as ICampaignCreationPageRouteData;
+		console.log(routeData);
+		console.log(this.activatedRoute.snapshot.data);
+		
+		this.selectedCampaign = routeData.campaign;
 		for (let i = 0; i < this.selectedCampaign.maxPlayers; i++) {
 			this.heroesCtrl.addControl(`hero_${i}`, this.fb.control<IPlayer | null>(null))
 		}
@@ -90,4 +94,8 @@ export class CampaignCreationPageComponent implements OnInit {
 		event.stopPropagation();
 		this.heroesCtrl.controls[`hero_${index}`]?.setValue(null);
 	}
+}
+
+interface ICampaignCreationPageRouteData {
+	campaign: ICreatableCampaign;
 }

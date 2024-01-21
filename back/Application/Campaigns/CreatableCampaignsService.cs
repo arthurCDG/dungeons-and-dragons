@@ -50,25 +50,28 @@ internal sealed class CreatableCampaignsService : ICreatableCampaignsService
         };
 
         creatableCampaigns.RemoveAll(cc => existingCampaigns.Any(ec => ec.Type == cc.Type));
-
         return creatableCampaigns;
     }
 
     private static bool CanBeCreated(CampaignType campaignType, List<Campaign> existingCampaigns)
     {
-        Campaign? campaign = existingCampaigns.SingleOrDefault(c => c.Type == campaignType);
-
-        if (campaign is not null)
+        if (existingCampaigns.Any(c => c.Type == campaignType))
             return false;
 
         if (campaignType == CampaignType.HollbrooksLiberation)
             return true;
 
-        if (campaignType == CampaignType.InpursuitOfTheDarkArmy && existingCampaigns.Any(ec => ec.Type == CampaignType.HollbrooksLiberation && ec.EndsAt != null))
-            return true;
+        if (campaignType == CampaignType.InpursuitOfTheDarkArmy)
+        {
+            Campaign? previousCampaign = existingCampaigns.SingleOrDefault(ec => ec.Type == CampaignType.HollbrooksLiberation && ec.EndsAt != null);
+            return previousCampaign is not null;
+        }
 
-        if (campaignType == CampaignType.WrathOfTheLich && existingCampaigns.Any(ec => ec.Type == CampaignType.InpursuitOfTheDarkArmy && ec.EndsAt != null))
-            return true;
+        if (campaignType == CampaignType.WrathOfTheLich)
+        {
+            Campaign? previousCampaign = existingCampaigns.SingleOrDefault(ec => ec.Type == CampaignType.InpursuitOfTheDarkArmy && ec.EndsAt != null);
+            return previousCampaign is not null;
+        }
 
         return false;
     }

@@ -6,7 +6,7 @@
 	>
 		<h2 class="white-title">{{ creatableCampaign.name }}</h2>
 		<p class="white-description">{{ creatableCampaign.description }}</p>
-		<a [routerLink]="['new']" class="routerLink-button">Créer l'aventure</a>
+		<button (click)="onCreatableCampaignClicked()" class="base-button">Créer l'aventure</button>
 	</div>
 </ng-container>
 
