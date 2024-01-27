@@ -1,19 +1,19 @@
-<div>
-	
-</div>
-<div class="board">
-	<ng-container *ngFor="let square of squares">
-		<app-square
-			[square]="square"
-			[squareNeedsToReload]="square.id === squaredIdThatNeedsToReload"
-			[squareIsSelected]="square.id === selectedSquaredId"
-			(squareChanged)="onSquareChanged($event)"
-			(squareSelected)="onSquareSelected($event)"
-		>
-		</app-square>
+<app-header></app-header>
+<div id="board-wrapper">
+	<div class="board">
+		<ng-container *ngFor="let square of squares">
+			<app-square
+				[square]="square"
+				[squareNeedsToReload]="square.id === squaredIdThatNeedsToReload"
+				[squareIsSelected]="square.id === selectedSquaredId"
+				(squareChanged)="onSquareChanged($event)"
+				(squareSelected)="onSquareSelected($event)"
+			>
+			</app-square>
+		</ng-container>
+	</div>
+
+	<ng-container *ngIf="!isLoading">
+		<app-action-bar [selectedSquare]="selectedSquare" [userPlayer]="userPlayer" [currentPlayer]="currentPlayer"></app-action-bar>
 	</ng-container>
 </div>
-
-<ng-container *ngIf="!isLoading">
-	<app-action-bar [selectedSquare]="selectedSquare" [userPlayer]="userPlayer" [currentPlayer]="currentPlayer"></app-action-bar>
-</ng-container>

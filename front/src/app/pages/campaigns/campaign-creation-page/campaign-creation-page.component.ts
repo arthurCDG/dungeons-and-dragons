@@ -78,7 +78,7 @@ export class CampaignCreationPageComponent implements OnInit {
 	}
 
 	onSubmit(): void {
-		const playerIds: number[] = [this.playerId];
+		const playerIds: number[] = [];
 		for (let heroField in this.heroesCtrl.controls) {
 			if (this.heroesCtrl.controls[heroField].value) {
 				playerIds.push(this.heroesCtrl.controls[heroField].value!.id);

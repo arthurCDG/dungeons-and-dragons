@@ -5,6 +5,7 @@ import { AdventuresService, CampaignsService, CreatableAdventuresService } from 
 import { CommonModule } from '@angular/common';
 import { CreatableAdventureCardComponent } from '../../../components/creatable-adventure-card/creatable-adventure-card.component';
 import { AdventureCardComponent } from '../../../components/adventure-card/adventure-card.component';
+import { BackArrowComponent } from 'src/app/components/back-arrow/back-arrow.component';
 
 @Component({
   selector: 'app-campaigns-page',
@@ -13,7 +14,8 @@ import { AdventureCardComponent } from '../../../components/adventure-card/adven
 	CommonModule,
 	RouterModule,
 	CreatableAdventureCardComponent,
-	AdventureCardComponent
+	AdventureCardComponent,
+	BackArrowComponent
 ],
   templateUrl: './main-campaign-page.component.html',
   styleUrls: ['./main-campaign-page.component.css'],

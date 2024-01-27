@@ -1,8 +1,12 @@
+#board-wrapper {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
 .board {
 	width: calc(22*4rem);
 	height: calc(11*4rem);
 	display: grid;
 	grid-template-columns: repeat(22, 1fr);
-	max-width: 95vw;
-	max-width: 90vh;
 }

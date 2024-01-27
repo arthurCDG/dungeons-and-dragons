@@ -6,11 +6,12 @@ import { IAdventure, ICurrentPlayerDto, IPlayer, ISquare } from '../../models';
 import { SquareComponent } from '../../components/square/square.component';
 import { PlayersService, AdventuresService, GameFlowService, SquaresService } from '../../services';
 import { Observable } from 'rxjs';
+import { HeaderComponent } from 'src/app/components/header/header.component';
 
 @Component({
   selector: 'app-adventure-page',
   standalone: true,
-  imports: [CommonModule, RouterModule, ActionBarComponent, SquareComponent],
+  imports: [CommonModule, RouterModule, ActionBarComponent, SquareComponent, HeaderComponent],
   templateUrl: './adventure-page.component.html',
   styleUrls: ['./adventure-page.component.css'],
   providers: [AdventuresService, PlayersService, GameFlowService, SquaresService]
