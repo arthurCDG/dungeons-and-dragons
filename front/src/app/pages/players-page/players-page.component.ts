@@ -5,11 +5,12 @@ import { Observable } from 'rxjs';
 import { PlayerCardComponent } from 'src/app/components/player-card/player-card.component';
 import { IPlayer } from 'src/app/models';
 import { PlayersService } from '../../services';
+import { BackArrowComponent } from 'src/app/components/back-arrow/back-arrow.component';
 
 @Component({
   selector: 'app-players-page',
   standalone: true,
-  imports: [CommonModule, RouterModule, PlayerCardComponent],
+  imports: [CommonModule, RouterModule, PlayerCardComponent, BackArrowComponent],
   templateUrl: './players-page.component.html',
   styleUrls: ['./players-page.component.css'],
   providers: [PlayersService]

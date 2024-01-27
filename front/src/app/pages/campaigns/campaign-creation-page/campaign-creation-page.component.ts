@@ -3,13 +3,14 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
+import { Location } from '@angular/common';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from "@angular/material/icon";
 import { MatSelectModule } from '@angular/material/select';
 import { Observable } from 'rxjs';
+import { BackArrowComponent } from 'src/app/components/back-arrow/back-arrow.component';
 import { ICampaign, ICampaignPayload, ICreatableCampaign, IPlayer, IUserDto } from '../../../models';
 import { AvailableDungeonMastersService, AvailablePlayersService, CampaignsService } from '../../../services';
-import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-campaign-creation-page',
@@ -19,7 +20,8 @@ import { Location } from '@angular/common';
 	ReactiveFormsModule,
 	MatSelectModule,
 	MatFormFieldModule,
-	MatIconModule
+	MatIconModule,
+	BackArrowComponent
 ],
   templateUrl: './campaign-creation-page.component.html',
   styleUrls: ['./campaign-creation-page.component.css'],

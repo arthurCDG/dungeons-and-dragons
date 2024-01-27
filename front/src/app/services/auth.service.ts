@@ -1,53 +1,60 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, catchError, map, of } from 'rxjs';
-import { ILoginPayload, IUserDto, IUserPayload } from '../models/users.models';
-import { DEV_BACKEND_URL } from './_api.urls';
 import { Router } from '@angular/router';
+import { Observable, of } from 'rxjs';
+import { IAuthentifiedUser, ILoginPayload, IUserPayload } from '../models/users.models';
+import { DEV_BACKEND_URL } from './_api.urls';
 
 const API_URL: string = 'services/auth';
 
 @Injectable()
 export class AuthService {
+	private readonly JWT_TOKEN = 'JWT_TOKEN';
+	private readonly USER_ID = 'USER_ID';
+
 	public INITIAL_PATH = ''; // TODO change ?
 
-	constructor(private readonly httpClient: HttpClient, private readonly router: Router) {}
+	constructor(
+		private readonly httpClient: HttpClient,
+		private readonly router: Router
+	) {}
 
-	public signupAsync = (userPayload: IUserPayload): Observable<string | undefined> =>
-		this.httpClient.post<string | undefined>(`${DEV_BACKEND_URL}/${API_URL}/signup`, userPayload, { responseType: 'text' as 'json'});
+	public signupAsync = (userPayload: IUserPayload): Observable<IAuthentifiedUser | null> =>
+		this.httpClient.post<IAuthentifiedUser | null>(`${DEV_BACKEND_URL}/${API_URL}/signup`, userPayload);
 
-	public loginAsync = (loginPayload: ILoginPayload): Observable<string | undefined> =>
-		this.httpClient.post<string | undefined>(`${DEV_BACKEND_URL}/${API_URL}/login`, loginPayload, { responseType: 'text' as 'json'});
+	public loginAsync = (loginPayload: ILoginPayload): Observable<IAuthentifiedUser | null> =>
+		this.httpClient.post<IAuthentifiedUser | null>(`${DEV_BACKEND_URL}/${API_URL}/login`, loginPayload);
 
 	public isLoggedIn$(): Observable<boolean> {
-		return this.getCurrentUser().pipe(
-		  map(user => !!user),
-		  catchError(() => of(false))
-		);
+		return this.getToken() ? of(true) : of(false);
 	}
 
-	public doLoginUser = (token: string): void => localStorage.setItem(this.JWT_TOKEN, token);
+	public doLoginUser = (authentifiedUser: IAuthentifiedUser): void => {
+		localStorage.setItem(this.JWT_TOKEN, authentifiedUser.token);
+		localStorage.setItem(this.USER_ID, authentifiedUser.userId.toString());
+	}
 	
-	public doLogoutUser = (): void => localStorage.removeItem(this.JWT_TOKEN);
+	public doLogoutUser = (): void => {
+		localStorage.removeItem(this.JWT_TOKEN);
+		localStorage.removeItem(this.USER_ID);
+	}
 
 	public doLogoutAndRedirectToLogin = (): void => {
 		this.doLogoutUser();
 		this.router.navigate(['..']);
 	}
-	
-	public getCurrentUser(): Observable<IUserDto | undefined> {
-		const token = this.getToken();
+
+	public getCurrentUserId(): Observable<number | null> {
+		const userId: string | null = this.getLocalUserId();
+		console.log('userId', userId);
 		
-		if (token) {
-			const encodedPayload = token.split('.')[1];
-			const payload = window.atob(encodedPayload);
-			return of(JSON.parse(payload));
+		if (userId) {
+			return of(Number.parseInt(userId));
 		} else {
-			return of(undefined);
+			return of(null);
 		}
 	}
 	
 	public getToken = (): string | null => localStorage.getItem(this.JWT_TOKEN);
-	
-	private readonly JWT_TOKEN = 'JWT_TOKEN';
+	public getLocalUserId = (): string | null => localStorage.getItem(this.USER_ID);
 }

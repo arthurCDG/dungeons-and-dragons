@@ -3,8 +3,8 @@ import { Component } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { shareReplay } from 'rxjs';
-import { ILoginPayload, IUserPayload } from '../../models/users.models';
-import { AuthService } from '../../services';
+import { IAuthentifiedUser, ILoginPayload, IUserPayload } from '../../models/users.models';
+import { AuthService, UsersService } from '../../services';
 
 @Component({
   selector: 'app-user-authentification',
@@ -12,7 +12,7 @@ import { AuthService } from '../../services';
   imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './user-authentification.component.html',
   styleUrls: ['./user-authentification.component.css'],
-  providers: [AuthService]
+  providers: [AuthService, UsersService]
 })
 export class UserAuthentificationComponent {
 	usernameCtrl = this.fb.control('', [Validators.required, Validators.minLength(3)]);
@@ -37,10 +37,10 @@ export class UserAuthentificationComponent {
 
 		this.authService.signupAsync(userPayload)
 			.pipe(shareReplay())
-			.subscribe((token: string | undefined) => {
-				if (token !== undefined)
+			.subscribe((authentifiedUser: IAuthentifiedUser | null) => {
+				if (authentifiedUser)
 				{
-					this.authService.doLoginUser(token);
+					this.authService.doLoginUser(authentifiedUser);
 					this .router.navigate(['..']);
 				}
 			})
@@ -54,10 +54,10 @@ export class UserAuthentificationComponent {
 
 		this.authService.loginAsync(loginPayload)
 			.pipe(shareReplay())
-			.subscribe((token: string | undefined) => {
-				if (token !== undefined)
+			.subscribe((authentifiedUser: IAuthentifiedUser | null) => {
+				if (authentifiedUser)
 				{
-					this.authService.doLoginUser(token);
+					this.authService.doLoginUser(authentifiedUser);
 					this .router.navigate(['..']);
 				}
 			})

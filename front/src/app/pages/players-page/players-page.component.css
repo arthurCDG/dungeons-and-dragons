@@ -11,13 +11,17 @@
 	width: 20vw;
 }
 
-.displayed-player {
-	background-image: url('../../../assets//campaigns/hollbrook-background-campaign-image.jpg');
+.player-background {
+	background-image: url('../../../assets/campaigns/hollbrook-background-campaign-image.jpg');
 	background-repeat: no-repeat;
 	background-position: center;
 	background-size: cover;
 	width: 80vw;
+}
+
+.displayed-player {
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	height: 90vh;
 }

@@ -38,5 +38,5 @@ public class UsersController : ControllerBase
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
     public Task<User> GetByIdAsync(int id)
-      => _usersService.GetByIdAsync(id);
+        => _usersService.GetByIdAsync(id);
 }

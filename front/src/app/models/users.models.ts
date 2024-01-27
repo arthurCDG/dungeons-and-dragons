@@ -1,9 +1,13 @@
 import { IPlayer } from "./players.models";
 
+export interface IAuthentifiedUser {
+	userId: number;
+	token: string;
+}
+
 export interface IUserDto {
 	id: number;
     name: string;
-    password: string;
     pictureUrl?: string;
     players: IPlayer[];
 	token: string;

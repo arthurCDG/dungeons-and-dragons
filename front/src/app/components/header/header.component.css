@@ -10,6 +10,7 @@
 	display: flex;
 	justify-content: right;
 	align-items: center;
+	gap: 0.5rem;
 }
 
 .user-logo {
@@ -27,6 +28,8 @@
 .nav-links {
 	display: flex;
 	justify-content: right;
+	gap: 3rem;
+	margin: 0 2rem;
 }
 
 .nav-button {

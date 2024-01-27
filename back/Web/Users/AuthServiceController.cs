@@ -30,24 +30,39 @@ public class AuthServiceController : ControllerBase
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
-    public async Task<ActionResult<string>> SignUpUserAsync([FromBody] UserPayload userPayload)
+    public async Task<ActionResult<AuthentifiedUserDto>> SignUpUserAsync([FromBody] UserPayload userPayload)
     {
         User user = await _usersService.CreateAsync(userPayload);
+
         var token = _authService.GenerateToken(user);
-        return Ok(token); // TODO add validation before creation
+
+        AuthentifiedUserDto authentifiedUserDto = new()
+        {
+            UserId = user.Id,
+            Token = token
+        };
+
+        return Ok(authentifiedUserDto); // TODO add validation before creation
     }
 
     [HttpPost("login")]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
-    public async Task<ActionResult<string>> LoginUserAsync([FromBody] LoginPayload loginPayload)
+    public async Task<ActionResult<AuthentifiedUserDto>> LoginUserAsync([FromBody] LoginPayload loginPayload)
     {
         User? user = await _authService.AuthenticateAsync(loginPayload);
         if (user is not null)
         {
             var token = _authService.GenerateToken(user);
-            return Ok(token);
+
+            AuthentifiedUserDto authentifiedUserDto = new()
+            {
+                UserId = user.Id,
+                Token = token
+            };
+
+            return Ok(authentifiedUserDto);
         }
 
         return NotFound("user not found");

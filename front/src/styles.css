@@ -89,16 +89,19 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 	padding: 2rem;
 }
 
+.link-button {
+	text-decoration: none;
+}
+
 .base-button {
 	border: 1px solid black;
 	padding: 0.5rem;
 	border-radius: var(--border-radius);
 	box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.2);
 	color: black;
-}
-
-.link-button {
-	text-decoration: none;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 .base-button:hover {
@@ -167,6 +170,11 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 	cursor: pointer;
 	box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
 	transform: scale(1.01);
+}
+
+.icon {
+	width: 3rem;
+	height: 2rem;
 }
 
 .lock-icon {

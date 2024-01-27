@@ -1,0 +1,8 @@
+.nav-back-arrow {
+	display: flex;
+	gap: 1rem;
+	margin: 2rem;
+	justify-content: start;
+	align-items: center;
+	text-decoration: underline rgb(255, 255, 255);
+}

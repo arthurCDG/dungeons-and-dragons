@@ -1,9 +1,11 @@
-<header>
+<header *ngIf="!isLoading">
 	<nav class="nav-bar">
 		<img alt="logo" src="../../../assets/logo/dungeons-and-dragons.png" class="nav-logo" />
 		<div class="nav-links">
-			<a [routerLink]="['users', 1, 'players']" class="link-button base-button nav-button">Voir mes joueurs</a>
 			<ng-container *ngIf="isLoggedIn; else loggedOut">
+				<a [routerLink]="['/users', userId, 'players']" class="link-button base-button nav-button">
+					Voir mes joueurs
+				</a>
 				<div class="user-links">
 					<img class="user-logo" src="../../../assets/logo/user-logo-wizard.png" />
 					<button (click)="onLogout()" class="base-button base-button nav-button">Se déconnecter</button>

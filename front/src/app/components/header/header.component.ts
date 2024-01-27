@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { IUserDto } from '../../models/users.models';
 import { AuthService } from '../../services';
+import { Observable, retry, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-header',
@@ -14,17 +15,18 @@ import { AuthService } from '../../services';
 })
 export class HeaderComponent implements OnInit {
 	public isLoggedIn = false;
-	public user: IUserDto | undefined;
+	public isLoading = true;
+	public userId: number | null = null;
 
 	constructor(private readonly authService: AuthService) { }
 
 	ngOnInit(): void {
 		this.authService.isLoggedIn$().subscribe(isLoggedIn => this.isLoggedIn = isLoggedIn);
-
-		if (this.isLoggedIn)
-		{
-			this.authService.getCurrentUser().subscribe((user: IUserDto | undefined) => this.user = user);
-		}
+		this.authService.getCurrentUserId()
+						.subscribe((userId: number | null) => {
+							this.userId = userId;
+							this.isLoading = false;
+						});
 	}
 
 	public onLogout(): void {
