@@ -30,7 +30,8 @@ export interface IAdventure {
 	campaignId: number;
 	name: string;
 	type: AdventureType;
-	status: AdventureStatus;
+	startsAt: Date;
+	endsAt?: Date;
 	squares: ISquare[];
 }
 
@@ -116,12 +117,6 @@ export enum AdventureType {
 	AttackingBorashCastle,
 	TheSpiralOfFate,
 	TheRiseOfNecratim
-}
-
-export enum AdventureStatus {
-	None = 0,
-	Started = 1,
-	Finished = 2
 }
 
 export enum CampaignType {

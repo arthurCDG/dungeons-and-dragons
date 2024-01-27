@@ -1,9 +1,22 @@
-<div class="card unlocked">
-	<h3>{{ adventure.name }}</h3>
-	<ng-container *ngIf="adventure.status === 1">
-		<a [routerLink]="['adventures', adventure.id]" class="link-button base-button">
-			<span>Jouer l'aventure</span>
-		</a>
-	</ng-container>
-	<span *ngIf="adventure.status === 2">Aventure terminée</span>
-</div>
+<a [routerLink]="['adventures', adventure.id]">
+	<div class="card unlocked card-wrapper">
+		<div class="card-content-wrapper">
+			<h2>{{ adventure.name }}</h2>
+			<p *ngIf="adventure.endsAt; else currentAdventure">Terminée le {{ adventure.endsAt }}</p>
+			<ng-template #currentAdventure>
+				<span>Démarrée le {{ adventure.startsAt | date: 'longDate' }}</span>
+			</ng-template>
+			<!-- TODO add more info about the adventure (heroes, dungeonMaster, what else ?) -->
+		</div>
+		<ng-container *ngIf="!adventure.endsAt; else completedAdventure">
+			<div class="status-badge-wrapper">
+				<span class="status-badge">En cours</span>
+			</div>
+		</ng-container>
+		<ng-template #completedAdventure>
+			<div class="status-badge-wrapper">
+				<span class="status-badge completed-status">Aventure terminée</span>
+			</div>
+		</ng-template>
+	</div>
+</a>
