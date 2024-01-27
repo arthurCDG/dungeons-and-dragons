@@ -50,7 +50,6 @@ internal sealed class PlayersFactory
                         .ThenInclude(s => s.Position)
             .FirstAsync(c => c.Id == campaignId);
 
-        // TODO force dungeon master in interface until my program can handle autonomous monsters with AI
         int dungeonMasterId = campaign.DungeonMasterId
             ?? campaign.Players.FirstOrDefault()?.UserId
             ?? throw new InvalidProgramException("No dungeon master nor player found in campaign.");
@@ -64,7 +63,7 @@ internal sealed class PlayersFactory
         switch (adventure.Type)
         {
             case AdventureType.GoblinBandits:
-                monsters = ForgeGoblinBanditsAdventureMonsters(weapons, squares);
+                monsters = ForgeGoblinBanditsAdventureMonsters(dungeonMasterId, weapons, squares);
                 break;
             default:
                 throw new InvalidOperationException($"Unknown adventure type: {adventure.Type}.");
@@ -226,11 +225,12 @@ internal sealed class PlayersFactory
         throw new NotImplementedException($"Custom player creation is not yet implemented. Soon to be released.");
     }
 
-    private static List<PlayerDal> ForgeGoblinBanditsAdventureMonsters(List<WeaponDal> weapons, List<SquareDal> squares)
+    private static List<PlayerDal> ForgeGoblinBanditsAdventureMonsters(int dungeonMasterId, List<WeaponDal> weapons, List<SquareDal> squares)
         => new()
         {
             new PlayerDal
             {
+                UserId = dungeonMasterId,
                 Profile = new PlayerProfileDal
                 {
                     FirstName = "Zoc",
@@ -261,6 +261,7 @@ internal sealed class PlayersFactory
             },
             new PlayerDal
             {
+                UserId = dungeonMasterId,
                 Profile = new PlayerProfileDal
                 {
                     FirstName = "Slusb",
@@ -291,6 +292,7 @@ internal sealed class PlayersFactory
             },
             new PlayerDal
             {
+                UserId = dungeonMasterId,
                 Profile = new PlayerProfileDal
                 {
                     FirstName = "Klezz",
@@ -321,6 +323,7 @@ internal sealed class PlayersFactory
             },
             new PlayerDal
             {
+                UserId = dungeonMasterId,
                 Profile = new PlayerProfileDal
                 {
                     FirstName = "Guburk",
@@ -351,6 +354,7 @@ internal sealed class PlayersFactory
             },
             new PlayerDal
             {
+                UserId = dungeonMasterId,
                 Profile = new PlayerProfileDal
                 {
                     FirstName = "Praq",
@@ -381,6 +385,7 @@ internal sealed class PlayersFactory
             },
             new PlayerDal
             {
+                UserId = dungeonMasterId,
                 Profile = new PlayerProfileDal
                 {
                     FirstName = "Cukx",
