@@ -10,11 +10,7 @@
 		[class.wotl-campaign]="mainCampaign.type === 3"
 	>
 		<h1 class="white-title">{{ mainCampaign.name }}</h1>
-		<p class="white-description">Démarrée le {{ mainCampaign.startsAt }}</p>
-
-		<div class="call-to-action-wrapper">
-			<button class="base-button" disabled>[soon] Ajouter des joueurs à la campagne</button>
-		</div>
+		<p class="white-description">Démarrée le {{ mainCampaign.startsAt | date:'longDate' }}</p>
 
 		<ul>
 			<li *ngFor="let adventure of mainCampaign.adventures">
