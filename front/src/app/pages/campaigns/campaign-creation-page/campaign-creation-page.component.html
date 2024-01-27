@@ -56,13 +56,13 @@
 							<mat-label class="form-label white-description">Choisir le maître du donjon</mat-label>
 							<mat-select formControlName="dungeonMaster" aria-label="Select a user" class="form-input creatable-players-list">
 								<ng-container *ngFor="let user of users$ | async">
-									<mat-option [value]="user.id">
+									<mat-option [value]="user">
 										{{ user.name }}
 									</mat-option>
 								</ng-container>
 								<mat-select-trigger>
 									<div class="select-content white-description">
-										<span>{{ dungeonMasterCtrl.value! }}</span>
+										<span>{{ dungeonMasterCtrl.value?.name }}</span>
 										<span (click)="deleteDungeonMasterValue($event)">
 											<mat-icon>clear</mat-icon>
 										</span>
@@ -74,7 +74,9 @@
 				</div>
 			
 				<div class="main-button-wrapper">
-					<button class="form-input base-button" type="submit" [disabled]="campaignCreationForm.invalid">Créer la campagne</button>
+					<button class="form-input base-button" type="submit" [disabled]="campaignCreationForm.invalid">
+						Créer la campagne
+					</button>
 				</div>
 			</form>
 		</ng-container>
