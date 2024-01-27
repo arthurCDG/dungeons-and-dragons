@@ -5,6 +5,8 @@ import { MatRadioModule } from '@angular/material/radio';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ICreatablePlayer, IPlayerCreationPayload } from '../../models';
 import { CreatablePlayersService, PlayersService } from '../../services';
+import { HeaderComponent } from '../../components/header/header.component';
+import { CreatablePlayerCardComponent } from 'src/app/components/creatable-player-card/creatable-player-card.component';
 
 @Component({
   selector: 'app-player-creation-page',
@@ -12,7 +14,9 @@ import { CreatablePlayersService, PlayersService } from '../../services';
   imports: [
 	CommonModule,
 	ReactiveFormsModule,
-	MatRadioModule
+	MatRadioModule,
+	HeaderComponent,
+	CreatablePlayerCardComponent
   ],
   templateUrl: './player-creation-page.component.html',
   styleUrls: ['./player-creation-page.component.css'],
@@ -46,6 +50,10 @@ export class PlayerCreationPageComponent implements OnInit {
 
 		this.creatablePlayersService.getAsync(this.userId).subscribe(creatablePlayers => {
 			this.creatablePlayers = creatablePlayers;
+			if (this.creatablePlayers.length) {
+				this.selectedPlayer = this.creatablePlayers[0];
+			}
+
 			this.isLoading = false;
 		});
 
@@ -59,6 +67,8 @@ export class PlayerCreationPageComponent implements OnInit {
 			playerType: this.playerTypeCtrl.value!,
 		};
 
-		this.playersService.createAsync(this.userId, payload).subscribe(() => this.router.navigate(['../'], { relativeTo: this.activatedRoute }));
+		this.playersService.createAsync(this.userId, payload).subscribe(
+			() => this.router.navigate(['..'], { relativeTo: this.activatedRoute })
+		);
 	}
 }

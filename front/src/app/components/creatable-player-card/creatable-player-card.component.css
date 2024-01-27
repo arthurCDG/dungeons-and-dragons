@@ -1,0 +1,13 @@
+#creatable-player-wrapper {
+	display: flex;
+	justify-content: space-evenly;
+	align-items: center;
+}
+
+.creatable-player-information-wrapper {
+	max-width: 30vw;
+}
+
+.selected-player-img {
+	width: 15rem;
+}

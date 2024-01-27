@@ -1,0 +1,53 @@
+<div id="creatable-player-wrapper">
+	<div class="creatable-player-information-wrapper">
+		<h2>{{ player.firstName }}</h2>
+		<p>{{ player.description }}</p>
+	</div>
+
+	<div class="creatable-player-information-wrapper">
+		<h2>Attributs du joueur</h2>
+		<div>
+			<span>Points de vie : </span>
+			<span>{{ player.maxAttributes.maxLifePoints }}</span>
+		</div>
+		<div>
+			<span>Points de magie : </span>
+			<span>{{ player.maxAttributes.maxManaPoints }}</span>
+		</div>
+		<div>
+			<span>Points d'armure : </span>
+			<span>{{ player.maxAttributes.maxShield }}</span>
+		</div>
+		<div>
+			<span>Nombre de pas : </span>
+			<span>{{ player.maxAttributes.maxFootSteps }}</span>
+		</div>
+	</div>
+
+	<div class="creatable-player-information-wrapper">
+		<img
+			*ngIf="player?.firstName === 'Regdar'"
+			class="selected-player-img"
+			alt="Regdar image preview"
+			src="../../../assets/players/heroes/creatable-heroes-images/Regdar.webp"
+		>
+		<img
+			*ngIf="player?.firstName === 'Lidda'"
+			class="selected-player-img"
+			alt="Lidda image preview"
+			src="../../../assets/players/heroes/creatable-heroes-images/lidda 2.jpg"
+		>
+		<img
+			*ngIf="player?.firstName === 'Jozan'"
+			class="selected-player-img"
+			alt="Jozan image preview"
+			src="../../../assets/players/heroes/creatable-heroes-images/Jozan.jpg"
+		>
+		<img
+			*ngIf="player?.firstName === 'Mialye'"
+			class="selected-player-img"
+			alt="Mialye image preview"
+			src="../../../assets/players/heroes/creatable-heroes-images/Mialye.jpg"
+		>
+	</div>
+</div>
