@@ -31,14 +31,16 @@
 											{{ player.profile.firstName }}
 										</mat-option>
 									</ng-container>
-									<ng-container *ngIf="heroesCtrl.controls['hero_' + playerIndex]?.value">
-										<!-- <mat-select-trigger class="select-content white-description">
-											{{ heroesCtrl.controls["hero_" + playerIndex].value!.profile.firstName }}
-											<span (click)="onDeleteClicked($event, playerIndex)">
+									<mat-select-trigger>
+										<div class="select-content white-description">
+											<span>
+												{{ heroesCtrl.controls["hero_" + playerIndex].value?.profile?.firstName }}
+											</span>
+											<span (click)="deleteHeroesControlValue($event, playerIndex)">
 												<mat-icon>clear</mat-icon>
 											</span>
-										</mat-select-trigger> -->
-									</ng-container>
+										</div>
+									</mat-select-trigger>
 								</mat-select>
 							</mat-form-field>
 						</div>
@@ -58,12 +60,14 @@
 										{{ user.name }}
 									</mat-option>
 								</ng-container>
-								<!-- <mat-select-trigger class="select-content white-description">
-									{{ dungeonMasterCtrl.value! }}
-									<span (click)="onDeleteClicked($event, playerIndex)">
-										<mat-icon>clear</mat-icon>
-									</span>
-								</mat-select-trigger> -->
+								<mat-select-trigger>
+									<div class="select-content white-description">
+										<span>{{ dungeonMasterCtrl.value! }}</span>
+										<span (click)="deleteDungeonMasterValue($event)">
+											<mat-icon>clear</mat-icon>
+										</span>
+									</div>
+								</mat-select-trigger>
 							</mat-select>
 						</mat-form-field>
 					</div>

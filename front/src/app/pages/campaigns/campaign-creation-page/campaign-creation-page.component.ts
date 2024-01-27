@@ -94,10 +94,17 @@ export class CampaignCreationPageComponent implements OnInit {
 			.subscribe((campaign: ICampaign) => this.router.navigate(['..', campaign.id], { relativeTo: this.activatedRoute }));
 	}
 
-	onDeleteClicked(event: Event, index: number): void {
+	public deleteHeroesControlValue(event: Event, index: number): void {
 		event.stopPropagation();
 		this.heroesCtrl.controls[`hero_${index}`]?.setValue(null);
 	}
+
+	public deleteDungeonMasterValue(event: Event): void {
+		event.stopPropagation();
+		this.dungeonMasterCtrl.setValue(null);
+	}
+
+	
 }
 
 interface ICampaignCreationPageRouteData {
