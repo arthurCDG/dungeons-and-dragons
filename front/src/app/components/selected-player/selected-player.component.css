@@ -1,3 +1,6 @@
 #displayed-creatable-player {
-	max-width: 5rem;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }

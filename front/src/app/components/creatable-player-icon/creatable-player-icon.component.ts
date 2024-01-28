@@ -13,9 +13,9 @@ export class CreatablePlayerIconComponent {
 	@Input() public player: ICreatablePlayer;
 	@Input() public isSelected: boolean;
 
-	@Output() creatablePlayerIconSelected = new EventEmitter<ICreatablePlayer>();
+	@Output() playerSelected = new EventEmitter<ICreatablePlayer>();
 
 	public onSelectedPlayer(): void {
-		this.creatablePlayerIconSelected.emit(this.player);
+		this.playerSelected.emit(this.player);
 	}
 }

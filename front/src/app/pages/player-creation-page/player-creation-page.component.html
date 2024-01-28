@@ -13,8 +13,8 @@
 					<ng-container *ngFor="let player of creatablePlayers">
 						<app-creatable-player-icon
 							[player]="player"
-							[isSelected]="player.class === this.selectedPlayer?.class"
 							(playerSelected)="selectPlayer(player)"
+							[isSelected]="player.class === this.selectedPlayer?.class"
 						>
 						</app-creatable-player-icon>
 					</ng-container>

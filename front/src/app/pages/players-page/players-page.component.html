@@ -1,15 +1,11 @@
 <div id="players-page">
 	<div class="player-background">
 		<app-back-arrow text="Retour à la page d'accueil" link="../../.."></app-back-arrow>
-		<ng-container *ngIf="currentPlayer; else emptyCurrentPlayerState">
+		<ng-container *ngIf="currentPlayer">
 			<div class="displayed-player">
 				<app-selected-player [class]="currentPlayer.profile.class"></app-selected-player>
 			</div>
 		</ng-container>
-			
-		<ng-template #emptyCurrentPlayerState>
-			<img alt="Empty player picture" src="../../../assets/players/empty-player.png" />
-		</ng-template>
 	</div>
 		
 	<div id="player-cards-list">

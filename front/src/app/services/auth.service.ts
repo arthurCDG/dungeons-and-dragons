@@ -46,7 +46,6 @@ export class AuthService {
 
 	public getCurrentUserId(): Observable<number | null> {
 		const userId: string | null = this.getLocalUserId();
-		console.log('userId', userId);
 		
 		if (userId) {
 			return of(Number.parseInt(userId));
