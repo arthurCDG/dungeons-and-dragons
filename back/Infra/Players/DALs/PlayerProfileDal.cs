@@ -6,14 +6,15 @@ namespace dnd_infra.Players.DALs;
 internal sealed class PlayerProfileDal
 {
     public int Id { get; set; }
-    public HeroClass? Class { get; set; }
+    public int PlayerId { get; set; }
+
+    public required Class Class { get; set; }
     public required string FirstName { get; set; }
-    public PlayerGender Gender { get; set; }
+    public required PlayerGender Gender { get; set; }
     public required string ImageUrl { get; set; }
     public string? LastName { get; set; }
-    public MonsterType? MonsterType { get; set; }
-    public int PlayerId { get; set; }
-    public HeroRace? Race { get; set; }
+    public required Race Race { get; set; }
+    public required PlayerRole Role { get; set; }
 
     public PlayerProfile ToDomain()
         => new()
@@ -25,7 +26,6 @@ internal sealed class PlayerProfileDal
             Gender = Gender,
             ImageUrl = ImageUrl,
             Class = Class,
-            Race = Race,
-            MonsterType = MonsterType,
+            Race = Race
         };
 }

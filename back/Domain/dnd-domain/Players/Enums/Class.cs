@@ -1,6 +1,6 @@
 ﻿namespace dnd_domain.Players.Enums;
 
-public enum HeroClass
+public enum Class
 {
     Warrior,
     Necromant,
@@ -12,5 +12,9 @@ public enum HeroClass
     Wizard,
     Archer,
     Druid,
-    Bard
+    Bard,
+    Soldier,
+    Thief,
+    PackLeader,
+    MonstersKing
 }

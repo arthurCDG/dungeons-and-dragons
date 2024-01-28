@@ -14,8 +14,8 @@ public class Player
     public Square? Square { get; set; }
     public int? CampaignId { get; set; }
 
-    public PlayerProfile? Profile { get; set; } = null!;
-    public PlayerMaxAttributes? MaxAttributes { get; set; } = null!;
+    public required PlayerProfile Profile { get; set; }
+    public required PlayerMaxAttributes MaxAttributes { get; set; }
     public PlayerAttributes? Attributes { get; set; }
     public TurnOrder? TurnOrder { get; set; }
 

@@ -5,5 +5,5 @@ namespace dnd_domain.GameFlow.Models;
 public class CurrentPlayer
 {
     public int AdventureId { get; set; }
-    public Player Player { get; set; } = new();
+    public required Player Player { get; set; }
 }

@@ -2,14 +2,5 @@
 
 public enum MonsterType
 {
-    BugBear,
-    CarrionCrawler,
-    Goblin,
-    Ghost,
-    Gnoll,
-    Lich,
-    Medusa,
-    Ogre,
-    Skeleton,
-    Troll
+
 }

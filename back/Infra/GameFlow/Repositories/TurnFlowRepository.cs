@@ -1,5 +1,6 @@
 ﻿using dnd_domain.GameFlow.Models;
 using dnd_domain.GameFlow.Repositories;
+using dnd_domain.Players.Enums;
 using dnd_domain.Players.Models;
 using dnd_infra.Campaigns;
 using dnd_infra.GameFlow.DALs;
@@ -141,11 +142,11 @@ internal sealed class TurnFlowRepository : ITurnFlowRepository
             .SingleAsync();
 
         List<PlayerDal> heroes = campaign.Players
-            .Where(p => !p.IsDead && p.Profile!.Class.HasValue && p.Profile.Race.HasValue)
+            .Where(p => !p.IsDead && p.Profile!.Role == PlayerRole.Hero)
             .ToList();
 
         List<PlayerDal> monsters = campaign.Players
-            .Where(p => !p.IsDead && p.Profile!.MonsterType.HasValue)
+            .Where(p => !p.IsDead && p.Profile!.Role == PlayerRole.Monster)
             .ToList();
 
         List<int> playersOrders = Enumerable.Range(1, heroes.Count).ToList();

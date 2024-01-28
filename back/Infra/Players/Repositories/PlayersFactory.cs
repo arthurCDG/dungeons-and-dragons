@@ -80,9 +80,10 @@ internal sealed class PlayersFactory
             {
                 FirstName = "Regdar",
                 ImageUrl = "",
-                Race = HeroRace.Human,
-                Class = HeroClass.Warrior,
-                Gender = PlayerGender.Male
+                Race = Race.Human,
+                Class = Class.Warrior,
+                Gender = PlayerGender.Male,
+                Role = PlayerRole.Hero
             },
             MaxAttributes = new PlayerMaxAttributesDal
             {
@@ -113,9 +114,10 @@ internal sealed class PlayersFactory
             {
                 FirstName = "Lidda",
                 ImageUrl = "",
-                Race = HeroRace.Halfling,
-                Class = HeroClass.Rogue,
-                Gender = PlayerGender.Female
+                Race = Race.Halfling,
+                Class = Class.Rogue,
+                Gender = PlayerGender.Female,
+                Role = PlayerRole.Hero
             },
             MaxAttributes = new PlayerMaxAttributesDal
             {
@@ -151,9 +153,10 @@ internal sealed class PlayersFactory
             {
                 FirstName = "Jozan",
                 ImageUrl = "",
-                Race = HeroRace.Human,
-                Class = HeroClass.Cleric,
-                Gender = PlayerGender.Male
+                Race = Race.Human,
+                Class = Class.Cleric,
+                Gender = PlayerGender.Male,
+                Role = PlayerRole.Hero
             },
             MaxAttributes = new PlayerMaxAttributesDal
             {
@@ -189,9 +192,10 @@ internal sealed class PlayersFactory
             {
                 FirstName = "Mialye",
                 ImageUrl = "",
-                Race = HeroRace.Elf,
-                Class = HeroClass.Wizard,
-                Gender = PlayerGender.Female
+                Race = Race.Elf,
+                Class = Class.Wizard,
+                Gender = PlayerGender.Female,
+                Role = PlayerRole.Hero
             },
             MaxAttributes = new PlayerMaxAttributesDal
             {
@@ -234,9 +238,11 @@ internal sealed class PlayersFactory
                 Profile = new PlayerProfileDal
                 {
                     FirstName = "Zoc",
-                    MonsterType = MonsterType.Goblin,
+                    Race = Race.Goblin,
                     ImageUrl = "",
-                    Gender = PlayerGender.Male
+                    Gender = PlayerGender.Male,
+                    Role = PlayerRole.Monster,
+                    Class = Class.Thief
                 },
                 MaxAttributes = new PlayerMaxAttributesDal
                 {
@@ -265,9 +271,11 @@ internal sealed class PlayersFactory
                 Profile = new PlayerProfileDal
                 {
                     FirstName = "Slusb",
-                    MonsterType = MonsterType.Goblin,
+                    Race = Race.Goblin,
                     ImageUrl = "",
-                    Gender = PlayerGender.Male
+                    Gender = PlayerGender.Male,
+                    Role = PlayerRole.Monster,
+                    Class = Class.Thief
                 },
                 MaxAttributes = new PlayerMaxAttributesDal
                 {
@@ -296,9 +304,11 @@ internal sealed class PlayersFactory
                 Profile = new PlayerProfileDal
                 {
                     FirstName = "Klezz",
-                    MonsterType = MonsterType.Goblin,
+                    Race = Race.Goblin,
                     ImageUrl = "",
-                    Gender = PlayerGender.Male
+                    Gender = PlayerGender.Male,
+                    Role = PlayerRole.Monster,
+                    Class = Class.Thief
                 },
                 MaxAttributes = new PlayerMaxAttributesDal
                 {
@@ -327,9 +337,11 @@ internal sealed class PlayersFactory
                 Profile = new PlayerProfileDal
                 {
                     FirstName = "Guburk",
-                    MonsterType = MonsterType.Goblin,
+                    Race = Race.Goblin,
                     ImageUrl = "",
-                    Gender = PlayerGender.Male
+                    Gender = PlayerGender.Male,               
+                    Role = PlayerRole.Monster,
+                    Class = Class.Thief
                 },
                 MaxAttributes = new PlayerMaxAttributesDal
                 {
@@ -358,9 +370,11 @@ internal sealed class PlayersFactory
                 Profile = new PlayerProfileDal
                 {
                     FirstName = "Praq",
-                    MonsterType = MonsterType.Goblin,
+                    Race = Race.Goblin,
                     ImageUrl = "",
-                    Gender = PlayerGender.Male
+                    Gender = PlayerGender.Male,
+                    Role = PlayerRole.Monster,
+                    Class = Class.Thief
                 },
                 MaxAttributes = new PlayerMaxAttributesDal
                 {
@@ -389,9 +403,11 @@ internal sealed class PlayersFactory
                 Profile = new PlayerProfileDal
                 {
                     FirstName = "Cukx",
-                    MonsterType = MonsterType.Goblin,
+                    Race = Race.Goblin,
                     ImageUrl = "",
-                    Gender = PlayerGender.Male
+                    Gender = PlayerGender.Male,
+                    Role = PlayerRole.Monster,
+                    Class = Class.Thief
                 },
                 MaxAttributes = new PlayerMaxAttributesDal
                 {

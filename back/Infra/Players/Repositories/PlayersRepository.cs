@@ -1,4 +1,5 @@
 ﻿using dnd_domain.Campaigns.Adventures;
+using dnd_domain.Players.Enums;
 using dnd_domain.Players.Models;
 using dnd_domain.Players.Payloads;
 using dnd_domain.Players.Repositories;
@@ -68,11 +69,11 @@ internal sealed class PlayersRepository : IPlayersRepository
                 .ThenInclude(p => p.Profile)
             .FirstAsync(c => c.Id == campaignId);
 
-        List<PlayerDal> players = campaign.Players
-            .Where(p => p.Profile.MonsterType != null)
+        List<PlayerDal> monsters = campaign.Players
+            .Where(p => p.Profile.Role == PlayerRole.Monster)
             .ToList();
 
-        foreach (PlayerDal player in players)
+        foreach (PlayerDal player in monsters)
         {
             player.UserId = userId;
         }

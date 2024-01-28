@@ -41,7 +41,10 @@ internal sealed class CreatablePlayersService : ICreatablePlayersService
                 LastName = string.Empty,
                 Description = "Regdar est un guerrier humain qui a passé sa vie à se battre pour ce qu'il croit être juste. Il est grand et musclé, avec des cheveux noirs et des yeux bruns. Il porte une armure de plaques et une épée longue, et il est toujours prêt à se battre pour ce qu'il croit être juste.",
                 Type = PlayerType.Regdar,
-                MaxAttributes = PlayersAttributesHelper.RegdarLevel1MaxAttributes
+                Class = Class.Warrior,
+                Race = Race.Human,
+                Role = PlayerRole.Hero,
+                MaxAttributes = PlayersAttributesHelper.RegdarLevel1MaxAttributes,
             },
             // Lidda
             new CreatablePlayer
@@ -50,6 +53,9 @@ internal sealed class CreatablePlayersService : ICreatablePlayersService
                 LastName = string.Empty,
                 Description = "Lidda est une voleuse gnome extrêmement rusée. Sa phrase préférée : 'Les petites choses peuvent être féroces'.",
                 Type = PlayerType.Lidda,
+                Class = Class.Rogue,
+                Race = Race.Halfling,
+                Role = PlayerRole.Hero,
                 MaxAttributes = PlayersAttributesHelper.LiddaLevel1MaxAttributes
             },
             // Jozan
@@ -59,6 +65,9 @@ internal sealed class CreatablePlayersService : ICreatablePlayersService
                 LastName = string.Empty,
                 Description = "Jozan est un prêtre humain qui a passé sa vie à servir les dieux. Il est grand et mince, avec des cheveux noirs et des yeux bruns. Il porte une armure de plaques et une masse de guerre, et il est toujours prêt à servir les dieux.",
                 Type = PlayerType.Jozan,
+                Race = Race.Human,
+                Class = Class.Cleric,
+                Role = PlayerRole.Hero,
                 MaxAttributes = PlayersAttributesHelper.JozanLevel1MaxAttributes
             },
             // Mialye
@@ -68,7 +77,10 @@ internal sealed class CreatablePlayersService : ICreatablePlayersService
                 LastName = string.Empty,
                 Description = "Mialye est une magicienne elfe qui a passé sa vie à étudier la magie. Elle est grande et mince, avec des cheveux noirs et des yeux bruns. Elle porte une robe de mage et un bâton de mage, et elle est toujours prête à lancer des sorts.",
                 Type = PlayerType.Mialye,
-                MaxAttributes = PlayersAttributesHelper.MialyeLevel1MaxAttributes
+                Race= Race.Elf,
+                Class = Class.Wizard,
+                Role = PlayerRole.Hero,
+                MaxAttributes = PlayersAttributesHelper.MialyeLevel1MaxAttributes,
             }
         };
 }
