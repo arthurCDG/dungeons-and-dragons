@@ -16,6 +16,10 @@
 	margin: 2rem;
 }
 
+#displayed-creatable-player {
+	max-width: 5rem;
+}
+
 .creatable-player-icon {
 	display: flex;
 	flex-direction: column;

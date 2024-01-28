@@ -36,6 +36,16 @@
 					</ng-container>
 				</div>
 
+				<ng-container *ngIf="selectedPlayer">
+					<div id="displayed-creatable-player">
+						<img *ngIf="selectedPlayer.type === 2" alt="Regdar picture" src="../../../assets/players/heroes/fighter-male.png" />
+						<img *ngIf="selectedPlayer.type === 3" alt="Lidda picture" src="../../../assets/players/heroes/rogue-female.png" />
+						<img *ngIf="selectedPlayer.type === 4" alt="Jozan picture" src="../../../assets/players/heroes/paladin-male.png" />
+						<img *ngIf="selectedPlayer.type === 5" alt="Mialye picture" src="../../../assets/players/heroes/wizzard-female.png" />
+						<img *ngIf="selectedPlayer.type === 6" alt="Dungeon Master picture" src="../../../assets/players/monsters/Fomorian.png" />
+					</div>
+				</ng-container>
+
 				<!-- Selected player display -->
 				<ng-container *ngIf="selectedPlayer">
 					<app-creatable-player-card [player]="selectedPlayer"></app-creatable-player-card>
@@ -43,7 +53,14 @@
 			</div>
 
 			<div class="main-button-wrapper">
-				<button class="base-button" type="submit" [disabled]="playerCreationForm.invalid">Créer le joueur</button>
+				<button
+					(click)="onSubmit()"
+					class="base-button"
+					type="submit"
+					[disabled]="!selectedPlayer"
+				>
+					<span>Créer le joueur</span>
+				</button>
 			</div>
 		</ng-container>
 

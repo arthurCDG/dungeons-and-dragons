@@ -1,20 +1,16 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
-import { MatRadioModule } from '@angular/material/radio';
 import { ActivatedRoute, Router } from '@angular/router';
+import { CreatablePlayerCardComponent } from 'src/app/components/creatable-player-card/creatable-player-card.component';
+import { HeaderComponent } from '../../components/header/header.component';
 import { ICreatablePlayer, IPlayerCreationPayload } from '../../models';
 import { CreatablePlayersService, PlayersService } from '../../services';
-import { HeaderComponent } from '../../components/header/header.component';
-import { CreatablePlayerCardComponent } from 'src/app/components/creatable-player-card/creatable-player-card.component';
 
 @Component({
   selector: 'app-player-creation-page',
   standalone: true,
   imports: [
 	CommonModule,
-	ReactiveFormsModule,
-	MatRadioModule,
 	HeaderComponent,
 	CreatablePlayerCardComponent
   ],
@@ -31,14 +27,8 @@ export class PlayerCreationPageComponent implements OnInit {
 	public creatablePlayers: ICreatablePlayer[] = [];
 	public selectedPlayer?: ICreatablePlayer;
 	public isLoading: boolean = true;
-
-	playerTypeCtrl = this.fb.control(null);
-	playerCreationForm = this.fb.group({
-		playerType: this.playerTypeCtrl,
-	});
 	
 	constructor(
-		private readonly fb: FormBuilder,
 		private readonly playersService: PlayersService,
 		private readonly creatablePlayersService: CreatablePlayersService,
 		private readonly router: Router,
@@ -56,10 +46,6 @@ export class PlayerCreationPageComponent implements OnInit {
 
 			this.isLoading = false;
 		});
-
-		this.playerTypeCtrl.valueChanges.subscribe(playerType => {
-			this.selectedPlayer = this.creatablePlayers.find(creatablePlayer => creatablePlayer.type === playerType)
-		});
 	}
 
 	selectPlayer(player: ICreatablePlayer): void {
@@ -68,7 +54,7 @@ export class PlayerCreationPageComponent implements OnInit {
 
 	onSubmit(): void {
 		const payload: IPlayerCreationPayload = {
-			playerType: this.playerTypeCtrl.value!,
+			playerType: this.selectedPlayer!.type,
 		};
 
 		this.playersService.createAsync(this.userId, payload).subscribe(
