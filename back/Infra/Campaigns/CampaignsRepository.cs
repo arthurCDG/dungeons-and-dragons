@@ -22,6 +22,10 @@ internal sealed class CampaignsRepository : ICampaignsRepository
     public async Task<List<Campaign>> GetAsync(int playerId)
     {
         List<CampaignDal> campaigns = await _context.Campaigns
+            .Include(c => c.Players)
+                .ThenInclude(p => p.Profile)
+            .Include(c => c.Players)
+                .ThenInclude(p => p.MaxAttributes)
             .Where(c => c.Players.Any(p => p.Id == playerId))
             .ToListAsync();
 
@@ -33,6 +37,10 @@ internal sealed class CampaignsRepository : ICampaignsRepository
         CampaignDal dal = await _context.Campaigns
             .Include(c => c.Players)
                 .ThenInclude(p => p.StoredItems)
+            .Include(c => c.Players)
+                .ThenInclude(p => p.Profile)
+            .Include(c => c.Players)
+                .ThenInclude(p => p.MaxAttributes)
             .Include(c => c.Adventures)
                 .ThenInclude(a => a.Rooms)
                     .ThenInclude(r => r.Squares)
@@ -73,11 +81,8 @@ internal sealed class CampaignsRepository : ICampaignsRepository
             }
 
             List<PlayerDal> players = await _context.Players.Where(p => campaignPayload.PlayerIds.Contains(p.Id)).ToListAsync();
-            foreach (PlayerDal player in players)
-            {
-                player.CampaignId = campaign.Id;
-            }
 
+            campaign.Players.AddRange(players);
             await _context.SaveChangesAsync();
 
             return campaign.ToDomain();

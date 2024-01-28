@@ -16,8 +16,8 @@ internal sealed class PlayerDal
     public SquareDal? Square { get; set; }
     public int? UserId { get; set; }
 
-    public required PlayerProfileDal Profile { get; set; }
-    public required PlayerMaxAttributesDal MaxAttributes { get; set; }
+    public PlayerProfileDal? Profile { get; set; }
+    public PlayerMaxAttributesDal? MaxAttributes { get; set; }
     public PlayerAttributesDal? Attributes { get; set; }
     public TurnOrderDal? TurnOrder { get; set; }
 
@@ -32,9 +32,9 @@ internal sealed class PlayerDal
             CampaignId = CampaignId,
             IsAvailable = IsAvailable,
             IsDead = IsDead,
-            Profile = Profile.ToDomain(),
+            Profile = Profile?.ToDomain(),
             Attributes = Attributes?.ToDomain(),
-            MaxAttributes = MaxAttributes.ToDomain(),
+            MaxAttributes = MaxAttributes?.ToDomain(),
             TurnOrder = TurnOrder?.ToDomain(),
             StoredItems = StoredItems.ConvertAll(si => si.ToDomain())
         };

@@ -7,10 +7,15 @@
 			</div>
 		</ng-container>
 	</div>
-		
+
 	<div id="player-cards-list">
 		<ng-container *ngFor="let player of players">
-			<app-player-card [player]="player" [isSelected]="isSelected(player)" (playerSelected)="onPlayerSelected(player)"></app-player-card>
+			<app-player-card
+				[player]="player"
+				[isSelected]="isSelected(player)"
+				(playerSelected)="onPlayerSelected(player)"
+			>
+			</app-player-card>
 		</ng-container>
 		<div class="main-button-wrapper">
 			<a [routerLink]="['new']" class="link-button base-button">Créer un nouveau joueur</a>

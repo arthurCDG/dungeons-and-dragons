@@ -1,8 +1,7 @@
 ﻿using dnd_domain.Campaigns.Adventures;
 using dnd_domain.Campaigns.Adventures.Rooms.Squares;
+using dnd_domain.Players.Enums;
 using dnd_domain.Players.Models;
-using dnd_infra.Campaigns.Adventures;
-using dnd_infra.Campaigns.Adventures.Rooms;
 using dnd_infra.Campaigns.Adventures.Rooms.Squares.DALs;
 using dnd_infra.Players.DALs;
 using Microsoft.EntityFrameworkCore;
@@ -75,7 +74,7 @@ internal sealed class SquaresRepository : ISquaresRepository
 
     private async Task PlaceHeroesOnGoblinBanditsSquaresAsync(List<RoomDal> rooms, List<PlayerDal> players)
     {
-        List<PlayerDal> heroes = players.Where(p => p.Profile!.Class != null && p.Profile.Race != null).ToList();
+        List<PlayerDal> heroes = players.Where(p => p.Profile.Role == PlayerRole.Hero).ToList();
         List<SquareDal> squares = rooms.SelectMany(r => r.Squares).ToList();
 
         List<int> heroesSartingSquareIds = squares
