@@ -1,45 +1,59 @@
-<app-header></app-header>
+<div id="creation-page-background" class="body-background-image">
+	<app-header></app-header>
 
-<div class="page-description-wrapper">
-	<h2>Page de création de joueur</h2>
-</div>
+	<div class="page-description-wrapper">
+		<h2 class="white-title">Page de création de joueur</h2>
+	</div>
 
-<ng-container *ngIf="!isLoading; else loading">
-	<ng-container *ngIf="creatablePlayers.length; else emptyState">
-		<!-- Players list -->
-		<form (ngSubmit)="onSubmit()" [formGroup]="playerCreationForm" class="user-form">
-			<div class="form-element">
-				<label class="form-label">Choisir le joueur à créer</label>
-				<mat-radio-group formControlName="playerType" aria-label="Select an option" class="form-input creatable-players-list">
+	<ng-container *ngIf="!isLoading; else loading">
+		<ng-container *ngIf="creatablePlayers.length; else emptyState">
+			<div id="creatable-player-wrapper">
+				<div id="creatable-players-list">
+					<!-- Players list -->
 					<ng-container *ngFor="let player of creatablePlayers">
-						<mat-radio-button
-							type="radio"
-							[value]="player.type"
-							[attr.name]="player.type"
-							[checked]="selectedPlayer?.type == player.type"
+						<div
+							class="creatable-player-icon"
+							(click)="selectPlayer(player)"
+							[class.is-selected]="this.selectedPlayer?.type === player.type"
 						>
-							{{ player.firstName }}
-						</mat-radio-button>
+							<ng-container *ngIf="player.type === 2">
+								<img class="icon" src="../../../assets/hero-classes/haches.png" alt="player icon">
+							</ng-container>
+							<ng-container *ngIf="player.type === 3">
+								<img class="icon" src="../../../assets/hero-classes/epees.png" alt="player icon">
+							</ng-container>
+							<ng-container *ngIf="player.type === 4">
+								<img class="icon" src="../../../assets/hero-classes/religion.png" alt="player icon">
+							</ng-container>
+							<ng-container *ngIf="player.type === 5">
+								<img class="icon" src="../../../assets/hero-classes/baguette-magique.png" alt="player icon">
+							</ng-container>
+							<ng-container *ngIf="player.type === 6">
+								<img class="icon" src="../../../assets/players/skeleton-transparent.svg" alt="player icon">
+							</ng-container>
+							<span>{{ player.firstName }}</span>
+						</div>
 					</ng-container>
-				</mat-radio-group>
-			</div>
-			<div *ngIf="playerTypeCtrl.dirty && playerTypeCtrl.hasError('required')" class="error-message form-element">
-				Vous devez sélectionner un joueur.
-			</div>
-			<button class="form-element" type="submit" [disabled]="playerCreationForm.invalid">Créer le joueur</button>
-		</form>
+				</div>
 
-		<!-- Selected player display -->
-		<ng-container *ngIf="selectedPlayer">
-			<app-creatable-player-card [player]="selectedPlayer"></app-creatable-player-card>
+				<!-- Selected player display -->
+				<ng-container *ngIf="selectedPlayer">
+					<app-creatable-player-card [player]="selectedPlayer"></app-creatable-player-card>
+				</ng-container>
+			</div>
+
+			<div class="main-button-wrapper">
+				<button class="base-button" type="submit" [disabled]="playerCreationForm.invalid">Créer le joueur</button>
+			</div>
 		</ng-container>
+
+
+		<ng-template #emptyState>
+			<p>Vous avez débloqué et créé tous les joueurs créables (message à changer)</p>
+		</ng-template>
 	</ng-container>
 
-	<ng-template #emptyState>
-		<p>Vous avez débloqué et créé tous les joueurs créables (message à changer)</p>
+	<ng-template #loading>
+		<p>Chargement...</p>
 	</ng-template>
-</ng-container>
-
-<ng-template #loading>
-	<p>Chargement...</p>
-</ng-template>
+</div>

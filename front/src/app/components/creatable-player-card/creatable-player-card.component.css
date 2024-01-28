@@ -1,13 +1,27 @@
 #creatable-player-wrapper {
 	display: flex;
+	flex-direction: column;
 	justify-content: space-evenly;
 	align-items: center;
+	max-width: 30vw;
+	border-radius: var(--border-radius);
+	margin: 2rem;
+	padding: 2rem;
+	gap: 2rem;
+	background-color: rgba(255, 255, 255, 0.600);
 }
 
 .creatable-player-information-wrapper {
-	max-width: 30vw;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
 }
 
 .selected-player-img {
-	width: 15rem;
+	width: 4rem;
+	height: 4rem;
+	border-radius: 50%;
+	border: 2px solid black;
+	padding: 4px;
 }

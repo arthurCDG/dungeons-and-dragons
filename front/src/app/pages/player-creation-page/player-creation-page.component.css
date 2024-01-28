@@ -1,5 +1,33 @@
-.creatable-players-list {
+#creation-page-background {
+	background-image: url('../../../assets//background-images/1403496.jpg');
+}
+
+#creatable-players-list {
+	display: flex;
+	gap: 2rem;
+	border-radius: var(--border-radius);
+	background-color: rgba(255, 255, 255, 0.600);
+	padding: 2rem;
+}
+
+#creatable-player-wrapper {
+	display: flex;
+	justify-content: space-between;
+	margin: 2rem;
+}
+
+.creatable-player-icon {
 	display: flex;
 	flex-direction: column;
-	align-items: flex-start;
+	align-items: center;
+	justify-content: center;
+	gap: 1rem;
+	width: 8rem;
+	height: 8rem;
+	cursor: pointer;
+}
+
+.is-selected {
+	border: 2px solid gold;
+	border-radius: var(--border-radius);
 }

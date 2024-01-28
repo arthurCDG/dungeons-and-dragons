@@ -62,6 +62,10 @@ export class PlayerCreationPageComponent implements OnInit {
 		});
 	}
 
+	selectPlayer(player: ICreatablePlayer): void {
+		this.selectedPlayer = player;
+	}
+
 	onSubmit(): void {
 		const payload: IPlayerCreationPayload = {
 			playerType: this.playerTypeCtrl.value!,

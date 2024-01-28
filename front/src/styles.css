@@ -9,6 +9,10 @@ html, body { height: 100%; }
 
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
+.justified-text {
+	text-align: justify;
+}
+
 /* FORM COMMON STYLES */
 
 .form-title {
@@ -174,7 +178,6 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 .icon {
 	width: 3rem;
-	height: 2rem;
 }
 
 .lock-icon {
