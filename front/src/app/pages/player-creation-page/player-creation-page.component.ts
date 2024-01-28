@@ -62,7 +62,7 @@ export class PlayerCreationPageComponent implements OnInit {
 			race: this.selectedPlayer!.race,
 			class: this.selectedPlayer!.class,
 			firstName: this.selectedPlayer!.firstName,
-			playerGender: this.selectedPlayer!.gender,
+			gender: this.selectedPlayer!.gender,
 		};
 
 		this.playersService.createAsync(this.userId, payload).subscribe(

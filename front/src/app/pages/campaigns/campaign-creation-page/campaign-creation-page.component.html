@@ -8,7 +8,7 @@
 		<app-back-arrow link=".." text="Retour vers les campagnes"></app-back-arrow>
 
 		<div class="page-description-wrapper">
-			<h1 class="white-title">Page de création de la campagne: {{ selectedCampaign.name }}</h1>
+			<h1 class="white-title">{{ selectedCampaign.name }}</h1>
 		</div>
 
 		<!-- FORM -->
@@ -18,9 +18,14 @@
 				<h2 class="white-title form-title">Choix des héros pour la campagne</h2>
 				<!-- Players fields -->
 				<div class="form-section" formGroupName="heroes">
-					<ng-container *ngFor="let _ of [].constructor(selectedCampaign.maxPlayers); let playerIndex = index">
+					<div class="form-element">
+						<h3 class="white-description">Héro 1</h3>
+						<span class="white-description">Vous même</span>
+						<span class="white-description">({{ currentPlayer.profile.firstName }})</span>
+					</div>
+					<ng-container *ngFor="let _ of [].constructor(selectedCampaign.maxPlayers - 1); let playerIndex = index">
 						<div class="form-element">
-							<h3 class="white-description">Héro {{ playerIndex + 1}}</h3>
+							<h3 class="white-description">Héro {{ playerIndex + 2}}</h3>
 							<mat-form-field class="form-input">
 								<mat-label class="form-label white-description">Choisir le joueur</mat-label>
 								<mat-select

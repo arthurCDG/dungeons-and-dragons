@@ -90,7 +90,7 @@ export interface IAttackPayload {
 export interface IPlayerCreationPayload {
 	firstName: string;
 	lastName?: string | null;
-	playerGender: PlayerGender;
+	gender: PlayerGender;
 	imageUrl?: string | null;
 	class: Class;
 	race: Race;

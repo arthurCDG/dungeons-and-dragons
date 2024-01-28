@@ -10,7 +10,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { Observable } from 'rxjs';
 import { BackArrowComponent } from 'src/app/components/back-arrow/back-arrow.component';
 import { ICampaign, ICampaignPayload, ICreatableCampaign, IPlayer, IUserDto } from '../../../models';
-import { AvailableDungeonMastersService, AvailablePlayersService, CampaignsService } from '../../../services';
+import { AvailableDungeonMastersService, AvailablePlayersService, CampaignsService, PlayersService } from '../../../services';
 
 @Component({
   selector: 'app-campaign-creation-page',
@@ -28,16 +28,19 @@ import { AvailableDungeonMastersService, AvailablePlayersService, CampaignsServi
   providers: [
 	CampaignsService,
 	AvailableDungeonMastersService,
-	AvailablePlayersService
+	AvailablePlayersService,
+	PlayersService
   ]
 })
 export class CampaignCreationPageComponent implements OnInit {
 	public selectedCampaign: ICreatableCampaign;
+	public currentPlayer: IPlayer;
+	public isLoading: boolean = true;
 
 	public users$: Observable<IUserDto[]>;
 	public players$: Observable<IPlayer[]>;
-	public isLoading: boolean = true;
 	
+	private userId: number;
 	private playerId: number;
 	private routeData: ICampaignCreationPageRouteData;
 
@@ -51,6 +54,7 @@ export class CampaignCreationPageComponent implements OnInit {
 	constructor(
 		private readonly fb: FormBuilder,
 		private readonly campaignsService: CampaignsService,
+		private readonly playersService: PlayersService,
 		private readonly availableDungeonMastersService: AvailableDungeonMastersService,
 		private readonly availablePlayersService: AvailablePlayersService,
 		private readonly router: Router,
@@ -59,7 +63,11 @@ export class CampaignCreationPageComponent implements OnInit {
 	) { }
 
 	ngOnInit(): void {
-		this.activatedRoute.params.subscribe(params => this.playerId = Number(params['playerId']));
+		this.activatedRoute.params.subscribe(params => {
+			this.playerId = Number(params['playerId']);
+			this.userId = Number(params['userId']);
+		});
+		this.playersService.getByIdAsync(this.userId, this.playerId).subscribe(player => this.currentPlayer = player);
 
 		this.users$ = this.availableDungeonMastersService.getAsync();
 		this.players$ = this.availablePlayersService.getAsync();
@@ -78,7 +86,7 @@ export class CampaignCreationPageComponent implements OnInit {
 	}
 
 	onSubmit(): void {
-		const playerIds: number[] = [];
+		const playerIds: number[] = [this.playerId];
 		for (let heroField in this.heroesCtrl.controls) {
 			if (this.heroesCtrl.controls[heroField].value) {
 				playerIds.push(this.heroesCtrl.controls[heroField].value!.id);
