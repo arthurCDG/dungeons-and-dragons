@@ -1,5 +1,5 @@
 <div class="action-bar">
-	<ng-container *ngIf="userPlayer?.id === currentPlayer?.id; else currentPlayerMessage">
+	<ng-container *ngIf="userId === currentPlayer?.userId; else currentPlayerMessage">
 		<div class="action-bar-buttons">
 			<button
 				(click)="onMeleeAttackAsync()"
@@ -22,9 +22,7 @@
 
 	<ng-container *ngIf="currentPlayer">
 		<div class="current-player-card">
-			<h5>Joueur en cours</h5>
-			<img src="../../../assets/players/heroes/fighter-male.png" alt="regdar icon">
-			<p>{{ currentPlayer.profile.firstName }}</p>
+			<p>Joueur en cours : {{ currentPlayer.profile?.firstName }}</p>
 		</div>
 	</ng-container>
 </div>

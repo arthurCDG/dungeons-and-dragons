@@ -19,8 +19,8 @@ export interface IPlayer {
 	isDead: boolean;
 	squareId?: number;
 	square: ISquare;
-	profile: IProfile;
-	maxAttributes: IPlayerMaxAttributes;
+	profile?: IProfile;
+	maxAttributes?: IPlayerMaxAttributes;
 	attributes?: IPlayerAttributes;
 	turnOrder?: ITurnOrder;
 	storedItems: IStoredItem[];

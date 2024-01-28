@@ -5,28 +5,17 @@
 }
 
 .action-bar-buttons {
-	width: 100vw;
+	width: 50vw;
 	height: 10vh;
 	display: flex;
 	justify-content: flex-start;
 	align-items: center;
+	gap: 1rem;
 }
 
 .current-player-card {
-	width: 8rem;
-	height: 8rem;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-	border-radius: var(--border-radius);
-	border: 1px solid red;
-}
-
-.current-player-card > h3 {
-	
-}
-
-.current-player-card > img {
-	width: 3rem;
 }

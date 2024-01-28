@@ -37,7 +37,7 @@ internal sealed class TurnFlowRepository : ITurnFlowRepository
             .Include(p => p.Attributes)
             .Include(p => p.MaxAttributes)
             .Include(p => p.Profile)
-            .SingleAsync(h => h.Id == currentPlayer.PlayerId);
+            .FirstAsync(h => h.Id == currentPlayer.PlayerId);
 
         player.Attributes = new()
         {
@@ -65,24 +65,24 @@ internal sealed class TurnFlowRepository : ITurnFlowRepository
 
         int currentTurnOrder = turnOrders.Single(to => to.PlayerId == currentPlayer.PlayerId).Order;
         TurnOrderDal nextTurnOrder = turnOrders.FirstOrDefault(to => to.Order > currentTurnOrder) ?? turnOrders.First();
-        CurrentPlayerDal nextCurrentPlayer = ForgeNextCurrentPlayerDal(nextTurnOrder, adventureId);
+        ForgeNextCurrentPlayerDal(nextTurnOrder, adventureId);
         
         _context.CurrentPlayers.Remove(currentPlayer);
         await _context.SaveChangesAsync();
-        
+
+        CurrentPlayerDal nextCurrentPlayer = await GetCurrentPlayerDalAsync(adventureId);
         return nextCurrentPlayer.ToDomain();
     }
 
-    private CurrentPlayerDal ForgeNextCurrentPlayerDal(TurnOrderDal nextTurnOrder, int adventureId)
+    private void ForgeNextCurrentPlayerDal(TurnOrderDal nextTurnOrder, int adventureId)
     {
         CurrentPlayerDal nextCurrentPlayer = new()
         {
             PlayerId = nextTurnOrder.PlayerId,
             AdventureId = adventureId
         };
-        _context.Add(nextCurrentPlayer);
+        _context.CurrentPlayers.Add(nextCurrentPlayer);
         
-        return nextCurrentPlayer;
     }
 
     //public async Task EnableCurrentPlayerAsync(int adventureId)

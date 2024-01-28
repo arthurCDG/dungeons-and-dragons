@@ -16,8 +16,8 @@ internal sealed class PlayerDal
     public SquareDal? Square { get; set; }
     public int? UserId { get; set; }
 
-    public PlayerProfileDal? Profile { get; set; }
-    public PlayerMaxAttributesDal? MaxAttributes { get; set; }
+    public required PlayerProfileDal Profile { get; set; }
+    public required PlayerMaxAttributesDal MaxAttributes { get; set; }
     public PlayerAttributesDal? Attributes { get; set; }
     public TurnOrderDal? TurnOrder { get; set; }
 

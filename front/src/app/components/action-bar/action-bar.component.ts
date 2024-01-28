@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ICurrentPlayerDto, IPosition, ISquare } from '../../../app/models';
 import { IAttackPayload, IPlayer } from '../../models/players.models';
 import { AttacksService, GameFlowService } from '../../../app/services';
@@ -20,20 +20,25 @@ export class ActionBarComponent implements OnInit, OnChanges {
 
 	public canOpenDoor?: boolean;
 	public canMeleeAttack?: boolean;
+	public userId: number;
 	
 	private playerId: number;
 	private adventureId: number;
+	private campaignId: number;
 
 	constructor(
 		private readonly attacksService: AttacksService,
 		private readonly gameFlowService: GameFlowService,
-		private readonly activatedRoute: ActivatedRoute
+		private readonly activatedRoute: ActivatedRoute,
+		private readonly router: Router
 	) {}
 
 	ngOnInit(): void {
 		this.activatedRoute.params.subscribe(params => {
+			this.userId = Number(params['userId']);
 			this.playerId = Number(params['playerId']);
 			this.adventureId = Number(params['adventureId']);
+			this.campaignId = Number(params['campaignId']);
 		});
 
 		this.canOpenDoor = this.selectedSquare?.isDoor && this.isAdjacentPosition(this.selectedSquare?.position);
@@ -73,12 +78,17 @@ export class ActionBarComponent implements OnInit, OnChanges {
 	}
 
 	private setNextCurrentPlayer(): void {
-		this.gameFlowService.setNextCurrentPlayer(this.adventureId)
-							.subscribe((currentPlayer: ICurrentPlayerDto) => {
-								if (currentPlayer.player) {
-									this.currentPlayer = currentPlayer.player;
-								}
-							});
+		this.gameFlowService
+			.setNextCurrentPlayer(this.adventureId)
+			.subscribe((currentPlayer: ICurrentPlayerDto) => {
+				this.currentPlayer = currentPlayer.player;
+				
+				if (this.currentPlayer.userId === this.userId) {
+					this.router.navigateByUrl(
+						`users/${this.userId}/players/${this.currentPlayer.id}/campaigns/${this.campaignId}/adventures/${this.adventureId}`
+					);
+				}
+			});
 	}
 
 	private isAdjacentPosition = (targetPosition: IPosition): boolean => {
