@@ -23,20 +23,22 @@ internal sealed class PlayersFactory
         _context = globalDbContext ?? throw new ArgumentNullException(nameof(globalDbContext));
     }
 
+    /// <summary>
+    /// TODO ref this method to forge custom players in the future with all payload
+    /// </summary>
     public async Task<PlayerDal> ForgePlayerAsync(int userId, PlayerCreationPayload payload)
     {
         List<ArtefactDal> artefacts = await _context.Artefacts.ToListAsync();
         List<SpellDal> spells = await _context.Spells.ToListAsync();
         List<WeaponDal> weapons = await _context.Weapons.ToListAsync();
 
-        return payload.PlayerType switch
+        return payload.Class switch
         {
-            PlayerType.Regdar => ForgeRegdar(userId, artefacts, spells, weapons),
-            PlayerType.Lidda => ForgeLidda(userId, artefacts, spells, weapons),
-            PlayerType.Jozan => ForgeJozan(userId, artefacts, spells, weapons),
-            PlayerType.Mialye => ForgeMialye(userId, artefacts, spells, weapons),
-            PlayerType.Custom => ForgeCustomPlayer(userId, payload, artefacts, spells, weapons), // TODO
-            _ => throw new InvalidOperationException($"Unknown player type: {payload.PlayerType}.")
+            Class.Warrior => ForgeRegdar(userId, artefacts, spells, weapons),
+            Class.Rogue => ForgeLidda(userId, artefacts, spells, weapons),
+            Class.Cleric => ForgeJozan(userId, artefacts, spells, weapons),
+            Class.Wizard => ForgeMialye(userId, artefacts, spells, weapons),
+            _ => throw new InvalidOperationException($"Unknown player class: {payload.Class}.")
         };
     }
 
