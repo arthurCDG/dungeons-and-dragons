@@ -1,6 +1,8 @@
 <header *ngIf="!isLoading">
 	<nav class="nav-bar">
-		<img alt="logo" src="../../../assets/logo/dungeons-and-dragons.png" class="nav-logo" />
+		<a routerLink="">
+			<img alt="logo" src="../../../assets/logo/dungeons-and-dragons.png" class="nav-logo" />
+		</a>
 		<div class="nav-links">
 			<ng-container *ngIf="isLoggedIn; else loggedOut">
 				<a [routerLink]="['/users', userId, 'players']" class="link-button base-button nav-button">
