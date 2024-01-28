@@ -1,0 +1,22 @@
+<div
+	class="creatable-player-icon"
+	(click)="onSelectedPlayer()"
+	[class.is-selected]="isSelected"
+>
+	<ng-container *ngIf="player.class === 2">
+		<img class="icon" src="../../../assets/hero-classes/haches.png" alt="player icon">
+	</ng-container>
+	<ng-container *ngIf="player.class === 3">
+		<img class="icon" src="../../../assets/hero-classes/epees.png" alt="player icon">
+	</ng-container>
+	<ng-container *ngIf="player.class === 4">
+		<img class="icon" src="../../../assets/hero-classes/religion.png" alt="player icon">
+	</ng-container>
+	<ng-container *ngIf="player.class === 5">
+		<img class="icon" src="../../../assets/hero-classes/baguette-magique.png" alt="player icon">
+	</ng-container>
+	<ng-container *ngIf="player.class === 6">
+		<img class="icon" src="../../../assets/players/skeleton-transparent.svg" alt="player icon">
+	</ng-container>
+	<span>{{ player.firstName }}</span>
+</div>

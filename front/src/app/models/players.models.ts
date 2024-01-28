@@ -3,9 +3,12 @@ import { IStoredItem } from "./items.models";
 
 export interface ICreatablePlayer {
 	firstName: string;
-	lastName: string;
+	lastName?: string | null;
 	description: string;
-	type: PlayerType;
+	class: Class;
+	race: Race;
+	role: PlayerRole;
+	gender: PlayerGender;
 	maxAttributes: IPlayerMaxAttributes;
 }
 
@@ -53,12 +56,12 @@ export interface IProfile {
 	id: number;
 	playerId: number;
 	firstName: string;
-	lastName: string;
+	lastName?: string | null;
 	playerGender: PlayerGender;
-	imageUrl: string;
-	class?: HeroClass;
-	race?: HeroRace;
-	monsterType?: MonsterType;
+	imageUrl?: string | null;
+	class: Class;
+	race: Race;
+	role: PlayerRole;
 }
 
 export interface ITurnOrder {
@@ -85,13 +88,20 @@ export interface IAttackPayload {
 }
 
 export interface IPlayerCreationPayload {
-	playerType: PlayerType;
+	firstName: string;
+	lastName?: string | null;
+	playerGender: PlayerGender;
+	imageUrl?: string | null;
+	class: Class;
+	race: Race;
+	role: PlayerRole;
 }
 
 /* Enums */
 
-export enum HeroClass {
-	Warrior,
+export enum Class {
+    None = 0,
+    Warrior,
     Necromant,
     Healer,
     Fighter,
@@ -101,19 +111,21 @@ export enum HeroClass {
     Wizard,
     Archer,
     Druid,
-    Bard
+    Bard,
+    Soldier,
+    Thief,
+    PackLeader,
+    MonstersKing
 };
 
-export enum HeroRace {
-	Human,
+export enum Race {
+    None = 0,
+    Human,
     Elf,
     HalfElf,
     Halfling,
-    Dwarf
-};
-
-export enum MonsterType {
-	BugBear,
+    Dwarf,
+    BugBear,
     CarrionCrawler,
     Goblin,
     Ghost,
@@ -123,21 +135,17 @@ export enum MonsterType {
     Ogre,
     Skeleton,
     Troll
-}
+};
 
 export enum PlayerGender {
-	None,
+	None = 0,
     Male,
     Female,
     NonBinary
 }
 
-export enum PlayerType {
-	None,
-    Custom,
-    Regdar,
-    Lidda,
-    Jozian,
-    Mialye,
-    DungeonMaster
+export enum PlayerRole {
+	None = 0,
+    Hero = 1,
+    Monster = 2
 }

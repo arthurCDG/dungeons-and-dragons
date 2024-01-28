@@ -11,39 +11,17 @@
 				<div id="creatable-players-list">
 					<!-- Players list -->
 					<ng-container *ngFor="let player of creatablePlayers">
-						<div
-							class="creatable-player-icon"
-							(click)="selectPlayer(player)"
-							[class.is-selected]="this.selectedPlayer?.type === player.type"
+						<app-creatable-player-icon
+							[player]="player"
+							[isSelected]="player.class === this.selectedPlayer?.class"
+							(playerSelected)="selectPlayer(player)"
 						>
-							<ng-container *ngIf="player.type === 2">
-								<img class="icon" src="../../../assets/hero-classes/haches.png" alt="player icon">
-							</ng-container>
-							<ng-container *ngIf="player.type === 3">
-								<img class="icon" src="../../../assets/hero-classes/epees.png" alt="player icon">
-							</ng-container>
-							<ng-container *ngIf="player.type === 4">
-								<img class="icon" src="../../../assets/hero-classes/religion.png" alt="player icon">
-							</ng-container>
-							<ng-container *ngIf="player.type === 5">
-								<img class="icon" src="../../../assets/hero-classes/baguette-magique.png" alt="player icon">
-							</ng-container>
-							<ng-container *ngIf="player.type === 6">
-								<img class="icon" src="../../../assets/players/skeleton-transparent.svg" alt="player icon">
-							</ng-container>
-							<span>{{ player.firstName }}</span>
-						</div>
+						</app-creatable-player-icon>
 					</ng-container>
 				</div>
 
 				<ng-container *ngIf="selectedPlayer">
-					<div id="displayed-creatable-player">
-						<img *ngIf="selectedPlayer.type === 2" alt="Regdar picture" src="../../../assets/players/heroes/fighter-male.png" />
-						<img *ngIf="selectedPlayer.type === 3" alt="Lidda picture" src="../../../assets/players/heroes/rogue-female.png" />
-						<img *ngIf="selectedPlayer.type === 4" alt="Jozan picture" src="../../../assets/players/heroes/paladin-male.png" />
-						<img *ngIf="selectedPlayer.type === 5" alt="Mialye picture" src="../../../assets/players/heroes/wizzard-female.png" />
-						<img *ngIf="selectedPlayer.type === 6" alt="Dungeon Master picture" src="../../../assets/players/monsters/Fomorian.png" />
-					</div>
+					<app-selected-player [class]="selectedPlayer.class"></app-selected-player>
 				</ng-container>
 
 				<!-- Selected player display -->

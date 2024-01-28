@@ -1,19 +1,15 @@
 <div id="players-page">
 	<div class="player-background">
 		<app-back-arrow text="Retour à la page d'accueil" link="../../.."></app-back-arrow>
-		<div class="displayed-player">
-			<ng-container *ngIf="currentPlayer; else emptyCurrentPlayerState">
-				<img *ngIf="currentPlayer.profile.firstName === 'Regdar'" alt="Regdar picture" src="../../../assets/players/heroes/fighter-male.png" />
-				<img *ngIf="currentPlayer.profile.firstName === 'Lidda'" alt="Lidda picture" src="../../../assets/players/heroes/rogue-female.png" />
-				<img *ngIf="currentPlayer.profile.firstName === 'Jozan'" alt="Jozan picture" src="../../../assets/players/heroes/paladin-male.png" />
-				<img *ngIf="currentPlayer.profile.firstName === 'Mialye'" alt="Mialye picture" src="../../../assets/players/heroes/wizzard-female.png" />
-				<img *ngIf="currentPlayer.profile.monsterType" alt="Dungeon Master picture" src="../../../assets/players/monsters/Fomorian.png" />
-			</ng-container>
+		<ng-container *ngIf="currentPlayer; else emptyCurrentPlayerState">
+			<div class="displayed-player">
+				<app-selected-player [class]="currentPlayer.profile.class"></app-selected-player>
+			</div>
+		</ng-container>
 			
-			<ng-template #emptyCurrentPlayerState>
-				<img alt="Empty player picture" src="../../../assets/players/empty-player.png" />
-			</ng-template>
-		</div>
+		<ng-template #emptyCurrentPlayerState>
+			<img alt="Empty player picture" src="../../../assets/players/empty-player.png" />
+		</ng-template>
 	</div>
 		
 	<div id="player-cards-list">

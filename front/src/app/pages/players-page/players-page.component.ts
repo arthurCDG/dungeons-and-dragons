@@ -6,11 +6,12 @@ import { PlayerCardComponent } from 'src/app/components/player-card/player-card.
 import { IPlayer } from 'src/app/models';
 import { PlayersService } from '../../services';
 import { BackArrowComponent } from 'src/app/components/back-arrow/back-arrow.component';
+import { SelectedPlayerComponent } from 'src/app/components/selected-player/selected-player.component';
 
 @Component({
   selector: 'app-players-page',
   standalone: true,
-  imports: [CommonModule, RouterModule, PlayerCardComponent, BackArrowComponent],
+  imports: [CommonModule, RouterModule, PlayerCardComponent, BackArrowComponent, SelectedPlayerComponent],
   templateUrl: './players-page.component.html',
   styleUrls: ['./players-page.component.css'],
   providers: [PlayersService]

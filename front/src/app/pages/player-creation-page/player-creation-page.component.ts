@@ -1,10 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CreatablePlayerCardComponent } from 'src/app/components/creatable-player-card/creatable-player-card.component';
+import { CreatablePlayerCardComponent } from '../../components/creatable-player-card/creatable-player-card.component';
 import { HeaderComponent } from '../../components/header/header.component';
 import { ICreatablePlayer, IPlayerCreationPayload } from '../../models';
 import { CreatablePlayersService, PlayersService } from '../../services';
+import { SelectedPlayerComponent } from '../../components/selected-player/selected-player.component';
+import { CreatablePlayerIconComponent } from '../../components/creatable-player-icon/creatable-player-icon.component';
 
 @Component({
   selector: 'app-player-creation-page',
@@ -12,7 +14,9 @@ import { CreatablePlayersService, PlayersService } from '../../services';
   imports: [
 	CommonModule,
 	HeaderComponent,
-	CreatablePlayerCardComponent
+	CreatablePlayerCardComponent,
+	SelectedPlayerComponent,
+	CreatablePlayerIconComponent
   ],
   templateUrl: './player-creation-page.component.html',
   styleUrls: ['./player-creation-page.component.css'],
@@ -54,7 +58,11 @@ export class PlayerCreationPageComponent implements OnInit {
 
 	onSubmit(): void {
 		const payload: IPlayerCreationPayload = {
-			playerType: this.selectedPlayer!.type,
+			role: this.selectedPlayer!.role,
+			race: this.selectedPlayer!.race,
+			class: this.selectedPlayer!.class,
+			firstName: this.selectedPlayer!.firstName,
+			playerGender: this.selectedPlayer!.gender,
 		};
 
 		this.playersService.createAsync(this.userId, payload).subscribe(

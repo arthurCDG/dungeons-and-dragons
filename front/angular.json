@@ -4,10 +4,6 @@
 	"newProjectRoot": "projects",
 	"projects": {
 		"dnd-front": {
-			"i18n": {
-				"sourceLocale": "fr-FR",
-				"locales": {}
-			},
 			"projectType": "application",
 			"schematics": {},
 			"root": "",
