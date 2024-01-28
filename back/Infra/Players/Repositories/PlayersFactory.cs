@@ -24,7 +24,7 @@ internal sealed class PlayersFactory
     }
 
     /// <summary>
-    /// TODO ref this method to forge custom players in the future with all payload
+    /// TODO ref this method to forge custom players in the future with all payload properties.
     /// </summary>
     public async Task<PlayerDal> ForgePlayerAsync(int userId, PlayerCreationPayload payload)
     {

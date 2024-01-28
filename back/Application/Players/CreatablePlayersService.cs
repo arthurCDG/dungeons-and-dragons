@@ -44,6 +44,7 @@ internal sealed class CreatablePlayersService : ICreatablePlayersService
                 Class = Class.Warrior,
                 Race = Race.Human,
                 Role = PlayerRole.Hero,
+                Gender = PlayerGender.Male,
                 MaxAttributes = PlayersAttributesHelper.RegdarLevel1MaxAttributes,
             },
             // Lidda
@@ -56,6 +57,7 @@ internal sealed class CreatablePlayersService : ICreatablePlayersService
                 Class = Class.Rogue,
                 Race = Race.Halfling,
                 Role = PlayerRole.Hero,
+                Gender = PlayerGender.Female,
                 MaxAttributes = PlayersAttributesHelper.LiddaLevel1MaxAttributes
             },
             // Jozan
@@ -68,6 +70,7 @@ internal sealed class CreatablePlayersService : ICreatablePlayersService
                 Race = Race.Human,
                 Class = Class.Cleric,
                 Role = PlayerRole.Hero,
+                Gender = PlayerGender.Male,
                 MaxAttributes = PlayersAttributesHelper.JozanLevel1MaxAttributes
             },
             // Mialye
@@ -80,6 +83,7 @@ internal sealed class CreatablePlayersService : ICreatablePlayersService
                 Race= Race.Elf,
                 Class = Class.Wizard,
                 Role = PlayerRole.Hero,
+                Gender = PlayerGender.Female,
                 MaxAttributes = PlayersAttributesHelper.MialyeLevel1MaxAttributes,
             }
         };

@@ -2,6 +2,7 @@
 
 public enum Race
 {
+    None = 0,
     Human,
     Elf,
     HalfElf,

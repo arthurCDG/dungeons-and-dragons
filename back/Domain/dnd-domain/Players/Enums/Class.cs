@@ -2,6 +2,7 @@
 
 public enum Class
 {
+    None = 0,
     Warrior,
     Necromant,
     Healer,
