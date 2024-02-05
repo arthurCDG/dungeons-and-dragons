@@ -58,6 +58,25 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 	font-weight: 600;
 }
 
+input.ng-invalid && input.ng-dirty {
+	border: 3px red solid;
+}
+
+.user-form-page {
+	display: flex;
+	flex-direction: column;
+	margin: 3rem;
+}
+
+.userFormTitle {
+	margin-bottom: 3rem;
+}
+
+.user-form {
+	max-width: 400px;
+}
+
+
 /* PAGE STYLES */
 
 .page-description-wrapper {

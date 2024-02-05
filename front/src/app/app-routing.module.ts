@@ -1,13 +1,14 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { PlayersPageComponent } from './pages/players-page/players-page.component';
-import { UserAuthentificationComponent } from './pages/user-authentification/user-authentification.component';
 import { MainCampaignPageComponent } from './pages/campaigns/main-campaign-page/main-campaign-page.component';
 import { AdventurePageComponent } from './pages/adventure-page/adventure-page.component';
 import { PlayerCreationPageComponent } from './pages/player-creation-page/player-creation-page.component';
 import { CampaignCreationPageComponent } from './pages/campaigns/campaign-creation-page/campaign-creation-page.component';
 import { WelcomePageComponent } from './pages/welcome-page/welcome-page.component';
 import { CampaignsPageComponent } from './pages/campaigns/campaigns-page/campaigns-page.component';
+import { SignupComponent } from './pages/user-authentification/sign-up/sign-up.component';
+import { LoginComponent } from './pages/user-authentification/login/login.component';
 
 const routes: Routes = [
 	{
@@ -15,8 +16,12 @@ const routes: Routes = [
 		component: WelcomePageComponent
 	},
 	{
-		path: 'auth',
-		component: UserAuthentificationComponent
+		path: 'login',
+		component: LoginComponent
+	},
+	{
+		path: 'signup',
+		component: SignupComponent
 	},
 	{
 		path: 'users/:userId/players',

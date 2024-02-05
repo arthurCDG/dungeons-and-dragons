@@ -1,0 +1,24 @@
+<div class="user-form-page">
+	<h2 class="userFormTitle">Créer un compte utilisateur</h2>
+	<form (ngSubmit)="login()" [formGroup]="userForm" class="user-form">
+		<div class="form-element">
+			<label class="form-label">Nom d'utilisateur</label>
+			<input class="form-input" type="text" name="username" formControlName="username"/>
+		</div>
+		<div *ngIf="usernameCtrl.dirty && usernameCtrl.hasError('required')" class="error-message form-element">
+			Username is required
+		</div>
+		<div class="form-element">
+			<label class="form-label">Mot de passe</label>
+			<input class="form-input" type="password" name="password" formControlName="password" />
+		</div>
+		<div *ngIf="passwordCtrl.dirty && passwordCtrl.hasError('required')"  class="error-message form-element">
+			Password is required
+		</div>
+		<button class="form-element" type="submit" [disabled]="userForm.invalid">Enregistrer</button>
+	</form>
+</div>
+
+<nav>
+	<a routerLink="/signup">Se créer un compte</a>
+</nav>

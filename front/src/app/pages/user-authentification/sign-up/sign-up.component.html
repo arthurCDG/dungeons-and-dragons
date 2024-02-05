@@ -1,6 +1,7 @@
 <div class="user-form-page">
-	<h2 id="userFormTitle">Créer un compte utilisateur</h2>
+	<h2 class="userFormTitle">Créer un compte utilisateur</h2>
 	<form (ngSubmit)="signup()" [formGroup]="userForm" class="user-form">
+		<!-- Username -->
 		<div class="form-element">
 			<label class="form-label">Nom d'utilisateur</label>
 			<input class="form-input" type="text" name="username" formControlName="username"/>
@@ -11,6 +12,8 @@
 		<div *ngIf="usernameCtrl.dirty && usernameCtrl.hasError('minlength')" class="error-message form-element">
 			Username should be 3 characters min
 		</div>
+
+		<!-- Password -->
 		<div class="form-element">
 			<label class="form-label">Mot de passe</label>
 			<input class="form-input" type="password" name="password" formControlName="password" />
@@ -21,6 +24,21 @@
 		<div *ngIf="passwordCtrl.dirty && passwordCtrl.hasError('minlength')" class="error-message form-element">
 			Password should have at leadt 6 characters
 		</div>
+
+		<!-- Confirmed password -->
+		<div class="form-element">
+			<label class="form-label">Confirmer le mot de passe</label>
+			<input class="form-input" type="password" name="confirmedPassword" formControlName="confirmedPassword" />
+		</div>
+		<div *ngIf="confirmedPasswordCtrl.dirty && confirmedPasswordCtrl.hasError('PasswordNoMatch')" class="error-message form-element">
+			Les mots de passe ne correspondent pas
+		</div>
+
+		<!-- Submit button -->
 		<button class="form-element" type="submit" [disabled]="userForm.invalid">Enregistrer</button>
 	</form>
 </div>
+
+<nav>
+	<a routerLink="/login">Se connecter</a>
+</nav>

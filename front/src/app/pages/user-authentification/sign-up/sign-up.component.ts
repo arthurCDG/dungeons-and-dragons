@@ -1,26 +1,28 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { shareReplay } from 'rxjs';
-import { IAuthentifiedUser, ILoginPayload, IUserPayload } from '../../models/users.models';
-import { AuthService, UsersService } from '../../services';
+import { IAuthentifiedUser, IUserPayload } from '../../../models/users.models';
+import { AuthService, UsersService } from '../../../services';
+import { confirmPasswordValidator } from '../validators/confirm-password.validator';
 
 @Component({
-  selector: 'app-user-authentification',
+  selector: 'app-sign-up',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
-  templateUrl: './user-authentification.component.html',
-  styleUrls: ['./user-authentification.component.css'],
+  imports: [CommonModule, ReactiveFormsModule, RouterModule],
+  templateUrl: './sign-up.component.html',
   providers: [AuthService, UsersService]
 })
-export class UserAuthentificationComponent {
+export class SignupComponent {
 	usernameCtrl = this.fb.control('', [Validators.required, Validators.minLength(3)]);
 	passwordCtrl = this.fb.control('', [Validators.required, Validators.minLength(6)]);
+	confirmedPasswordCtrl = this.fb.control('', [Validators.required, Validators.minLength(6), confirmPasswordValidator]);
 	
 	userForm = this.fb.group({
 		username: this.usernameCtrl,
-		password: this.passwordCtrl
+		password: this.passwordCtrl,
+		confirmedPassword: this.confirmedPasswordCtrl
 	});
 	
 	constructor(
@@ -36,23 +38,6 @@ export class UserAuthentificationComponent {
 		};
 
 		this.authService.signupAsync(userPayload)
-			.pipe(shareReplay())
-			.subscribe((authentifiedUser: IAuthentifiedUser | null) => {
-				if (authentifiedUser)
-				{
-					this.authService.doLoginUser(authentifiedUser);
-					this .router.navigate(['..']);
-				}
-			})
-	}
-
-	public login(): void {
-		const loginPayload: ILoginPayload = {
-			userName: this.usernameCtrl.value!,
-			password: this.passwordCtrl.value!
-		};
-
-		this.authService.loginAsync(loginPayload)
 			.pipe(shareReplay())
 			.subscribe((authentifiedUser: IAuthentifiedUser | null) => {
 				if (authentifiedUser)
