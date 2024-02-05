@@ -3,7 +3,7 @@
 		<app-back-arrow text="Retour à la page d'accueil" link="../../.."></app-back-arrow>
 		<ng-container *ngIf="currentPlayer">
 			<div class="displayed-player">
-				<app-selected-player [class]="currentPlayer.profile.class"></app-selected-player>
+				<app-selected-player [class]="currentPlayer.profile!.class"></app-selected-player>
 			</div>
 		</ng-container>
 	</div>

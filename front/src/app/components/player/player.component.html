@@ -1,11 +1,11 @@
 <div class="square-element"
-	[class.regdar]="player.profile.firstName === 'Regdar'"
-	[class.mialye]="player.profile.firstName === 'Mialye'"
-	[class.lidda]="player.profile.firstName === 'Lidda'"
-	[class.jozian]="player.profile.firstName === 'Jozan'"
-	[class.bugBear]="player.profile.race === 6"
-	[class.goblin]="player.profile.race === 8"
-	[class.gnoll]="player.profile.race === 10"
+	[class.regdar]="player.profile?.firstName === 'Regdar'"
+	[class.mialye]="player.profile?.firstName === 'Mialye'"
+	[class.lidda]="player.profile?.firstName === 'Lidda'"
+	[class.jozian]="player.profile?.firstName === 'Jozan'"
+	[class.bugBear]="player.profile?.race === 6"
+	[class.goblin]="player.profile?.race === 8"
+	[class.gnoll]="player.profile?.race === 10"
 	[class.dead]="isDead"
 >
 </div>
