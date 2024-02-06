@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
-import { shareReplay } from 'rxjs';
+import { catchError, shareReplay } from 'rxjs';
 import { IAuthentifiedUser, IUserPayload } from '../../../models/users.models';
 import { AuthService, UsersService } from '../../../services';
 import { confirmPasswordValidator } from '../validators/confirm-password.validator';
@@ -38,13 +38,15 @@ export class SignupComponent {
 		};
 
 		this.authService.signupAsync(userPayload)
-			.pipe(shareReplay())
+			.pipe(
+				shareReplay(),
+				catchError(error => { throw error; }) // TODO handle error properly and display a message to the user (generic toast service ?)
+			)
 			.subscribe((authentifiedUser: IAuthentifiedUser | null) => {
-				if (authentifiedUser)
-				{
+				if (authentifiedUser) {
 					this.authService.doLoginUser(authentifiedUser);
 					this .router.navigate(['..']);
 				}
-			})
+			});
 	}
 }

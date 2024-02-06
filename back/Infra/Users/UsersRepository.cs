@@ -43,4 +43,7 @@ internal sealed class UsersRepository : IUsersRepository
 
         return user?.ToDomain();
     }
+
+    public Task<bool> UserNameExistsAsync(string userName)
+        => _dbContext.Users.AnyAsync(u => u.Name == userName);
 }

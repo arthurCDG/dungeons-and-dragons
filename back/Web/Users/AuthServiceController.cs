@@ -32,28 +32,11 @@ public class AuthServiceController : ControllerBase
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
     public async Task<ActionResult<AuthentifiedUserDto>> SignUpUserAsync([FromBody] UserPayload userPayload)
     {
-        User user = await _usersService.CreateAsync(userPayload);
-
-        var token = _authService.GenerateToken(user);
-
-        AuthentifiedUserDto authentifiedUserDto = new()
+        // TODO replace try catch with fluent result
+        try
         {
-            UserId = user.Id,
-            Token = token
-        };
+            User user = await _usersService.CreateAsync(userPayload);
 
-        return Ok(authentifiedUserDto); // TODO add validation before creation
-    }
-
-    [HttpPost("login")]
-    [ProducesResponseType(StatusCodes.Status201Created)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    [ProducesResponseType(StatusCodes.Status403Forbidden)]
-    public async Task<ActionResult<AuthentifiedUserDto>> LoginUserAsync([FromBody] LoginPayload loginPayload)
-    {
-        User? user = await _authService.AuthenticateAsync(loginPayload);
-        if (user is not null)
-        {
             var token = _authService.GenerateToken(user);
 
             AuthentifiedUserDto authentifiedUserDto = new()
@@ -64,7 +47,41 @@ public class AuthServiceController : ControllerBase
 
             return Ok(authentifiedUserDto);
         }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+    }
 
-        return NotFound("user not found");
+    [HttpPost("login")]
+    [ProducesResponseType(StatusCodes.Status201Created)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status403Forbidden)]
+    public async Task<ActionResult<AuthentifiedUserDto>> LoginUserAsync([FromBody] LoginPayload loginPayload)
+    {
+        // TODO replace try catch with fluent result
+        try
+        {
+            User? user = await _authService.AuthenticateAsync(loginPayload);
+            if (user is not null)
+            {
+                var token = _authService.GenerateToken(user);
+
+                AuthentifiedUserDto authentifiedUserDto = new()
+                {
+                    UserId = user.Id,
+                    Token = token
+                };
+
+                return Ok(authentifiedUserDto);
+            }
+
+            return NotFound("user not found");
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+
     }
 }

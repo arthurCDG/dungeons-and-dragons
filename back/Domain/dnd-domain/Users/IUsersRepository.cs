@@ -5,8 +5,10 @@ namespace dnd_domain.Users;
 
 public interface IUsersRepository
 {
+    Task<User> CreateAsync(UserPayload payload);
     Task<List<User>> GetAsync();
     Task<User> GetByIdAsync(int id);
-    Task<User> CreateAsync(UserPayload payload);
     Task<User?> GetFromLoginPayloadAsync(LoginPayload loginPayload);
+
+    Task<bool> UserNameExistsAsync(string userName);
 }
