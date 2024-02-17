@@ -1,11 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { AdventureType, IAdventure, ICampaign, ICreatableAdventure } from '../../../models';
-import { AdventuresService, CampaignsService, CreatableAdventuresService } from '../../../services';
 import { CommonModule } from '@angular/common';
-import { CreatableAdventureCardComponent } from '../../../components/creatable-adventure-card/creatable-adventure-card.component';
-import { AdventureCardComponent } from '../../../components/adventure-card/adventure-card.component';
-import { BackArrowComponent } from 'src/app/components/back-arrow/back-arrow.component';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, RouterModule } from '@angular/router';
+
+import { BackArrowComponent } from '../../../components/back-arrow/back-arrow.component';
+import { ICampaign, ICreatableAdventure } from '../../../models';
+import { AdventuresService, CampaignsService, CreatableAdventuresService } from '../../../services';
+import { CreatableAdventureCardComponent } from '../../../components/adventures/creatable-adventure-card/creatable-adventure-card.component';
+import { AdventureCardComponent } from '../../../components/adventures/adventure-card/adventure-card.component';
 
 @Component({
   selector: 'app-campaigns-page',

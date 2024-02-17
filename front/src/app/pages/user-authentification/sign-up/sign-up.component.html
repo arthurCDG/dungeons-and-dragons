@@ -39,6 +39,10 @@
 	</form>
 </div>
 
+<ng-container *ngIf="httpError">
+	<app-toast-message [httpError]="httpError"></app-toast-message>
+</ng-container>
+
 <nav>
 	<a routerLink="/login">Se connecter</a>
 </nav>

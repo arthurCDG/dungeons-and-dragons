@@ -1,12 +1,13 @@
-import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CampaignsService, CreatableCampaignsService } from '../../../services';
-import { ICampaign, ICreatableCampaign } from '../../../models';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import { ActivatedRoute, RouterModule } from '@angular/router';
-import { CampaignCardComponent } from 'src/app/components/campaign-card/campaign-card.component';
-import { CreatableCampaignCardComponent } from 'src/app/components/creatable-campaign-card/creatable-campaign-card.component';
-import { HeaderComponent } from 'src/app/components/header/header.component';
+
+import { HeaderComponent } from '../../../components/header/header.component';
+import { ICampaign, ICreatableCampaign } from '../../../models';
+import { CampaignsService, CreatableCampaignsService } from '../../../services';
+import { CampaignCardComponent } from '../../../components/campaigns/campaign-card/campaign-card.component';
+import { CreatableCampaignCardComponent } from '../../../components/campaigns/creatable-campaign-card/creatable-campaign-card.component';
 
 @Component({
   selector: 'app-campaigns-page',

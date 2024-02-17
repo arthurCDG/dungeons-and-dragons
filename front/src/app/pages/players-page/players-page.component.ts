@@ -1,12 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterModule } from '@angular/router';
-import { Observable } from 'rxjs';
-import { PlayerCardComponent } from 'src/app/components/player-card/player-card.component';
-import { IPlayer } from 'src/app/models';
+
+import { IPlayer } from '../../models';
 import { PlayersService } from '../../services';
-import { BackArrowComponent } from 'src/app/components/back-arrow/back-arrow.component';
-import { SelectedPlayerComponent } from 'src/app/components/selected-player/selected-player.component';
+import { BackArrowComponent } from '../../components/back-arrow/back-arrow.component';
+import { PlayerCardComponent } from '../../components/players/player-card/player-card.component';
+import { SelectedPlayerComponent } from '../../components/players/selected-player/selected-player.component';
 
 @Component({
   selector: 'app-players-page',

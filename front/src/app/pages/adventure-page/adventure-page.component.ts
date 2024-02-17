@@ -1,12 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterModule } from '@angular/router';
-import { ActionBarComponent } from '../../components/action-bar/action-bar.component';
-import { IAdventure, ICurrentPlayerDto, IPlayer, ISquare } from '../../models';
-import { SquareComponent } from '../../components/square/square.component';
-import { PlayersService, AdventuresService, GameFlowService, SquaresService } from '../../services';
-import { Observable } from 'rxjs';
 import { HeaderComponent } from 'src/app/components/header/header.component';
+import { ActionBarComponent } from '../../components/action-bar/action-bar.component';
+import { SquareComponent } from '../../components/squares/square/square.component';
+import { IAdventure, ICurrentPlayerDto, IPlayer, ISquare } from '../../models';
+import { AdventuresService, GameFlowService, PlayersService, SquaresService } from '../../services';
 
 @Component({
   selector: 'app-adventure-page',

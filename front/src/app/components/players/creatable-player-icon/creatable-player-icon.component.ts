@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { ICreatablePlayer } from '../../models';
+import { ICreatablePlayer } from '../../../models';
 
 @Component({
   selector: 'app-creatable-player-icon',

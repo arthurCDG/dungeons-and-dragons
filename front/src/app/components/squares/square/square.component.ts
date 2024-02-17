@@ -1,12 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
-import { PlayerComponent } from '../player/player.component';
-import { InteractiveElementComponent } from '../interactive-element/interactive-element.component';
-import { IMovement, IMovementRequestPayload, ISquare } from './../../../app/models/campaign.models';
-import { IPlayer } from '../../models/players.models';
-import { SquareMovementService, SquaresService } from './../../../app/services';
-import { DecorativeElementComponent } from '../decorative-element/decorative-element.component';
 import { ActivatedRoute } from '@angular/router';
+
+import { IMovement, IMovementRequestPayload, IPlayer, ISquare } from '../../../models';
+import { SquareMovementService, SquaresService } from '../../../services';
+import { PlayerComponent } from '../../players/player/player.component';
+import { DecorativeElementComponent } from '../decorative-element/decorative-element.component';
+import { InteractiveElementComponent } from '../interactive-element/interactive-element.component';
 
 @Component({
   selector: 'app-square',

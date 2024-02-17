@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Class } from '../../models';
+import { Class } from '../../../models';
 
 @Component({
   selector: 'app-selected-player',

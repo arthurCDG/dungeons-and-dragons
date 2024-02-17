@@ -1,12 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CreatablePlayerCardComponent } from '../../components/creatable-player-card/creatable-player-card.component';
+
 import { HeaderComponent } from '../../components/header/header.component';
+import { CreatablePlayerCardComponent } from '../../components/players/creatable-player-card/creatable-player-card.component';
+import { CreatablePlayerIconComponent } from '../../components/players/creatable-player-icon/creatable-player-icon.component';
+import { SelectedPlayerComponent } from '../../components/players/selected-player/selected-player.component';
 import { ICreatablePlayer, IPlayerCreationPayload } from '../../models';
 import { CreatablePlayersService, PlayersService } from '../../services';
-import { SelectedPlayerComponent } from '../../components/selected-player/selected-player.component';
-import { CreatablePlayerIconComponent } from '../../components/creatable-player-icon/creatable-player-icon.component';
 
 @Component({
   selector: 'app-player-creation-page',

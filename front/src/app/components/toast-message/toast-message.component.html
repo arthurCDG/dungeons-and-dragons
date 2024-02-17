@@ -1,0 +1,6 @@
+<div class="toast-wrapper"
+	[class.domain-error]="httpError.status === 400"
+	[class.technical-error]="httpError.status === 500"
+>
+	<p>{{ httpError.error.message }}</p>
+</div>
