@@ -1,7 +1,9 @@
 ﻿using dnd_application.Users;
 using dnd_domain.Users;
+using FluentResults;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 using Swashbuckle.AspNetCore.Annotations;
@@ -32,25 +34,22 @@ public class AuthServiceController : ControllerBase
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
     public async Task<ActionResult<AuthentifiedUserDto>> SignUpUserAsync([FromBody] UserPayload userPayload)
     {
-        // TODO replace try catch with fluent result
-        try
+        Result<User> result = await _usersService.CreateAsync(userPayload);
+
+        if (result.IsFailed)
         {
-            User user = await _usersService.CreateAsync(userPayload);
-
-            var token = _authService.GenerateToken(user);
-
-            AuthentifiedUserDto authentifiedUserDto = new()
-            {
-                UserId = user.Id,
-                Token = token
-            };
-
-            return Ok(authentifiedUserDto);
+            return BadRequest(result.Errors[0]);
         }
-        catch (Exception ex)
+
+        var token = _authService.GenerateToken(result.Value);
+
+        AuthentifiedUserDto authentifiedUserDto = new()
         {
-            return BadRequest(ex.Message);
-        }
+            UserId = result.Value.Id,
+            Token = token
+        };
+
+        return Ok(authentifiedUserDto);
     }
 
     [HttpPost("login")]
@@ -59,29 +58,26 @@ public class AuthServiceController : ControllerBase
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
     public async Task<ActionResult<AuthentifiedUserDto>> LoginUserAsync([FromBody] LoginPayload loginPayload)
     {
-        // TODO replace try catch with fluent result
-        try
+        Result<User?> result = await _authService.AuthenticateAsync(loginPayload);
+
+        if (result.IsFailed)
         {
-            User? user = await _authService.AuthenticateAsync(loginPayload);
-            if (user is not null)
+            return BadRequest(result.Errors[0]);
+        }
+
+        if (result.Value is not null)
+        {
+            var token = _authService.GenerateToken(result.Value);
+
+            AuthentifiedUserDto authentifiedUserDto = new()
             {
-                var token = _authService.GenerateToken(user);
+                UserId = result.Value.Id,
+                Token = token
+            };
 
-                AuthentifiedUserDto authentifiedUserDto = new()
-                {
-                    UserId = user.Id,
-                    Token = token
-                };
-
-                return Ok(authentifiedUserDto);
-            }
+            return Ok(authentifiedUserDto);
+        }
 
             return NotFound("user not found");
-        }
-        catch (Exception ex)
-        {
-            return BadRequest(ex.Message);
-        }
-
     }
 }

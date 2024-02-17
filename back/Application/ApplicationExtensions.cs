@@ -26,7 +26,7 @@ public static class ApplicationExtensions
                 .AddScoped<IAuthService, AuthService>()
                 .AddScoped<IAvailableUsersService, AvailableUsersService>()
                 .AddScoped<IAvailablePlayersService, AvailablePlayersService>()
-                .AddScoped<UserValidationService>();
+                .AddScoped<IUserValidationService, UserValidationService>();
         
     }
 }

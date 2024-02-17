@@ -1,9 +1,10 @@
 ﻿using dnd_domain.Users;
+using FluentResults;
 using System.Threading.Tasks;
 
 namespace dnd_application.Users.ValidationServices;
 
-internal sealed class UserValidationService
+internal sealed class UserValidationService : IUserValidationService
 {
     private readonly IUsersRepository _usersRepository;
 
@@ -12,31 +13,31 @@ internal sealed class UserValidationService
         _usersRepository = usersRepository;
     }
 
-    public async Task<bool> IsValidUserPayloadAsync(UserPayload userPayload)
+    public async Task<Result> ValidateUserPayloadAsync(UserPayload userPayload)
     {
         if (string.IsNullOrWhiteSpace(userPayload.UserName))
-            return false;
+            return new Result().WithError("UserName is required");
 
         if (string.IsNullOrWhiteSpace(userPayload.Password))
-            return false;
+            return new Result().WithError("Password is required");
 
         if (await _usersRepository.UserNameExistsAsync(userPayload.UserName))
-            return false;
+            return new Result().WithError("UserName already exists.");
 
-        return true;
+        return new Result();
     }
 
-    public async Task<bool> IsValidLoginPayloadAsync(LoginPayload loginPayload)
+    public async Task<Result> ValidateLoginPayloadAsync(LoginPayload loginPayload)
     {
         if (string.IsNullOrWhiteSpace(loginPayload.UserName))
-            return false;
+            return new Result().WithError("UserName is required");
 
         if (string.IsNullOrWhiteSpace(loginPayload.Password))
-            return false;
+            return new Result().WithError("Password is required");
 
-        if (await _usersRepository.UserNameExistsAsync(loginPayload.UserName))
-            return true;
+        if (!await _usersRepository.UserNameExistsAsync(loginPayload.UserName))
+            return new Result().WithError("UserName does not exist.");
 
-        return false;
+        return new Result();
     }
 }

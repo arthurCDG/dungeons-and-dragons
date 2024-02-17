@@ -1,4 +1,5 @@
 ﻿using dnd_domain.Users;
+using FluentResults;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -8,6 +9,6 @@ public interface IUsersService
 {
     Task<List<User>> GetAsync();
     Task<User> GetByIdAsync(int id);
-    Task<User> CreateAsync(UserPayload userPayload);
-    Task<User?> GetFromLoginPayloadAsync(LoginPayload loginPayload);
+    Task<Result<User>> CreateAsync(UserPayload userPayload);
+    Task<Result<User?>> GetFromLoginPayloadAsync(LoginPayload loginPayload);
 }

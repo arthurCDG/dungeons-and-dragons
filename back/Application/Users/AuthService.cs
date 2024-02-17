@@ -1,4 +1,5 @@
 ﻿using dnd_domain.Users;
+using FluentResults;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System;
@@ -40,6 +41,6 @@ internal class AuthService : IAuthService
         return new JwtSecurityTokenHandler().WriteToken(token);
     }
 
-    public Task<User?> AuthenticateAsync(LoginPayload loginPayload)
+    public Task<Result<User?>> AuthenticateAsync(LoginPayload loginPayload)
         => _usersService.GetFromLoginPayloadAsync(loginPayload);
 }

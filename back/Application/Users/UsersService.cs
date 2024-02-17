@@ -1,6 +1,6 @@
 ﻿using dnd_application.Users.ValidationServices;
 using dnd_domain.Users;
-using System;
+using FluentResults;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -9,9 +9,9 @@ namespace dnd_application.Users;
 internal sealed class UsersService : IUsersService
 {
     private readonly IUsersRepository _usersRepository;
-    private readonly UserValidationService _validationService;
+    private readonly IUserValidationService _validationService;
 
-    public UsersService(IUsersRepository usersRepository, UserValidationService validationService)
+    public UsersService(IUsersRepository usersRepository, IUserValidationService validationService)
     {
         _usersRepository = usersRepository;
         _validationService = validationService;
@@ -23,21 +23,23 @@ internal sealed class UsersService : IUsersService
     public Task<User> GetByIdAsync(int id)
         => _usersRepository.GetByIdAsync(id);
 
-    public async Task<User> CreateAsync(UserPayload userPayload)
+    public async Task<Result<User>> CreateAsync(UserPayload userPayload)
     {
-        if (!await _validationService.IsValidUserPayloadAsync(userPayload))
+        Result result = await _validationService.ValidateUserPayloadAsync(userPayload);
+        if (result.IsFailed)
         {
-            throw new ArgumentException("Invalid user payload"); // TODO Should be a fluent result
+            return result;
         }
 
         return await _usersRepository.CreateAsync(userPayload);
     }
 
-    public async Task<User?> GetFromLoginPayloadAsync(LoginPayload loginPayload)
+    public async Task<Result<User?>> GetFromLoginPayloadAsync(LoginPayload loginPayload)
     {
-        if (!await _validationService.IsValidLoginPayloadAsync(loginPayload))
+        Result result = await _validationService.ValidateLoginPayloadAsync(loginPayload);
+        if (result.IsFailed)
         {
-            throw new ArgumentException("Invalid login payload"); // TODO Should be a fluent result
+            return result;
         }
 
         return await _usersRepository.GetFromLoginPayloadAsync(loginPayload);
