@@ -80,7 +80,7 @@ internal sealed class PlayersFactory
         {
             Profile = new PlayerProfileDal
             {
-                FirstName = "Regdar",
+                Name = "Regdar",
                 ImageUrl = "",
                 Race = Race.Human,
                 Class = Class.Warrior,
@@ -114,7 +114,7 @@ internal sealed class PlayersFactory
         {
             Profile = new PlayerProfileDal
             {
-                FirstName = "Lidda",
+                Name = "Lidda",
                 ImageUrl = "",
                 Race = Race.Halfling,
                 Class = Class.Rogue,
@@ -153,7 +153,7 @@ internal sealed class PlayersFactory
         {
             Profile = new PlayerProfileDal
             {
-                FirstName = "Jozan",
+                Name = "Jozan",
                 ImageUrl = "",
                 Race = Race.Human,
                 Class = Class.Cleric,
@@ -192,7 +192,7 @@ internal sealed class PlayersFactory
         {
             Profile = new PlayerProfileDal
             {
-                FirstName = "Mialye",
+                Name = "Mialye",
                 ImageUrl = "",
                 Race = Race.Elf,
                 Class = Class.Wizard,
@@ -239,7 +239,7 @@ internal sealed class PlayersFactory
                 UserId = dungeonMasterId,
                 Profile = new PlayerProfileDal
                 {
-                    FirstName = "Zoc",
+                    Name = "Zoc",
                     Race = Race.Goblin,
                     ImageUrl = "",
                     Gender = PlayerGender.Male,
@@ -272,7 +272,7 @@ internal sealed class PlayersFactory
                 UserId = dungeonMasterId,
                 Profile = new PlayerProfileDal
                 {
-                    FirstName = "Slusb",
+                    Name = "Slusb",
                     Race = Race.Goblin,
                     ImageUrl = "",
                     Gender = PlayerGender.Male,
@@ -305,7 +305,7 @@ internal sealed class PlayersFactory
                 UserId = dungeonMasterId,
                 Profile = new PlayerProfileDal
                 {
-                    FirstName = "Klezz",
+                    Name = "Klezz",
                     Race = Race.Goblin,
                     ImageUrl = "",
                     Gender = PlayerGender.Male,
@@ -338,7 +338,7 @@ internal sealed class PlayersFactory
                 UserId = dungeonMasterId,
                 Profile = new PlayerProfileDal
                 {
-                    FirstName = "Guburk",
+                    Name = "Guburk",
                     Race = Race.Goblin,
                     ImageUrl = "",
                     Gender = PlayerGender.Male,               
@@ -371,7 +371,7 @@ internal sealed class PlayersFactory
                 UserId = dungeonMasterId,
                 Profile = new PlayerProfileDal
                 {
-                    FirstName = "Praq",
+                    Name = "Praq",
                     Race = Race.Goblin,
                     ImageUrl = "",
                     Gender = PlayerGender.Male,
@@ -404,7 +404,7 @@ internal sealed class PlayersFactory
                 UserId = dungeonMasterId,
                 Profile = new PlayerProfileDal
                 {
-                    FirstName = "Cukx",
+                    Name = "Cukx",
                     Race = Race.Goblin,
                     ImageUrl = "",
                     Gender = PlayerGender.Male,

@@ -14,9 +14,29 @@ internal sealed class PlayerProfileDalConfiguration : IEntityTypeConfiguration<P
 
         builder.HasKey(p => p.Id);
 
-        builder.Property(p => p.Gender).HasConversion(new EnumToStringConverter<PlayerGender>());
-        builder.Property(p => p.Class).HasConversion(new EnumToStringConverter<Class>());
-        builder.Property(p => p.Race).HasConversion(new EnumToStringConverter<Race>());
-        builder.Property(p => p.Role).HasConversion(new EnumToStringConverter<PlayerRole>());
+        builder.Property(p => p.Id)
+               .ValueGeneratedOnAdd();
+
+        builder.Property(p => p.Name)
+               .HasMaxLength(55);
+
+        builder.Property(p => p.ImageUrl)
+               .HasMaxLength(255);
+
+        builder.Property(p => p.Gender)
+               .HasMaxLength(55)
+               .HasConversion(new EnumToStringConverter<PlayerGender>());
+
+        builder.Property(p => p.Class)
+               .HasMaxLength(55)
+               .HasConversion(new EnumToStringConverter<Class>());
+
+        builder.Property(p => p.Race)
+               .HasMaxLength(55)
+               .HasConversion(new EnumToStringConverter<Race>());
+
+        builder.Property(p => p.Role)
+               .HasMaxLength(55)
+               .HasConversion(new EnumToStringConverter<PlayerRole>());
     }
 }

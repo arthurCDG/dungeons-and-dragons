@@ -13,24 +13,27 @@ internal sealed class PlayerDalConfiguration : IEntityTypeConfiguration<PlayerDa
 
         builder.HasKey(p => p.Id);
 
+        builder.Property(u => u.Id)
+               .ValueGeneratedOnAdd();
+
         builder.HasOne(p => p.Profile)
-            .WithOne()
-            .HasForeignKey<PlayerProfileDal>(pp => pp.PlayerId)
-            .OnDelete(DeleteBehavior.Cascade);
+               .WithOne()
+               .HasForeignKey<PlayerProfileDal>(pp => pp.PlayerId)
+               .OnDelete(DeleteBehavior.Cascade);
 
         builder.HasOne(p => p.Attributes)
-            .WithOne()
-            .HasForeignKey<PlayerAttributesDal>(pp => pp.PlayerId)
-            .OnDelete(DeleteBehavior.Cascade);
+               .WithOne()
+               .HasForeignKey<PlayerAttributesDal>(pp => pp.PlayerId)
+               .OnDelete(DeleteBehavior.Cascade);
 
         builder.HasOne(p => p.MaxAttributes)
-            .WithOne()
-            .HasForeignKey<PlayerMaxAttributesDal>(pp => pp.PlayerId)
-            .OnDelete(DeleteBehavior.Cascade);
+               .WithOne()
+               .HasForeignKey<PlayerMaxAttributesDal>(pp => pp.PlayerId)
+               .OnDelete(DeleteBehavior.Cascade);
 
         builder.HasOne(p => p.Square)
-            .WithOne()
-            .HasForeignKey<PlayerDal>(p => p.SquareId)
-            .OnDelete(DeleteBehavior.Restrict);
+               .WithOne()
+               .HasForeignKey<PlayerDal>(p => p.SquareId)
+               .OnDelete(DeleteBehavior.Restrict);
     }
 }

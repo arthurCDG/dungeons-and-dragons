@@ -11,6 +11,27 @@ internal sealed class UserDalConfiguration : IEntityTypeConfiguration<UserDal>
 
         builder.HasKey(u => u.Id);
 
+        builder.Property(u => u.Id)
+               .ValueGeneratedOnAdd();
+
+        builder.Property(u => u.Name)
+               .HasMaxLength(55);
+
+        builder.Property(u => u.Password)
+               .HasMaxLength(255);
+
+        builder.Property(u => u.PasswordHash)
+               .HasMaxLength(255);
+
+        builder.Property(u => u.PasswordResetToken)
+               .HasMaxLength(255);
+
+        builder.Property(u => u.PasswordSalt)
+               .HasMaxLength(255);
+
+        builder.Property(u => u.PictureUrl)
+               .HasMaxLength(255);
+
         builder.HasMany(u => u.Players)
                .WithOne()
                .HasForeignKey(p => p.UserId)

@@ -24,7 +24,7 @@ internal sealed class CreatablePlayersService : ICreatablePlayersService
         List<CreatablePlayer> creatablePlayers = GetCreatablePlayers();
         
         List<Player> alreadyCreatedPlayers = await _playersRepository.GetAsync(userId);
-        creatablePlayers.RemoveAll(cp => alreadyCreatedPlayers.Any(acp => acp.Profile.FirstName == cp.FirstName));
+        creatablePlayers.RemoveAll(cp => alreadyCreatedPlayers.Any(acp => acp.Profile.Name == cp.FirstName));
 
         // TODO Remove players that are not unlocked by the user (based on adventures and campaigns done for now - later on some more precise achievements and logic)
         

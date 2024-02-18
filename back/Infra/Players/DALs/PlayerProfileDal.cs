@@ -9,10 +9,9 @@ internal sealed class PlayerProfileDal
     public int PlayerId { get; set; }
 
     public required Class Class { get; set; }
-    public required string FirstName { get; set; }
     public required PlayerGender Gender { get; set; }
     public string? ImageUrl { get; set; }
-    public string? LastName { get; set; }
+    public required string Name { get; set; }
     public required Race Race { get; set; }
     public required PlayerRole Role { get; set; }
 
@@ -21,11 +20,10 @@ internal sealed class PlayerProfileDal
         {
             Id = Id,
             PlayerId = PlayerId,
-            FirstName = FirstName,
-            LastName = LastName,
+            Class = Class,
             Gender = Gender,
             ImageUrl = ImageUrl,
-            Class = Class,
+            Name = Name,
             Race = Race
         };
 }

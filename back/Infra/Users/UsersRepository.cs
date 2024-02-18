@@ -46,7 +46,6 @@ internal sealed class UsersRepository : IUsersRepository
     {
         UserDal? user = await _dbContext.Users.FirstOrDefaultAsync(u => u.Name.Equals(loginPayload.UserName, StringComparison.CurrentCultureIgnoreCase) &&
                                                                         u.Password == loginPayload.Password);
-
         return user?.ToDomain();
     }
 
