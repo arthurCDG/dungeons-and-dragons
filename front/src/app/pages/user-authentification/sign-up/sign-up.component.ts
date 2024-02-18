@@ -46,7 +46,6 @@ export class SignupComponent {
 			.pipe(
 				shareReplay(),
 				catchError(error => {
-					console.error(error);
 					this.httpError = error;
 					throw error;
 				})

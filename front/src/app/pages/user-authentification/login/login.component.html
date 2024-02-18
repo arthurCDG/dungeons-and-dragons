@@ -19,6 +19,10 @@
 	</form>
 </div>
 
+<ng-container *ngIf="httpError">
+	<app-toast-message [httpError]="httpError"></app-toast-message>
+</ng-container>
+
 <nav>
 	<a routerLink="/signup">Se créer un compte</a>
 </nav>
