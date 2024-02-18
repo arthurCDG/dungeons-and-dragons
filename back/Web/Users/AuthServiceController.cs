@@ -3,7 +3,6 @@ using dnd_domain.Users;
 using FluentResults;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 using Swashbuckle.AspNetCore.Annotations;
@@ -78,6 +77,6 @@ public class AuthServiceController : ControllerBase
             return Ok(authentifiedUserDto);
         }
 
-            return NotFound("user not found");
+        return NotFound("user not found");
     }
 }

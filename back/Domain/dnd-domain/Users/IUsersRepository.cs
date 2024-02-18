@@ -11,4 +11,5 @@ public interface IUsersRepository
     Task<User?> GetFromLoginPayloadAsync(LoginPayload loginPayload);
 
     Task<bool> UserNameExistsAsync(string userName);
+    Task<bool> PasswordExistsAsync(string userName);
 }

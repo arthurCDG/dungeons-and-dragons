@@ -12,8 +12,8 @@ internal sealed class UserDalConfiguration : IEntityTypeConfiguration<UserDal>
         builder.HasKey(u => u.Id);
 
         builder.HasMany(u => u.Players)
-            .WithOne()
-            .HasForeignKey(p => p.UserId)
-            .OnDelete(DeleteBehavior.Restrict);
+               .WithOne()
+               .HasForeignKey(p => p.UserId)
+               .OnDelete(DeleteBehavior.Restrict);
     }
 }

@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace dnd_infra.Users;
@@ -23,11 +25,15 @@ internal sealed class UsersRepository : IUsersRepository
 
     public async Task<User> CreateAsync(UserPayload userPayload)
     {
+        CreatePasswordHash(userPayload.Password, out byte[] passwordHash, out byte[] passwordSalt);
+
         UserDal user = new()
         {
             Name = userPayload.UserName,
-            Password = userPayload.Password, // TODO add encrypted password logic
-            PictureUrl = userPayload.PictureUrl
+            Password = userPayload.Password,
+            PictureUrl = userPayload.PictureUrl,
+            PasswordHash = passwordHash,
+            PasswordSalt = passwordSalt
         };
 
         _dbContext.Users.Add(user);
@@ -38,12 +44,32 @@ internal sealed class UsersRepository : IUsersRepository
 
     public async Task<User?> GetFromLoginPayloadAsync(LoginPayload loginPayload)
     {
-        UserDal? user = await _dbContext.Users
-            .FirstOrDefaultAsync(u => u.Name.ToLower() == loginPayload.UserName.ToLower() && u.Password == loginPayload.Password);
+        UserDal? user = await _dbContext.Users.FirstOrDefaultAsync(u => u.Name.Equals(loginPayload.UserName, StringComparison.CurrentCultureIgnoreCase) &&
+                                                                        u.Password == loginPayload.Password);
 
         return user?.ToDomain();
     }
 
     public Task<bool> UserNameExistsAsync(string userName)
         => _dbContext.Users.AnyAsync(u => u.Name == userName);
+
+    public async Task<bool> PasswordExistsAsync(string userName)
+    {
+        UserDal user = await _dbContext.Users.FirstAsync(u => u.Name == userName);
+        return PasswordHashMatches(userName, user.PasswordHash, user.PasswordSalt);
+    }
+
+    private static void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
+    {
+        using var hmac = new HMACSHA512();
+        passwordSalt = hmac.Key;
+        passwordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(password));
+    }
+
+    private static bool PasswordHashMatches(string password, byte[] passwordHash, byte[] passwordSalt)
+    {
+        using var hmac = new HMACSHA512(passwordSalt);
+        var computedHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(password));
+        return computedHash.SequenceEqual(passwordHash);
+    }
 }
