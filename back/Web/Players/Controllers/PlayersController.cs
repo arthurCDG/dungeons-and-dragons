@@ -1,6 +1,7 @@
 ﻿using dnd_application.Players;
 using dnd_domain.Players.Models;
 using dnd_domain.Players.Payloads;
+using FluentResults;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
@@ -43,8 +44,16 @@ public class PlayersController : ControllerBase
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
-    public Task<Player> CreateAsync(int userId, [FromBody] PlayerCreationPayload playerCreationPayload)
-        => _playersService.CreateAsync(userId, playerCreationPayload);
+    public async Task<ActionResult<Player>> CreateAsync(int userId, [FromBody] PlayerCreationPayload playerCreationPayload)
+    {
+        Result<Player> result = await _playersService.CreateAsync(userId, playerCreationPayload);
+        if (result.IsFailed)
+        {
+            return BadRequest(result.Errors[0]);
+        }
+
+        return Ok(result.Value);
+    }
 
     [HttpPost("{dungeon-master}")]
     [ProducesResponseType(StatusCodes.Status201Created)]

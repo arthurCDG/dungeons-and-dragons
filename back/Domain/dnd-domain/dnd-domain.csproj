@@ -5,6 +5,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+	<PackageReference Include="FluentAssertions" />
+	<PackageReference Include="FluentResults" />
+	<PackageReference Include="FluentValidation" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" />
   </ItemGroup>
 

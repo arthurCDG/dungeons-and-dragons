@@ -59,6 +59,41 @@ internal sealed class PlayersRepository : IPlayersRepository
         return player.ToDomain();
     }
 
+    public async Task<Player> UpdateAsync(int id, PlayerPayload playerPayload)
+    {
+        PlayerDal dal = await _context.Players
+            .Include(p => p.Attributes)
+            .Include(p => p.Profile)
+            .SingleAsync(h => h.Id == id);
+
+        UpdatePlayer(dal, playerPayload);
+        return dal.ToDomain();
+    }
+
+    public Task<bool> UserNameExistsAsync(string name)
+        => _context.Players.AnyAsync(p => p.Profile.Name == name);
+
+    public async Task<Player> AttackAsync(int id, AttackPayload attack)
+    {
+        PlayerDal player = await _context.Players
+            .Include(p => p.Attributes)
+            .SingleAsync(h => h.Id == id);
+
+        int lostLifePoints = ComputeLostLifePoints(attack, player.Attributes!.Shield);
+
+        player.Attributes.LifePoints -= lostLifePoints;
+
+        if (player.Attributes.LifePoints <= 0)
+        {
+            player.Attributes.LifePoints = 0;
+            player.IsDead = true;
+        }
+
+        await _context.SaveChangesAsync();
+
+        return player.ToDomain();
+    }
+
     public Task SeedMonstersAsync(int campaignId, int adventureId)
         => _playersFactory.ForgeMonstersFromAdventureAsync(campaignId, adventureId);
 
@@ -81,17 +116,6 @@ internal sealed class PlayersRepository : IPlayersRepository
         await _context.SaveChangesAsync();
     }
 
-    public async Task<Player> UpdateAsync(int id, PlayerPayload playerPayload)
-    {
-        PlayerDal dal = await _context.Players
-            .Include(p => p.Attributes)
-            .Include(p => p.Profile)
-            .SingleAsync(h => h.Id == id);
-
-        UpdatePlayer(dal, playerPayload);
-        return dal.ToDomain();
-    }
-
     private static void UpdatePlayer(PlayerDal dal, PlayerPayload playerPayload)
     {
         dal.Attributes!.LifePoints = playerPayload.LifePoints ?? dal.Attributes.LifePoints;
@@ -99,27 +123,6 @@ internal sealed class PlayersRepository : IPlayersRepository
         dal.Attributes.FootSteps = playerPayload.FootSteps ?? dal.Attributes.FootSteps;
         dal.Attributes.Shield = playerPayload.Shield ?? dal.Attributes.Shield;
         dal.Profile.ImageUrl = playerPayload.ImageUrl ?? dal.Profile.ImageUrl;
-    }
-
-    public async Task<Player> AttackAsync(int id, AttackPayload attack)
-    {
-        PlayerDal player = await _context.Players
-            .Include(p => p.Attributes)
-            .SingleAsync(h => h.Id == id);
-
-        int lostLifePoints = ComputeLostLifePoints(attack, player.Attributes!.Shield);
-
-        player.Attributes.LifePoints -= lostLifePoints;
-
-        if (player.Attributes.LifePoints <= 0)
-        {
-            player.Attributes.LifePoints = 0;
-            player.IsDead = true;
-        }
-
-        await _context.SaveChangesAsync();
-
-        return player.ToDomain();
     }
 
     private static int ComputeLostLifePoints(AttackPayload attack, int shield)

@@ -34,10 +34,10 @@ internal sealed class PlayersFactory
 
         return payload.Class switch
         {
-            Class.Warrior => ForgeRegdar(userId, artefacts, spells, weapons),
-            Class.Rogue => ForgeLidda(userId, artefacts, spells, weapons),
-            Class.Cleric => ForgeJozan(userId, artefacts, spells, weapons),
-            Class.Wizard => ForgeMialye(userId, artefacts, spells, weapons),
+            Class.Warrior => ForgeWarrior(userId, payload, weapons),
+            Class.Rogue => ForgeRogue(userId, payload, artefacts, weapons),
+            Class.Cleric => ForgeCleric(userId, payload, spells, weapons),
+            Class.Wizard => ForgeWizard(userId, payload, spells, weapons),
             _ => throw new InvalidOperationException($"Unknown player class: {payload.Class}.")
         };
     }
@@ -75,16 +75,16 @@ internal sealed class PlayersFactory
         await _context.SaveChangesAsync();
     }
 
-    private static PlayerDal ForgeRegdar(int userId, List<ArtefactDal> artefacts, List<SpellDal> spells, List<WeaponDal> weapons)
+    private static PlayerDal ForgeWarrior(int userId, PlayerCreationPayload payload, List<WeaponDal> weapons)
         => new()
         {
             Profile = new PlayerProfileDal
             {
-                Name = "Regdar",
+                Name = payload.Name,
                 ImageUrl = "",
-                Race = Race.Human,
-                Class = Class.Warrior,
-                Gender = PlayerGender.Male,
+                Race = payload.Race,
+                Class = payload.Class,
+                Gender = payload.Gender,
                 Role = PlayerRole.Hero
             },
             MaxAttributes = new PlayerMaxAttributesDal
@@ -109,16 +109,16 @@ internal sealed class PlayersFactory
             UserId = userId
         };
 
-    private static PlayerDal ForgeLidda(int userId, List<ArtefactDal> artefacts, List<SpellDal> spells, List<WeaponDal> weapons)
+    private static PlayerDal ForgeRogue(int userId, PlayerCreationPayload payload, List<ArtefactDal> artefacts, List<WeaponDal> weapons)
         => new()
         {
             Profile = new PlayerProfileDal
             {
-                Name = "Lidda",
+                Name = payload.Name,
                 ImageUrl = "",
-                Race = Race.Halfling,
-                Class = Class.Rogue,
-                Gender = PlayerGender.Female,
+                Race = payload.Race,
+                Class = payload.Class,
+                Gender = payload.Gender,
                 Role = PlayerRole.Hero
             },
             MaxAttributes = new PlayerMaxAttributesDal
@@ -148,16 +148,16 @@ internal sealed class PlayersFactory
             UserId = userId
         };
 
-    private static PlayerDal ForgeJozan(int userId, List<ArtefactDal> artefacts, List<SpellDal> spells, List<WeaponDal> weapons)
+    private static PlayerDal ForgeCleric(int userId, PlayerCreationPayload payload, List<SpellDal> spells, List<WeaponDal> weapons)
         => new()
         {
             Profile = new PlayerProfileDal
             {
-                Name = "Jozan",
+                Name = payload.Name,
                 ImageUrl = "",
-                Race = Race.Human,
-                Class = Class.Cleric,
-                Gender = PlayerGender.Male,
+                Race = payload.Race,
+                Class = payload.Class,
+                Gender = payload.Gender,
                 Role = PlayerRole.Hero
             },
             MaxAttributes = new PlayerMaxAttributesDal
@@ -187,16 +187,16 @@ internal sealed class PlayersFactory
             UserId = userId
         };
 
-    private static PlayerDal ForgeMialye(int userId, List<ArtefactDal> artefacts, List<SpellDal> spells, List<WeaponDal> weapons)
+    private static PlayerDal ForgeWizard(int userId, PlayerCreationPayload payload, List<SpellDal> spells, List<WeaponDal> weapons)
         => new()
         {
             Profile = new PlayerProfileDal
             {
-                Name = "Mialye",
+                Name = payload.Name,
                 ImageUrl = "",
-                Race = Race.Elf,
-                Class = Class.Wizard,
-                Gender = PlayerGender.Female,
+                Race = payload.Race,
+                Class = payload.Class,
+                Gender = payload.Gender,
                 Role = PlayerRole.Hero
             },
             MaxAttributes = new PlayerMaxAttributesDal
