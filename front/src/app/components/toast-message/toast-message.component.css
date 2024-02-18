@@ -1,28 +1,29 @@
-.toast-wrapper {
+.toast-message-wrapper {
 	position: fixed;
 	bottom: 0;
 	right: 0;
 	z-index: 9999;
 }
 
-.technical-error {
-	background-color: #f44336;
+.toast-message-error {
 	color: white;
 	padding: 16px;
 	margin: 16px;
 	border-radius: 5px;
-	text-align: center;
-	font-size: 20px;
-	font-weight: bold;
+	text-align: justify;
+}
+
+.technical-error {
+	background-color: #f44336;
 }
 
 .domain-error {
 	background-color: #ff9800;
-	color: white;
-	padding: 16px;
-	margin: 16px;
-	border-radius: 5px;
-	text-align: center;
-	font-size: 20px;
-	font-weight: bold;
+}
+
+#toast-message-close-cross {
+	display: flex;
+	justify-content: flex-end;
+	padding: 5px;
+	cursor: pointer;
 }

@@ -10,5 +10,9 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./toast-message.component.css']
 })
 export class ToastMessageComponent {
-	@Input() httpError: HttpErrorResponse;
+	@Input() httpError: HttpErrorResponse | null = null;
+
+	public closeMessage() {
+		this.httpError = null;
+	}
 }

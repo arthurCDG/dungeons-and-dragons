@@ -1,6 +1,13 @@
-<div class="toast-wrapper"
-	[class.domain-error]="httpError.status === 400"
-	[class.technical-error]="httpError.status === 500"
->
-	<p>{{ httpError.error.message }}</p>
-</div>
+<ng-container *ngIf="httpError">
+	<div
+		class="toast-message-wrapper toast-message-error"
+		[class.domain-error]="httpError.status === 400"
+		[class.technical-error]="httpError.status === 500"
+		>
+		<div id="toast-message-close-cross">
+			<span (click)="closeMessage()">X</span>
+		</div>
+		<h2>{{ httpError.status === 500 ? 'Technical Error' : 'Unable to validate request' }}</h2>
+		<p>{{ httpError.error.message }}</p>
+	</div>
+</ng-container>
