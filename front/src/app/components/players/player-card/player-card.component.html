@@ -9,11 +9,11 @@
 		<img class="player-logo" *ngIf="player.profile?.class === 7" alt="" src="../../../assets/hero-classes/haches.png" />
 		<img class="player-logo" *ngIf="player.profile?.class === 8" alt="" src="../../../assets/hero-classes/baguette-magique.png" />
 		<img class="player-logo" *ngIf="player.profile?.class === 0" alt="" src="../../../assets/hero-classes/crane.png" />
-		<span>{{ player.profile?.firstName }}</span>
+		<span>{{ player.profile?.name }}</span>
 	</div>
 	<div class="main-button-wrapper">
 		<a	class="link-button base-button"	[routerLink]="[player.id, 'campaigns']">
-			<span>Jouer avec {{ player.profile?.firstName }}</span>
+			<span>Jouer avec {{ player.profile?.name }}</span>
 		</a>
 	</div>
 </div>

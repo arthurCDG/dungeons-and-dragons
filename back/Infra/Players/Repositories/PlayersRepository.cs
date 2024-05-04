@@ -13,16 +13,10 @@ using System.Threading.Tasks;
 
 namespace dnd_infra.Players.Repositories;
 
-internal sealed class PlayersRepository : IPlayersRepository
+internal sealed class PlayersRepository(GlobalDbContext context, PlayersFactory playersFactory) : IPlayersRepository
 {
-    private readonly GlobalDbContext _context;
-    private readonly PlayersFactory _playersFactory;
-
-    public PlayersRepository(GlobalDbContext context, PlayersFactory playersFactory)
-    {
-        _context = context ?? throw new ArgumentNullException(nameof(context));
-        _playersFactory = playersFactory ?? throw new ArgumentNullException(nameof(playersFactory));
-    }
+    private readonly GlobalDbContext _context = context;
+    private readonly PlayersFactory _playersFactory = playersFactory;
 
     public Task<List<Player>> GetAsync(int userId)
         => _context.Players

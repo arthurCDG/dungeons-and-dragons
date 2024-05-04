@@ -21,7 +21,7 @@
 					<div class="form-element">
 						<h3 class="white-description">Héro 1</h3>
 						<span class="white-description">Vous même</span>
-						<span class="white-description">({{ currentPlayer.profile?.firstName }})</span>
+						<span class="white-description">({{ currentPlayer.profile?.name }})</span>
 					</div>
 					<ng-container *ngFor="let _ of [].constructor(selectedCampaign.maxPlayers - 1); let playerIndex = index">
 						<div class="form-element">
@@ -35,13 +35,13 @@
 								>
 									<ng-container *ngFor="let player of players$ | async">
 										<mat-option [value]="player">
-											{{ player.profile?.firstName }}
+											{{ player.profile?.name }}
 										</mat-option>
 									</ng-container>
 									<mat-select-trigger>
 										<div class="select-content white-description">
 											<span>
-												{{ heroesCtrl.controls["hero_" + playerIndex].value?.profile?.firstName }}
+												{{ heroesCtrl.controls["hero_" + playerIndex].value?.profile?.name }}
 											</span>
 											<span (click)="deleteHeroesControlValue($event, playerIndex)">
 												<mat-icon>clear</mat-icon>

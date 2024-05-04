@@ -2,8 +2,7 @@ import { ISquare } from "./campaign.models";
 import { IStoredItem } from "./items.models";
 
 export interface ICreatablePlayer {
-	firstName: string;
-	lastName?: string | null;
+	name: string;
 	description: string;
 	class: Class;
 	race: Race;
@@ -55,8 +54,7 @@ export interface IPlayerMaxAttributes {
 export interface IProfile {
 	id: number;
 	playerId: number;
-	firstName: string;
-	lastName?: string | null;
+	name: string;
 	playerGender: PlayerGender;
 	imageUrl?: string | null;
 	class: Class;
@@ -88,8 +86,7 @@ export interface IAttackPayload {
 }
 
 export interface IPlayerCreationPayload {
-	firstName: string;
-	lastName?: string | null;
+	name: string;
 	gender: PlayerGender;
 	imageUrl?: string | null;
 	class: Class;

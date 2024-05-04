@@ -24,7 +24,7 @@ internal sealed class CreatablePlayersService : ICreatablePlayersService
         List<CreatablePlayer> creatablePlayers = GetCreatablePlayers();
         
         List<Player> alreadyCreatedPlayers = await _playersRepository.GetAsync(userId);
-        creatablePlayers.RemoveAll(cp => alreadyCreatedPlayers.Any(acp => acp.Profile.Name == cp.FirstName));
+        creatablePlayers.RemoveAll(cp => alreadyCreatedPlayers.Any(acp => acp.Profile?.Name == cp.Name));
 
         // TODO Remove players that are not unlocked by the user (based on adventures and campaigns done for now - later on some more precise achievements and logic)
         
@@ -37,54 +37,53 @@ internal sealed class CreatablePlayersService : ICreatablePlayersService
             // Regdar
             new CreatablePlayer
             {
-                FirstName = "Regdar",
-                LastName = string.Empty,
-                Description = "Regdar est un guerrier humain qui a passé sa vie à se battre pour ce qu'il croit être juste. Il est grand et musclé, avec des cheveux noirs et des yeux bruns. Il porte une armure de plaques et une épée longue, et il est toujours prêt à se battre pour ce qu'il croit être juste.",
-                Type = PlayerType.Regdar,
                 Class = Class.Warrior,
-                Race = Race.Human,
-                Role = PlayerRole.Hero,
+                Description = "Regdar est un guerrier humain qui a passé sa vie à se battre pour ce qu'il croit être juste. Il est grand et musclé, avec des cheveux noirs et des yeux bruns. Il porte une armure de plaques et une épée longue, et il est toujours prêt à se battre pour ce qu'il croit être juste.",
                 Gender = PlayerGender.Male,
                 MaxAttributes = PlayersAttributesHelper.RegdarLevel1MaxAttributes,
+                Name = "Regdar",
+                Race = Race.Human,
+                Role = PlayerRole.Hero,
+                Type = PlayerType.Regdar
             },
+
             // Lidda
             new CreatablePlayer
             {
-                FirstName = "Lidda",
-                LastName = string.Empty,
-                Description = "Lidda est une voleuse gnome extrêmement rusée. Sa phrase préférée : 'Les petites choses peuvent être féroces'.",
-                Type = PlayerType.Lidda,
                 Class = Class.Rogue,
+                Description = "Lidda est une voleuse gnome extrêmement rusée. Sa phrase préférée : 'Les petites choses peuvent être féroces'.",
+                Gender = PlayerGender.Female,
+                MaxAttributes = PlayersAttributesHelper.LiddaLevel1MaxAttributes,
+                Name = "Lidda",
                 Race = Race.Halfling,
                 Role = PlayerRole.Hero,
-                Gender = PlayerGender.Female,
-                MaxAttributes = PlayersAttributesHelper.LiddaLevel1MaxAttributes
+                Type = PlayerType.Lidda,
             },
+
             // Jozan
             new CreatablePlayer
             {
-                FirstName = "Jozan",
-                LastName = string.Empty,
-                Description = "Jozan est un prêtre humain qui a passé sa vie à servir les dieux. Il est grand et mince, avec des cheveux noirs et des yeux bruns. Il porte une armure de plaques et une masse de guerre, et il est toujours prêt à servir les dieux.",
-                Type = PlayerType.Jozan,
-                Race = Race.Human,
                 Class = Class.Cleric,
-                Role = PlayerRole.Hero,
+                Description = "Jozan est un prêtre humain qui a passé sa vie à servir les dieux. Il est grand et mince, avec des cheveux noirs et des yeux bruns. Il porte une armure de plaques et une masse de guerre, et il est toujours prêt à servir les dieux.",
                 Gender = PlayerGender.Male,
-                MaxAttributes = PlayersAttributesHelper.JozanLevel1MaxAttributes
+                MaxAttributes = PlayersAttributesHelper.JozanLevel1MaxAttributes,
+                Name = "Jozan",
+                Race = Race.Human,
+                Role = PlayerRole.Hero,
+                Type = PlayerType.Jozan
             },
+
             // Mialye
             new CreatablePlayer
             {
-                FirstName = "Mialye",
-                LastName = string.Empty,
-                Description = "Mialye est une magicienne elfe qui a passé sa vie à étudier la magie. Elle est grande et mince, avec des cheveux noirs et des yeux bruns. Elle porte une robe de mage et un bâton de mage, et elle est toujours prête à lancer des sorts.",
-                Type = PlayerType.Mialye,
-                Race= Race.Elf,
                 Class = Class.Wizard,
-                Role = PlayerRole.Hero,
+                Description = "Mialye est une magicienne elfe qui a passé sa vie à étudier la magie. Elle est grande et mince, avec des cheveux noirs et des yeux bruns. Elle porte une robe de mage et un bâton de mage, et elle est toujours prête à lancer des sorts.",
                 Gender = PlayerGender.Female,
                 MaxAttributes = PlayersAttributesHelper.MialyeLevel1MaxAttributes,
+                Name = "Mialye",
+                Race= Race.Elf,
+                Role = PlayerRole.Hero,
+                Type = PlayerType.Mialye
             }
         };
 }

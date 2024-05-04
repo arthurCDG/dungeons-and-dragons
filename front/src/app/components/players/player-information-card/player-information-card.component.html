@@ -1,8 +1,5 @@
 <!-- PROFILE -->
-<h3>{{ player.profile.firstName }}</h3>
-<ng-container *ngIf="player.profile.lastName">
-	<span> {{ player.profile.lastName.toLocaleUpperCase() }}</span>
-</ng-container>
+<h3>{{ player.profile?.name }}</h3>
 
 <!-- ATTRIBUTES -->
 <p>Attack: {{ player.attributes?.lifePoints }}</p>

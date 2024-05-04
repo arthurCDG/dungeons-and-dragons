@@ -15,16 +15,11 @@ namespace dungeons_and_dragons.Players.Controllers;
 [ApiExplorerSettings(IgnoreApi = false)]
 [ApiController, Route(Route)]
 [EnableCors]
-public class CreatablePlayersServiceController : ControllerBase
+public class CreatablePlayersServiceController(ICreatablePlayersService creatablePlayersService) : ControllerBase
 {
     public const string Route = "service/users/{userId}/creatable-players";
 
-    private readonly ICreatablePlayersService _creatablePlayersService;
-
-    public CreatablePlayersServiceController(ICreatablePlayersService creatablePlayersService)
-    {
-        _creatablePlayersService = creatablePlayersService ?? throw new System.ArgumentNullException(nameof(creatablePlayersService));
-    }
+    private readonly ICreatablePlayersService _creatablePlayersService = creatablePlayersService;
 
     [HttpGet]
     [ProducesResponseType(StatusCodes.Status200OK)]

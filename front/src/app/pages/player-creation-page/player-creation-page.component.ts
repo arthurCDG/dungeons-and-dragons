@@ -59,12 +59,14 @@ export class PlayerCreationPageComponent implements OnInit {
 
 	onSubmit(): void {
 		const payload: IPlayerCreationPayload = {
-			role: this.selectedPlayer!.role,
-			race: this.selectedPlayer!.race,
 			class: this.selectedPlayer!.class,
-			firstName: this.selectedPlayer!.firstName,
+			name: this.selectedPlayer!.name,
 			gender: this.selectedPlayer!.gender,
+			race: this.selectedPlayer!.race,
+			role: this.selectedPlayer!.role
 		};
+
+		console.log(payload);
 
 		this.playersService.createAsync(this.userId, payload).subscribe(
 			() => this.router.navigate(['..'], { relativeTo: this.activatedRoute })

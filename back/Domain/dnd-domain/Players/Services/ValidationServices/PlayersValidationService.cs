@@ -7,14 +7,9 @@ using System.Threading.Tasks;
 
 namespace dnd_domain.Players.Services.ValidationServices;
 
-internal sealed class PlayersValidationService : IPlayersValidationService
+internal sealed class PlayersValidationService(IPlayersRepository playersRepository) : IPlayersValidationService
 {
-    private readonly IPlayersRepository _playersRepository;
-
-    public PlayersValidationService(IPlayersRepository playersRepository)
-    {
-        _playersRepository = playersRepository;
-    }
+    private readonly IPlayersRepository _playersRepository = playersRepository;
 
     public async Task<Result> ValidateAsync(PlayerCreationPayload playerCreationPayload)
     {

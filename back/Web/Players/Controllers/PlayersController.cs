@@ -23,7 +23,7 @@ public class PlayersController : ControllerBase
 
     public PlayersController(IPlayersService playersService)
     {
-        _playersService = playersService ?? throw new System.ArgumentNullException(nameof(playersService));
+        _playersService = playersService;
     }
 
     [HttpGet]

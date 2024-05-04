@@ -6,9 +6,8 @@ public class CreatablePlayer
 {
     public required Class Class { get; set; }
     public required string Description { get; set; }
-    public required string FirstName { get; set; }
+    public required string Name { get; set; }
     public required PlayerGender Gender { get; set; }
-    public required string LastName { get; set; }
     public required PlayerMaxAttributes MaxAttributes { get; set; }
     public required Race Race { get; set; }
     public required PlayerRole Role { get; set; }

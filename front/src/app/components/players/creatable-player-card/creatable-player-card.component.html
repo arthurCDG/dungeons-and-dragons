@@ -1,25 +1,25 @@
 <div id="creatable-player-wrapper">
 	<div class="creatable-player-information-wrapper">
 		<img
-			*ngIf="player?.firstName === 'Regdar'"
+			*ngIf="player?.name === 'Regdar'"
 			class="selected-player-img"
 			alt="Regdar image preview"
 			src="../../../assets/players/heroes/creatable-heroes-images/Regdar.webp"
 		>
 		<img
-			*ngIf="player?.firstName === 'Lidda'"
+			*ngIf="player?.name === 'Lidda'"
 			class="selected-player-img"
 			alt="Lidda image preview"
 			src="../../../assets/players/heroes/creatable-heroes-images/lidda 2.jpg"
 		>
 		<img
-			*ngIf="player?.firstName === 'Jozan'"
+			*ngIf="player?.name === 'Jozan'"
 			class="selected-player-img"
 			alt="Jozan image preview"
 			src="../../../assets/players/heroes/creatable-heroes-images/Jozan.jpg"
 		>
 		<img
-			*ngIf="player?.firstName === 'Mialye'"
+			*ngIf="player?.name === 'Mialye'"
 			class="selected-player-img"
 			alt="Mialye image preview"
 			src="../../../assets/players/heroes/creatable-heroes-images/Mialye.jpg"
@@ -27,7 +27,7 @@
 	</div>
 
 	<div class="creatable-player-information-wrapper">
-		<h2>{{ player.firstName }}</h2>
+		<h2>{{ player.name }}</h2>
 		<p class="justified-text">{{ player.description }}</p>
 	</div>
 

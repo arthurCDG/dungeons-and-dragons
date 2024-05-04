@@ -8,4 +8,5 @@ public class PlayerCreationPayload
     public required string Name { get; set; }
     public required PlayerGender Gender { get; set; }
     public required Race Race { get; set; }
+    public required PlayerRole Role { get; set; }
 }

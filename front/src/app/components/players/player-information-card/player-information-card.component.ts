@@ -10,12 +10,6 @@ import { IPlayer } from 'src/app/models';
   templateUrl: './player-information-card.component.html',
   styleUrls: ['./player-information-card.component.css']
 })
-export class PlayerInformationCardComponent implements OnInit {
+export class PlayerInformationCardComponent{
 	@Input() player: IPlayer;
-
-	constructor() { }
-
-	ngOnInit(): void {
-	}
-
 }
