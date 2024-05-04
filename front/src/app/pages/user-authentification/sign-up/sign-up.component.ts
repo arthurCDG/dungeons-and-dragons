@@ -15,6 +15,7 @@ import { ToastMessageComponent } from '../../../components/toast-message/toast-m
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, RouterModule, ToastMessageComponent],
   templateUrl: './sign-up.component.html',
+  styleUrls: ['./../styles/authentication.component.css'],
   providers: [AuthService, UsersService]
 })
 export class SignupComponent {

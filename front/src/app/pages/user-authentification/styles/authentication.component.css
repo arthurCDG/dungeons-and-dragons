@@ -1,1 +1,40 @@
+.authentication-background {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+	background-image: url('./../../../../assets/background-images/dnd-login-signup-page-3.jpg');
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+}
 
+.auth-form-display {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	max-width: 400px;
+	padding: 15px;
+	border-radius: 5px;
+	background-color: #ffffff5b;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.auth-form-content {
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	margin: 0;
+}
+
+.auth-nav {
+	margin-top: 3rem;
+}
+
+.auth-nav-link {
+	color: #000;
+	text-decoration: none;
+}

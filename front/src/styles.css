@@ -62,20 +62,6 @@ input.ng-invalid && input.ng-dirty {
 	border: 3px red solid;
 }
 
-.user-form-page {
-	display: flex;
-	flex-direction: column;
-	margin: 3rem;
-}
-
-.userFormTitle {
-	margin-bottom: 3rem;
-}
-
-.user-form {
-	max-width: 400px;
-}
-
 
 /* PAGE STYLES */
 
