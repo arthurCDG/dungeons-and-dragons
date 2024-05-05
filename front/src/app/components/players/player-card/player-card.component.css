@@ -7,13 +7,13 @@
 	pointer-events: stroke;
 }
 
-.player-card:hover {
-	background-color: rgb(182, 238, 238);
+.player-card:hover:not(.selected) {
+	background-color: rgba(182, 238, 238, 0.381);	
 	box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
 }
 
 .selected {
-	background-color: rgb(182, 238, 238);
+	background-color: rgba(2, 9, 151, 0.358);
 	box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
 }
 
