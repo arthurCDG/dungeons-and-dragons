@@ -62,7 +62,6 @@ input.ng-invalid && input.ng-dirty {
 	border: 3px red solid;
 }
 
-
 /* PAGE STYLES */
 
 .page-description-wrapper {
@@ -76,8 +75,12 @@ input.ng-invalid && input.ng-dirty {
 	background-repeat: no-repeat;
 }
 
+.sticky-background-image {
+	background-attachment: scroll, fixed;
+}
+
 .body-background-image {
-	height: 100%;
+	height: 100vh;
 	padding: 2rem;
 }
 

@@ -33,8 +33,8 @@ import { AvailableDungeonMastersService, AvailablePlayersService, CampaignsServi
   ]
 })
 export class CampaignCreationPageComponent implements OnInit {
-	public selectedCampaign: ICreatableCampaign;
-	public currentPlayer: IPlayer;
+	public selectedCampaign?: ICreatableCampaign | null = null;
+	public currentPlayer?: IPlayer | null = null;
 	public isLoading: boolean = true;
 
 	public users$: Observable<IUserDto[]>;
@@ -94,7 +94,7 @@ export class CampaignCreationPageComponent implements OnInit {
 		}
 
 		const payload: ICampaignPayload = {
-			type: this.selectedCampaign.type,
+			type: this.selectedCampaign!.type,
 			playerIds,
 			dungeonMasterUserId: this.dungeonMasterCtrl.value?.id
 		};

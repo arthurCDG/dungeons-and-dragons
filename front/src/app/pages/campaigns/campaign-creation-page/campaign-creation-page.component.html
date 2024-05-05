@@ -1,14 +1,14 @@
 <ng-container *ngIf="!isLoading; else loading">
 	<div
-		class="body-background-image"
-		[class.hollbrook-campaign]="selectedCampaign.type === 1"
-		[class.aos-campaign]="selectedCampaign.type === 2"
-		[class.wotl-campaign]="selectedCampaign.type === 3"
+		class="body-background-image sticky-background-image"
+		[class.hollbrook-campaign]="selectedCampaign?.type === 1"
+		[class.aos-campaign]="selectedCampaign?.type === 2"
+		[class.wotl-campaign]="selectedCampaign?.type === 3"
 	>
 		<app-back-arrow link=".." text="Retour vers les campagnes"></app-back-arrow>
 
-		<div class="page-description-wrapper">
-			<h1 class="white-title">{{ selectedCampaign.name }}</h1>
+		<div class="campaigns-page-description-wrapper">
+			<h1 class="white-title">{{ selectedCampaign?.name }}</h1>
 		</div>
 
 		<!-- FORM -->
@@ -21,7 +21,7 @@
 					<div class="form-element">
 						<h3 class="white-description">Héro 1</h3>
 						<span class="white-description">Vous même</span>
-						<span class="white-description">({{ currentPlayer.profile?.name }})</span>
+						<span class="white-description">({{ currentPlayer?.profile?.name }})</span>
 					</div>
 					<ng-container *ngFor="let _ of [].constructor(selectedCampaign.maxPlayers - 1); let playerIndex = index">
 						<div class="form-element">

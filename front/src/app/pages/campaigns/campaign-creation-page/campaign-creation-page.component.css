@@ -1,11 +1,13 @@
-.campaign-cards-wrapper {
-	display: flex;
-	gap: 1rem;
-	padding: 2rem;
-}
-
 .select-content {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
+}
+
+.campaigns-page-description-wrapper {
+	margin-left: 2rem;
+}
+
+.test-toto {
+	background-attachment: scroll;
 }
