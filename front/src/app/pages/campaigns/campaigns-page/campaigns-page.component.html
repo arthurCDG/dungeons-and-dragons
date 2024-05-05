@@ -1,13 +1,15 @@
-<app-header></app-header>
-
-<div class="page-description-wrapper">
-	<h1>Page des campagnes du joueur</h1>
+<div class="page-background-image campaigns-background-image">
+	<app-header></app-header>
+	
+	<div class="page-description-wrapper">
+		<h1>Page des campagnes du joueur</h1>
+	</div>
+	
+	<ng-container *ngFor="let campaign of campaigns$ | async">
+		<app-campaign-card [campaign]="campaign"></app-campaign-card>
+	</ng-container>
+	
+	<ng-container *ngFor="let creatableCampaign of creatableCampaigns$ | async">
+		<app-creatable-campaign-card [creatableCampaign]="creatableCampaign"></app-creatable-campaign-card>
+	</ng-container>
 </div>
-
-<ng-container *ngFor="let campaign of campaigns$ | async">
-	<app-campaign-card [campaign]="campaign"></app-campaign-card>
-</ng-container>
-
-<ng-container *ngFor="let creatableCampaign of creatableCampaigns$ | async">
-	<app-creatable-campaign-card [creatableCampaign]="creatableCampaign"></app-creatable-campaign-card>
-</ng-container>
