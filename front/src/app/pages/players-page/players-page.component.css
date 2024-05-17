@@ -25,3 +25,11 @@
 	align-items: center;
 	height: 90vh;
 }
+
+.players-page-empty-state-button {
+	background-color: rgba(255, 255, 255, 0.529);
+}
+
+.players-page-empty-state-button:hover {
+	background-color: rgba(255, 255, 255, 0.664);
+}

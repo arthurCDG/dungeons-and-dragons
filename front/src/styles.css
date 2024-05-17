@@ -129,6 +129,11 @@ input.ng-invalid && input.ng-dirty {
 	cursor: pointer;
 }
 
+.empty-state-button {
+	min-height: 5rem;
+	min-width: 20rem;
+}
+
 /* ADVENTURE COMMON STYLES */
 
 .square-element {
