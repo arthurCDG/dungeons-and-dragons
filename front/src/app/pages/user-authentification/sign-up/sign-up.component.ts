@@ -28,7 +28,7 @@ import { BackArrowComponent, ToastMessageComponent, PageBackgroundImageComponent
 })
 export class SignupComponent {
 	public httpError: HttpErrorResponse | null = null;
-	public backgroundImage: ImageType = 'signup-login-image';
+	public backgroundImage: ImageType = 'signup-login-page';
 
 	usernameCtrl = this.fb.control('', [Validators.required, Validators.minLength(3)]);
 	passwordCtrl = this.fb.control('', [Validators.required, Validators.minLength(6)]);

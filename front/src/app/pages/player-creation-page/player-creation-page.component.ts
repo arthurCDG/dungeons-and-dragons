@@ -2,9 +2,14 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { CreatablePlayerCardComponent } from '../../components/players/creatable-player-card/creatable-player-card.component';
-import { CreatablePlayerIconComponent } from '../../components/players/creatable-player-icon/creatable-player-icon.component';
-import { SelectedPlayerComponent } from '../../components/players/selected-player/selected-player.component';
+import {
+	BackArrowComponent,
+	CreatablePlayerCardComponent,
+	CreatablePlayerIconComponent,
+	PageBackgroundImageComponent,
+	PageWrapperComponent,
+	SelectedPlayerComponent
+} from '../../../app/components';
 import { ICreatablePlayer, IPlayerCreationPayload } from '../../models';
 import { CreatablePlayersService, PlayersService } from '../../services';
 
@@ -15,7 +20,10 @@ import { CreatablePlayersService, PlayersService } from '../../services';
 	CommonModule,
 	CreatablePlayerCardComponent,
 	SelectedPlayerComponent,
-	CreatablePlayerIconComponent
+	CreatablePlayerIconComponent,
+	PageWrapperComponent,
+	PageBackgroundImageComponent,
+	BackArrowComponent
   ],
   templateUrl: './player-creation-page.component.html',
   styleUrls: ['./player-creation-page.component.css'],

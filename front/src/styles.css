@@ -68,6 +68,12 @@ input.ng-invalid && input.ng-dirty {
 	padding: 2rem;
 }
 
+.page-centered-description-wrapper {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
 .page-background-image {
 	height: 100%;
 	background-position: center;

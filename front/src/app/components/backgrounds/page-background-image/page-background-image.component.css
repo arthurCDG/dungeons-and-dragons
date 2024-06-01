@@ -12,6 +12,10 @@
 	background-image: url('../../../../assets/campaigns/hollbrook-background-campaign-image.jpg');
 }
 
-.signup-login-image {
+.signup-login-page {
 	background-image: url('../../../../assets/background-images/dnd-login-signup-page-3.jpg');
+}
+
+.players-creation-page {
+	background-image: url('../../../../assets/background-images/players-creation-page.jpg');
 }

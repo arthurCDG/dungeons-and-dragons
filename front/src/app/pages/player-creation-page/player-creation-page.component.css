@@ -1,5 +1,9 @@
-#creation-page-background {
-	background-image: url('../../../assets//background-images/1403496.jpg');
+
+#creatable-player-wrapper {
+	display: flex;
+	justify-content: space-evenly;
+	margin: 2rem;
+	height: 50vh;
 }
 
 #creatable-players-list {
@@ -8,11 +12,4 @@
 	border-radius: var(--border-radius);
 	background-color: rgba(255, 255, 255, 0.600);
 	padding: 2rem;
-}
-
-#creatable-player-wrapper {
-	display: flex;
-	justify-content: space-evenly;
-	margin: 2rem;
-	height: 50vh;
 }
