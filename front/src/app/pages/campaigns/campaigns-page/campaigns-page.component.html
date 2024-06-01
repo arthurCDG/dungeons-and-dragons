@@ -5,11 +5,11 @@
 		<h1>Page des campagnes du joueur</h1>
 	</div>
 	
-	<ng-container *ngFor="let campaign of campaigns$ | async">
+	@for (campaign of campaigns$ | async; track campaign.id) {
 		<app-campaign-card [campaign]="campaign"></app-campaign-card>
-	</ng-container>
-	
-	<ng-container *ngFor="let creatableCampaign of creatableCampaigns$ | async">
+	}
+
+	@for (creatableCampaign of creatableCampaigns$ | async; track creatableCampaign.type) {
 		<app-creatable-campaign-card [creatableCampaign]="creatableCampaign"></app-creatable-campaign-card>
-	</ng-container>
+	}
 </div>
