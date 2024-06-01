@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { PlayersPageComponent } from './pages/players-page/players-page.component';
+import { PlayersPageComponent } from './pages/players/players-page/players-page.component';
 import { MainCampaignPageComponent } from './pages/campaigns/main-campaign-page/main-campaign-page.component';
 import { AdventurePageComponent } from './pages/adventure-page/adventure-page.component';
-import { PlayerCreationPageComponent } from './pages/player-creation-page/player-creation-page.component';
+import { PlayerCreationPageComponent } from './pages/players/player-creation-page/player-creation-page.component';
 import { CampaignCreationPageComponent } from './pages/campaigns/campaign-creation-page/campaign-creation-page.component';
 import { WelcomePageComponent } from './pages/welcome-page/welcome-page.component';
 import { CampaignsPageComponent } from './pages/campaigns/campaigns-page/campaigns-page.component';

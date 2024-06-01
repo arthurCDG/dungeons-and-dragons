@@ -9,9 +9,9 @@ import {
 	PageBackgroundImageComponent,
 	PageWrapperComponent,
 	SelectedPlayerComponent
-} from '../../../app/components';
-import { Class, ICreatablePlayer, ICreatableSpecies, IPlayerCreationPayload, PlayerGender, Species } from '../../models';
-import { CreatablePlayersService, PlayersService } from '../../services';
+} from '../../../components';
+import { Class, ICreatablePlayer, ICreatableSpecies, IPlayerCreationPayload, PlayerGender, Species } from '../../../models';
+import { CreatablePlayersService, PlayersService } from '../../../services';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { IFormRadioInput, playerCreationFormStep } from './models';
 

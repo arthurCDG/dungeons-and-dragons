@@ -2,9 +2,9 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 
-import { IPlayer } from '../../models';
-import { PlayersService } from '../../services';
-import { BackArrowComponent, PlayerCardComponent, SelectedPlayerComponent, PageWrapperComponent, PageBackgroundImageComponent, ImageType } from '../../../app/components';
+import { IPlayer } from '../../../models';
+import { PlayersService } from '../../../services';
+import { BackArrowComponent, PlayerCardComponent, SelectedPlayerComponent, PageWrapperComponent, PageBackgroundImageComponent, ImageType } from '../../../components';
 
 @Component({
   selector: 'app-players-page',
