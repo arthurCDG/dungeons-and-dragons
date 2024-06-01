@@ -13,11 +13,6 @@ export class CreatablePlayerSpeciesCardComponent {
 
 	@Output() speciesSelected = new EventEmitter<Species>();
 
-	ngOnInit(): void {
-		console.log(this.species);
-		console.log(this.species.type);
-	}
-
 	public onSelectedSpecies(): void {
 		this.speciesSelected.emit(this.species.type);
 	}

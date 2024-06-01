@@ -9,49 +9,93 @@
 
 	@if (!isLoading) {
 		@if (creatablePlayers.length) {
-			<div id="creatable-player-wrapper">
+			<div id="creatable-players-wrapper">
 				<div id="creatable-players-list">
-					<!-- Players classes -->
-					<h3>Classe</h3>
-					@for (creatablePlayer of creatablePlayers; track creatablePlayer.class.type) {
-						<app-creatable-player-class-card
-							[class]="creatablePlayer.class"
-							(classSelected)="selectPlayerClass(creatablePlayer.class.type)"
-							[isSelectedClass]="creatablePlayer.class.type === this.selectedClass"
-						/>
-					}
+					<div class="player-cards-wrapper">
+						<form (ngSubmit)="onSubmit()" [formGroup]="playerCreationForm" >
 
-					<!-- Players species -->
-					<h3>Espèce</h3>
-					@for (creatablePlayer of creatablePlayers; track creatablePlayer.class) {
-						@if (creatablePlayer.class.type === selectedClass) {
-							@for (creatableSpecies of creatablePlayer.associatedSpecies; track creatableSpecies.type) {
-								<app-creatable-player-species-card
-									[species]="creatableSpecies"
-									(speciesSelected)="selectPlayerSpecies(creatableSpecies.type)"
-									[isSelectedSpecies]="creatableSpecies.type === this.selectedSpecies"
-								/>
+							@if (formStep === 'playerClass') {
+								<div class="form-field-wrapper">
+									<h3>Classe</h3>
+									<div class="options-selector">
+										@for (option of playerClassOptions; track option.name) {
+											<input	type="radio"
+													[id]="'class_' + option.value"
+													[value]="option.value"
+													[formControlName]="playerClassFieldName"
+													/>
+											<label [for]="'class_' + option.value" class="option">
+												<img class="icon" [src]="option.iconUrl" [alt]="option.altText"  (click)="formStep = 'playerSpecies'" />
+												@if (option.name) {
+													<span>{{ option.name }}</span>
+												}
+											</label>
+										}
+									</div>
+								</div>
 							}
-						}
-					}
+
+							@if (formStep === 'playerSpecies') {
+								<div class="form-field-wrapper">
+									<h3>Espèce</h3>
+									<div class="options-selector">
+										@for (option of playerSpeciesOptions; track option.name) {
+											<input	type="radio"
+													[id]="'species_' + option.value"
+													[value]="option.value"
+													[formControlName]="playerSpeciesFieldName"
+											/>
+											<label [for]="'species_' + option.value" class="option">
+												<img class="icon" [src]="option.iconUrl" [alt]="option.altText" (click)="formStep = 'playerGender'" />
+												@if (option.name) {
+													<span>{{ option.name }}</span>
+												}
+											</label>
+										}
+									</div>
+								</div>
+							}
+
+							@if (formStep === 'playerGender') {
+								<div class="form-field-wrapper">
+									<h3>Genre</h3>
+									<div class="options-selector">
+										@for (option of playerGenderOptions; track option.name) {
+											<input	type="radio"
+													[id]="'gender_' + option.value"
+													[value]="option.value"
+													[formControlName]="playerGenderFieldName"
+											/>
+											<label [for]="'gender_' + option.value" class="option">
+												<img class="icon" [src]="option.iconUrl" [alt]="option.altText"  (click)="formStep = 'playerName'" />
+												@if (option.name) {
+													<span>{{ option.name }}</span>
+												}
+											</label>
+										}
+									</div>
+								</div>
+							}
+
+							@if (formStep === 'playerName') {
+								<label for="playerName">Nom</label>
+								<input	type="text"
+										placeholder="Nom du joueur"
+										name="playerName"
+										required
+										formControlName="playerName"
+								/>
+
+								<button class="base-button" type="submit">Créer le joueur</button>
+							}
+
+						</form>
+					</div>
 				</div>
 
-				@if (selectedClass && selectedSpecies) {
-					<!-- TODO - pass gender as well to modify display accordingly -->
-					<app-selected-player [selectedClass]="selectedClass" [selectedSpecies]="selectedSpecies" />
+				@if (classCtrl.value && speciesCtrl.value) {
+					<app-selected-player [selectedClass]="classCtrl.value" [selectedSpecies]="speciesCtrl.value" />
 				}
-			</div>
-
-			<div class="main-button-wrapper">
-				<button
-					(click)="onSubmit()"
-					class="base-button"
-					type="submit"
-					[disabled]="!selectedClass && !selectedSpecies"
-				>
-				<!-- TODO disabled should come from input name not being registered -->
-					<span>Créer le joueur</span>
-				</button>
 			</div>
 		}
 

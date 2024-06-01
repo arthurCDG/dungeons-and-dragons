@@ -1,15 +1,84 @@
 
-#creatable-player-wrapper {
+#creatable-players-wrapper {
 	display: flex;
 	justify-content: space-evenly;
 	margin: 2rem;
-	height: 50vh;
+	max-height: 50vh;
 }
 
 #creatable-players-list {
 	display: flex;
+	flex-direction: column;
 	gap: 2rem;
 	border-radius: var(--border-radius);
-	background-color: rgba(255, 255, 255, 0.600);
+	background-color: rgba(0, 0, 0, 0.452);
 	padding: 2rem;
+}
+
+.form-field-wrapper {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.player-card-icons-wrapper {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.option {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+
+	cursor:pointer;
+
+	width:8rem;
+	height:8rem;
+
+	-webkit-transition: all 100ms ease-in;
+		-moz-transition: all 100ms ease-in;
+			transition: all 100ms ease-in;
+
+	-webkit-filter: brightness(1.8) grayscale(1) opacity(.7);
+		-moz-filter: brightness(1.8) grayscale(1) opacity(.7);
+			filter: brightness(1.8) grayscale(1) opacity(.7);
+}
+
+.option:hover{
+	-webkit-filter: brightness(1.2) grayscale(.5) opacity(.9);
+		-moz-filter: brightness(1.2) grayscale(.5) opacity(.9);
+			filter: brightness(1.2) grayscale(.5) opacity(.9);
+}
+
+.options-selector {
+	display: flex;
+	width: 100%;
+	align-items: center;
+	justify-content: space-evenly;
+}
+
+.options-selector input:active + .option {
+	opacity: .9;
+}
+
+.options-selector input:checked + .option {
+	-webkit-filter: none;
+		-moz-filter: none;
+			filter: none;
+}
+
+.options-selector input {
+	margin:0;
+	padding:0;
+	-webkit-appearance:none;
+		-moz-appearance:none;
+			appearance:none;
+}
+
+.icon {
+	width: 3rem;
 }
