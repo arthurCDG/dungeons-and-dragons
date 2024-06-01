@@ -11,7 +11,7 @@ import { IPlayer } from 'src/app/models';
   styleUrls: ['./player-card.component.css']
 })
 export class PlayerCardComponent {
-	@Input() public player: IPlayer;
+	@Input({ required: true}) public player: IPlayer;
 	@Input() public isSelected: boolean;
 	@Output() playerSelected = new EventEmitter<IPlayer>();
 

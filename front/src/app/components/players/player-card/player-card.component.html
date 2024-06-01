@@ -4,11 +4,24 @@
 	(click)="onPlayerCardClick()"	
 >
 	<div>
-		<img class="player-logo" *ngIf="player.profile?.class === 1"	alt="" src="../../../assets/hero-classes/epees.png" />
-		<img class="player-logo" *ngIf="player.profile?.class === 5" alt="" src="../../../assets/hero-classes/religion.png" />
-		<img class="player-logo" *ngIf="player.profile?.class === 7" alt="" src="../../../assets/hero-classes/haches.png" />
-		<img class="player-logo" *ngIf="player.profile?.class === 8" alt="" src="../../../assets/hero-classes/baguette-magique.png" />
-		<img class="player-logo" *ngIf="player.profile?.class === 0" alt="" src="../../../assets/hero-classes/crane.png" />
+		@switch (player.profile?.class) {
+			@case (0) {
+				<img class="player-logo" alt="" src="../../../assets/hero-classes/crane.png" />
+			}
+			@case (1) {
+				<img class="player-logo" alt="" src="../../../assets/hero-classes/epees.png" />
+			}
+			@case (5) {
+				<img class="player-logo" alt="" src="../../../assets/hero-classes/religion.png" />
+			}
+			@case (7) {
+				<img class="player-logo" alt="" src="../../../assets/hero-classes/haches.png" />
+			}
+			@case (8) {
+				<img class="player-logo" alt="" src="../../../assets/hero-classes/baguette-magique.png" />
+			}
+		}
+		
 		<span>{{ player.profile?.name }}</span>
 	</div>
 	<div class="main-button-wrapper">
