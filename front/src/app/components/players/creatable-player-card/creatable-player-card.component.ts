@@ -10,5 +10,5 @@ import { ICreatablePlayer, IPlayer } from 'src/app/models';
   styleUrls: ['./creatable-player-card.component.css']
 })
 export class CreatablePlayerCardComponent {
-	@Input() public player: ICreatablePlayer;
+	@Input({ required: true }) public player: ICreatablePlayer;
 }
