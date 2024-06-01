@@ -12,78 +12,94 @@ internal sealed class CreatablePlayersService : ICreatablePlayersService
 {
     private readonly IPlayersRepository _playersRepository;
 
+    private readonly int _maxCreatablePlayers = 4;
+    private static readonly HashSet<Species> _wizzardExcludedSpecies = [Species.Dwarf, Species.Human];
+    private static readonly HashSet<Species> _clericExcludedSpecies = [Species.Dwarf, Species.Halfling];
+
     /* Source for players: https://en.wikipedia.org/wiki/Dungeons_%26_Dragons_iconic_characters */
 
     public CreatablePlayersService(IPlayersRepository playersRepository)
     {
-        _playersRepository = playersRepository ?? throw new System.ArgumentNullException(nameof(playersRepository));
+        _playersRepository = playersRepository;
     }
 
     public async Task<List<CreatablePlayer>> GetAsync(int userId)
     {
-        List<CreatablePlayer> creatablePlayers = GetCreatablePlayers();
-        
         List<Player> alreadyCreatedPlayers = await _playersRepository.GetAsync(userId);
-        creatablePlayers.RemoveAll(cp => alreadyCreatedPlayers.Any(acp => acp.Profile?.Name == cp.Name));
+        if (alreadyCreatedPlayers.Count >= _maxCreatablePlayers)
+        {
+            return [];
+        }
 
-        // TODO Remove players that are not unlocked by the user (based on adventures and campaigns done for now - later on some more precise achievements and logic)
-        
-        return creatablePlayers;
+       return GetCreatablePlayers();
     }
 
     private static List<CreatablePlayer> GetCreatablePlayers()
+    {
+        List<CreatableSpecies> creatableSpecies = GetCreatableSpecies();
+
+        return
+        [
+            new CreatablePlayer
+            {
+                AssociatedSpecies = creatableSpecies,
+                Class = Class.Warrior,
+                Description = "Un guerrier est un combattant qui est fort et résistant. Il est capable de porter une armure lourde et de manier des armes puissantes. Les guerriers sont souvent les premiers à entrer dans la bataille et les derniers à en sortir. Ils sont courageux et déterminés, et ils sont prêts à risquer leur vie pour protéger leurs amis et leur famille.",
+                LokalisedClassName = "Guerrier",
+                MaxAttributes = PlayersAttributesHelper.WarriorLevel1MaxAttributes
+            },
+
+            new CreatablePlayer
+            {
+                AssociatedSpecies = creatableSpecies,
+                Class = Class.Rogue,
+                Description = "Un voleur est un personnage rusé et agile qui se déplace furtivement et utilise des compétences spéciales pour voler, espionner et saboter. Les voleurs sont souvent des marginaux et des hors-la-loi, mais ils peuvent aussi être des héros et des aventuriers. Ils sont habiles dans le combat au corps à corps et à distance, et ils sont capables de se faufiler dans les endroits les plus sécurisés.",
+                LokalisedClassName = "Voleur",
+                MaxAttributes = PlayersAttributesHelper.RogueLevel1MaxAttributes
+            },
+
+            new CreatablePlayer
+            {
+                AssociatedSpecies = creatableSpecies.Where(cs => _clericExcludedSpecies.Contains(cs.Species)).ToList(),
+                Class = Class.Cleric,
+                Description = "Un clerc est un personnage qui sert une divinité et qui est capable de lancer des sorts divins. Les clercs sont des guérisseurs et des protecteurs, et ils sont souvent les leaders spirituels de leur communauté. Ils portent des symboles religieux et des armures légères, et ils sont capables de canaliser l'énergie divine pour guérir les blessures et repousser les morts-vivants.",
+                LokalisedClassName = "Clerc",
+                MaxAttributes = PlayersAttributesHelper.ClericLevel1MaxAttributes
+            },
+
+            new CreatablePlayer
+            {
+                AssociatedSpecies= creatableSpecies.Where(cs => _wizzardExcludedSpecies.Contains(cs.Species)).ToList(),
+                Class = Class.Wizard,
+                Description = "Un magicien est un personnage qui pratique la magie et qui est capable de lancer des sorts puissants. Les magiciens étudient les arts mystiques et les sciences occultes, et ils sont capables de manipuler les forces de la nature pour accomplir des exploits incroyables. Ils portent des vêtements légers, et ils sont souvent accompagnés de familiers magiques.",
+                LokalisedClassName = "Magicien",
+                MaxAttributes = PlayersAttributesHelper.WizzardLevel1MaxAttributes
+            }
+        ];
+    }
+
+    private static List<CreatableSpecies> GetCreatableSpecies()
         => new()
         {
-            // Regdar
-            new CreatablePlayer
+            new CreatableSpecies
             {
-                Class = Class.Warrior,
-                Description = "Regdar est un guerrier humain qui a passé sa vie à se battre pour ce qu'il croit être juste. Il est grand et musclé, avec des cheveux noirs et des yeux bruns. Il porte une armure de plaques et une épée longue, et il est toujours prêt à se battre pour ce qu'il croit être juste.",
-                Gender = PlayerGender.Male,
-                MaxAttributes = PlayersAttributesHelper.RegdarLevel1MaxAttributes,
-                Name = "Regdar",
-                Race = Race.Human,
-                Role = PlayerRole.Hero,
-                Type = PlayerType.Regdar
+                Species = Species.Dwarf,
+                LokalisedSpeciesName = "Nain"
             },
-
-            // Lidda
-            new CreatablePlayer
+            new CreatableSpecies
             {
-                Class = Class.Rogue,
-                Description = "Lidda est une voleuse gnome extrêmement rusée. Sa phrase préférée : 'Les petites choses peuvent être féroces'.",
-                Gender = PlayerGender.Female,
-                MaxAttributes = PlayersAttributesHelper.LiddaLevel1MaxAttributes,
-                Name = "Lidda",
-                Race = Race.Halfling,
-                Role = PlayerRole.Hero,
-                Type = PlayerType.Lidda,
+                Species = Species.Elf,
+                LokalisedSpeciesName = "Elfe"
             },
-
-            // Jozan
-            new CreatablePlayer
+            new CreatableSpecies
             {
-                Class = Class.Cleric,
-                Description = "Jozan est un prêtre humain qui a passé sa vie à servir les dieux. Il est grand et mince, avec des cheveux noirs et des yeux bruns. Il porte une armure de plaques et une masse de guerre, et il est toujours prêt à servir les dieux.",
-                Gender = PlayerGender.Male,
-                MaxAttributes = PlayersAttributesHelper.JozanLevel1MaxAttributes,
-                Name = "Jozan",
-                Race = Race.Human,
-                Role = PlayerRole.Hero,
-                Type = PlayerType.Jozan
+                Species = Species.Halfling,
+                LokalisedSpeciesName = "Halfelin"
             },
-
-            // Mialye
-            new CreatablePlayer
+            new CreatableSpecies
             {
-                Class = Class.Wizard,
-                Description = "Mialye est une magicienne elfe qui a passé sa vie à étudier la magie. Elle est grande et mince, avec des cheveux noirs et des yeux bruns. Elle porte une robe de mage et un bâton de mage, et elle est toujours prête à lancer des sorts.",
-                Gender = PlayerGender.Female,
-                MaxAttributes = PlayersAttributesHelper.MialyeLevel1MaxAttributes,
-                Name = "Mialye",
-                Race= Race.Elf,
-                Role = PlayerRole.Hero,
-                Type = PlayerType.Mialye
+                Species = Species.Human,
+                LokalisedSpeciesName = "Humain"
             }
         };
 }

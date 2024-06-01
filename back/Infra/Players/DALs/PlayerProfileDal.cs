@@ -12,7 +12,7 @@ internal sealed class PlayerProfileDal
     public required PlayerGender Gender { get; set; }
     public string? ImageUrl { get; set; }
     public required string Name { get; set; }
-    public required Race Race { get; set; }
+    public required Species Species { get; set; }
     public required PlayerRole Role { get; set; }
 
     public PlayerProfile ToDomain()
@@ -24,6 +24,6 @@ internal sealed class PlayerProfileDal
             Gender = Gender,
             ImageUrl = ImageUrl,
             Name = Name,
-            Race = Race
+            Species = Species
         };
 }

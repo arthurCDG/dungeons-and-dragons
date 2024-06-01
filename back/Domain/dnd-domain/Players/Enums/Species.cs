@@ -1,6 +1,6 @@
 ﻿namespace dnd_domain.Players.Enums;
 
-public enum Race
+public enum Species
 {
     None = 0,
     Human,

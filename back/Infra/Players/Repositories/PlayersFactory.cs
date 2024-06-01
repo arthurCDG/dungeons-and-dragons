@@ -82,7 +82,7 @@ internal sealed class PlayersFactory
             {
                 Name = payload.Name,
                 ImageUrl = "",
-                Race = payload.Race,
+                Species = payload.Species,
                 Class = payload.Class,
                 Gender = payload.Gender,
                 Role = PlayerRole.Hero
@@ -116,7 +116,7 @@ internal sealed class PlayersFactory
             {
                 Name = payload.Name,
                 ImageUrl = "",
-                Race = payload.Race,
+                Species = payload.Species,
                 Class = payload.Class,
                 Gender = payload.Gender,
                 Role = PlayerRole.Hero
@@ -155,7 +155,7 @@ internal sealed class PlayersFactory
             {
                 Name = payload.Name,
                 ImageUrl = "",
-                Race = payload.Race,
+                Species = payload.Species,
                 Class = payload.Class,
                 Gender = payload.Gender,
                 Role = PlayerRole.Hero
@@ -194,7 +194,7 @@ internal sealed class PlayersFactory
             {
                 Name = payload.Name,
                 ImageUrl = "",
-                Race = payload.Race,
+                Species = payload.Species,
                 Class = payload.Class,
                 Gender = payload.Gender,
                 Role = PlayerRole.Hero
@@ -240,7 +240,7 @@ internal sealed class PlayersFactory
                 Profile = new PlayerProfileDal
                 {
                     Name = "Zoc",
-                    Race = Race.Goblin,
+                    Species = Species.Goblin,
                     ImageUrl = "",
                     Gender = PlayerGender.Male,
                     Role = PlayerRole.Monster,
@@ -273,7 +273,7 @@ internal sealed class PlayersFactory
                 Profile = new PlayerProfileDal
                 {
                     Name = "Slusb",
-                    Race = Race.Goblin,
+                    Species = Species.Goblin,
                     ImageUrl = "",
                     Gender = PlayerGender.Male,
                     Role = PlayerRole.Monster,
@@ -306,7 +306,7 @@ internal sealed class PlayersFactory
                 Profile = new PlayerProfileDal
                 {
                     Name = "Klezz",
-                    Race = Race.Goblin,
+                    Species = Species.Goblin,
                     ImageUrl = "",
                     Gender = PlayerGender.Male,
                     Role = PlayerRole.Monster,
@@ -339,7 +339,7 @@ internal sealed class PlayersFactory
                 Profile = new PlayerProfileDal
                 {
                     Name = "Guburk",
-                    Race = Race.Goblin,
+                    Species = Species.Goblin,
                     ImageUrl = "",
                     Gender = PlayerGender.Male,               
                     Role = PlayerRole.Monster,
@@ -372,7 +372,7 @@ internal sealed class PlayersFactory
                 Profile = new PlayerProfileDal
                 {
                     Name = "Praq",
-                    Race = Race.Goblin,
+                    Species = Species.Goblin,
                     ImageUrl = "",
                     Gender = PlayerGender.Male,
                     Role = PlayerRole.Monster,
@@ -405,7 +405,7 @@ internal sealed class PlayersFactory
                 Profile = new PlayerProfileDal
                 {
                     Name = "Cukx",
-                    Race = Race.Goblin,
+                    Species = Species.Goblin,
                     ImageUrl = "",
                     Gender = PlayerGender.Male,
                     Role = PlayerRole.Monster,

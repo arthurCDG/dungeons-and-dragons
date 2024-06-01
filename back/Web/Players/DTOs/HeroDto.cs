@@ -9,6 +9,6 @@ public class HeroDto : PlayerDto
 {
     public int SquareId { get; set; }
     public Class Class { get; set; }
-    public Race Race { get; set; }
+    public Species Species { get; set; }
     public List<StoredItemDto> StoredItems { get; set; } = new();
 }

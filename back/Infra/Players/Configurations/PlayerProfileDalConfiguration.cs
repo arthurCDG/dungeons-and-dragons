@@ -31,9 +31,9 @@ internal sealed class PlayerProfileDalConfiguration : IEntityTypeConfiguration<P
                .HasMaxLength(55)
                .HasConversion(new EnumToStringConverter<Class>());
 
-        builder.Property(p => p.Race)
+        builder.Property(p => p.Species)
                .HasMaxLength(55)
-               .HasConversion(new EnumToStringConverter<Race>());
+               .HasConversion(new EnumToStringConverter<Species>());
 
         builder.Property(p => p.Role)
                .HasMaxLength(55)

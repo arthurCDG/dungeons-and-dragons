@@ -16,8 +16,8 @@ internal sealed class PlayersValidationService(IPlayersRepository playersReposit
         if (!Enum.IsDefined(typeof(Class), playerCreationPayload.Class))
             return new Result().WithError($"Invalid class : {playerCreationPayload.Class}.");
 
-        if (!Enum.IsDefined(typeof(Race), playerCreationPayload.Race))
-            return new Result().WithError($"Invalid race: {playerCreationPayload.Race}.");
+        if (!Enum.IsDefined(typeof(Species), playerCreationPayload.Species))
+            return new Result().WithError($"Invalid species: {playerCreationPayload.Species}.");
 
         if (!Enum.IsDefined(typeof(PlayerGender), playerCreationPayload.Gender))
             return new Result().WithError($"Invalid gender: {playerCreationPayload.Gender}.");

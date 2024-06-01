@@ -4,7 +4,7 @@ namespace dnd_domain.Players.Helpers;
 
 public static class PlayersAttributesHelper
 {
-    public static PlayerMaxAttributes RegdarLevel1MaxAttributes
+    public static PlayerMaxAttributes WarriorLevel1MaxAttributes
     {
         get => new()
         {
@@ -19,7 +19,7 @@ public static class PlayersAttributesHelper
         };
     }
 
-    public static PlayerMaxAttributes LiddaLevel1MaxAttributes
+    public static PlayerMaxAttributes RogueLevel1MaxAttributes
     {
         get => new()
         {
@@ -34,7 +34,7 @@ public static class PlayersAttributesHelper
         };
     }
 
-    public static PlayerMaxAttributes JozanLevel1MaxAttributes
+    public static PlayerMaxAttributes ClericLevel1MaxAttributes
     {
         get => new()
         {
@@ -49,7 +49,7 @@ public static class PlayersAttributesHelper
         };
     }
 
-    public static PlayerMaxAttributes MialyeLevel1MaxAttributes
+    public static PlayerMaxAttributes WizzardLevel1MaxAttributes
     {
         get => new()
         {
