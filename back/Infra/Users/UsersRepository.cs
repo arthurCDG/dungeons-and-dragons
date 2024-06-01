@@ -30,7 +30,6 @@ internal sealed class UsersRepository : IUsersRepository
         UserDal user = new()
         {
             Name = userPayload.UserName,
-            Password = userPayload.Password,
             PictureUrl = userPayload.PictureUrl,
             PasswordHash = passwordHash,
             PasswordSalt = passwordSalt
@@ -44,18 +43,31 @@ internal sealed class UsersRepository : IUsersRepository
 
     public async Task<User?> GetFromLoginPayloadAsync(LoginPayload loginPayload)
     {
-        UserDal? user = await _dbContext.Users.FirstOrDefaultAsync(u => u.Name.Equals(loginPayload.UserName, StringComparison.CurrentCultureIgnoreCase) &&
-                                                                        u.Password == loginPayload.Password);
-        return user?.ToDomain();
+        CreatePasswordHash(loginPayload.Password, out byte[] passwordHash, out byte[] passwordSalt);
+        PasswordHashMatches(loginPayload.Password, passwordHash, passwordSalt);
+
+        UserDal? user = await _dbContext.Users.FirstOrDefaultAsync(u => u.Name.Equals(loginPayload.UserName, StringComparison.CurrentCultureIgnoreCase));
+        
+        if (user is null || !PasswordHashMatches(loginPayload.Password, user.PasswordHash, user.PasswordSalt))
+        {
+            return null;
+        }
+
+        return user.ToDomain();
     }
 
     public Task<bool> UserNameExistsAsync(string userName)
         => _dbContext.Users.AnyAsync(u => u.Name == userName);
 
-    public async Task<bool> PasswordExistsAsync(string userName)
+    public async Task<bool> CrendentialsMatchAsync(LoginPayload loginPayload)
     {
-        UserDal user = await _dbContext.Users.FirstAsync(u => u.Name == userName);
-        return PasswordHashMatches(userName, user.PasswordHash, user.PasswordSalt);
+        if (!await UserNameExistsAsync(loginPayload.UserName))
+        {
+            return false;
+        }
+
+        UserDal user = await _dbContext.Users.FirstAsync(u => u.Name == loginPayload.UserName);
+        return PasswordHashMatches(loginPayload.Password, user.PasswordHash, user.PasswordSalt);
     }
 
     private static void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)

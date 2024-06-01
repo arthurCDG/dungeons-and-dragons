@@ -35,11 +35,8 @@ internal sealed class UserValidationService : IUserValidationService
         if (string.IsNullOrWhiteSpace(loginPayload.Password))
             return new Result().WithError("Password is required");
 
-        if (!await _usersRepository.UserNameExistsAsync(loginPayload.UserName))
-            return new Result().WithError("UserName does not exist.");
-
-        if (!await _usersRepository.PasswordExistsAsync(loginPayload.UserName))
-            return new Result().WithError("Password is incorrect.");
+        if (!await _usersRepository.CrendentialsMatchAsync(loginPayload))
+            return new Result().WithError("UserName or password is incorrect.");
 
         return new Result();
     }

@@ -17,9 +17,6 @@ internal sealed class UserDalConfiguration : IEntityTypeConfiguration<UserDal>
         builder.Property(u => u.Name)
                .HasMaxLength(55);
 
-        builder.Property(u => u.Password)
-               .HasMaxLength(255);
-
         builder.Property(u => u.PasswordHash)
                .HasMaxLength(255);
 
