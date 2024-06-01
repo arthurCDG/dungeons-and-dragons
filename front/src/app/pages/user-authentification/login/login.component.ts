@@ -5,21 +5,29 @@ import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 
 import { catchError, shareReplay } from 'rxjs';
-import { BackArrowComponent } from 'src/app/components/back-arrow/back-arrow.component';
-import { ToastMessageComponent } from '../../../components/toast-message/toast-message.component';
 import { IAuthentifiedUser, ILoginPayload } from '../../../models';
 import { AuthService, EventsService } from '../../../services';
+import { BackArrowComponent, ToastMessageComponent, PageBackgroundImageComponent, ImageType, PageWrapperComponent } from '../../../../app/components';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterModule, ToastMessageComponent, BackArrowComponent],
+  imports: [
+	CommonModule,
+	ReactiveFormsModule,
+	RouterModule,
+	ToastMessageComponent,
+	BackArrowComponent,
+	PageWrapperComponent,
+	PageBackgroundImageComponent
+],
   templateUrl: './login.component.html',
   styleUrls: ['./../styles/authentication.component.css'],
   providers: [AuthService]
 })
 export class LoginComponent {
 	public httpError: HttpErrorResponse | null = null;
+	public backgroundImage: ImageType = 'signup-login-image';
 
 	usernameCtrl = this.fb.control('');
 	passwordCtrl = this.fb.control('');

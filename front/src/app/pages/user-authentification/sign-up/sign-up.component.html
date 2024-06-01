@@ -1,66 +1,70 @@
-<div class="authentication-background">
-	<app-back-arrow text="Retour à la page d'accueil" link=".."></app-back-arrow>
+<app-page-background-image [image]="backgroundImage" />
 
-	<div class="authentication-form-background">
+<app-page-wrapper>
+	<div class="authentication-background">
+		<app-back-arrow text="Retour à la page d'accueil" link=".."></app-back-arrow>
 
-		<h1 class="userFormTitle white-title">Créer un compte utilisateur</h1>
+		<div class="authentication-form-background">
 
-		<div class="auth-form-display">
-			<form (ngSubmit)="signup()" [formGroup]="userForm" class="form-content auth-form-content">
-				<!-- Username -->
-				<div class="form-element">
-					<label class="form-label">Nom d'utilisateur</label>
-					<input class="form-input" type="text" name="username" formControlName="username"/>
-				</div>
-				@if (usernameCtrl.dirty && usernameCtrl.hasError('required')) {
-					<div class="error-message form-element">
-						Username is required
+			<h1 class="userFormTitle white-title">Créer un compte utilisateur</h1>
+
+			<div class="auth-form-display">
+				<form (ngSubmit)="signup()" [formGroup]="userForm" class="form-content auth-form-content">
+					<!-- Username -->
+					<div class="form-element">
+						<label class="form-label">Nom d'utilisateur</label>
+						<input class="form-input" type="text" name="username" formControlName="username"/>
 					</div>
-				}
-				@if (usernameCtrl.dirty && usernameCtrl.hasError('minlength')) {
-					<div class="error-message form-element">
-						Username should be 3 characters min
-					</div>
-				}
+					@if (usernameCtrl.dirty && usernameCtrl.hasError('required')) {
+						<div class="error-message form-element">
+							Username is required
+						</div>
+					}
+					@if (usernameCtrl.dirty && usernameCtrl.hasError('minlength')) {
+						<div class="error-message form-element">
+							Username should be 3 characters min
+						</div>
+					}
 
-				<!-- Password -->
-				<div class="form-element">
-					<label class="form-label">Mot de passe</label>
-					<input class="form-input" type="password" name="password" formControlName="password" />
-				</div>
-				@if (passwordCtrl.dirty && passwordCtrl.hasError('required')) {
-					<div class="error-message form-element">
-						Password is required
+					<!-- Password -->
+					<div class="form-element">
+						<label class="form-label">Mot de passe</label>
+						<input class="form-input" type="password" name="password" formControlName="password" />
 					</div>
-				}
-				@if (passwordCtrl.dirty && passwordCtrl.hasError('minlength')) {
-					<div class="error-message form-element">
-						Password should have at leadt 6 characters
+					@if (passwordCtrl.dirty && passwordCtrl.hasError('required')) {
+						<div class="error-message form-element">
+							Password is required
+						</div>
+					}
+					@if (passwordCtrl.dirty && passwordCtrl.hasError('minlength')) {
+						<div class="error-message form-element">
+							Password should have at leadt 6 characters
+						</div>
+					}
+
+					<!-- Confirmed password -->
+					<div class="form-element">
+						<label class="form-label">Confirmer le mot de passe</label>
+						<input class="form-input" type="password" name="confirmedPassword" formControlName="confirmedPassword" />
 					</div>
+					@if (confirmedPasswordCtrl.dirty && confirmedPasswordCtrl.hasError('PasswordNoMatch')) {
+						<div class="error-message form-element">
+							Les mots de passe ne correspondent pas
+						</div>
+					}
+
+					<!-- Submit button -->
+					<button class="form-element" type="submit">Enregistrer</button>
+				</form>
+
+				@if (httpError) {
+					<app-toast-message [httpError]="httpError"></app-toast-message>
 				}
-
-				<!-- Confirmed password -->
-				<div class="form-element">
-					<label class="form-label">Confirmer le mot de passe</label>
-					<input class="form-input" type="password" name="confirmedPassword" formControlName="confirmedPassword" />
-				</div>
-				@if (confirmedPasswordCtrl.dirty && confirmedPasswordCtrl.hasError('PasswordNoMatch')) {
-					<div class="error-message form-element">
-						Les mots de passe ne correspondent pas
-					</div>
-				}
-
-				<!-- Submit button -->
-				<button class="form-element" type="submit">Enregistrer</button>
-			</form>
-
-			@if (httpError) {
-				<app-toast-message [httpError]="httpError"></app-toast-message>
-			}
-			
-			<nav class="auth-nav">
-				<a class="auth-nav-link" routerLink="/login">Se connecter</a>
-			</nav>
+				
+				<nav class="auth-nav">
+					<a class="auth-nav-link" routerLink="/login">Se connecter</a>
+				</nav>
+			</div>
 		</div>
 	</div>
-</div>
+</app-page-wrapper>

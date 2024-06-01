@@ -10,4 +10,4 @@ export class PageBackgroundImageComponent {
 	@Input() image: string;
 }
 
-export type ImageType = 'hollbrook-background-campaign-image'
+export type ImageType = 'hollbrook-background-campaign-image' | 'signup-login-image'
