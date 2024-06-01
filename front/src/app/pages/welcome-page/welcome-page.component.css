@@ -30,15 +30,3 @@
 	text-align: center;
 	margin-top: 5rem;
 }
-
-.welcome-link {
-	color: white;
-	background-color: rgba(0, 0, 0, 0.356);
-	border: none;
-}
-
-.welcome-link:hover {
-	color: white;
-	background-color: rgba(0, 0, 0, 0.5);
-	border: none;
-}

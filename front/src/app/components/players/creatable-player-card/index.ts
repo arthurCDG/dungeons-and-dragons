@@ -1,0 +1,1 @@
+export * from './creatable-player-card.component';

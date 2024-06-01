@@ -16,13 +16,13 @@
 				<app-player-card [player]="player" [isSelected]="isSelected(player)" (playerSelected)="onPlayerSelected(player)" />
 			}
 			<div class="main-button-wrapper">
-				<a [routerLink]="['new']" class="link-button base-button">Créer un nouveau joueur</a>
+				<a [routerLink]="['new']" class="link-button base-button nav-button welcome-link">Créer un nouveau joueur</a>
 			</div>
 		</div>
 	}
 	@else {
 		<nav class="empty-state-nav">
-			<a [routerLink]="['new']" class="link-button base-button empty-state-button players-page-empty-state-button">
+			<a [routerLink]="['new']" class="link-button base-button nav-button welcome-link">
 				<span>Créer un nouveau joueur</span>
 			</a>
 		</nav>
