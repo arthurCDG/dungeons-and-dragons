@@ -5,21 +5,18 @@
 		<app-back-arrow text="Retour à la page d'accueil" link="../../.."></app-back-arrow>
 
 		@if (players.length) {
-			<div class="player-background">
-				<app-back-arrow text="Retour à la page d'accueil" link="../../.."></app-back-arrow>
+			<div class="players-list">
 				<div class="displayed-player">
-					@if (currentPlayer) {
-						<app-selected-player [class]="currentPlayer.profile!.class"></app-selected-player>
-					}
+					<app-selected-player [selectedClass]="currentPlayer!.profile!.class" />
 				</div>
-			</div>
-
-			<div id="player-cards-list">
-				@for (player of players; track player.id) {
-					<app-player-card [player]="player" [isSelected]="isSelected(player)" (playerSelected)="onPlayerSelected(player)" />
-				}
-				<div class="main-button-wrapper">
-					<a [routerLink]="['new']" class="link-button base-button nav-button welcome-link">Créer un nouveau joueur</a>
+				
+				<div id="player-cards-list">
+					@for (player of players; track player.id) {
+						<app-player-card [player]="player" [isSelected]="isSelected(player)" (playerSelected)="onPlayerSelected(player)" />
+					}
+					<div class="main-button-wrapper">
+						<a [routerLink]="['new']" class="link-button base-button nav-button welcome-link">Créer un nouveau joueur</a>
+					</div>
 				</div>
 			</div>
 		}

@@ -10,4 +10,11 @@ export class PageBackgroundImageComponent {
 	@Input() image: string;
 }
 
-export type ImageType = 'hollbrook-background-campaign-image' | 'signup-login-page' | 'players-creation-page';
+export type ImageType =
+	'hollbrook-background-campaign-image'|
+	'signup-login-page' |
+	'players-creation-page' |
+	'campaigns-page' |
+	'hollbrook-background-campaign-image' |
+	'inpursuit-of-the-dark-army-campaign-image' |
+	'wrath-of-the-lich-campaign-image';

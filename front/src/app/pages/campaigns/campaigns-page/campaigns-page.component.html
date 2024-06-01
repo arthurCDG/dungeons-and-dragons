@@ -1,13 +1,17 @@
-<div class="page-background-image campaigns-background-image">
-	<div class="page-description-wrapper">
-		<h1>Page des campagnes du joueur</h1>
-	</div>
-	
-	@for (campaign of campaigns$ | async; track campaign.id) {
-		<app-campaign-card [campaign]="campaign"></app-campaign-card>
-	}
+<app-page-background-image [image]="backgroundImage" />
 
-	@for (creatableCampaign of creatableCampaigns$ | async; track creatableCampaign.type) {
-		<app-creatable-campaign-card [creatableCampaign]="creatableCampaign"></app-creatable-campaign-card>
-	}
-</div>
+<app-page-wrapper>
+	<div class="page-background-image campaigns-background-image">
+		<div class="page-description-wrapper">
+			<h1>Vos campagnes</h1>
+		</div>
+		
+		@for (campaign of campaigns$ | async; track campaign.id) {
+			<app-campaign-card [campaign]="campaign"></app-campaign-card>
+		}
+		
+		@for (creatableCampaign of creatableCampaigns$ | async; track creatableCampaign.type) {
+			<app-creatable-campaign-card [creatableCampaign]="creatableCampaign"></app-creatable-campaign-card>
+		}
+	</div>
+</app-page-wrapper>

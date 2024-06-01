@@ -8,34 +8,38 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from "@angular/material/icon";
 import { MatSelectModule } from '@angular/material/select';
 import { Observable } from 'rxjs';
-import { BackArrowComponent } from 'src/app/components/back-arrow/back-arrow.component';
-import { ICampaign, ICampaignPayload, ICreatableCampaign, IPlayer, IUserDto } from '../../../models';
+import { CampaignType, ICampaign, ICampaignPayload, ICreatableCampaign, IPlayer, IUserDto } from '../../../models';
 import { AvailableDungeonMastersService, AvailablePlayersService, CampaignsService, PlayersService } from '../../../services';
+import { BackArrowComponent, ImageType, PageBackgroundImageComponent, PageWrapperComponent } from '../../../components';
 
 @Component({
-  selector: 'app-campaign-creation-page',
-  standalone: true,
-  imports: [
-	CommonModule,
-	ReactiveFormsModule,
-	MatSelectModule,
-	MatFormFieldModule,
-	MatIconModule,
-	BackArrowComponent
-],
-  templateUrl: './campaign-creation-page.component.html',
-  styleUrls: ['./campaign-creation-page.component.css'],
-  providers: [
-	CampaignsService,
-	AvailableDungeonMastersService,
-	AvailablePlayersService,
-	PlayersService
-  ]
+	selector: 'app-campaign-creation-page',
+	standalone: true,
+	imports: [
+		CommonModule,
+		ReactiveFormsModule,
+		MatSelectModule,
+		MatFormFieldModule,
+		MatIconModule,
+		BackArrowComponent,
+		PageWrapperComponent,
+		PageBackgroundImageComponent
+	],
+	templateUrl: './campaign-creation-page.component.html',
+	styleUrls: ['./campaign-creation-page.component.css'],
+	providers: [
+		CampaignsService,
+		AvailableDungeonMastersService,
+		AvailablePlayersService,
+		PlayersService
+	]
 })
 export class CampaignCreationPageComponent implements OnInit {
 	public selectedCampaign?: ICreatableCampaign | null = null;
 	public currentPlayer?: IPlayer | null = null;
 	public isLoading: boolean = true;
+
+	public backgroundImage: ImageType | null = null;
 
 	public users$: Observable<IUserDto[]>;
 	public players$: Observable<IPlayer[]>;
@@ -78,6 +82,7 @@ export class CampaignCreationPageComponent implements OnInit {
 		}
 		
 		this.selectedCampaign = this.routeData.creatableCampaign;
+		this.backgroundImage = this.getBackgroundImage(this.selectedCampaign.type);
 		for (let i = 0; i < this.selectedCampaign.maxPlayers; i++) {
 			this.heroesCtrl.addControl(`hero_${i}`, this.fb.control<IPlayer | null>(null))
 		}
@@ -114,7 +119,17 @@ export class CampaignCreationPageComponent implements OnInit {
 		this.dungeonMasterCtrl.setValue(null);
 	}
 
-	
+	private getBackgroundImage(type: CampaignType): ImageType | null {
+		switch(type) {
+			case CampaignType.HollbrooksLiberation:
+				return 'hollbrook-background-campaign-image';
+			case CampaignType.InpursuitOfTheDarkArmy:
+				return 'inpursuit-of-the-dark-army-campaign-image';
+			case CampaignType.WrathOfTheLich:
+			default:
+				return 'wrath-of-the-lich-campaign-image';
+		}
+	}
 }
 
 interface ICampaignCreationPageRouteData {

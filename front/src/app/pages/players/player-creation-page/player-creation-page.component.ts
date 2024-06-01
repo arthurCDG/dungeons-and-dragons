@@ -8,12 +8,15 @@ import {
 	CreatablePlayerSpeciesCardComponent,
 	PageBackgroundImageComponent,
 	PageWrapperComponent,
-	SelectedPlayerComponent
+	SelectedPlayerComponent,
+	ToastMessageComponent
 } from '../../../components';
 import { Class, ICreatablePlayer, ICreatableSpecies, IPlayerCreationPayload, PlayerGender, Species } from '../../../models';
 import { CreatablePlayersService, PlayersService } from '../../../services';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { IFormRadioInput, playerCreationFormStep } from './models';
+import { HttpErrorResponse } from '@angular/common/http';
+import { catchError } from 'rxjs';
 
 @Component({
 	selector: 'app-player-creation-page',
@@ -26,6 +29,7 @@ import { IFormRadioInput, playerCreationFormStep } from './models';
 		PageWrapperComponent,
 		PageBackgroundImageComponent,
 		BackArrowComponent,
+		ToastMessageComponent,
 		ReactiveFormsModule
 	],
 	templateUrl: './player-creation-page.component.html',
@@ -43,6 +47,8 @@ export class PlayerCreationPageComponent implements OnInit {
 	public selectedClass?: Class;
 	public selectedSpecies?: Species;
 	public isLoading: boolean = true;
+
+	public httpError: HttpErrorResponse | null = null;
 
 	public formStep: playerCreationFormStep = 'playerClass';
 
@@ -170,10 +176,14 @@ export class PlayerCreationPageComponent implements OnInit {
 			species: this.speciesCtrl.value!!
 		};
 
-		console.log(payload);
-
 		this.playersService
 			.createAsync(this.userId, payload)
+			.pipe(
+				catchError(error => {
+					this.httpError = error;
+					throw error;
+				})
+			)
 			.subscribe(() => this.router.navigate(['..'], { relativeTo: this.activatedRoute }));
 	}
 }

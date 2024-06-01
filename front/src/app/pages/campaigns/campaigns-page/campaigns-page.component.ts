@@ -5,20 +5,26 @@ import { Observable } from 'rxjs';
 
 import { ICampaign, ICreatableCampaign } from '../../../models';
 import { CampaignsService, CreatableCampaignsService } from '../../../services';
-import { CampaignCardComponent } from '../../../components/campaigns/campaign-card/campaign-card.component';
-import { CreatableCampaignCardComponent } from '../../../components/campaigns/creatable-campaign-card/creatable-campaign-card.component';
+import { CampaignCardComponent, CreatableCampaignCardComponent, ImageType, PageBackgroundImageComponent, PageWrapperComponent } from '../../../components';
 
 @Component({
-  selector: 'app-campaigns-page',
-  standalone: true,
-  imports: [CommonModule, CampaignCardComponent, CreatableCampaignCardComponent],
-  templateUrl: './campaigns-page.component.html',
-  styleUrls: ['./campaigns-page.component.css'],
-  providers: [CampaignsService, CreatableCampaignsService]
+	selector: 'app-campaigns-page',
+	standalone: true,
+	imports: [
+		CommonModule,
+		CampaignCardComponent,
+		CreatableCampaignCardComponent,
+		PageBackgroundImageComponent,
+		PageWrapperComponent
+	],
+	templateUrl: './campaigns-page.component.html',
+	providers: [CampaignsService, CreatableCampaignsService]
 })
 export class CampaignsPageComponent implements OnInit {
 	public campaigns$: Observable<ICampaign[]>;
 	public creatableCampaigns$: Observable<ICreatableCampaign[]>;
+
+	public backgroundImage: ImageType = 'campaigns-page';
 
 	private playerId: number;
 

@@ -11,14 +11,17 @@
 	width: 20vw;
 }
 
-.player-background {
-	width: 80vw;
-}
-
 .displayed-player {
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	width: 80vw;
+}
+
+.players-list {
+	display: flex;
+	justify-content: center;
+
 }
 
 .empty-state-nav {

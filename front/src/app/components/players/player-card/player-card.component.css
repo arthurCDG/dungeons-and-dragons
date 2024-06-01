@@ -1,6 +1,6 @@
 .player-card {
 	display: flex;
-	padding: 2rem;
+	padding: 1rem;
 	flex-direction: column;
 	align-items: center;
 	cursor: pointer;
@@ -8,13 +8,13 @@
 }
 
 .player-card:hover:not(.selected) {
-	background-color: rgba(182, 238, 238, 0.381);	
-	box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+	background-color: rgba(253, 255, 144, 0.527);
+	box-shadow: rgba(253, 255, 144, 0.527);
 }
 
 .selected {
-	background-color: rgba(2, 9, 151, 0.358);
-	box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+	background-color: rgba(253, 255, 144, 0.527);
+	box-shadow: rgba(253, 255, 144, 0.527);
 }
 
 .player-logo {

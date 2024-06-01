@@ -1,10 +1,9 @@
+@if (backgroundImage) {
+	<app-page-background-image [image]="backgroundImage" />
+}
+
 @if (!isLoading) {
-	<div 
-		class="body-background-image sticky-background-image"
-		[class.hollbrook-campaign]="selectedCampaign?.type === 1"
-		[class.aos-campaign]="selectedCampaign?.type === 2"
-		[class.wotl-campaign]="selectedCampaign?.type === 3"
-	>
+	<app-page-wrapper>
 		<app-back-arrow link=".." text="Retour vers les campagnes"></app-back-arrow>
 
 		<div class="campaigns-page-description-wrapper">
@@ -88,7 +87,7 @@
 				</div>
 			</form>
 		}
-	</div>
+	</app-page-wrapper>
 }
 
 <!-- TODO - lokalise -->

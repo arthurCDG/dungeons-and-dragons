@@ -108,3 +108,7 @@
 		<p>Chargement...</p>
 	}
 </app-page-wrapper>
+
+@if (httpError) {
+	<app-toast-message [httpError]="httpError"></app-toast-message>
+}
