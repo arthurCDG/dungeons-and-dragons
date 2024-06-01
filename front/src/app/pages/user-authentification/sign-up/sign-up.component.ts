@@ -9,11 +9,12 @@ import { IAuthentifiedUser, IUserPayload } from '../../../models/users.models';
 import { AuthService, UsersService } from '../../../services';
 import { confirmPasswordValidator } from '../validators/confirm-password.validator';
 import { ToastMessageComponent } from '../../../components/toast-message/toast-message.component';
+import { BackArrowComponent } from 'src/app/components/back-arrow/back-arrow.component';
 
 @Component({
   selector: 'app-sign-up',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterModule, ToastMessageComponent],
+  imports: [CommonModule, ReactiveFormsModule, RouterModule, ToastMessageComponent, BackArrowComponent],
   templateUrl: './sign-up.component.html',
   styleUrls: ['./../styles/authentication.component.css'],
   providers: [AuthService, UsersService]

@@ -8,7 +8,7 @@ public interface IUsersRepository
     Task<User> CreateAsync(UserPayload payload);
     Task<List<User>> GetAsync();
     Task<User> GetByIdAsync(int id);
-    Task<User?> GetFromLoginPayloadAsync(LoginPayload loginPayload);
+    Task<User> GetFromLoginPayloadAsync(LoginPayload loginPayload);
 
     Task<bool> UserNameExistsAsync(string userName);
     Task<bool> CrendentialsMatchAsync(LoginPayload loginPayload);

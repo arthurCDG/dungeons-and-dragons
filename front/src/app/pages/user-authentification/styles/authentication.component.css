@@ -1,13 +1,19 @@
 .authentication-background {
 	display: flex;
 	flex-direction: column;
-	justify-content: center;
-	align-items: center;
 	height: 100vh;
 	background-image: url('./../../../../assets/background-images/dnd-login-signup-page-3.jpg');
 	background-size: cover;
 	background-position: center;
 	background-repeat: no-repeat;
+}
+
+.authentication-form-background {
+	display: flex;
+	flex-direction: column;
+	height: 90vh;
+	justify-content: center;
+	align-items: center;
 }
 
 .auth-form-display {

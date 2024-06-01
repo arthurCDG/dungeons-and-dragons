@@ -1,35 +1,39 @@
 <div class="authentication-background">
-	<h1 class="userFormTitle white-title">Se connecter</h1>
+	<app-back-arrow text="Retour à la page d'accueil" link=".."></app-back-arrow>
 
-	<div class="auth-form-display">
-		<form (ngSubmit)="login()" [formGroup]="userForm" class="form-content auth-form-content">
-			<div class="form-element">
-				<label class="form-label">Nom d'utilisateur</label>
-				<input class="form-input" type="text" name="username" formControlName="username"/>
-			</div>
-			@if (usernameCtrl.dirty && usernameCtrl.hasError('required')) {
-				<div class="error-message form-element">
-					Username is required
+	<div class="authentication-form-background">
+		<h1 class="userFormTitle white-title">Se connecter</h1>
+
+		<div class="auth-form-display">
+			<form (ngSubmit)="login()" [formGroup]="userForm" class="form-content auth-form-content">
+				<div class="form-element">
+					<label class="form-label">Nom d'utilisateur</label>
+					<input class="form-input" type="text" name="username" formControlName="username"/>
 				</div>
-			}
-			<div class="form-element">
-				<label class="form-label">Mot de passe</label>
-				<input class="form-input" type="password" name="password" formControlName="password" />
-			</div>
-			@if (passwordCtrl.dirty && passwordCtrl.hasError('required')) {
-				<div class="error-message form-element">
-					Password is required
+				@if (usernameCtrl.dirty && usernameCtrl.hasError('required')) {
+					<div class="error-message form-element">
+						Username is required
+					</div>
+				}
+				<div class="form-element">
+					<label class="form-label">Mot de passe</label>
+					<input class="form-input" type="password" name="password" formControlName="password" />
 				</div>
+				@if (passwordCtrl.dirty && passwordCtrl.hasError('required')) {
+					<div class="error-message form-element">
+						Password is required
+					</div>
+				}
+				<button class="form-element" type="submit">Se connecter</button>
+			</form>
+			
+			@if (httpError) {
+				<app-toast-message [httpError]="httpError"></app-toast-message>
 			}
-			<button class="form-element" type="submit">Enregistrer</button>
-		</form>
-		
-		@if (httpError) {
-			<app-toast-message [httpError]="httpError"></app-toast-message>
-		}
-		
-		<nav class="auth-nav">
-			<a class="auth-nav-link" routerLink="/signup">Se créer un compte</a>
-		</nav>
+			
+			<nav class="auth-nav">
+				<a class="auth-nav-link" routerLink="/signup">Se créer un compte</a>
+			</nav>
+		</div>
 	</div>
 </div>

@@ -8,11 +8,12 @@ import { catchError, shareReplay } from 'rxjs';
 import { IAuthentifiedUser, ILoginPayload } from '../../../models';
 import { AuthService } from '../../../services';
 import { ToastMessageComponent } from '../../../components/toast-message/toast-message.component';
+import { BackArrowComponent } from 'src/app/components/back-arrow/back-arrow.component';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterModule, ToastMessageComponent],
+  imports: [CommonModule, ReactiveFormsModule, RouterModule, ToastMessageComponent, BackArrowComponent],
   templateUrl: './login.component.html',
   styleUrls: ['./../styles/authentication.component.css'],
   providers: [AuthService]

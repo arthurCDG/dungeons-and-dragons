@@ -41,18 +41,9 @@ internal sealed class UsersRepository : IUsersRepository
         return user.ToDomain();
     }
 
-    public async Task<User?> GetFromLoginPayloadAsync(LoginPayload loginPayload)
+    public async Task<User> GetFromLoginPayloadAsync(LoginPayload loginPayload)
     {
-        CreatePasswordHash(loginPayload.Password, out byte[] passwordHash, out byte[] passwordSalt);
-        PasswordHashMatches(loginPayload.Password, passwordHash, passwordSalt);
-
-        UserDal? user = await _dbContext.Users.FirstOrDefaultAsync(u => u.Name.Equals(loginPayload.UserName, StringComparison.CurrentCultureIgnoreCase));
-        
-        if (user is null || !PasswordHashMatches(loginPayload.Password, user.PasswordHash, user.PasswordSalt))
-        {
-            return null;
-        }
-
+        UserDal user = await _dbContext.Users.FirstAsync(u => u.Name == loginPayload.UserName);
         return user.ToDomain();
     }
 

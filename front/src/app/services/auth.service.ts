@@ -41,7 +41,7 @@ export class AuthService {
 
 	public doLogoutAndRedirectToLogin = (): void => {
 		this.doLogoutUser();
-		this.router.navigate(['..']);
+		this.router.navigate(['/login']);
 	}
 
 	public getCurrentUserId(): Observable<number | null> {
