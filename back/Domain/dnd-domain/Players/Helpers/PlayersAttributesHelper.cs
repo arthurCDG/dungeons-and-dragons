@@ -49,7 +49,7 @@ public static class PlayersAttributesHelper
         };
     }
 
-    public static PlayerMaxAttributes WizzardLevel1MaxAttributes
+    public static PlayerMaxAttributes WizardLevel1MaxAttributes
     {
         get => new()
         {
