@@ -88,7 +88,7 @@ internal sealed class CreatablePlayersService : ICreatablePlayersService
                 MaxAttributes = PlayersAttributesHelper.WizardLevel1MaxAttributes
             }
         ];
-    }S
+    }
 
     private static List<CreatableSpecies> GetCreatableSpecies()
         => new()

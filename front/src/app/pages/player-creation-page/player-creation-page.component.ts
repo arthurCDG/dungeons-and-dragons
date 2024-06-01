@@ -10,7 +10,7 @@ import {
 	PageWrapperComponent,
 	SelectedPlayerComponent
 } from '../../../app/components';
-import { ICreatablePlayer, IPlayerCreationPayload } from '../../models';
+import { ICreatablePlayer, IPlayerCreationPayload, PlayerGender, Species } from '../../models';
 import { CreatablePlayersService, PlayersService } from '../../services';
 
 @Component({
@@ -65,11 +65,10 @@ export class PlayerCreationPageComponent implements OnInit {
 
 	onSubmit(): void {
 		const payload: IPlayerCreationPayload = {
-			class: this.selectedPlayer!.class,
-			name: this.selectedPlayer!.name,
-			gender: this.selectedPlayer!.gender,
-			race: this.selectedPlayer!.race,
-			role: this.selectedPlayer!.role
+			class: this.selectedPlayer!.class.type,
+			name: 'MUST COME FRON THE TEXT INPUT', // TODO
+			gender: PlayerGender.NonBinary, // TODO - MUST COME FRON THE RADIO INPUT
+			species: Species.CarrionCrawler // TODO - MUST COME FRON THE SPECIES RADIO INPUT
 		};
 
 		console.log(payload);

@@ -4,7 +4,7 @@
 	[class.is-selected]="isSelected"
 >
 	<!-- TODO - get image from server - not scalable at all -->
-	@switch (player.class) {
+	@switch (player.class.type) {
 		@case (1) {
 			<img class="icon" src="../../../assets/hero-classes/haches.png" alt="player icon">
 		}
@@ -22,5 +22,5 @@
 		}
 	}
 	
-	<span>{{ player.name }}</span>
+	<span>{{ player.class.lokalisedClassName }}</span>
 </div>

@@ -12,17 +12,17 @@
 			<div id="creatable-player-wrapper">
 				<div id="creatable-players-list">
 					<!-- Players list -->
-					@for (player of creatablePlayers; track player.name) {
+					@for (player of creatablePlayers; track player.class.type) {
 						<app-creatable-player-icon
 							[player]="player"
 							(playerSelected)="selectPlayer(player)"
-							[isSelected]="player.class === this.selectedPlayer?.class"
+							[isSelected]="player.class.type === this.selectedPlayer?.class?.type"
 						/>
 					}
 				</div>
 
 				@if (selectedPlayer) {
-					<app-selected-player [class]="selectedPlayer.class"></app-selected-player>
+					<app-selected-player [class]="selectedPlayer.class.type"></app-selected-player>
 
 					<!-- Selected player display -->
 					<app-creatable-player-card [player]="selectedPlayer"></app-creatable-player-card>

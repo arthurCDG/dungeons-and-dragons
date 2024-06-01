@@ -1,6 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ICreatablePlayer, IPlayer } from 'src/app/models';
+import { Component, Input } from '@angular/core';
+import { ICreatablePlayer } from 'src/app/models';
 
 @Component({
   selector: 'app-creatable-player-card',

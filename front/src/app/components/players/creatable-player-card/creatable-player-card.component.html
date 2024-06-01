@@ -1,6 +1,6 @@
 <div id="creatable-player-wrapper">
 	<div class="creatable-player-information-wrapper">
-		@switch (player.class) {
+		@switch (player.class.type) {
 			@case (0) {
 				<img
 					class="selected-player-img"
@@ -33,7 +33,7 @@
 	</div>
 
 	<div class="creatable-player-information-wrapper">
-		<h2>{{ player.name }}</h2>
+		<h2>{{ player.class }}</h2>
 		<p class="justified-text">{{ player.description }}</p>
 	</div>
 

@@ -2,13 +2,21 @@ import { ISquare } from "./campaign.models";
 import { IStoredItem } from "./items.models";
 
 export interface ICreatablePlayer {
-	name: string;
+	associatedSpecies: ICreatableSpecies[];
+	class: ICreatableClass;
 	description: string;
-	class: Class;
-	race: Race;
-	role: PlayerRole;
-	gender: PlayerGender;
+	lokalisedClassName: string;
 	maxAttributes: IPlayerMaxAttributes;
+}
+
+export interface ICreatableClass {
+	type: Class;
+	lokalisedClassName: string;
+}
+
+export interface ICreatableSpecies {
+	species: Species;
+	lokalisedSpeciesName: string;
 }
 
 export interface IPlayer {
@@ -58,7 +66,7 @@ export interface IProfile {
 	playerGender: PlayerGender;
 	imageUrl?: string | null;
 	class: Class;
-	race: Race;
+	species: Species;
 	role: PlayerRole;
 }
 
@@ -86,12 +94,10 @@ export interface IAttackPayload {
 }
 
 export interface IPlayerCreationPayload {
-	name: string;
-	gender: PlayerGender;
-	imageUrl?: string | null;
 	class: Class;
-	race: Race;
-	role: PlayerRole;
+	gender: PlayerGender;
+	name: string;
+	species: Species;
 }
 
 /* Enums */
@@ -115,7 +121,7 @@ export enum Class {
     MonstersKing
 };
 
-export enum Race {
+export enum Species {
     None = 0,
     Human,
     Elf,
