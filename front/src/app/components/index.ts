@@ -1,6 +1,7 @@
 export * from './adventures';
 export * from './action-bar';
 export * from './back-arrow';
+export * from './backgrounds';
 export * from './campaigns';
 export * from './header';
 export * from './players';

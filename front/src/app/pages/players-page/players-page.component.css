@@ -1,11 +1,7 @@
 #players-page {
 	display: flex;
 	flex-direction: column;
-	justify-content: space-between;
-	background-image: url('../../../assets/campaigns/hollbrook-background-campaign-image.jpg');
-	background-repeat: no-repeat;
-	background-position: center;
-	background-size: cover;
+	height: 90vh;
 }
 
 #player-cards-list {
@@ -23,13 +19,12 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	height: 90vh;
 }
 
 .empty-state-nav {
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	height: 100%;
 	width: 100vw;
-	height: 90vh;
 }

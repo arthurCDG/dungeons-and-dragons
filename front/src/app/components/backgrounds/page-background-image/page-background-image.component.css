@@ -1,0 +1,13 @@
+.background-image {
+	background-repeat: no-repeat;
+	background-position: center;
+	z-index:-1;
+	background-size: cover;
+	position: absolute;
+	height: 100vh;
+	width: 100vw;
+}
+
+.hollbrook-background-campaign-image {
+	background-image: url('../../../../assets/campaigns/hollbrook-background-campaign-image.jpg');
+}

@@ -4,14 +4,20 @@ import { ActivatedRoute, RouterModule } from '@angular/router';
 
 import { IPlayer } from '../../models';
 import { PlayersService } from '../../services';
-import { BackArrowComponent } from '../../components/back-arrow/back-arrow.component';
-import { PlayerCardComponent } from '../../components/players/player-card/player-card.component';
-import { SelectedPlayerComponent } from '../../components/players/selected-player/selected-player.component';
+import { BackArrowComponent, PlayerCardComponent, SelectedPlayerComponent, PageWrapperComponent, PageBackgroundImageComponent, ImageType } from '../../../app/components';
 
 @Component({
   selector: 'app-players-page',
   standalone: true,
-  imports: [CommonModule, RouterModule, PlayerCardComponent, BackArrowComponent, SelectedPlayerComponent],
+  imports: [
+	CommonModule,
+	RouterModule,
+	PlayerCardComponent,
+	BackArrowComponent,
+	SelectedPlayerComponent,
+	PageWrapperComponent,
+	PageBackgroundImageComponent
+],
   templateUrl: './players-page.component.html',
   styleUrls: ['./players-page.component.css'],
   providers: [PlayersService]
@@ -19,6 +25,8 @@ import { SelectedPlayerComponent } from '../../components/players/selected-playe
 export class PlayersPageComponent implements OnInit {
 	public players: IPlayer[] = [];
 	public currentPlayer: IPlayer;
+
+	public backgroundImage: ImageType = 'hollbrook-background-campaign-image';
 
 	private userId: number;
 
