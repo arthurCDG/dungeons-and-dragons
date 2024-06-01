@@ -11,12 +11,15 @@
 			"prefix": "app",
 			"architect": {
 			"build": {
-				"builder": "@angular-devkit/build-angular:browser",
+				"builder": "@angular-devkit/build-angular:application",
 				"options": {
-				"outputPath": "dist/dnd-front",
-				"index": "src/index.html",
-				"main": "src/main.ts",
-				"polyfills": "src/polyfills.ts",
+				"outputPath": {
+          "base": "dist/dnd-front"
+        },
+        "index": "src/index.html",
+				"polyfills": [
+          "src/polyfills.ts"
+        ],
 				"tsConfig": "tsconfig.app.json",
 				"assets": [
 					"src/favicon.io",
@@ -26,7 +29,8 @@
 					"./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
 					"src/styles.css"
 				],
-				"scripts": []
+        "scripts": [],
+        "browser": "src/main.ts"
 				},
 				"configurations": {
 				"production": {
@@ -50,10 +54,8 @@
 					],
 					"outputHashing": "all"
 				},
-				"development": {
-					"buildOptimizer": false,
-					"optimization": false,
-					"vendorChunk": true,
+        "development": {
+          "optimization": false,
 					"extractLicenses": false,
 					"sourceMap": true,
 					"namedChunks": true
