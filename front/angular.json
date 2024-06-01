@@ -67,19 +67,19 @@
 				"proxyConfig": "src/proxy.conf.json"
 				},
 				"configurations": {
-				"production": {
-					"browserTarget": "dnd-front:build:production"
+        "production": {
+          "buildTarget": "dnd-front:build:production"
 				},
-				"development": {
-					"browserTarget": "dnd-front:build:development"
+        "development": {
+          "buildTarget": "dnd-front:build:development"
 				}
 				},
 				"defaultConfiguration": "development"
 			},
 			"extract-i18n": {
 				"builder": "@angular-devkit/build-angular:extract-i18n",
-				"options": {
-				"browserTarget": "dnd-front:build"
+        "options": {
+          "buildTarget": "dnd-front:build"
 				}
 			},
 			"test": {
