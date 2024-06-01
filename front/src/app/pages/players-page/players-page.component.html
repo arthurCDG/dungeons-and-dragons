@@ -5,7 +5,7 @@
 			@if (currentPlayer) {
 				<app-selected-player [class]="currentPlayer.profile!.class"></app-selected-player>
 			}
-			@if (players.length) {
+			@if (!players.length) {
 				<a [routerLink]="['new']" class="link-button base-button empty-state-button players-page-empty-state-button">
 					<span>Créer un nouveau joueur</span>
 				</a>
