@@ -16,7 +16,7 @@ import { AttacksService, GameFlowService } from '../../../app/services';
 export class ActionBarComponent implements OnInit, OnChanges {
 	@Input() public selectedSquare?: ISquare;
 	@Input() public userPlayer: IPlayer;
-	@Input() public currentPlayer: IPlayer;
+	@Input() public currentPlayer?: IPlayer | null;;
 
 	public canOpenDoor?: boolean;
 	public canMeleeAttack?: boolean;

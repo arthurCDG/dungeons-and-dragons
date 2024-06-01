@@ -1,5 +1,5 @@
 <div class="action-bar">
-	@if (userId === currentPlayer?.userId) {
+	@if (currentPlayer && userId === currentPlayer.userId) {
 		<div class="action-bar-buttons">
 			<button
 				(click)="onMeleeAttackAsync()"
