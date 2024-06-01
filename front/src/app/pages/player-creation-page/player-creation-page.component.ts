@@ -142,12 +142,7 @@ export class PlayerCreationPageComponent implements OnInit {
 		private readonly router: Router,
 		private readonly activatedRoute: ActivatedRoute,
 		private readonly fb: FormBuilder
-	) {
-		this.classCtrl.valueChanges.subscribe(value => console.log('Class:', value));
-		this.speciesCtrl.valueChanges.subscribe(value => console.log('Species:', value));
-		this.genderCtrl.valueChanges.subscribe(value => console.log('Gender', value));
-		this.nameCtrl.valueChanges.subscribe(value => console.log('Name:', value));
-	}
+	) {	}
 	
 	ngOnInit(): void {
 		this.activatedRoute.params.subscribe(params => this.userId = Number(params['userId']));
@@ -162,10 +157,7 @@ export class PlayerCreationPageComponent implements OnInit {
 
 			this.isLoading = false;
 		});
-	}
 
-	public onStepClick(step: playerCreationFormStep): void {
-		this.formStep = step;
 	}
 
 	onSubmit(): void {
