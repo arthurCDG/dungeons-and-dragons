@@ -1,19 +1,16 @@
 <div id="players-page">
-	<div class="player-background">
-		<app-back-arrow text="Retour à la page d'accueil" link="../../.."></app-back-arrow>
-		<div class="displayed-player">
-			@if (currentPlayer) {
-				<app-selected-player [class]="currentPlayer.profile!.class"></app-selected-player>
-			}
-			@if (!players.length) {
-				<a [routerLink]="['new']" class="link-button base-button empty-state-button players-page-empty-state-button">
-					<span>Créer un nouveau joueur</span>
-				</a>
-			}
-		</div>
-	</div>
+	<app-back-arrow text="Retour à la page d'accueil" link="../../.."></app-back-arrow>
 
 	@if (players.length) {
+		<div class="player-background">
+			<app-back-arrow text="Retour à la page d'accueil" link="../../.."></app-back-arrow>
+			<div class="displayed-player">
+				@if (currentPlayer) {
+					<app-selected-player [class]="currentPlayer.profile!.class"></app-selected-player>
+				}
+			</div>
+		</div>
+
 		<div id="player-cards-list">
 			@for (player of players; track player.id) {
 				<app-player-card [player]="player" [isSelected]="isSelected(player)" (playerSelected)="onPlayerSelected(player)" />
@@ -22,5 +19,12 @@
 				<a [routerLink]="['new']" class="link-button base-button">Créer un nouveau joueur</a>
 			</div>
 		</div>
+	}
+	@else {
+		<nav class="empty-state-nav">
+			<a [routerLink]="['new']" class="link-button base-button empty-state-button players-page-empty-state-button">
+				<span>Créer un nouveau joueur</span>
+			</a>
+		</nav>
 	}
 </div>

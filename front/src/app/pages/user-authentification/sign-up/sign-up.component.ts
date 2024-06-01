@@ -6,7 +6,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { catchError, shareReplay } from 'rxjs';
 
 import { IAuthentifiedUser, IUserPayload } from '../../../models/users.models';
-import { AuthService, UsersService } from '../../../services';
+import { AuthService, EventsService, UsersService } from '../../../services';
 import { confirmPasswordValidator } from '../validators/confirm-password.validator';
 import { ToastMessageComponent } from '../../../components/toast-message/toast-message.component';
 import { BackArrowComponent } from 'src/app/components/back-arrow/back-arrow.component';
@@ -35,7 +35,8 @@ export class SignupComponent {
 	constructor(
 		private readonly fb: FormBuilder,
 		private readonly authService: AuthService,
-		private readonly router: Router
+		private readonly router: Router,
+		private readonly eventsService: EventsService
 	) {}
 
 	public signup(): void {
@@ -55,7 +56,8 @@ export class SignupComponent {
 			.subscribe((authentifiedUser: IAuthentifiedUser | null) => {
 				if (authentifiedUser) {
 					this.authService.doLoginUser(authentifiedUser);
-					this .router.navigate(['..']);
+					this.eventsService.send('IS_LOGGED_IN');
+					this.router.navigate(['users', authentifiedUser.userId, 'players']);
 				}
 			});
 	}

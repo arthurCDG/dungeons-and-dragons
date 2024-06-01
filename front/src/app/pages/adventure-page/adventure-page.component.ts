@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterModule } from '@angular/router';
-import { HeaderComponent } from 'src/app/components/header/header.component';
 import { ActionBarComponent } from '../../components/action-bar/action-bar.component';
 import { SquareComponent } from '../../components/squares/square/square.component';
 import { IAdventure, ICurrentPlayerDto, IPlayer, ISquare } from '../../models';
@@ -10,7 +9,7 @@ import { AdventuresService, GameFlowService, PlayersService, SquaresService } fr
 @Component({
   selector: 'app-adventure-page',
   standalone: true,
-  imports: [CommonModule, RouterModule, ActionBarComponent, SquareComponent, HeaderComponent],
+  imports: [CommonModule, RouterModule, ActionBarComponent, SquareComponent],
   templateUrl: './adventure-page.component.html',
   styleUrls: ['./adventure-page.component.css'],
   providers: [AdventuresService, PlayersService, GameFlowService, SquaresService]

@@ -9,6 +9,7 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { AuthService } from './services';
 import { registerLocaleData } from '@angular/common';
 import localeFr from '@angular/common/locales/fr';
+import { HeaderComponent } from './components/header/header.component';
 
 registerLocaleData(localeFr);
 
@@ -18,7 +19,8 @@ registerLocaleData(localeFr);
 	imports: [
 		BrowserModule,
         AppRoutingModule,
-        BrowserAnimationsModule
+        BrowserAnimationsModule,
+		HeaderComponent
 	],
 	providers: [
         AuthService,

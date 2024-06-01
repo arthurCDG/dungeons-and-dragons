@@ -1,14 +1,14 @@
 import { CommonModule } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 
 import { catchError, shareReplay } from 'rxjs';
-import { IAuthentifiedUser, ILoginPayload } from '../../../models';
-import { AuthService } from '../../../services';
-import { ToastMessageComponent } from '../../../components/toast-message/toast-message.component';
 import { BackArrowComponent } from 'src/app/components/back-arrow/back-arrow.component';
+import { ToastMessageComponent } from '../../../components/toast-message/toast-message.component';
+import { IAuthentifiedUser, ILoginPayload } from '../../../models';
+import { AuthService, EventsService } from '../../../services';
 
 @Component({
   selector: 'app-login',
@@ -18,7 +18,7 @@ import { BackArrowComponent } from 'src/app/components/back-arrow/back-arrow.com
   styleUrls: ['./../styles/authentication.component.css'],
   providers: [AuthService]
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent {
 	public httpError: HttpErrorResponse | null = null;
 
 	usernameCtrl = this.fb.control('');
@@ -32,11 +32,9 @@ export class LoginComponent implements OnInit {
 	constructor(
 		private readonly fb: FormBuilder,
 		private readonly authService: AuthService,
-		private readonly router: Router
+		private readonly router: Router,
+		private readonly eventsService: EventsService
 	) { }
-
-	ngOnInit(): void {
-	}
 
 	public login(): void {
 		const loginPayload: ILoginPayload = {
@@ -55,7 +53,8 @@ export class LoginComponent implements OnInit {
 				if (authentifiedUser)
 				{
 					this.authService.doLoginUser(authentifiedUser);
-					this .router.navigate(['..']);
+					this.eventsService.send('IS_LOGGED_IN');
+					this.router.navigate(['users', authentifiedUser.userId, 'players']);
 				}
 			})
 	}

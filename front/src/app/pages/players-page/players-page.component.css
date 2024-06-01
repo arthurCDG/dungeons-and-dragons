@@ -1,5 +1,6 @@
 #players-page {
 	display: flex;
+	flex-direction: column;
 	height: 100vh;
 	justify-content: space-between;
 	background-image: url('../../../assets/campaigns/hollbrook-background-campaign-image.jpg');
@@ -32,4 +33,12 @@
 
 .players-page-empty-state-button:hover {
 	background-color: rgba(255, 255, 255, 0.664);
+}
+
+.empty-state-nav {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100vw;
+	height: 90vh;
 }

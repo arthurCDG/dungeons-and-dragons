@@ -3,7 +3,6 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 
-import { HeaderComponent } from '../../../components/header/header.component';
 import { ICampaign, ICreatableCampaign } from '../../../models';
 import { CampaignsService, CreatableCampaignsService } from '../../../services';
 import { CampaignCardComponent } from '../../../components/campaigns/campaign-card/campaign-card.component';
@@ -12,7 +11,7 @@ import { CreatableCampaignCardComponent } from '../../../components/campaigns/cr
 @Component({
   selector: 'app-campaigns-page',
   standalone: true,
-  imports: [CommonModule, CampaignCardComponent, CreatableCampaignCardComponent, HeaderComponent],
+  imports: [CommonModule, CampaignCardComponent, CreatableCampaignCardComponent],
   templateUrl: './campaigns-page.component.html',
   styleUrls: ['./campaigns-page.component.css'],
   providers: [CampaignsService, CreatableCampaignsService]

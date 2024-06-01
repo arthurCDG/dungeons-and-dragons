@@ -1,23 +1,18 @@
-@if (!isLoading) {
-	<header>
-		<nav class="nav-bar">
-			<a routerLink="">
-				<img alt="logo" src="../../../assets/logo/dungeons-and-dragons.png" class="nav-logo" />
-			</a>
-			<div class="nav-links">
-				@if (isLoggedIn) {
-					<a [routerLink]="['/users', userId, 'players']" class="link-button base-button nav-button">
-						Voir mes joueurs
-					</a>
-					<div class="user-links">
-						<img class="user-logo" src="../../../assets/logo/user-logo-wizard.png" />
-						<button (click)="onLogout()" class="base-button base-button nav-button">Se déconnecter</button>
-					</div>
-				}
-				@else {
-					<a [routerLink]="['login']" class="link-button base-button nav-button">Se connecter / Se créer un compte</a>
-				}
-			</div>
-		</nav>
-	</header>
-}
+<header>
+	<nav class="nav-bar">
+		<a routerLink="">
+			<img alt="logo" src="../../../assets/logo/dungeons-and-dragons.png" class="nav-logo" />
+		</a>
+		<div class="nav-links">
+			@if (isLoggedIn) {
+				<div class="user-links">
+					<img class="user-logo" src="../../../assets/logo/user-logo-wizard.png" />
+					<button (click)="onLogout()" class="base-button base-button nav-button">Se déconnecter</button>
+				</div>
+			}
+			@else if (!isAuthPage) {
+				<a [routerLink]="['login']" class="link-button base-button nav-button">Se connecter / Se créer un compte</a>
+			}
+		</div>
+	</nav>
+</header>
