@@ -1,7 +1,19 @@
 <div id="displayed-creatable-player">
-	<img *ngIf="class === 1" alt="Regdar picture" src="../../../assets/players/heroes/fighter-male.png" class="displayed-character" />
-	<img *ngIf="class === 7" alt="Lidda picture" src="../../../assets/players/heroes/rogue-female.png" class="displayed-character" />
-	<img *ngIf="class === 5" alt="Jozan picture" src="../../../assets/players/heroes/paladin-male.png" class="displayed-character" />
-	<img *ngIf="class === 8" alt="Mialye picture" src="../../../assets/players/heroes/wizzard-female.png" class="displayed-character" />
-	<img *ngIf="class === 0" alt="Dungeon Master picture" src="../../../assets/players/monsters/Fomorian.png" class="displayed-character" />
+	@switch (class) {
+		@case (0) {
+			<img alt="Dungeon master picture" src="../../../assets/players/monsters/Fomorian.png" class="displayed-character" />
+		}
+		@case (1) {
+			<img alt="Male fighter picture" src="../../../assets/players/heroes/fighter-male.png" class="displayed-character" />
+		}
+		@case (5) {
+			<img alt="Male paladin picture" src="../../../assets/players/heroes/paladin-male.png" class="displayed-character" />
+		}
+		@case (7) {
+			<img alt="Female rogue picture" src="../../../assets/players/heroes/rogue-female.png" class="displayed-character" />
+		}
+		@case (8) {
+			<img alt="Female wizzard picture" src="../../../assets/players/heroes/wizzard-female.png" class="displayed-character" />
+		}
+	}
 </div>
