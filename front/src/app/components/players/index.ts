@@ -1,5 +1,4 @@
-export * from './creatable-player-card';
-export * from './creatable-player-icon';
+export * from './creatable-cards';
 export * from './player-information-card';
 export * from './player';
 export * from './player-card';

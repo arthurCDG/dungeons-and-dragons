@@ -5,5 +5,5 @@ namespace dnd_domain.Players.Models;
 public sealed class CreatableSpecies
 {
     public required string LokalisedSpeciesName { get; set; }
-    public required Species Species { get; set; }
+    public required Species Type { get; set; }
 }

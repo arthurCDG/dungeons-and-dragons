@@ -1,0 +1,1 @@
+export * from './creatable-player-species-card.component';

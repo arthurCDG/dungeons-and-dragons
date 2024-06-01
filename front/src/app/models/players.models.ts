@@ -15,7 +15,7 @@ export interface ICreatableClass {
 }
 
 export interface ICreatableSpecies {
-	species: Species;
+	type: Species;
 	lokalisedSpeciesName: string;
 }
 

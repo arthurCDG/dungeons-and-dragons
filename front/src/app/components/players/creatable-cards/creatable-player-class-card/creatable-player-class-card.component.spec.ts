@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CreatablePlayerIconComponent } from './creatable-player-icon.component';
+import { CreatablePlayerIconComponent } from './creatable-player-class-card.component';
 
 describe('CreatablePlayerIconComponent', () => {
   let component: CreatablePlayerIconComponent;

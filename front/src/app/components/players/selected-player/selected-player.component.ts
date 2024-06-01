@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Class } from '../../../models';
+import { Class, Species } from '../../../models';
 
 @Component({
   selector: 'app-selected-player',
@@ -11,5 +11,6 @@ import { Class } from '../../../models';
 })
 export class SelectedPlayerComponent {
 	// TODO should be directly pictureUrl's value (not scalable like this)
-	@Input() class: Class;
+	@Input() selectedClass: Class;
+	@Input() selectedSpecies: Species;
 }

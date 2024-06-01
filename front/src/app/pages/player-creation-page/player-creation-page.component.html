@@ -11,21 +11,34 @@
 		@if (creatablePlayers.length) {
 			<div id="creatable-player-wrapper">
 				<div id="creatable-players-list">
-					<!-- Players list -->
-					@for (player of creatablePlayers; track player.class.type) {
-						<app-creatable-player-icon
-							[player]="player"
-							(playerSelected)="selectPlayer(player)"
-							[isSelected]="player.class.type === this.selectedPlayer?.class?.type"
+					<!-- Players classes -->
+					<h3>Classe</h3>
+					@for (creatablePlayer of creatablePlayers; track creatablePlayer.class.type) {
+						<app-creatable-player-class-card
+							[class]="creatablePlayer.class"
+							(classSelected)="selectPlayerClass(creatablePlayer.class.type)"
+							[isSelectedClass]="creatablePlayer.class.type === this.selectedClass"
 						/>
+					}
+
+					<!-- Players species -->
+					<h3>Espèce</h3>
+					@for (creatablePlayer of creatablePlayers; track creatablePlayer.class) {
+						@if (creatablePlayer.class.type === selectedClass) {
+							@for (creatableSpecies of creatablePlayer.associatedSpecies; track creatableSpecies.type) {
+								<app-creatable-player-species-card
+									[species]="creatableSpecies"
+									(speciesSelected)="selectPlayerSpecies(creatableSpecies.type)"
+									[isSelectedSpecies]="creatableSpecies.type === this.selectedSpecies"
+								/>
+							}
+						}
 					}
 				</div>
 
-				@if (selectedPlayer) {
-					<app-selected-player [class]="selectedPlayer.class.type"></app-selected-player>
-
-					<!-- Selected player display -->
-					<app-creatable-player-card [player]="selectedPlayer"></app-creatable-player-card>
+				@if (selectedClass && selectedSpecies) {
+					<!-- TODO - pass gender as well to modify display accordingly -->
+					<app-selected-player [selectedClass]="selectedClass" [selectedSpecies]="selectedSpecies" />
 				}
 			</div>
 
@@ -34,15 +47,16 @@
 					(click)="onSubmit()"
 					class="base-button"
 					type="submit"
-					[disabled]="!selectedPlayer"
+					[disabled]="!selectedClass && !selectedSpecies"
 				>
+				<!-- TODO disabled should come from input name not being registered -->
 					<span>Créer le joueur</span>
 				</button>
 			</div>
 		}
 
 		@else {
-			<p>Vous avez débloqué et créé tous les joueurs créables (message à changer)</p>
+			<p>Vous ne pouvez pas créer plus de quatre joueurs.</p>
 		}
 	}
 

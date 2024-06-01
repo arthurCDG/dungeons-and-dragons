@@ -66,7 +66,7 @@ internal sealed class CreatablePlayersService : ICreatablePlayersService
 
             new CreatablePlayer
             {
-                AssociatedSpecies = creatableSpecies.Where(cs => _clericExcludedSpecies.Contains(cs.Species)).ToList(),
+                AssociatedSpecies = creatableSpecies.Where(cs => _clericExcludedSpecies.Contains(cs.Type)).ToList(),
                 Class = new()
                 {
                     Type = Class.Cleric,
@@ -78,7 +78,7 @@ internal sealed class CreatablePlayersService : ICreatablePlayersService
 
             new CreatablePlayer
             {
-                AssociatedSpecies= creatableSpecies.Where(cs => _wizardExcludedSpecies.Contains(cs.Species)).ToList(),
+                AssociatedSpecies= creatableSpecies.Where(cs => _wizardExcludedSpecies.Contains(cs.Type)).ToList(),
                 Class = new()
                 {
                     Type = Class.Wizard,
@@ -95,22 +95,22 @@ internal sealed class CreatablePlayersService : ICreatablePlayersService
         {
             new CreatableSpecies
             {
-                Species = Species.Dwarf,
+                Type = Species.Dwarf,
                 LokalisedSpeciesName = "Nain"
             },
             new CreatableSpecies
             {
-                Species = Species.Elf,
+                Type = Species.Elf,
                 LokalisedSpeciesName = "Elfe"
             },
             new CreatableSpecies
             {
-                Species = Species.Halfling,
+                Type = Species.Halfling,
                 LokalisedSpeciesName = "Halfelin"
             },
             new CreatableSpecies
             {
-                Species = Species.Human,
+                Type = Species.Human,
                 LokalisedSpeciesName = "Humain"
             }
         };
