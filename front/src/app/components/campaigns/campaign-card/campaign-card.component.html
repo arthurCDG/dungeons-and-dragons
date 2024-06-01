@@ -1,4 +1,3 @@
-<!-- Current campaign -->
 <a [routerLink]="[campaign.id]">
 	<div
 		class="card unlocked card-background-image card-wrapper"
@@ -8,16 +7,21 @@
 	>
 		<div class="card-content-wrapper">
 			<h2 class="white-title">{{ campaign.name }}</h2>
-			<p *ngIf="campaign.endsAt; else currentCampaign" class="white-description">
-				Terminée le {{ campaign.endsAt | date: 'longDate'  }}
-			</p>
-			<ng-template #currentCampaign>
+			@if (campaign.endsAt) {
+				<p class="white-description">Terminée le {{ campaign.endsAt | date: 'longDate'  }}</p>
+			}
+			@else {
 				<span class="white-description">Démarrée le {{ campaign.startsAt | date: 'longDate' }}</span>
-			</ng-template>
+			}
 		</div>
+
 		<div class="status-badge-wrapper">
-			<p *ngIf="campaign.endsAt" class="status-badge completed-status">Terminée</p>
-			<p *ngIf="!campaign.endsAt" class="status-badge">En cours</p>
+			@if (campaign.endsAt) {
+				<p class="status-badge completed-status">Terminée</p>
+			}
+			@else {
+				<p class="status-badge">En cours</p>
+			}
 		</div>
 	</div>
 </a>

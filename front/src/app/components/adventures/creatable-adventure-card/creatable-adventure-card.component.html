@@ -1,11 +1,13 @@
-<div *ngIf="creatableAdventure.canBeStarted; else lockedAdventure" class="card unlocked">
-	<div>
-		<h3>{{ creatableAdventure.name }}</h3>
-		<p>{{ creatableAdventure.description }}</p>
+@if (creatableAdventure.canBeStarted) {
+	<div class="card unlocked">
+		<div>
+			<h3>{{ creatableAdventure.name }}</h3>
+			<p>{{ creatableAdventure.description }}</p>
+		</div>
+		<button (click)="startAdventureAsync(creatableAdventure.type)" class="base-button">Créer l'aventure</button>
 	</div>
-	<button (click)="startAdventureAsync(creatableAdventure.type)" class="base-button">Créer l'aventure</button>
-</div>
-<ng-template #lockedAdventure>
+}
+@else {
 	<div class="card locked">
 		<div>
 			<h3>{{ creatableAdventure.name }}</h3>
@@ -13,4 +15,4 @@
 		</div>
 		<img src="../../../assets/icons/lock.png" class="lock-icon"/>
 	</div>
-</ng-template>
+}

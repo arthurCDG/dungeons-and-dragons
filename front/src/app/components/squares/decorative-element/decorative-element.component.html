@@ -1,2 +1,12 @@
-<div *ngIf="decorativeElement === 'pillar'" class="square-element pillar"></div>
-<div *ngIf="decorativeElement === 'opened-chest'" class="square-element opened-chest"></div>
+// Turn into switch/case
+@switch (decorativeElement) {
+	@case ('pillar') {
+		<div class="square-element pillar"></div>
+	}
+	@case ('opened-chest') {
+		<div class="square-element opened-chest"></div>
+	}
+	@default {
+		<div class="square-element"></div>
+	}
+}

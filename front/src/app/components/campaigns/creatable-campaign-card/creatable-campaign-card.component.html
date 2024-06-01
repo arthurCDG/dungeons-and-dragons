@@ -1,4 +1,4 @@
-<ng-container *ngIf="creatableCampaign.canBeCreated; else nonCreatableCampaign">
+@if (creatableCampaign.canBeCreated) {
 	<div class="card unlocked"
 		[class.hollbrook-campaign]="creatableCampaign.type === 1"
 		[class.aos-campaign]="creatableCampaign.type === 2"
@@ -12,9 +12,9 @@
 			<button (click)="onCreatableCampaignClicked()" class="base-button">Créer la campagne</button>
 		</div>
 	</div>
-</ng-container>
+}
 
-<ng-template #nonCreatableCampaign>
+@else {
 	<div class="card locked">
 		<div>
 			<h3>{{ creatableCampaign.name }}</h3>
@@ -22,4 +22,4 @@
 		</div>
 		<img src="../../../assets/icons/lock.png" class="lock-icon"/>
 	</div>
-</ng-template>
+}

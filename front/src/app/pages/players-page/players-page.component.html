@@ -2,30 +2,25 @@
 	<div class="player-background">
 		<app-back-arrow text="Retour à la page d'accueil" link="../../.."></app-back-arrow>
 		<div class="displayed-player">
-			<ng-container *ngIf="currentPlayer">
+			@if (currentPlayer) {
 				<app-selected-player [class]="currentPlayer.profile!.class"></app-selected-player>
-			</ng-container>
-			<ng-container *ngIf="!players?.length">
+			}
+			@if (players.length) {
 				<a [routerLink]="['new']" class="link-button base-button empty-state-button players-page-empty-state-button">
-					Créer un nouveau joueur
+					<span>Créer un nouveau joueur</span>
 				</a>
-			</ng-container>
+			}
 		</div>
 	</div>
 
-	<ng-container *ngIf="players?.length">
+	@if (players.length) {
 		<div id="player-cards-list">
-			<ng-container *ngFor="let player of players">
-				<app-player-card
-				[player]="player"
-				[isSelected]="isSelected(player)"
-				(playerSelected)="onPlayerSelected(player)"
-				>
-			</app-player-card>
-			</ng-container>
+			@for (player of players; track player.id) {
+				<app-player-card [player]="player" [isSelected]="isSelected(player)" (playerSelected)="onPlayerSelected(player)" />
+			}
 			<div class="main-button-wrapper">
 				<a [routerLink]="['new']" class="link-button base-button">Créer un nouveau joueur</a>
 			</div>
 		</div>
-	</ng-container>
+	}
 </div>

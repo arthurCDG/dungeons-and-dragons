@@ -5,29 +5,26 @@
 		<h2 class="white-title">Page de création de joueur</h2>
 	</div>
 
-	<ng-container *ngIf="!isLoading; else loading">
-		<ng-container *ngIf="creatablePlayers.length; else emptyState">
+	@if (!isLoading) {
+		@if (creatablePlayers.length) {
 			<div id="creatable-player-wrapper">
 				<div id="creatable-players-list">
 					<!-- Players list -->
-					<ng-container *ngFor="let player of creatablePlayers">
+					@for (player of creatablePlayers; track player.name) {
 						<app-creatable-player-icon
 							[player]="player"
 							(playerSelected)="selectPlayer(player)"
 							[isSelected]="player.class === this.selectedPlayer?.class"
-						>
-						</app-creatable-player-icon>
-					</ng-container>
+						/>
+					}
 				</div>
 
-				<ng-container *ngIf="selectedPlayer">
+				@if (selectedPlayer) {
 					<app-selected-player [class]="selectedPlayer.class"></app-selected-player>
-				</ng-container>
 
-				<!-- Selected player display -->
-				<ng-container *ngIf="selectedPlayer">
+					<!-- Selected player display -->
 					<app-creatable-player-card [player]="selectedPlayer"></app-creatable-player-card>
-				</ng-container>
+				}
 			</div>
 
 			<div class="main-button-wrapper">
@@ -40,15 +37,14 @@
 					<span>Créer le joueur</span>
 				</button>
 			</div>
-		</ng-container>
+		}
 
-
-		<ng-template #emptyState>
+		@else {
 			<p>Vous avez débloqué et créé tous les joueurs créables (message à changer)</p>
-		</ng-template>
-	</ng-container>
+		}
+	}
 
-	<ng-template #loading>
+	@else {
 		<p>Chargement...</p>
-	</ng-template>
+	}
 </div>

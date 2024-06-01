@@ -1,5 +1,5 @@
-<ng-container *ngIf="!isLoading; else loading">
-	<div
+@if (!isLoading) {
+	<div 
 		class="body-background-image sticky-background-image"
 		[class.hollbrook-campaign]="selectedCampaign?.type === 1"
 		[class.aos-campaign]="selectedCampaign?.type === 2"
@@ -12,7 +12,7 @@
 		</div>
 
 		<!-- FORM -->
-		<ng-container *ngIf="selectedCampaign">
+		@if (selectedCampaign) {
 			<form (ngSubmit)="onSubmit()" [formGroup]="campaignCreationForm" class="form-content">
 				
 				<h2 class="white-title form-title">Choix des héros pour la campagne</h2>
@@ -86,10 +86,11 @@
 					</button>
 				</div>
 			</form>
-		</ng-container>
+		}
 	</div>
-</ng-container>
+}
 
-<ng-template #loading>
+<!-- TODO - lokalise -->
+@else {
 	<p>Chargement...</p>
-</ng-template>
+}

@@ -17,7 +17,7 @@ import { SelectedPlayerComponent } from '../../components/players/selected-playe
   providers: [PlayersService]
 })
 export class PlayersPageComponent implements OnInit {
-	public players: IPlayer[];
+	public players: IPlayer[] = [];
 	public currentPlayer: IPlayer;
 
 	private userId: number;

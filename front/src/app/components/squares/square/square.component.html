@@ -12,20 +12,20 @@
 >
 	<div [class.is-disabled]="square.isDisabled"></div>
 	<div [class.selected]="selected === true">
-		<ng-container *ngIf="player">
+		@if (player) {
 			<app-player [player]="player"></app-player>
-		</ng-container>
-		<ng-container *ngIf="square.isDoor">
+		}
+		@if (square.isDoor) {
 			<app-interactive-element [interactiveElement]="'door'"></app-interactive-element>
-		</ng-container>
-		<ng-container *ngIf="square.hasLockedChest">
+		}
+		@if (square.hasLockedChest) {
 			<app-interactive-element [interactiveElement]="'locked-chest'"></app-interactive-element>
-		</ng-container>
-		<ng-container *ngIf="square.hasOpenedChest">
+		}
+		@if (square.hasOpenedChest) {
 			<app-decorative-element [decorativeElement]="'opened-chest'"></app-decorative-element>
-		</ng-container>
-		<ng-container *ngIf="square.hasPillar">
+		}
+		@if (square.hasPillar) {
 			<app-decorative-element [decorativeElement]="'pillar'"></app-decorative-element>
-		</ng-container>
+		}
 	</div>
 </div>

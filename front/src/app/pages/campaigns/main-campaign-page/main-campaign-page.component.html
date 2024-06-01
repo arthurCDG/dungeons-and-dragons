@@ -1,8 +1,4 @@
-<ng-container *ngIf="!mainCampaign; else campaignDisplay">
-	<!-- TODO - empty state image or spinner -->
-</ng-container>
-
-<ng-template #campaignDisplay>
+@if (mainCampaign) {
 	<div
 		class="body-background-image"
 		[class.hollbrook-campaign]="mainCampaign.type === 1"
@@ -17,13 +13,20 @@
 		</div>
 
 		<ul>
-			<li *ngFor="let adventure of mainCampaign.adventures">
-				<app-adventure-card [adventure]="adventure"></app-adventure-card>
-			</li>
-			<li *ngFor="let creatableAdventure of creatableAdventures">
-				<app-creatable-adventure-card [creatableAdventure]="creatableAdventure"></app-creatable-adventure-card>
-			</li>
+			@for (adventure of mainCampaign.adventures; track adventure.id) {
+				<li>
+					<app-adventure-card [adventure]="adventure"></app-adventure-card>
+				</li>
+			}
+			@for (creatableAdventure of creatableAdventures; track creatableAdventure.type) {
+				<li>
+					<app-creatable-adventure-card [creatableAdventure]="creatableAdventure"></app-creatable-adventure-card>
+				</li>
+			}
 		</ul>
 	</div>
+}
 
-</ng-template>
+@else {
+	<!-- TODO - empty state image or spinner -->
+}

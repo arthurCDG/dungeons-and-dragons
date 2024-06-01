@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ICampaign } from 'src/app/models';
 import { RouterModule } from '@angular/router';
@@ -10,10 +10,6 @@ import { RouterModule } from '@angular/router';
   templateUrl: './campaign-card.component.html',
   styleUrls: ['./campaign-card.component.css', './../../../../styles.css']
 })
-export class CampaignCardComponent implements OnInit {
+export class CampaignCardComponent {
 	@Input() public campaign: ICampaign;
-
-	constructor() { }
-
-	ngOnInit(): void { }
 }

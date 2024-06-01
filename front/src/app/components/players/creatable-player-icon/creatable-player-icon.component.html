@@ -4,17 +4,23 @@
 	[class.is-selected]="isSelected"
 >
 	<!-- TODO - get image from server - not scalable at all -->
-	<ng-container *ngIf="player.class === 1">
-		<img class="icon" src="../../../assets/hero-classes/haches.png" alt="player icon">
-	</ng-container>
-	<ng-container *ngIf="player.class === 7">
-		<img class="icon" src="../../../assets/hero-classes/epees.png" alt="player icon">
-	</ng-container>
-	<ng-container *ngIf="player.class === 5">
-		<img class="icon" src="../../../assets/hero-classes/religion.png" alt="player icon">
-	</ng-container>
-	<ng-container *ngIf="player.class === 8">
-		<img class="icon" src="../../../assets/hero-classes/baguette-magique.png" alt="player icon">
-	</ng-container>
+	@switch (player.class) {
+		@case (1) {
+			<img class="icon" src="../../../assets/hero-classes/haches.png" alt="player icon">
+		}
+		@case (7) {
+			<img class="icon" src="../../../assets/hero-classes/epees.png" alt="player icon">
+		}
+		@case (5) {
+			<img class="icon" src="../../../assets/hero-classes/religion.png" alt="player icon">
+		}
+		@case (8) {
+			<img class="icon" src="../../../assets/hero-classes/baguette-magique.png" alt="player icon">
+		}
+		@default {
+			<!-- TODO - add error or default image ? -->
+		}
+	}
+	
 	<span>{{ player.name }}</span>
 </div>

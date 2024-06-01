@@ -2,21 +2,23 @@
 	<div class="card unlocked card-wrapper">
 		<div class="card-content-wrapper">
 			<h2>{{ adventure.name }}</h2>
-			<p *ngIf="adventure.endsAt; else currentAdventure">Terminée le {{ adventure.endsAt }}</p>
-			<ng-template #currentAdventure>
+			@if (adventure.endsAt) {
+				<p>Terminée le {{ adventure.endsAt }}</p>
+			}
+			@else {
 				<span>Démarrée le {{ adventure.startsAt | date: 'longDate' }}</span>
-			</ng-template>
+			}
 			<!-- TODO add more info about the adventure (heroes, dungeonMaster, what else ?) -->
 		</div>
-		<ng-container *ngIf="!adventure.endsAt; else completedAdventure">
-			<div class="status-badge-wrapper">
-				<span class="status-badge">En cours</span>
-			</div>
-		</ng-container>
-		<ng-template #completedAdventure>
+		@if (adventure.endsAt) {
 			<div class="status-badge-wrapper">
 				<span class="status-badge completed-status">Aventure terminée</span>
 			</div>
-		</ng-template>
+		}
+		@else {
+			<div class="status-badge-wrapper">
+				<span class="status-badge">En cours</span>
+			</div>
+		}
 	</div>
 </a>

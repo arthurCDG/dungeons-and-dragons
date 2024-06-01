@@ -1,4 +1,4 @@
-<ng-container *ngIf="httpError">
+@if (httpError) {
 	<div
 		class="toast-message-wrapper toast-message-error"
 		[class.domain-error]="httpError.status === 400"
@@ -10,4 +10,4 @@
 		<h2>{{ httpError.status === 500 ? 'Technical Error' : 'Unable to validate request' }}</h2>
 		<p>{{ httpError.error.message }}</p>
 	</div>
-</ng-container>
+}
