@@ -8,7 +8,7 @@ import { RouterModule } from '@angular/router';
   standalone: true,
   imports: [CommonModule, RouterModule],
   templateUrl: './campaign-card.component.html',
-  styleUrls: ['./campaign-card.component.css', './../../../styles.css']
+  styleUrls: ['./campaign-card.component.css', './../../../../styles.css']
 })
 export class CampaignCardComponent implements OnInit {
 	@Input() public campaign: ICampaign;

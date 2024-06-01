@@ -29,15 +29,15 @@
 }
 
 .type-1 {
-	background-image: url('./../../../assets/dungeon-tiles/dungeon-tile-1.jpg');
+	background-image: url('./../../../../assets/dungeon-tiles/dungeon-tile-1.jpg');
 }
 
 .type-2 {
-	background-image: url('./../../../assets/dungeon-tiles/dungeon-tile-2.jpg');
+	background-image: url('./../../../../assets/dungeon-tiles/dungeon-tile-2.jpg');
 }
 
 .type-3 {
-	background-image: url('./../../../assets/dungeon-tiles/dungeon-tile-3.jpg');
+	background-image: url('./../../../../assets/dungeon-tiles/dungeon-tile-3.jpg');
 }
 
 .is-disabled {
