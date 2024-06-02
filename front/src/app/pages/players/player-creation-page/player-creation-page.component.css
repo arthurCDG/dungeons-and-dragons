@@ -1,18 +1,26 @@
 
-#creatable-players-wrapper {
+.player-creation-form-body {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	margin-top: 3rem;
+}
+
+.transparent-stepper-background {
+	background: none;
+	color: white
+}
+
+.player-creation-form-wrapper {
 	display: flex;
 	justify-content: space-evenly;
 	margin: 2rem;
-	max-height: 50vh;
-}
-
-#creatable-players-list {
-	display: flex;
-	flex-direction: column;
-	gap: 2rem;
-	border-radius: var(--border-radius);
-	background-color: rgba(0, 0, 0, 0.452);
 	padding: 2rem;
+	height: 30vh;
+	width: 40vw;
+	background-color: rgba(0, 0, 0, 0.664);
+	border-radius: var(--border-radius);
 }
 
 .form-field-wrapper {
@@ -81,4 +89,12 @@
 
 .icon {
 	width: 3rem;
+	margin: 1rem;
+}
+
+.stepper-button {
+	background: none;
+	cursor: pointer;
+	border: 0;
+	padding: 0;
 }

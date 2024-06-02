@@ -40,6 +40,13 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 	align-items: center;
 }
 
+.row-form-element {
+	margin: 1rem;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
 .form-input {
 	display: flex;
 	justify-content: space-between;

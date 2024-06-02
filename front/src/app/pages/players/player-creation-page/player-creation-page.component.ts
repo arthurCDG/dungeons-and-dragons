@@ -1,6 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { MatStepperModule } from '@angular/material/stepper';
+import { HttpErrorResponse } from '@angular/common/http';
+import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { catchError } from 'rxjs';
 
 import {
 	BackArrowComponent,
@@ -11,10 +15,7 @@ import {
 } from '../../../components';
 import { Class, ICreatablePlayer, ICreatableSpecies, IPlayerCreationPayload, PlayerGender, Species } from '../../../models';
 import { CreatablePlayersService, PlayersService } from '../../../services';
-import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { IFormRadioInput, playerCreationFormStep } from './models';
-import { HttpErrorResponse } from '@angular/common/http';
-import { catchError } from 'rxjs';
 
 @Component({
 	selector: 'app-player-creation-page',
@@ -26,7 +27,8 @@ import { catchError } from 'rxjs';
 		PageBackgroundImageComponent,
 		BackArrowComponent,
 		ToastMessageComponent,
-		ReactiveFormsModule
+		ReactiveFormsModule,
+		MatStepperModule
 	],
 	templateUrl: './player-creation-page.component.html',
 	styleUrls: ['./player-creation-page.component.css'],
