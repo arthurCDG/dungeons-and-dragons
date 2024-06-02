@@ -14,9 +14,11 @@
 					@for (player of players; track player.id) {
 						<app-player-card [player]="player" [isSelected]="isSelected(player)" (playerSelected)="onPlayerSelected(player)" />
 					}
-					<div class="main-button-wrapper">
-						<a [routerLink]="['new']" class="link-button base-button nav-button welcome-link">Créer un nouveau joueur</a>
-					</div>
+					@if (players.length < maxPlayersCount) {
+						<div class="main-button-wrapper">
+							<a [routerLink]="['new']" class="link-button base-button nav-button welcome-link">Créer un nouveau joueur</a>
+						</div>
+					}
 				</div>
 			</div>
 		}
