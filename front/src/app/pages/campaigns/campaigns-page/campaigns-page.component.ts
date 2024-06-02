@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 
 import { ICampaign, ICreatableCampaign } from '../../../models';
 import { CampaignsService, CreatableCampaignsService } from '../../../services';
-import { CampaignCardComponent, CreatableCampaignCardComponent, ImageType, PageBackgroundImageComponent, PageWrapperComponent } from '../../../components';
+import { BackArrowComponent, CampaignCardComponent, CreatableCampaignCardComponent, ImageType, PageBackgroundImageComponent, PageWrapperComponent } from '../../../components';
 
 @Component({
 	selector: 'app-campaigns-page',
@@ -15,9 +15,11 @@ import { CampaignCardComponent, CreatableCampaignCardComponent, ImageType, PageB
 		CampaignCardComponent,
 		CreatableCampaignCardComponent,
 		PageBackgroundImageComponent,
-		PageWrapperComponent
+		PageWrapperComponent,
+		BackArrowComponent
 	],
 	templateUrl: './campaigns-page.component.html',
+	styleUrls: ['./campaigns-page.component.scss'],
 	providers: [CampaignsService, CreatableCampaignsService]
 })
 export class CampaignsPageComponent implements OnInit {

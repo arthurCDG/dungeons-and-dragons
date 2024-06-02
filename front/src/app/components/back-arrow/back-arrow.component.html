@@ -1,5 +1,10 @@
 <nav class="back-arrow-nav-wrapper">
-	<a class="nav-back-arrow white-description" [routerLink]="link" [relativeTo]="activatedRoute">
+	<a	class="nav-back-arrow"
+		[class.light-mode]="fontMode === 'light'"
+		[class.dark-mode]="fontMode === 'dark'"
+		[routerLink]="link"
+		[relativeTo]="activatedRoute"
+	>
 		{{ text }}
 	</a>
 </nav>

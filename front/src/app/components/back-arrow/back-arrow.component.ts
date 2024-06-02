@@ -12,6 +12,7 @@ import { ActivatedRoute, RouterModule } from '@angular/router';
 export class BackArrowComponent {
 	@Input() text: string;
 	@Input() link: string;
+	@Input() fontMode: 'light' | 'dark' = 'light';
 
 	constructor(public readonly activatedRoute: ActivatedRoute) { }
 }
