@@ -93,7 +93,7 @@
 }
 
 .stepper-button {
-	background: none;
+	background: inherit;
 	cursor: pointer;
 	border: 0;
 	padding: 0;

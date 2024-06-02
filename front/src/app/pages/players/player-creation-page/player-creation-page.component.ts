@@ -50,8 +50,6 @@ export class PlayerCreationPageComponent implements OnInit {
 
 	public httpError: HttpErrorResponse | null = null;
 
-	public formStep: playerCreationFormStep = 'playerClass';
-
 	public playerClassFieldName: string = 'playerClass';
 	public playerClassOptions: IFormRadioInput[] = [
 		{
@@ -132,7 +130,7 @@ export class PlayerCreationPageComponent implements OnInit {
 	
 	classCtrl = this.fb.control<Class | null>(null);
 	speciesCtrl = this.fb.control<Species | null>(null);
-	genderCtrl = this.fb.control<PlayerGender>(PlayerGender.Female);
+	genderCtrl = this.fb.control<PlayerGender | null>(null);
 	nameCtrl = this.fb.control<string | null>(null);
 
 	public playerCreationForm = this.fb.group({
@@ -155,15 +153,49 @@ export class PlayerCreationPageComponent implements OnInit {
 
 		this.creatablePlayersService.getAsync(this.userId).subscribe(creatablePlayers => {
 			this.creatablePlayers = creatablePlayers;
-			if (this.creatablePlayers.length) {
-				this.classCtrl.setValue(this.creatablePlayers[0].class.type);
-				this.associatedSpecies = this.creatablePlayers[0].associatedSpecies;
-				this.speciesCtrl.setValue(this.associatedSpecies[0].type);
-			}
-
 			this.isLoading = false;
 		});
 
+	}
+
+	public getLokalisedClassName(classType: Class): string {
+		switch (classType) {
+			case Class.Warrior:
+				return 'Guerrier';
+			case Class.Rogue:
+				return 'Voleur';
+			case Class.Cleric:
+				return 'Clerc';
+			case Class.Wizard:
+			default:
+				return 'Magicien';
+		}
+	}
+
+	public getLokalisedSpeciesName(speciesType: Species): string {
+		switch (speciesType) {
+			case Species.Human:
+				return 'Humain';
+			case Species.Elf:
+				return 'Elfe';
+			case Species.Halfling:
+				return 'Halfelin';
+			case Species.Dwarf:
+			default:
+				return 'Nain';
+		}
+	}
+
+	public getLokalisedGenderName(gender: PlayerGender): string {
+		switch (gender) {
+			case PlayerGender.Female:
+				return 'Femme';
+			case PlayerGender.Male:
+				return 'Homme';
+			case PlayerGender.NonBinary:
+			default:
+				return 'Non binaire';
+		}
 	}
 
 	onSubmit(): void {
