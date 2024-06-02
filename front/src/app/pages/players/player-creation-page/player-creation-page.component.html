@@ -1,230 +1,145 @@
 <app-page-background-image image="players-creation-page" />
 
-<app-page-wrapper>
-	<app-back-arrow link=".." text="Retour vers mes joueurs" />
-
-	<div class="page-centered-description-wrapper">
-		<h1 class="white-title">Créer un nouveau joueur</h1>
-	</div>
-
-	@if (!isLoading) {
-		@if (creatablePlayers.length) {
-			<div class="player-creation-form-body">
-				<div class="player-creation-form-wrapper">
-					<form (ngSubmit)="onSubmit()" [formGroup]="playerCreationForm" >
-						<mat-stepper linear class="transparent-stepper-background">
-							<mat-step [stepControl]="classCtrl">
-								<!-- CLASS STEP -->
-								<ng-template matStepLabel>
-									<span class="white-description">Classe</span>
-								</ng-template>
-
-								<div class="form-field-wrapper">
-									<div class="options-selector">
-										@for (option of playerClassOptions; track option.name) {
-											<input	type="radio"
-													[id]="'class_' + option.value"
-													[value]="option.value"
-													[formControlName]="playerClassFieldName"
-											/>
-											<button type="button" class="stepper-button" matStepperNext>
-												<label [for]="'class_' + option.value" class="option white-description">
-													<img class="icon" [src]="option.iconUrl" [alt]="option.altText"  (click)="formStep = 'playerSpecies'" />
-													@if (option.name) {
-														<span>{{ option.name }}</span>
-													}
-												</label>
-											</button>
-										}
-									</div>
-								</div>
-							</mat-step>
-
-							<!-- SPECIES STEP -->
-							<mat-step [stepControl]="speciesCtrl">
-								<ng-template matStepLabel>
-									<span class="white-description">Espèce</span>
-								</ng-template>
-
-								<div class="form-field-wrapper">
-									<div class="options-selector">
-										@for (option of playerSpeciesOptions; track option.name) {
-											<input	type="radio"
-													[id]="'species_' + option.value"
-													[value]="option.value"
-													[formControlName]="playerSpeciesFieldName"
-											/>
-											<button type="button" class="stepper-button" matStepperNext>
-												<label [for]="'species_' + option.value" class="option white-description">
-													<img class="icon" [src]="option.iconUrl" [alt]="option.altText" (click)="formStep = 'playerGender'" />
-													@if (option.name) {
-														<span>{{ option.name }}</span>
-													}
-												</label>
-											</button>
-										}
-									</div>
-								</div>
-							</mat-step>
-
-							<!-- GENDER STEP -->
-							<mat-step [stepControl]="genderCtrl">
-								<ng-template matStepLabel>
-									<span class="white-description">Genre</span>
-								</ng-template>
-
-								<div class="form-field-wrapper">
-									<div class="options-selector">
-										@for (option of playerGenderOptions; track option.name) {
-											<input	type="radio"
-													[id]="'gender_' + option.value"
-													[value]="option.value"
-													[formControlName]="playerGenderFieldName"
-											/>
-											<button type="button" class="stepper-button" matStepperNext>
-												<label [for]="'gender_' + option.value" class="option white-description">
-													<img class="icon" [src]="option.iconUrl" [alt]="option.altText"  (click)="formStep = 'playerName'" />
-													@if (option.name) {
-														<span>{{ option.name }}</span>
-													}
-												</label>
-											</button>
-										}
-									</div>
-								</div>
-							</mat-step>
-
-							<!-- IDENTITY STEP -->
-							<mat-step [stepControl]="nameCtrl">
-								<ng-template matStepLabel>
-									<span class="white-description">Identité</span>
-								</ng-template>
-
-								<div class="form-field-wrapper">
-									<div class="row-form-element">
-										<label for="playerName" class="form-label white-description">Nom</label>
-										<input	type="text"
-											placeholder="Nom du joueur"
-											name="playerName"
-											required
-											formControlName="playerName"
-											class="form-input"
-										/>
-									</div>
-
-									<div class="main-button-wrapper">
-										<button class="base-button" type="submit">Créer le joueur</button>
-									</div>
-								</div>
-							</mat-step>
-						</mat-stepper>
-
-						<!-- PLAYER CLASS STEP -->
-						@if (formStep === 'playerClass') {
-							<!-- <div class="form-field-wrapper">
-								<h3 class="white-title">Classe</h3>
-								<div class="options-selector">
-									@for (option of playerClassOptions; track option.name) {
-										<input	type="radio"
-												[id]="'class_' + option.value"
-												[value]="option.value"
-												[formControlName]="playerClassFieldName"
-												/>
-										<label [for]="'class_' + option.value" class="option white-description">
-											<img class="icon" [src]="option.iconUrl" [alt]="option.altText"  (click)="formStep = 'playerSpecies'" />
-											@if (option.name) {
-												<span>{{ option.name }}</span>
-											}
-										</label>
-									}
-								</div>
-							</div> -->
-						}
-
-						<!-- PLAYER SPECIES STEP -->
-						@if (formStep === 'playerSpecies') {
-							<!-- <div class="form-field-wrapper">
-								<h3 class="white-title">Espèce</h3>
-								<div class="options-selector">
-									@for (option of playerSpeciesOptions; track option.name) {
-										<input	type="radio"
-												[id]="'species_' + option.value"
-												[value]="option.value"
-												[formControlName]="playerSpeciesFieldName"
-										/>
-										<label [for]="'species_' + option.value" class="option white-description">
-											<img class="icon" [src]="option.iconUrl" [alt]="option.altText" (click)="formStep = 'playerGender'" />
-											@if (option.name) {
-												<span>{{ option.name }}</span>
-											}
-										</label>
-									}
-								</div>
-							</div> -->
-						}
-
-						<!-- PLAYER GENDER STEP -->
-						@if (formStep === 'playerGender') {
-							<!-- <div class="form-field-wrapper">
-								<h3 class="white-title">Genre</h3>
-								<div class="options-selector">
-									@for (option of playerGenderOptions; track option.name) {
-										<input	type="radio"
-												[id]="'gender_' + option.value"
-												[value]="option.value"
-												[formControlName]="playerGenderFieldName"
-										/>
-										<label [for]="'gender_' + option.value" class="option white-description">
-											<img class="icon" [src]="option.iconUrl" [alt]="option.altText"  (click)="formStep = 'playerName'" />
-											@if (option.name) {
-												<span>{{ option.name }}</span>
-											}
-										</label>
-									}
-								</div>
-							</div> -->
-						}
-
-						<!-- PLAYER IDENTITY STEP -->
-						@if (formStep === 'playerName') {
-							<!-- <div class="form-field-wrapper">
-								<h3 class="white-title">Identité</h3>
-								<div class="row-form-element">
-									<label for="playerName" class="form-label white-description">Nom</label>
-									<input	type="text"
-										placeholder="Nom du joueur"
-										name="playerName"
-										required
-										formControlName="playerName"
-										class="form-input"
-									/>
-								</div>
-
-								<div class="main-button-wrapper">
-									<button class="base-button" type="submit">Créer le joueur</button>
-								</div>
-							</div> -->
-						}
-					</form>
-
-					<!-- TODO - make it a display in a fifth form step where user modifies the player style -->
-					<!-- @if (classCtrl.value && speciesCtrl.value) {
-						<app-selected-player [selectedClass]="classCtrl.value" [selectedSpecies]="speciesCtrl.value" />
-					} -->
-				</div>
-			</div>
-		}
-
-		@else {
-			<p>Vous ne pouvez pas créer plus de quatre joueurs.</p>
-		}
-	}
-
-	@else {
-		<p>Chargement...</p>
-	}
-</app-page-wrapper>
-
 @if (httpError) {
 	<app-toast-message [httpError]="httpError"></app-toast-message>
+}
+
+@if (isLoading) {
+	<app-loading-spinner></app-loading-spinner>
+}
+
+@else {
+	<app-page-wrapper>
+		<app-back-arrow link=".." text="Retour vers mes joueurs" />
+
+		<div class="page-centered-description-wrapper">
+			<h1 class="white-title">Créer un nouveau joueur</h1>
+		</div>
+
+		@if (!isLoading) {
+			@if (creatablePlayers.length) {
+				<div class="player-creation-form-body">
+					<div class="player-creation-form-wrapper">
+						<form (ngSubmit)="onSubmit()" [formGroup]="playerCreationForm" >
+							<mat-stepper linear class="transparent-stepper-background">
+								<mat-step [stepControl]="classCtrl">
+									<!-- CLASS STEP -->
+									<ng-template matStepLabel>
+										<span class="white-description">Classe</span>
+									</ng-template>
+
+									<div class="form-field-wrapper">
+										<div class="options-selector">
+											@for (option of playerClassOptions; track option.name) {
+												<input	type="radio"
+														[id]="'class_' + option.value"
+														[value]="option.value"
+														[formControlName]="playerClassFieldName"
+												/>
+												<button type="button" class="stepper-button" matStepperNext>
+													<label [for]="'class_' + option.value" class="option white-description">
+														<img class="icon" [src]="option.iconUrl" [alt]="option.altText" />
+														@if (option.name) {
+															<span>{{ option.name }}</span>
+														}
+													</label>
+												</button>
+											}
+										</div>
+									</div>
+								</mat-step>
+
+								<!-- SPECIES STEP -->
+								<mat-step [stepControl]="speciesCtrl">
+									<ng-template matStepLabel>
+										<span class="white-description">Espèce</span>
+									</ng-template>
+
+									<div class="form-field-wrapper">
+										<div class="options-selector">
+											@for (option of playerSpeciesOptions; track option.name) {
+												<input	type="radio"
+														[id]="'species_' + option.value"
+														[value]="option.value"
+														[formControlName]="playerSpeciesFieldName"
+												/>
+												<button type="button" class="stepper-button" matStepperNext>
+													<label [for]="'species_' + option.value" class="option white-description">
+														<img class="icon" [src]="option.iconUrl" [alt]="option.altText" />
+														@if (option.name) {
+															<span>{{ option.name }}</span>
+														}
+													</label>
+												</button>
+											}
+										</div>
+									</div>
+								</mat-step>
+
+								<!-- GENDER STEP -->
+								<mat-step [stepControl]="genderCtrl">
+									<ng-template matStepLabel>
+										<span class="white-description">Genre</span>
+									</ng-template>
+
+									<div class="form-field-wrapper">
+										<div class="options-selector">
+											@for (option of playerGenderOptions; track option.name) {
+												<input	type="radio"
+														[id]="'gender_' + option.value"
+														[value]="option.value"
+														[formControlName]="playerGenderFieldName"
+												/>
+												<button type="button" class="stepper-button" matStepperNext>
+													<label [for]="'gender_' + option.value" class="option white-description">
+														<img class="icon" [src]="option.iconUrl" [alt]="option.altText" />
+														@if (option.name) {
+															<span>{{ option.name }}</span>
+														}
+													</label>
+												</button>
+											}
+										</div>
+									</div>
+								</mat-step>
+
+								<!-- IDENTITY STEP -->
+								<mat-step [stepControl]="nameCtrl">
+									<ng-template matStepLabel>
+										<span class="white-description">Identité</span>
+									</ng-template>
+
+									<div class="form-field-wrapper">
+										<div class="row-form-element">
+											<label for="playerName" class="form-label white-description">Nom</label>
+											<input	type="text"
+												placeholder="Nom du joueur"
+												name="playerName"
+												required
+												formControlName="playerName"
+												class="form-input"
+											/>
+										</div>
+
+										<div class="main-button-wrapper">
+											<button class="base-button" type="submit">Créer le joueur</button>
+										</div>
+									</div>
+								</mat-step>
+							</mat-stepper>
+						</form>
+
+						<!-- TODO - make it a display in a fifth form step where user modifies the player style -->
+						<!-- @if (classCtrl.value && speciesCtrl.value) {
+							<app-selected-player [selectedClass]="classCtrl.value" [selectedSpecies]="speciesCtrl.value" />
+						} -->
+					</div>
+				</div>
+			}
+
+			@else {
+				<p>Vous ne pouvez pas créer plus de quatre joueurs.</p>
+			}
+		}
+	</app-page-wrapper>
 }

@@ -8,6 +8,7 @@ import { catchError } from 'rxjs';
 
 import {
 	BackArrowComponent,
+	LoadingSpinnerComponent,
 	PageBackgroundImageComponent,
 	PageWrapperComponent,
 	SelectedPlayerComponent,
@@ -27,6 +28,7 @@ import { IFormRadioInput, playerCreationFormStep } from './models';
 		PageBackgroundImageComponent,
 		BackArrowComponent,
 		ToastMessageComponent,
+		LoadingSpinnerComponent,
 		ReactiveFormsModule,
 		MatStepperModule
 	],
