@@ -1,5 +1,6 @@
 .page-wrapper {
 	padding-top: 10vh;
+	height: 100%;
 	overflow: scroll;
 	scrollbar-width: none;
 }

@@ -3,6 +3,7 @@ export * from './action-bar';
 export * from './back-arrow';
 export * from './backgrounds';
 export * from './campaigns';
+export * from './empty-states';
 export * from './header';
 export * from './players';
 export * from './squares';

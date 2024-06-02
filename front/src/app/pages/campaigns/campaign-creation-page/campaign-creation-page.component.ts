@@ -11,6 +11,7 @@ import { BehaviorSubject, Observable, Subscription, map } from 'rxjs';
 import { CampaignType, ICampaign, ICampaignPayload, ICreatableCampaign, IPlayer, IUserDto } from '../../../models';
 import { AvailableDungeonMastersService, AvailablePlayersService, CampaignsService, PlayersService } from '../../../services';
 import { BackArrowComponent, ImageType, PageBackgroundImageComponent, PageWrapperComponent } from '../../../components';
+import { getBackgroundImage } from '../helpers';
 
 @Component({
 	selector: 'app-campaign-creation-page',
@@ -39,7 +40,7 @@ export class CampaignCreationPageComponent implements OnInit {
 	public currentPlayer?: IPlayer | null = null;
 	public isLoading: boolean = true;
 
-	public backgroundImage: ImageType | null = null;
+	public backgroundImage: ImageType = 'campaigns-page';
 
 	public users$: Observable<IUserDto[]>;
 	public players$: Observable<IPlayer[]>;
@@ -83,7 +84,7 @@ export class CampaignCreationPageComponent implements OnInit {
 		}
 		
 		this.selectedCampaign = this.routeData.creatableCampaign;
-		this.backgroundImage = this.getBackgroundImage(this.selectedCampaign.type);
+		this.backgroundImage = getBackgroundImage(this.selectedCampaign.type);
 		for (let i = 0; i < this.selectedCampaign.maxPlayers; i++) {
 			this.heroesCtrl.addControl(`hero_${i}`, this.fb.control<IPlayer | null>(null))
 		}
@@ -122,18 +123,6 @@ export class CampaignCreationPageComponent implements OnInit {
 	public deleteDungeonMasterValue(event: Event): void {
 		event.stopPropagation();
 		this.dungeonMasterCtrl.setValue(null);
-	}
-
-	private getBackgroundImage(type: CampaignType): ImageType | null {
-		switch(type) {
-			case CampaignType.HollbrooksLiberation:
-				return 'hollbrook-background-campaign-image';
-			case CampaignType.InpursuitOfTheDarkArmy:
-				return 'inpursuit-of-the-dark-army-campaign-image';
-			case CampaignType.WrathOfTheLich:
-			default:
-				return 'wrath-of-the-lich-campaign-image';
-		}
 	}
 }
 

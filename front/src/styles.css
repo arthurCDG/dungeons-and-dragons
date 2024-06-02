@@ -70,22 +70,6 @@ input.ng-invalid && input.ng-dirty {
 	align-items: center;
 }
 
-.page-background-image {
-	height: 100%;
-	background-position: center;
-	background-size: cover;
-	background-repeat: no-repeat;
-}
-
-.sticky-background-image {
-	background-attachment: scroll, fixed;
-}
-
-.body-background-image {
-	height: 100vh;
-	padding: 2rem;
-}
-
 .white-title {
 	color: white;
 }

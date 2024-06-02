@@ -2,11 +2,10 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 
-import { BackArrowComponent } from '../../../components/back-arrow/back-arrow.component';
 import { ICampaign, ICreatableAdventure } from '../../../models';
 import { AdventuresService, CampaignsService, CreatableAdventuresService } from '../../../services';
-import { CreatableAdventureCardComponent } from '../../../components/adventures/creatable-adventure-card/creatable-adventure-card.component';
-import { AdventureCardComponent } from '../../../components/adventures/adventure-card/adventure-card.component';
+import { AdventureCardComponent, BackArrowComponent, CreatableAdventureCardComponent, EmptyStateBodyComponent, ImageType, PageBackgroundImageComponent, PageWrapperComponent } from '../../../components';
+import { getBackgroundImage } from '../helpers';
 
 @Component({
   selector: 'app-campaigns-page',
@@ -16,7 +15,10 @@ import { AdventureCardComponent } from '../../../components/adventures/adventure
 	RouterModule,
 	CreatableAdventureCardComponent,
 	AdventureCardComponent,
-	BackArrowComponent
+	BackArrowComponent,
+	EmptyStateBodyComponent,
+	PageBackgroundImageComponent,
+	PageWrapperComponent
 ],
   templateUrl: './main-campaign-page.component.html',
   styleUrls: ['./main-campaign-page.component.css'],
@@ -34,18 +36,22 @@ export class MainCampaignPageComponent implements OnInit {
 	) { }
 
 	private campaignId: number;
-	public mainCampaign: ICampaign;
+	public campaign: ICampaign;
 	public creatableAdventures: ICreatableAdventure[] = [];
+
+	public backgroundImage: ImageType = 'campaigns-page';
 
 	ngOnInit(): void {
 		this.activatedRoute.params.subscribe(params => this.campaignId = Number(params['campaignId']));
 	
 		this.campaignsService.getByIdAsync(this.campaignId).subscribe((campaign: ICampaign) => {
-			this.mainCampaign = campaign;
+			this.campaign = campaign;
+			this.campaign.adventures = [];
+			this.backgroundImage = getBackgroundImage(campaign.type);
 		});
 
-		this.creatableAdventuresService.getAsync(this.campaignId).subscribe((creatableAdventures: ICreatableAdventure[]) => {
-			this.creatableAdventures = creatableAdventures;
-		});
+		// this.creatableAdventuresService.getAsync(this.campaignId).subscribe((creatableAdventures: ICreatableAdventure[]) => {
+		// 	this.creatableAdventures = creatableAdventures;
+		// });
 	}
 }

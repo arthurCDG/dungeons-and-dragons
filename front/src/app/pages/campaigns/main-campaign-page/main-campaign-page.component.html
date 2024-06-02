@@ -1,19 +1,16 @@
-@if (mainCampaign) {
-	<div
-		class="body-background-image"
-		[class.hollbrook-campaign]="mainCampaign.type === 1"
-		[class.aos-campaign]="mainCampaign.type === 2"
-		[class.wotl-campaign]="mainCampaign.type === 3"
-	>
-		<app-back-arrow link=".." text="Retour vers les campagnes"></app-back-arrow>
+<app-page-background-image [image]="backgroundImage" />
 
+<app-page-wrapper>
+	<app-back-arrow link=".." text="Retour vers les campagnes"></app-back-arrow>
+	
+	@if (campaign.adventures.length || creatableAdventures.length) {
 		<div class="page-description-wrapper">
-			<h1 class="white-title">{{ mainCampaign.name }}</h1>
-			<p class="white-description">Démarrée le {{ mainCampaign.startsAt | date:'longDate' }}</p>
+			<h1 class="white-title">{{ campaign.name }}</h1>
+			<p class="white-description">Démarrée le {{ campaign.startsAt | date:'longDate' }}</p>
 		</div>
 
 		<ul>
-			@for (adventure of mainCampaign.adventures; track adventure.id) {
+			@for (adventure of campaign.adventures; track adventure.id) {
 				<li>
 					<app-adventure-card [adventure]="adventure"></app-adventure-card>
 				</li>
@@ -24,9 +21,16 @@
 				</li>
 			}
 		</ul>
-	</div>
-}
+	}
 
-@else {
-	<!-- TODO - empty state image or spinner -->
-}
+	@else if (creatableAdventures.length === 0) {
+		<app-empty-state-body
+			[title]="'Vous avez terminé toutes les aventures de cette campagne.'"
+			[description]="'Félicitations ! Vous pouvez maintenant passer à une autre campagne.'"
+		/>
+	}
+
+	@else {
+		<!-- TODO - spinner component for loading -->
+	}
+</app-page-wrapper>
