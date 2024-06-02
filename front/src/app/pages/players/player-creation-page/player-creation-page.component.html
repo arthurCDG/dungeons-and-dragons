@@ -16,7 +16,7 @@
 			<h1 class="white-title">Créer un nouveau joueur</h1>
 		</div>
 
-		@if (creatablePlayers.length) {
+		@if (creatableClasses.length) {
 			<div class="player-creation-form-body">
 				<div class="player-creation-form-wrapper">
 					<form (ngSubmit)="onSubmit()" [formGroup]="playerCreationForm" >
@@ -32,11 +32,11 @@
 
 								<div class="form-field-wrapper">
 									<div class="options-selector">
-										@for (option of playerClassOptions; track option.name) {
+										@for (option of creatableClasses; track option.name) {
 											<input	type="radio"
 													[id]="'class_' + option.value"
 													[value]="option.value"
-													[formControlName]="playerClassFieldName"
+													formControlName="playerClass"
 											/>
 											<button type="button" class="stepper-button" matStepperNext>
 												<label [for]="'class_' + option.value" class="option white-description">
@@ -62,11 +62,11 @@
 
 								<div class="form-field-wrapper">
 									<div class="options-selector">
-										@for (option of playerSpeciesOptions; track option.name) {
+										@for (option of associatedSpecies; track option.name) {
 											<input	type="radio"
 													[id]="'species_' + option.value"
 													[value]="option.value"
-													[formControlName]="playerSpeciesFieldName"
+													formControlName="playerSpecies"
 											/>
 											<button type="button" class="stepper-button" matStepperNext>
 												<label [for]="'species_' + option.value" class="option white-description">
@@ -96,7 +96,7 @@
 											<input	type="radio"
 													[id]="'gender_' + option.value"
 													[value]="option.value"
-													[formControlName]="playerGenderFieldName"
+													formControlName="playerGender"
 											/>
 											<button type="button" class="stepper-button" matStepperNext>
 												<label [for]="'gender_' + option.value" class="option white-description">

@@ -14,9 +14,10 @@ import {
 	SelectedPlayerComponent,
 	ToastMessageComponent
 } from '../../../components';
-import { Class, ICreatablePlayer, ICreatableSpecies, IPlayerCreationPayload, PlayerGender, Species } from '../../../models';
+import { Class, ICreatableClass, ICreatablePlayer, ICreatableSpecies, IPlayerCreationPayload, PlayerGender, Species } from '../../../models';
 import { CreatablePlayersService, PlayersService } from '../../../services';
-import { IFormRadioInput, playerCreationFormStep } from './models';
+import { IFormRadioInput } from './models';
+import { get } from 'http';
 
 @Component({
 	selector: 'app-player-creation-page',
@@ -43,70 +44,14 @@ export class PlayerCreationPageComponent implements OnInit {
 	private userId: number;
 
 	public creatablePlayers: ICreatablePlayer[] = [];
-	public associatedSpecies: ICreatableSpecies[] | undefined;
+	public creatableClasses: IFormRadioInput[] = [];
+	public associatedSpecies: IFormRadioInput[] = [];
 	public selectedClass?: Class;
 	public selectedSpecies?: Species;
 	public isLoading: boolean = true;
 
 	public httpError: HttpErrorResponse | null = null;
 
-	public playerClassFieldName: string = 'playerClass';
-	public playerClassOptions: IFormRadioInput[] = [
-		{
-			altText: 'Warrior class option',
-			iconUrl: '../../../assets/icons/classes/warrior-class-icon.png',
-			name: 'Guerrier',
-			value: Class.Warrior
-		},
-		{
-			altText: 'Rogue class option',
-			iconUrl: '../../../assets/icons/classes/rogue-class-icon.png',
-			name: 'Voleur',
-			value: Class.Rogue
-		},
-		{
-			altText: 'Cleric class option',
-			iconUrl: '../../../assets/icons/classes/cleric-class-icon.png',
-			name: 'Clerc',
-			value: Class.Cleric
-		},
-		{
-			altText: 'Wizard class option',
-			iconUrl: '../../../assets/icons/classes/wizard-class-icon.png',
-			name: 'Magicien',
-			value: Class.Wizard
-		}
-	];
-
-	public playerSpeciesFieldName: string = 'playerSpecies';
-	public playerSpeciesOptions: IFormRadioInput[] = [
-		{
-			altText: 'Human species option',
-			iconUrl: '../../../assets/icons/species/human-species-icon.svg',
-			name: 'Humain',
-			value: Species.Human
-		},
-		{
-			altText: 'Elf species option',
-			iconUrl: '../../../assets/icons/species/elf-species-icon.svg',
-			name: 'Elfe',
-			value: Species.Elf
-		},
-		{
-			altText: 'Halfling species option',
-			iconUrl: '../../../assets/icons/species/halfling-species-icon.svg',
-			name: 'Halfelin',
-			value: Species.Halfling
-		},
-		{
-			altText: 'Dwarf species option',
-			iconUrl: '../../../assets/icons/species/dwarf-species-icon.svg',
-			name: 'Nain',
-			value: Species.Dwarf
-		}
-	];
-
-	public playerGenderFieldName: string = 'playerGender';
 	public playerGenderOptions: IFormRadioInput[] = [
 		{
 			altText: 'Female-gender',
@@ -153,11 +98,54 @@ export class PlayerCreationPageComponent implements OnInit {
 
 		this.creatablePlayersService.getAsync(this.userId).subscribe(creatablePlayers => {
 			this.creatablePlayers = creatablePlayers;
+			this.creatableClasses = creatablePlayers.map(cp => {
+				return {
+					altText: `${cp.class.lokalisedClassName} class option`,
+					iconUrl: getIconUrlFromClass(cp.class.type),
+					name: cp.class.lokalisedClassName,
+					value: cp.class.type
+				};
+			});
+
+			this.classCtrl.valueChanges.subscribe(classType => {
+				this.associatedSpecies = this.creatablePlayers
+					.filter(cp => cp.class.type === classType)
+					.flatMap(cp => cp.associatedSpecies)
+					.map(as => {
+						return {
+							altText: `${as.lokalisedSpeciesName} species option`,
+							iconUrl: getIconUrlFromSpecies(as.type),
+							name: as.lokalisedSpeciesName,
+							value: as.type
+						};
+					});
+			});
+
 			this.isLoading = false;
 		});
-
 	}
 
+	onSubmit(): void {
+		// TODO: validate all required fields are filled
+
+		const payload: IPlayerCreationPayload = {
+			class: this.classCtrl.value!,
+			name: this.nameCtrl.value!,
+			gender: this.genderCtrl.value!,
+			species: this.speciesCtrl.value!!
+		};
+
+		this.playersService
+			.createAsync(this.userId, payload)
+			.pipe(
+				catchError(error => {
+					this.httpError = error;
+					throw error;
+				})
+			)
+			.subscribe(() => this.router.navigate(['..'], { relativeTo: this.activatedRoute }));
+	}
+	
 	public getLokalisedClassName(classType: Class): string {
 		switch (classType) {
 			case Class.Warrior:
@@ -197,25 +185,32 @@ export class PlayerCreationPageComponent implements OnInit {
 				return 'Non binaire';
 		}
 	}
+}
 
-	onSubmit(): void {
-		// TODO: validate all required fields are filled
+const getIconUrlFromClass = (type: Class): string => {
+	switch (type) {
+		case Class.Warrior:
+			return '../../../assets/icons/classes/warrior-class-icon.png';
+		case Class.Rogue:
+			return '../../../assets/icons/classes/rogue-class-icon.png';
+		case Class.Cleric:
+			return '../../../assets/icons/classes/cleric-class-icon.png';
+		case Class.Wizard:
+		default:
+			return '../../../assets/icons/classes/wizard-class-icon.png';
+	}
+}
 
-		const payload: IPlayerCreationPayload = {
-			class: this.classCtrl.value!,
-			name: this.nameCtrl.value!,
-			gender: this.genderCtrl.value!,
-			species: this.speciesCtrl.value!!
-		};
-
-		this.playersService
-			.createAsync(this.userId, payload)
-			.pipe(
-				catchError(error => {
-					this.httpError = error;
-					throw error;
-				})
-			)
-			.subscribe(() => this.router.navigate(['..'], { relativeTo: this.activatedRoute }));
+const getIconUrlFromSpecies = (type: Species): string => {
+	switch (type) {
+		case Species.Human:
+			return '../../../assets/icons/species/human-species-icon.svg';
+		case Species.Elf:
+			return '../../../assets/icons/species/elf-species-icon.svg';
+		case Species.Halfling:
+			return '../../../assets/icons/species/halfling-species-icon.svg';
+		case Species.Dwarf:
+		default:
+			return '../../../assets/icons/species/dwarf-species-icon.svg';
 	}
 }
