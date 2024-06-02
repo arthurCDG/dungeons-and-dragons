@@ -6,7 +6,7 @@
 	<app-page-wrapper>
 		<app-back-arrow link=".." text="Retour vers les campagnes"></app-back-arrow>
 
-		<div class="campaigns-page-description-wrapper">
+		<div class="page-centered-description-wrapper">
 			<h1 class="white-title">{{ selectedCampaign?.name }}</h1>
 		</div>
 
@@ -27,19 +27,26 @@
 						<div class="form-element">
 							<h3 class="white-description">Héro {{ playerIndex + 2}}</h3>
 							<mat-form-field class="form-input">
-								<mat-label class="form-label white-description">Choisir le joueur</mat-label>
+								<mat-label class="form-label">Choisir le joueur</mat-label>
 								<mat-select
 									formControlName="{{ 'hero_' + playerIndex }}"
 									aria-label="Select a player"
 									class="form-input creatable-players-list"
 								>
 									@for (player of players$ | async; track player.id) {
-										<mat-option [value]="player">
-											{{ player.profile?.name }}
-										</mat-option>
+										@if (!chosenPlayers.has(player.id)) {
+											<mat-option [value]="player" (click)="onPlayerSelect(player)">
+												{{ player.profile?.name }}
+											</mat-option>
+										}
+										@else {
+											<mat-option [value]="player" disabled>
+												{{ player.profile?.name }}
+											</mat-option>
+										}
 									}
 									<mat-select-trigger>
-										<div class="select-content white-description">
+										<div class="select-content">
 											<span>
 												{{ heroesCtrl.controls["hero_" + playerIndex].value?.profile?.name }}
 											</span>
@@ -60,7 +67,7 @@
 					<div class="form-element">
 						<h3 class="white-description">Maître du donjon</h3>
 						<mat-form-field class="form-input">
-							<mat-label class="form-label white-description">Choisir le maître du donjon</mat-label>
+							<mat-label class="form-label">Choisir le maître du donjon</mat-label>
 							<mat-select formControlName="dungeonMaster" aria-label="Select a user" class="form-input creatable-players-list">
 								@for (user of users$ | async; track user.id) {
 									<mat-option [value]="user">
@@ -68,7 +75,7 @@
 									</mat-option>
 								}
 								<mat-select-trigger>
-									<div class="select-content white-description">
+									<div class="select-content">
 										<span>{{ dungeonMasterCtrl.value?.name }}</span>
 										<span (click)="deleteDungeonMasterValue($event)">
 											<mat-icon>clear</mat-icon>

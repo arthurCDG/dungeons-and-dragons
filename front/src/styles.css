@@ -29,8 +29,6 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 	display: flex;
 	justify-content: space-evenly;
 	background-color: rgba(0, 0, 0, 0.5);
-	gap: 1rem;
-	padding: 2rem;
 	border-radius: 1rem;
 }
 
@@ -45,11 +43,9 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .form-input {
 	display: flex;
 	justify-content: space-between;
-	min-width: 200px;
 }
 
 .form-label {
-	min-width: 200px;
 	margin-right: 1rem;
 }
 

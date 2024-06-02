@@ -7,7 +7,7 @@ import { Location } from '@angular/common';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from "@angular/material/icon";
 import { MatSelectModule } from '@angular/material/select';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable, Subscription, map } from 'rxjs';
 import { CampaignType, ICampaign, ICampaignPayload, ICreatableCampaign, IPlayer, IUserDto } from '../../../models';
 import { AvailableDungeonMastersService, AvailablePlayersService, CampaignsService, PlayersService } from '../../../services';
 import { BackArrowComponent, ImageType, PageBackgroundImageComponent, PageWrapperComponent } from '../../../components';
@@ -43,6 +43,7 @@ export class CampaignCreationPageComponent implements OnInit {
 
 	public users$: Observable<IUserDto[]>;
 	public players$: Observable<IPlayer[]>;
+	public chosenPlayers: Map<number, IPlayer> = new Map<number, IPlayer>();
 	
 	private userId: number;
 	private playerId: number;
@@ -75,7 +76,7 @@ export class CampaignCreationPageComponent implements OnInit {
 
 		this.users$ = this.availableDungeonMastersService.getAsync();
 		this.players$ = this.availablePlayersService.getAsync();
-
+			
 		this.routeData = this.location.getState() as ICampaignCreationPageRouteData;
 		if (!this.routeData.creatableCampaign) {
 			this.router.navigate(['..'], { relativeTo: this.activatedRoute });
@@ -107,6 +108,10 @@ export class CampaignCreationPageComponent implements OnInit {
 		this.campaignsService
 			.postAsync(payload)
 			.subscribe((campaign: ICampaign) => this.router.navigate(['..', campaign.id], { relativeTo: this.activatedRoute }));
+	}
+
+	public onPlayerSelect(player: IPlayer): void {
+		this.chosenPlayers.set(player.id, player);
 	}
 
 	public deleteHeroesControlValue(event: Event, index: number): void {

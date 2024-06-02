@@ -19,7 +19,6 @@ import { BackArrowComponent, CampaignCardComponent, CreatableCampaignCardCompone
 		BackArrowComponent
 	],
 	templateUrl: './campaigns-page.component.html',
-	styleUrls: ['./campaigns-page.component.scss'],
 	providers: [CampaignsService, CreatableCampaignsService]
 })
 export class CampaignsPageComponent implements OnInit {
