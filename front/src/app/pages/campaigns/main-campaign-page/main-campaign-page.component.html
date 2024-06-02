@@ -1,8 +1,12 @@
 <app-page-background-image [image]="backgroundImage" />
 
+@if (isLoading) {
+	<app-loading-spinner />
+}
+
 <app-page-wrapper>
 	<app-back-arrow link=".." text="Retour vers les campagnes"></app-back-arrow>
-	
+
 	@if (campaign.adventures.length || creatableAdventures.length) {
 		<div class="page-description-wrapper">
 			<h1 class="white-title">{{ campaign.name }}</h1>
@@ -23,14 +27,10 @@
 		</ul>
 	}
 
-	@else if (creatableAdventures.length === 0) {
+	@else {
 		<app-empty-state-body
 			[title]="'Vous avez terminé toutes les aventures de cette campagne.'"
 			[description]="'Félicitations ! Vous pouvez maintenant passer à une autre campagne.'"
 		/>
-	}
-
-	@else {
-		<!-- TODO - spinner component for loading -->
 	}
 </app-page-wrapper>

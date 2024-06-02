@@ -4,7 +4,7 @@ import { ActivatedRoute, RouterModule } from '@angular/router';
 
 import { ICampaign, ICreatableAdventure } from '../../../models';
 import { AdventuresService, CampaignsService, CreatableAdventuresService } from '../../../services';
-import { AdventureCardComponent, BackArrowComponent, CreatableAdventureCardComponent, EmptyStateBodyComponent, ImageType, PageBackgroundImageComponent, PageWrapperComponent } from '../../../components';
+import { AdventureCardComponent, BackArrowComponent, CreatableAdventureCardComponent, EmptyStateBodyComponent, ImageType, LoadingSpinnerComponent, PageBackgroundImageComponent, PageWrapperComponent } from '../../../components';
 import { getBackgroundImage } from '../helpers';
 
 @Component({
@@ -18,7 +18,8 @@ import { getBackgroundImage } from '../helpers';
 	BackArrowComponent,
 	EmptyStateBodyComponent,
 	PageBackgroundImageComponent,
-	PageWrapperComponent
+	PageWrapperComponent,
+	LoadingSpinnerComponent
 ],
   templateUrl: './main-campaign-page.component.html',
   styleUrls: ['./main-campaign-page.component.css'],
@@ -39,6 +40,7 @@ export class MainCampaignPageComponent implements OnInit {
 	public campaign: ICampaign;
 	public creatableAdventures: ICreatableAdventure[] = [];
 
+	public isLoading = true;
 	public backgroundImage: ImageType = 'campaigns-page';
 
 	ngOnInit(): void {
@@ -48,10 +50,11 @@ export class MainCampaignPageComponent implements OnInit {
 			this.campaign = campaign;
 			this.campaign.adventures = [];
 			this.backgroundImage = getBackgroundImage(campaign.type);
+			this.isLoading = false;
 		});
 
-		// this.creatableAdventuresService.getAsync(this.campaignId).subscribe((creatableAdventures: ICreatableAdventure[]) => {
-		// 	this.creatableAdventures = creatableAdventures;
-		// });
+		this.creatableAdventuresService.getAsync(this.campaignId).subscribe((creatableAdventures: ICreatableAdventure[]) => {
+			this.creatableAdventures = creatableAdventures;
+		});
 	}
 }

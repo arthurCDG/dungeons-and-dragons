@@ -6,6 +6,7 @@ export * from './campaigns';
 export * from './empty-states';
 export * from './header';
 export * from './players';
+export * from './spinners';
 export * from './squares';
 export * from './toast-message';
 export * from './wrappers';
