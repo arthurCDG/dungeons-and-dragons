@@ -4,8 +4,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import {
 	BackArrowComponent,
-	CreatablePlayerClassCardComponent,
-	CreatablePlayerSpeciesCardComponent,
 	PageBackgroundImageComponent,
 	PageWrapperComponent,
 	SelectedPlayerComponent,
@@ -23,8 +21,6 @@ import { catchError } from 'rxjs';
 	standalone: true,
 	imports: [
 		CommonModule,
-		CreatablePlayerClassCardComponent,
-		CreatablePlayerSpeciesCardComponent,
 		SelectedPlayerComponent,
 		PageWrapperComponent,
 		PageBackgroundImageComponent,
