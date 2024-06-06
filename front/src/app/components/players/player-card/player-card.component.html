@@ -3,30 +3,55 @@
 	[class.selected]="isSelected"
 	(click)="onPlayerCardClick()"	
 >
-	<div>
+	<div class="player-information">
 		@switch (player.profile?.class) {
 			@case (0) {
-				<img class="player-logo" alt="" src="../../../assets/hero-classes/crane.png" />
+				<img
+					class="player-logo"
+					alt="dungeon master class icon"
+					src="../../../../assets/icons/classes/dungeon-master-class-icon.png"
+				/>
 			}
 			@case (1) {
-				<img class="player-logo" alt="" src="../../../assets/hero-classes/epees.png" />
+				<img
+					class="player-logo"
+					alt="rogue class icon"
+					src="../../../../assets/icons/classes/rogue-class-icon.png"
+				/>
 			}
 			@case (5) {
-				<img class="player-logo" alt="" src="../../../assets/hero-classes/religion.png" />
+				<img
+					class="player-logo"
+					alt="cleric class icon"
+					src="../../../../assets/icons/classes/cleric-class-icon.png"
+				/>
 			}
 			@case (7) {
-				<img class="player-logo" alt="" src="../../../assets/hero-classes/haches.png" />
+				<img
+					class="player-logo"
+					alt="warrior class icon"
+					src="../../../../assets/icons/classes/warrior-class-icon.png"
+				/>
 			}
 			@case (8) {
-				<img class="player-logo" alt="" src="../../../assets/hero-classes/baguette-magique.png" />
+				<img
+					class="player-logo"
+					alt="wizard class icon"
+					src="../../../../assets/icons/classes/wizard-class-icon.png"
+				/>
 			}
 		}
 		
-		<span>{{ player.profile?.name }}</span>
+		<div class="player-information-text">
+			<h3 class="strong-title">{{ player.profile?.name }}</h3>
+			<p>
+				<span>{{ getLokalisedSpeciesName(player.profile!.species, player.profile!.gender) }}</span>
+				<span> - </span>
+				<span>{{ getLokalisedClassName(player.profile!.class, player.profile!.gender) }}</span>
+			</p>
+		</div>
 	</div>
-	<div class="main-button-wrapper">
-		<a	class="link-button base-button"	[routerLink]="[player.id, 'campaigns']">
-			<span>Jouer avec {{ player.profile?.name }}</span>
-		</a>
-	</div>
+	<a	class="link-button base-button"	[routerLink]="[player.id, 'campaigns']">
+		<span>Jouer avec {{ player.profile?.name }}</span>
+	</a>
 </div>

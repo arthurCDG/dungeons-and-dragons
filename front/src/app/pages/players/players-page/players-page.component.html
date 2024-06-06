@@ -1,16 +1,16 @@
 <app-page-background-image [image]="backgroundImage" />
 
 <app-page-wrapper>
-	<div id="players-page">
-		<app-back-arrow text="Retour à la page d'accueil" link="../../.."></app-back-arrow>
+	<div class="players-page">
+		<app-back-arrow text="Retour à la page d'accueil" link="../../..">sdsds</app-back-arrow>
 
 		@if (players.length) {
 			<div class="players-list">
-				<div class="displayed-player">
+				<!-- <div class="displayed-player">
 					<app-selected-player [selectedClass]="currentPlayer!.profile!.class" />
-				</div>
+				</div> -->
 				
-				<div id="player-cards-list">
+				<div class="player-cards-list">
 					@for (player of players; track player.id) {
 						<app-player-card [player]="player" [isSelected]="isSelected(player)" (playerSelected)="onPlayerSelected(player)" />
 					}

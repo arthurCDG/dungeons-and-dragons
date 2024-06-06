@@ -81,6 +81,10 @@ input.ng-invalid && input.ng-dirty {
 	color: white;
 }
 
+.strong-title {
+	font-weight: 800;
+}
+
 .white-description {
 	color: white;
 }

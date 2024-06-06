@@ -63,7 +63,7 @@ export interface IProfile {
 	id: number;
 	playerId: number;
 	name: string;
-	playerGender: PlayerGender;
+	gender: PlayerGender;
 	imageUrl?: string | null;
 	class: Class;
 	species: Species;

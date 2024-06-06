@@ -27,7 +27,7 @@ export class PlayersPageComponent implements OnInit {
 	public currentPlayer: IPlayer;
 
 	public readonly maxPlayersCount = 4;
-	public backgroundImage: ImageType = 'hollbrook-background-campaign-image';
+	public backgroundImage: ImageType = 'players-creation-page';
 
 	private userId: number;
 

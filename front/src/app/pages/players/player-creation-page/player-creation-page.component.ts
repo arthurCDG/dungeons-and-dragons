@@ -1,9 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { MatStepperModule } from '@angular/material/stepper';
 import { HttpErrorResponse } from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { MatStepperModule } from '@angular/material/stepper';
+import { ActivatedRoute, Router } from '@angular/router';
 import { catchError } from 'rxjs';
 
 import {
@@ -14,10 +14,10 @@ import {
 	SelectedPlayerComponent,
 	ToastMessageComponent
 } from '../../../components';
-import { Class, ICreatableClass, ICreatablePlayer, ICreatableSpecies, IPlayerCreationPayload, PlayerGender, Species } from '../../../models';
+import { getLokalisedClassName, getLokalisedGenderName, getLokalisedSpeciesName } from '../../../helpers';
+import { Class, ICreatablePlayer, IPlayerCreationPayload, PlayerGender, Species } from '../../../models';
 import { CreatablePlayersService, PlayersService } from '../../../services';
 import { IFormRadioInput } from './models';
-import { get } from 'http';
 
 @Component({
 	selector: 'app-player-creation-page',
@@ -145,46 +145,10 @@ export class PlayerCreationPageComponent implements OnInit {
 			)
 			.subscribe(() => this.router.navigate(['..'], { relativeTo: this.activatedRoute }));
 	}
-	
-	public getLokalisedClassName(classType: Class): string {
-		switch (classType) {
-			case Class.Warrior:
-				return 'Guerrier';
-			case Class.Rogue:
-				return 'Voleur';
-			case Class.Cleric:
-				return 'Clerc';
-			case Class.Wizard:
-			default:
-				return 'Magicien';
-		}
-	}
 
-	public getLokalisedSpeciesName(speciesType: Species): string {
-		switch (speciesType) {
-			case Species.Human:
-				return 'Humain';
-			case Species.Elf:
-				return 'Elfe';
-			case Species.Halfling:
-				return 'Halfelin';
-			case Species.Dwarf:
-			default:
-				return 'Nain';
-		}
-	}
-
-	public getLokalisedGenderName(gender: PlayerGender): string {
-		switch (gender) {
-			case PlayerGender.Female:
-				return 'Femme';
-			case PlayerGender.Male:
-				return 'Homme';
-			case PlayerGender.NonBinary:
-			default:
-				return 'Non binaire';
-		}
-	}
+	public getLokalisedClassName = (classType: Class): string => getLokalisedClassName(classType);
+	public getLokalisedSpeciesName = (speciesType: Species): string => getLokalisedSpeciesName(speciesType);
+	public getLokalisedGenderName = (gender: PlayerGender): string => getLokalisedGenderName(gender);
 }
 
 const getIconUrlFromClass = (type: Class): string => {

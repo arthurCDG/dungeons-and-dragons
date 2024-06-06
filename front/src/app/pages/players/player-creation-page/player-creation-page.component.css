@@ -18,8 +18,8 @@
 	margin: 2rem;
 	padding: 2rem;
 	height: 30vh;
-	width: 40vw;
-	background-color: rgba(0, 0, 0, 0.664);
+	width: 80vw;
+	background-color: rgba(0, 0, 0, 0.645);
 	border-radius: var(--border-radius);
 }
 

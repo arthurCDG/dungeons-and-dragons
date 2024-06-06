@@ -1,20 +1,31 @@
 .player-card {
 	display: flex;
 	padding: 1rem;
-	flex-direction: column;
+	margin: 0.5rem;
 	align-items: center;
+	justify-content: space-between;
 	cursor: pointer;
 	pointer-events: stroke;
+	border-radius: var(--border-radius);
 }
 
 .player-card:hover:not(.selected) {
-	background-color: rgba(253, 255, 144, 0.527);
-	box-shadow: rgba(253, 255, 144, 0.527);
+	background-color:  rgba(0, 0, 0, 0.5);
+	/* box-shadow: rgba(253, 255, 144, 0.527); */
+}
+
+.player-information {
+	display: flex;
+	align-items: center;
+}
+
+.player-information-text {
+	margin-left: 2rem;
 }
 
 .selected {
-	background-color: rgba(253, 255, 144, 0.527);
-	box-shadow: rgba(253, 255, 144, 0.527);
+	background-color: rgba(0, 0, 0, 0.35);
+	/* box-shadow: rgba(253, 255, 144, 0.527); */
 }
 
 .player-logo {
