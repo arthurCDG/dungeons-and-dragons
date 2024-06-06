@@ -1,17 +1,25 @@
-<div id="board-wrapper">
-	<div class="board">
-		@for (square of squares; track square.id) {
-			<app-square
-				[square]="square"
-				[squareNeedsToReload]="square.id === squaredIdThatNeedsToReload"
-				[squareIsSelected]="square.id === selectedSquaredId"
-				(squareChanged)="onSquareChanged($event)"
-				(squareSelected)="onSquareSelected($event)"
-			/>
-		}
-	</div>
+<app-page-background-image [image]="backgroundImage" />
 
-	@if (!isLoading) {
-		<app-action-bar [selectedSquare]="selectedSquare" [userPlayer]="userPlayer" [currentPlayer]="currentPlayer"></app-action-bar>
-	}
-</div>
+@if (isLoading) {
+	<app-loading-spinner />
+}
+
+@else {
+	<app-page-wrapper>
+		<div id="board-wrapper">
+			<div class="board">
+				@for (square of squares; track square.id) {
+					<app-square
+						[square]="square"
+						[squareNeedsToReload]="square.id === squaredIdThatNeedsToReload"
+						[squareIsSelected]="square.id === selectedSquaredId"
+						(squareChanged)="onSquareChanged($event)"
+						(squareSelected)="onSquareSelected($event)"
+					/>
+				}
+			</div>
+
+			<app-action-bar [selectedSquare]="selectedSquare" [userPlayer]="userPlayer" [currentPlayer]="currentPlayer" />
+		</div>
+	</app-page-wrapper>
+}

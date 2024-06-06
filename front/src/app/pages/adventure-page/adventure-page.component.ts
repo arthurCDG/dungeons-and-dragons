@@ -1,18 +1,38 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterModule } from '@angular/router';
-import { ActionBarComponent } from '../../components/action-bar/action-bar.component';
-import { SquareComponent } from '../../components/squares/square/square.component';
+
+import {
+	ActionBarComponent,
+	ImageType,
+	LoadingSpinnerComponent,
+	PageBackgroundImageComponent,
+	PageWrapperComponent,
+	SquareComponent
+} from '../../components';
 import { IAdventure, ICurrentPlayerDto, IPlayer, ISquare } from '../../models';
 import { AdventuresService, GameFlowService, PlayersService, SquaresService } from '../../services';
 
 @Component({
-  selector: 'app-adventure-page',
-  standalone: true,
-  imports: [CommonModule, RouterModule, ActionBarComponent, SquareComponent],
-  templateUrl: './adventure-page.component.html',
-  styleUrls: ['./adventure-page.component.css'],
-  providers: [AdventuresService, PlayersService, GameFlowService, SquaresService]
+	selector: 'app-adventure-page',
+	standalone: true,
+	imports: [
+		CommonModule,
+		RouterModule,
+		ActionBarComponent,
+		SquareComponent,
+		PageWrapperComponent,
+		LoadingSpinnerComponent,
+		PageBackgroundImageComponent
+	],
+	templateUrl: './adventure-page.component.html',
+	styleUrls: ['./adventure-page.component.css'],
+	providers: [
+		AdventuresService,
+		PlayersService,
+		GameFlowService,
+		SquaresService
+	]
 })
 export class AdventurePageComponent implements OnInit {
 	public adventure: IAdventure;
@@ -23,6 +43,7 @@ export class AdventurePageComponent implements OnInit {
 	public userPlayer: IPlayer;
 	public currentPlayer: IPlayer;
 	public isLoading = true;
+	public backgroundImage: ImageType = 'campaigns-page'; // TODO modify for campaign background or other
 	
 	private campaignId: number;
 	private adventureId: number;

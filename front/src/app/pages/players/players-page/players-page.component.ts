@@ -4,7 +4,7 @@ import { ActivatedRoute, RouterModule } from '@angular/router';
 
 import { IPlayer } from '../../../models';
 import { PlayersService } from '../../../services';
-import { BackArrowComponent, PlayerCardComponent, SelectedPlayerComponent, PageWrapperComponent, PageBackgroundImageComponent, ImageType } from '../../../components';
+import { BackArrowComponent, PlayerCardComponent, SelectedPlayerComponent, PageWrapperComponent, PageBackgroundImageComponent, ImageType, LoadingSpinnerComponent } from '../../../components';
 
 @Component({
   selector: 'app-players-page',
@@ -16,7 +16,8 @@ import { BackArrowComponent, PlayerCardComponent, SelectedPlayerComponent, PageW
 	BackArrowComponent,
 	SelectedPlayerComponent,
 	PageWrapperComponent,
-	PageBackgroundImageComponent
+	PageBackgroundImageComponent,
+	LoadingSpinnerComponent
 ],
   templateUrl: './players-page.component.html',
   styleUrls: ['./players-page.component.css'],
@@ -25,6 +26,7 @@ import { BackArrowComponent, PlayerCardComponent, SelectedPlayerComponent, PageW
 export class PlayersPageComponent implements OnInit {
 	public players: IPlayer[] = [];
 	public currentPlayer: IPlayer;
+	public isLoading = true;
 
 	public readonly maxPlayersCount = 4;
 	public backgroundImage: ImageType = 'players-creation-page';
@@ -42,6 +44,7 @@ export class PlayersPageComponent implements OnInit {
 				if (players.length > 0) {
 					this.currentPlayer = players[0];
 				}
+				this.isLoading = false;
 			});
 	}
 

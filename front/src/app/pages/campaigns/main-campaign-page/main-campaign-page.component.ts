@@ -48,7 +48,6 @@ export class MainCampaignPageComponent implements OnInit {
 	
 		this.campaignsService.getByIdAsync(this.campaignId).subscribe((campaign: ICampaign) => {
 			this.campaign = campaign;
-			this.campaign.adventures = [];
 			this.backgroundImage = getBackgroundImage(campaign.type);
 			this.isLoading = false;
 		});

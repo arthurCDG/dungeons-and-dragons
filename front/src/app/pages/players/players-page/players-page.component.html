@@ -1,33 +1,39 @@
 <app-page-background-image [image]="backgroundImage" />
 
-<app-page-wrapper>
-	<div class="players-page">
-		<app-back-arrow text="Retour à la page d'accueil" link="../../..">sdsds</app-back-arrow>
+@if (isLoading) {
+	<app-loading-spinner />
+}
 
-		@if (players.length) {
-			<div class="players-list">
-				<!-- <div class="displayed-player">
-					<app-selected-player [selectedClass]="currentPlayer!.profile!.class" />
-				</div> -->
-				
-				<div class="player-cards-list">
-					@for (player of players; track player.id) {
-						<app-player-card [player]="player" [isSelected]="isSelected(player)" (playerSelected)="onPlayerSelected(player)" />
-					}
-					@if (players.length < maxPlayersCount) {
-						<div class="main-button-wrapper">
-							<a [routerLink]="['new']" class="link-button base-button nav-button welcome-link">Créer un nouveau joueur</a>
-						</div>
-					}
+@else {
+	<app-page-wrapper>
+		<div class="players-page">
+			<app-back-arrow text="Retour à la page d'accueil" link="../../..">sdsds</app-back-arrow>
+
+			@if (players.length) {
+				<div class="players-list">
+					<!-- <div class="displayed-player">
+						<app-selected-player [selectedClass]="currentPlayer!.profile!.class" />
+					</div> -->
+					
+					<div class="player-cards-list">
+						@for (player of players; track player.id) {
+							<app-player-card [player]="player" [isSelected]="isSelected(player)" (playerSelected)="onPlayerSelected(player)" />
+						}
+						@if (players.length < maxPlayersCount) {
+							<div class="main-button-wrapper">
+								<a [routerLink]="['new']" class="link-button base-button nav-button welcome-link">Créer un nouveau joueur</a>
+							</div>
+						}
+					</div>
 				</div>
-			</div>
-		}
-		@else {
-			<nav class="empty-state-nav">
-				<a [routerLink]="['new']" class="link-button base-button nav-button welcome-link">
-					<span>Créer un nouveau joueur</span>
-				</a>
-			</nav>
-		}
-	</div>
-</app-page-wrapper>
+			}
+			@else {
+				<nav class="empty-state-nav">
+					<a [routerLink]="['new']" class="link-button base-button nav-button welcome-link">
+						<span>Créer un nouveau joueur</span>
+					</a>
+				</nav>
+			}
+		</div>
+	</app-page-wrapper>
+}
