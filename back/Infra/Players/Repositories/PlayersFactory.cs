@@ -226,11 +226,6 @@ internal sealed class PlayersFactory
             UserId = userId
         };
 
-    private PlayerDal ForgeCustomPlayer(int userId, PlayerCreationPayload payload, List<ArtifactDal> artifacts, List<SpellDal> spells, List<WeaponDal> weapons)
-    {
-        throw new NotImplementedException($"Custom player creation is not yet implemented. Soon to be released.");
-    }
-
     private static List<PlayerDal> ForgeGoblinBanditsAdventureMonsters(int dungeonMasterId, List<WeaponDal> weapons, List<SquareDal> squares)
         => new()
         {

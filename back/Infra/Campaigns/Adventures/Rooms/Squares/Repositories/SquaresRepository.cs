@@ -48,12 +48,6 @@ internal sealed class SquaresRepository : ISquaresRepository
         CampaignDal campaign = await _context.Campaigns
             .Include(c => c.Players)
                 .ThenInclude(p => p.Profile)
-            .Include(c => c.Players)
-                .ThenInclude(p => p.MaxAttributes)
-            .Include(c => c.Players)
-                .ThenInclude(p => p.Attributes)
-            .Include(c => c.Players)
-                .ThenInclude(p => p.TurnOrder)
             .Include(c => c.Adventures)
                 .ThenInclude(a => a.Rooms)
                     .ThenInclude(r => r.Squares)

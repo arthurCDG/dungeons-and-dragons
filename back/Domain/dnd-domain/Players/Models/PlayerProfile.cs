@@ -11,5 +11,6 @@ public class PlayerProfile
     public required PlayerGender Gender { get; set; }
     public string? ImageUrl { get; set; }
     public required string Name { get; set; }
+    public required PlayerRole Role { get; set; }
     public required Species Species { get; set; }
 }

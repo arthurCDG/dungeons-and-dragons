@@ -24,6 +24,7 @@ internal sealed class PlayerProfileDal
             Gender = Gender,
             ImageUrl = ImageUrl,
             Name = Name,
+            Role = Role,
             Species = Species
         };
 }
