@@ -5,7 +5,7 @@ import { ActivatedRoute, RouterModule } from '@angular/router';
 import { ICampaign, ICreatableAdventure } from '../../../models';
 import { AdventuresService, CampaignsService, CreatableAdventuresService } from '../../../services';
 import { AdventureCardComponent, BackArrowComponent, CreatableAdventureCardComponent, EmptyStateBodyComponent, ImageType, LoadingSpinnerComponent, PageBackgroundImageComponent, PageWrapperComponent } from '../../../components';
-import { getBackgroundImage } from '../helpers';
+import { getBackgroundImageForCampaign } from '../helpers';
 
 @Component({
   selector: 'app-campaigns-page',
@@ -48,7 +48,7 @@ export class MainCampaignPageComponent implements OnInit {
 	
 		this.campaignsService.getByIdAsync(this.campaignId).subscribe((campaign: ICampaign) => {
 			this.campaign = campaign;
-			this.backgroundImage = getBackgroundImage(campaign.type);
+			this.backgroundImage = getBackgroundImageForCampaign(campaign.type);
 			this.isLoading = false;
 		});
 

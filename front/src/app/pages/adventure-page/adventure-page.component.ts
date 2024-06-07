@@ -12,6 +12,7 @@ import {
 } from '../../components';
 import { IAdventure, ICurrentPlayerDto, IPlayer, ISquare } from '../../models';
 import { AdventuresService, GameFlowService, PlayersService, SquaresService } from '../../services';
+import { getBackgroundImageForAdventure } from '../campaigns';
 
 @Component({
 	selector: 'app-adventure-page',
@@ -70,6 +71,7 @@ export class AdventurePageComponent implements OnInit {
 			.getByIdAsync(this.campaignId, this.adventureId)
 			.subscribe((adventure: IAdventure) => {
 				this.adventure = adventure;
+				this.backgroundImage = getBackgroundImageForAdventure(adventure.type);
 				this.squares = adventure.squares;
 			});
 

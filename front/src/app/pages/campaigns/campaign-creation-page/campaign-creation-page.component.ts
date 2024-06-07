@@ -11,7 +11,7 @@ import { Observable, map } from 'rxjs';
 import { BackArrowComponent, ImageType, PageBackgroundImageComponent, PageWrapperComponent } from '../../../components';
 import { ICampaign, ICampaignPayload, ICreatableCampaign, IPlayer, IUserDto } from '../../../models';
 import { AvailableDungeonMastersService, AvailablePlayersService, CampaignsService, PlayersService } from '../../../services';
-import { getBackgroundImage } from '../helpers';
+import { getBackgroundImageForCampaign } from '../helpers';
 
 @Component({
 	selector: 'app-campaign-creation-page',
@@ -89,7 +89,7 @@ export class CampaignCreationPageComponent implements OnInit {
 		}
 		
 		this.selectedCampaign = this.routeData.creatableCampaign;
-		this.backgroundImage = getBackgroundImage(this.selectedCampaign.type);
+		this.backgroundImage = getBackgroundImageForCampaign(this.selectedCampaign.type);
 		for (let i = 0; i < this.selectedCampaign.maxPlayers; i++) {
 			this.heroesCtrl.addControl(`hero_${i}`, this.fb.control<IPlayer | null>(null))
 		}

@@ -8,12 +8,35 @@
 			>
 				Attaquer au corps à corps
 			</button>
-			<button (click)="onRangeAttackAsync()" class="base-button" [disabled]="!currentPlayer.attributes?.attackCount">Attaquer à distance</button>
-			<button (click)="onHealAsync()" class="base-button" [disabled]="!currentPlayer.attributes?.healCount">Soigner</button>
-			<button (click)="onSearchAsync()" class="base-button" [disabled]="!currentPlayer.attributes?.chestSearchCount">Fouiller le coffre</button>
+
+			<button
+				(click)="onRangeAttackAsync()"
+				class="base-button"
+				[disabled]="!currentPlayer.attributes?.attackCount"
+			>
+				Attaquer à distance
+			</button>
+
+			<button
+				(click)="onHealAsync()"
+				class="base-button"
+				[disabled]="!currentPlayer.attributes?.healCount"
+			>
+				Soigner
+			</button>
+
+			<button
+				(click)="onSearchAsync()"
+				class="base-button"
+				[disabled]="!currentPlayer.attributes?.chestSearchCount"
+			>
+				Fouiller le coffre
+			</button>
+
 			@if (canOpenDoor) {
 				<button (click)="onOpenDoorAsync()" class="base-button">Ouvrir la porte</button>
 			}
+
 			<button (click)="onEndTurnAsync()"  class="base-button">Finir son tour</button>
 		</div>
 	}
