@@ -10,7 +10,7 @@ public class StoredItemDto
     //public int? MonsterId { get; set; }
 
     //public int? ArtefactId { get; set; }
-    //public ArtefactDto? Artefact { get; set; }
+    //public ArtifactDto? Artifact { get; set; }
     //public int? PotionId { get; set; }
     //public PotionDalDto? Potion { get; set; }
     //public int? SpellId { get; set; }

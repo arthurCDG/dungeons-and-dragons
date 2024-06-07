@@ -29,7 +29,7 @@ internal sealed class GlobalDbContext : DbContext
     }
 
     public DbSet<StoredItemDal> StoredItems { get; set; }
-    public DbSet<ArtefactDal> Artefacts { get; set; }
+    public DbSet<ArtifactDal> Artifacts { get; set; }
     public DbSet<ChestTrapDal> ChestTraps { get; set; }
     public DbSet<PotionDal> Potions { get; set; }
     public DbSet<WeaponDal> Weapons { get; set; }

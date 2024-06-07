@@ -10,8 +10,8 @@ internal sealed class StoredItemDal
     public int PlayerId { get; set; }
 
 
-    public int? ArtefactId { get; set; }
-    public ArtefactDal? Artefact { get; set; }
+    public int? ArtifactId { get; set; }
+    public ArtifactDal? Artifact { get; set; }
     public int? PotionId { get; set; }
     public PotionDal? Potion { get; set; }
     public int? SpellId { get; set; }
@@ -26,8 +26,8 @@ internal sealed class StoredItemDal
             IsEquiped = IsEquiped,
             IsDiscarded = IsDiscarded,
             PlayerId = PlayerId,
-            ArtefactId = ArtefactId,
-            Artefact = Artefact?.ToDomain(),
+            ArtifactId = ArtifactId,
+            Artifact = Artifact?.ToDomain(),
             PotionId = PotionId,
             Potion = Potion?.ToDomain(),
             SpellId = SpellId,

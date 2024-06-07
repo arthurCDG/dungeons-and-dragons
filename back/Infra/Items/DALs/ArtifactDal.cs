@@ -4,11 +4,11 @@ using System.Linq;
 
 namespace dnd_infra.Items.DALs;
 
-internal sealed class ArtefactDal : ItemDal
+internal sealed class ArtifactDal : ItemDal
 {
-    public List<ArtefactEffectDal> Effects { get; set; } = new();
+    public List<ArtifactEffectDal> Effects { get; set; } = new();
 
-    public Artefact ToDomain()
+    public Artifact ToDomain()
         => new()
         {
             Id = Id,

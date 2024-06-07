@@ -16,9 +16,9 @@ internal sealed class DieAssociationDalConfiguration : IEntityTypeConfiguration<
 
         builder.Property(dieAssociation => dieAssociation.DieType).HasConversion(new EnumToStringConverter<DieType>());
 
-        builder.HasOne<ArtefactDal>()
+        builder.HasOne<ArtifactDal>()
             .WithMany()
-            .HasForeignKey(dieAssociation => dieAssociation.ArtefactId)
+            .HasForeignKey(dieAssociation => dieAssociation.ArtifactId)
             .OnDelete(DeleteBehavior.Restrict);
 
         builder.HasOne<ChestTrapDal>()

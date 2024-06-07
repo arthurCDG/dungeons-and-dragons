@@ -21,18 +21,18 @@ internal sealed class ItemsSeederService : IItemsSeederService
 
     public async Task SeedAsync()
     {
-        await SeedArtefactsAsync();
+        await SeedArtifactsAsync();
         await SeedChestTrapsAsync();
         await SeedPotionsAsync();
         await SeedWeaponsAsync();
         await SeedSpellsAsync();
     }
 
-    private async Task SeedArtefactsAsync()
+    private async Task SeedArtifactsAsync()
     {
-        List<ArtefactDal> artefacts = new()
+        List<ArtifactDal> artifacts = new()
         {
-            new ArtefactDal
+            new ArtifactDal
             {
                 Name = "Amulette de Yondalla",
                 Description = "Couverte de symboles magiques.",
@@ -43,10 +43,10 @@ internal sealed class ItemsSeederService : IItemsSeederService
                 CastDieToDiscardAfterUsage = false,
                 Effects = new()
                 {
-                    new ArtefactEffectDal { Effect = ArtefactEffectType.CanDiscardChestItemToPickAnotherOneOneTime }
+                    new ArtifactEffectDal { Effect = ArtifactEffectType.CanDiscardChestItemToPickAnotherOneOneTime }
                 }
             },
-            new ArtefactDal
+            new ArtifactDal
             {
                 Name = "Fortune de Yondalla",
                 Description = "Des runes de protection sont serties dans sa pierre.",
@@ -57,11 +57,11 @@ internal sealed class ItemsSeederService : IItemsSeederService
                 CastDieToDiscardAfterUsage = true,
                 Effects = new()
                 {
-                    new ArtefactEffectDal { Effect = ArtefactEffectType.PicksTwoOutOfFourChestItems },
-                    new ArtefactEffectDal { Effect = ArtefactEffectType.NotAffectedByTrapsWhilePickingChestItems }
+                    new ArtifactEffectDal { Effect = ArtifactEffectType.PicksTwoOutOfFourChestItems },
+                    new ArtifactEffectDal { Effect = ArtifactEffectType.NotAffectedByTrapsWhilePickingChestItems }
                 }
             },
-            new ArtefactDal
+            new ArtifactDal
             {
                 Name = "Anneau des ombres",
                 Description = "Passez cet anneau à votre doigt pour disparaître dans les ténèbres du donjon.",
@@ -72,10 +72,10 @@ internal sealed class ItemsSeederService : IItemsSeederService
                 CastDieToDiscardAfterUsage = true,
                 Effects = new()
                 {
-                    new ArtefactEffectDal { Effect = ArtefactEffectType.IsUndetectableInNextRound }
+                    new ArtifactEffectDal { Effect = ArtifactEffectType.IsUndetectableInNextRound }
                 }
             },
-            new ArtefactDal
+            new ArtifactDal
             {
                 Name = "Cape en peau d'écorce",
                 Description = "Composée de l'écorce des arbres magiques de Arnholm, cette cape légère vous protège.",
@@ -86,10 +86,10 @@ internal sealed class ItemsSeederService : IItemsSeederService
                 CastDieToDiscardAfterUsage = true,
                 Effects = new()
                 {
-                    new ArtefactEffectDal { Effect = ArtefactEffectType.DismissAllAttacks }
+                    new ArtifactEffectDal { Effect = ArtifactEffectType.DismissAllAttacks }
                 }
             },
-            new ArtefactDal
+            new ArtifactDal
             {
                 Name = "Bouclier du chaos",
                 Description = "Forgé dans un moment de rage par les nains, ce bouclier agit de manière imprévisible.",
@@ -100,10 +100,10 @@ internal sealed class ItemsSeederService : IItemsSeederService
                 CastDieToDiscardAfterUsage = true,
                 Effects = new()
                 {
-                    new ArtefactEffectDal { Effect = ArtefactEffectType.AttackReflectsBackToAttacker }
+                    new ArtifactEffectDal { Effect = ArtifactEffectType.AttackReflectsBackToAttacker }
                 }
             },
-            new ArtefactDal
+            new ArtifactDal
             {
                 Name = "Amulette d'Olidammara",
                 Description = "Elle renferme la sagesse de nombreux anciens.",
@@ -114,10 +114,10 @@ internal sealed class ItemsSeederService : IItemsSeederService
                 CastDieToDiscardAfterUsage = false,
                 Effects = new()
                 {
-                    new ArtefactEffectDal { Effect = ArtefactEffectType.CanCastTrapFinderDie }
+                    new ArtifactEffectDal { Effect = ArtifactEffectType.CanCastTrapFinderDie }
                 }
             },
-            new ArtefactDal
+            new ArtifactDal
             {
                 Name = "Orbe de vision lucide",
                 Description = "Il appartenait autrefois à de sages seigneurs à qui il offrait ses dons de vision.",
@@ -128,10 +128,10 @@ internal sealed class ItemsSeederService : IItemsSeederService
                 CastDieToDiscardAfterUsage = false,
                 Effects = new()
                 {
-                    new ArtefactEffectDal { Effect = ArtefactEffectType.RevealRoomTraps }
+                    new ArtifactEffectDal { Effect = ArtifactEffectType.RevealRoomTraps }
                 }
             },
-            new ArtefactDal
+            new ArtifactDal
             {
                 Name = "Bouclier miroir elfe",
                 Description = "Découvert au fond d'une fontaine elfe, il réfléchit l'image de tout ce qu'il voit.",
@@ -142,10 +142,10 @@ internal sealed class ItemsSeederService : IItemsSeederService
                 CastDieToDiscardAfterUsage = true,
                 Effects = new()
                 {
-                    new ArtefactEffectDal { Effect = ArtefactEffectType.AttackReflectsBackToAttacker }
+                    new ArtifactEffectDal { Effect = ArtifactEffectType.AttackReflectsBackToAttacker }
                 }
             },
-            new ArtefactDal
+            new ArtifactDal
             {
                 Name = "Cape de Boccob",
                 Description = "Les enchantements tissés dans cette cape permettent d'absorber les attaques physiques.",
@@ -156,10 +156,10 @@ internal sealed class ItemsSeederService : IItemsSeederService
                 CastDieToDiscardAfterUsage = true,
                 Effects = new()
                 {
-                    new ArtefactEffectDal { Effect = ArtefactEffectType.IncreaseHeroShieldBy1 }
+                    new ArtifactEffectDal { Effect = ArtifactEffectType.IncreaseHeroShieldBy1 }
                 }
             },
-            new ArtefactDal
+            new ArtifactDal
             {
                 Name = "Cor de l'invocateur",
                 Description = "Soufflez fort pour appeler de l'aide.",
@@ -170,12 +170,12 @@ internal sealed class ItemsSeederService : IItemsSeederService
                 CastDieToDiscardAfterUsage = true,
                 Effects = new()
                 {
-                    new ArtefactEffectDal { Effect = ArtefactEffectType.CanInvokeHeroNearBy }
+                    new ArtifactEffectDal { Effect = ArtifactEffectType.CanInvokeHeroNearBy }
                 }
             }
         };
 
-        _context.Artefacts.AddRange(artefacts);
+        _context.Artifacts.AddRange(artifacts);
         await _context.SaveChangesAsync();
     }
 

@@ -8,8 +8,8 @@ internal static class ItemConfigurations
     {
         modelBuilder.ApplyConfiguration(new StoredItemDalConfiguration());
 
-        modelBuilder.ApplyConfiguration(new ArtefactDalConfiguration());
-        modelBuilder.ApplyConfiguration(new ArtefactEffectDalConfiguration());
+        modelBuilder.ApplyConfiguration(new ArtifactDalConfiguration());
+        modelBuilder.ApplyConfiguration(new ArtifactEffectDalConfiguration());
 
         modelBuilder.ApplyConfiguration(new ChestTrapDalConfiguration());
         modelBuilder.ApplyConfiguration(new ChestTrapEffectDalConfiguration());

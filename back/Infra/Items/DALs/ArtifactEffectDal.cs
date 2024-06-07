@@ -3,17 +3,17 @@ using dnd_domain.Items.Models;
 
 namespace dnd_infra.Items.DALs;
 
-internal sealed class ArtefactEffectDal
+internal sealed class ArtifactEffectDal
 {
     public int Id { get; set; }
-    public int ArtefactId { get; set; }
-    public ArtefactEffectType Effect { get; set; }
+    public int ArtifactId { get; set; }
+    public ArtifactEffectType Effect { get; set; }
 
-    public ArtefactEffect ToDomain()
+    public ArtifactEffect ToDomain()
         => new()
         {
             Id = Id,
-            ArtefactId = ArtefactId,
+            ArtifactId = ArtifactId,
             Effect = Effect
         };
 }

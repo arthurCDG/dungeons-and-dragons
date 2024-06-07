@@ -122,7 +122,9 @@ internal sealed class TurnFlowRepository : ITurnFlowRepository
 
         List<PlayerDal> players = campaign.Players;
 
-        List<TurnOrderDal> turnOrders = players.Where(p => p.TurnOrder != null).Select(p => p.TurnOrder!).ToList();
+        List<TurnOrderDal> turnOrders = players.Where(p => p.TurnOrder != null)
+                                               .Select(p => p.TurnOrder!)
+                                               .ToList();
 
         bool allPlayersHaveTurnOrders = turnOrders.Any() && players.All(p => p.TurnOrder is not null);
 
@@ -151,9 +153,8 @@ internal sealed class TurnFlowRepository : ITurnFlowRepository
 
         List<int> playersOrders = Enumerable.Range(1, heroes.Count).ToList();
         List<int> monstersOrders = Enumerable.Range(heroes.Count + 1, monsters.Count).ToList();
-        List<TurnOrderDal> turnOrders = new();
 
-        // Should remove any existing turnOrder before ??
+        List<TurnOrderDal> turnOrders = new();
 
         foreach (PlayerDal hero in heroes)
         {

@@ -8,7 +8,7 @@ internal sealed class DieAssociationDal
     public int Id { get; set; }
     public DieType DieType { get; set; }
 
-    public int? ArtefactId { get; set; }
+    public int? ArtifactId { get; set; }
     public int? ChestTrapId { get; set; }
     public int? PotionId { get; set; }
     public int? SpellId { get; set; }
@@ -20,7 +20,7 @@ internal sealed class DieAssociationDal
         {
             Id = Id,
             DieType = DieType,
-            ArtefactId = ArtefactId,
+            ArtifactId = ArtifactId,
             ChestTrapId = ChestTrapId,
             PotionId = PotionId,
             SpellId = SpellId,

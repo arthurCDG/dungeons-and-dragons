@@ -7,8 +7,8 @@ public class StoredItem
     public bool IsDiscarded { get; set; } = false;
     public int PlayerId { get; set; } 
 
-    public int? ArtefactId { get; set; }
-    public Artefact? Artefact { get; set; }
+    public int? ArtifactId { get; set; }
+    public Artifact? Artifact { get; set; }
     public int? PotionId { get; set; }
     public Potion? Potion { get; set; }
     public int? SpellId { get; set; }

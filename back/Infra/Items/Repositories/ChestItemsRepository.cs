@@ -25,9 +25,9 @@
 
 //        StoredItemDal lootedItem = lootableItems[randomIndex];
 
-//        if (lootedItem is ArtefactDal)
+//        if (lootedItem is ArtifactDal)
 //        {
-//            return new Artefact()
+//            return new Artifact()
 //            {
 //                Id = lootedItem.Id,
 //                Name = lootedItem.Name,
@@ -37,9 +37,9 @@
 //                ImageUrl = lootedItem.ImageUrl,
 //                IsEquiped = lootedItem.IsEquiped,
 //                Level = lootedItem.Level,
-//                CastDieToDiscardAfterUsage = (lootedItem as ArtefactDal)?.CastDieToDiscardAfterUsage,
-//                DiscardAfterUsage = (lootedItem as ArtefactDal)?.DiscardAfterUsage,
-//                Effects = (lootedItem as ArtefactDal)?.Effects
+//                CastDieToDiscardAfterUsage = (lootedItem as ArtifactDal)?.CastDieToDiscardAfterUsage,
+//                DiscardAfterUsage = (lootedItem as ArtifactDal)?.DiscardAfterUsage,
+//                Effects = (lootedItem as ArtifactDal)?.Effects
 //            };
 //        }
 
