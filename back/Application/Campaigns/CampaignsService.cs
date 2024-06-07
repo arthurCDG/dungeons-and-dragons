@@ -1,19 +1,13 @@
 ﻿using dnd_domain.Campaigns;
 using dnd_domain.Campaigns.Models;
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace dnd_application.Campaigns;
 
-internal sealed class CampaignsService : ICampaignsService
+internal sealed class CampaignsService(ICampaignsRepository campaignsRepository) : ICampaignsService
 {
-    private readonly ICampaignsRepository _campaignsRepository;
-
-    public CampaignsService(ICampaignsRepository campaignsRepository)
-    {
-        _campaignsRepository = campaignsRepository ?? throw new ArgumentNullException(nameof(campaignsRepository));
-    }
+    private readonly ICampaignsRepository _campaignsRepository = campaignsRepository;
 
     public Task<List<Campaign>> GetAsync(int playerId)
         => _campaignsRepository.GetAsync(playerId);

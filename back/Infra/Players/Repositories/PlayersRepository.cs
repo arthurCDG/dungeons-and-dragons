@@ -1,5 +1,4 @@
-﻿using dnd_domain.Campaigns.Adventures;
-using dnd_domain.Players.Enums;
+﻿using dnd_domain.Players.Enums;
 using dnd_domain.Players.Models;
 using dnd_domain.Players.Payloads;
 using dnd_domain.Players.Repositories;
@@ -66,6 +65,13 @@ internal sealed class PlayersRepository(GlobalDbContext context, PlayersFactory 
 
     public Task<bool> UserNameExistsAsync(string name)
         => _context.Players.AnyAsync(p => p.Profile.Name == name);
+
+    public Task<bool> ExistsAsync(int id)
+        => _context.Players.AnyAsync(p => p.Profile.Id == id);
+
+    public Task<bool> AreAvailableAsync(IEnumerable<int> playerIds)
+        => _context.Players.Where(p => playerIds.Contains(p.Id))
+                           .AllAsync(p => p.CampaignId == null && p.IsAvailable);
 
     public async Task<Player> AttackAsync(int id, AttackPayload attack)
     {

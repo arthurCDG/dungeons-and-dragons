@@ -13,7 +13,9 @@ public interface IPlayersRepository
     Task<Player> UpdateAsync(int id, PlayerPayload playerPayload);
 
     Task<bool> UserNameExistsAsync(string name);
-    
+    Task<bool> ExistsAsync(int id);
+    Task<bool> AreAvailableAsync(IEnumerable<int> playerIds);
+
     Task CreateDungeonMasterAsync(int campaignId, int UserId, PlayerCreationPayload playerCreationPayload);
     Task SeedMonstersAsync(int campaignId, int adventureId);
 

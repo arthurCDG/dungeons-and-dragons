@@ -10,6 +10,7 @@ public interface IUsersRepository
     Task<User> GetByIdAsync(int id);
     Task<User> GetFromLoginPayloadAsync(LoginPayload loginPayload);
 
-    Task<bool> UserNameExistsAsync(string userName);
+    Task<bool> UserNameExistsAsync(string name);
+    Task<bool> ExistsAsync(int id);
     Task<bool> CrendentialsMatchAsync(LoginPayload loginPayload);
 }

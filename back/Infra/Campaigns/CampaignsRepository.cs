@@ -58,8 +58,9 @@ internal sealed class CampaignsRepository : ICampaignsRepository
                 .ThenInclude(p => p.MaxAttributes)
             .Where(c => c.Adventures.Any(a => a.Id == adventureId))
             .Select(c => c.ToDomain())
-            .SingleAsync();       
-    
+            .SingleAsync();
+
+
     public async Task<Campaign> CreateAsync(CampaignPayload campaignPayload)
     {
         try
