@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 
-import { IPlayer } from '../../../models';
+import { IPlayer, PlayerRole } from '../../../models';
 import { PlayersService } from '../../../services';
 import { BackArrowComponent, PlayerCardComponent, SelectedPlayerComponent, PageWrapperComponent, PageBackgroundImageComponent, ImageType, LoadingSpinnerComponent } from '../../../components';
 
@@ -27,6 +27,7 @@ export class PlayersPageComponent implements OnInit {
 	public players: IPlayer[] = [];
 	public currentPlayer: IPlayer;
 	public isLoading = true;
+	public isDungeonMaster = false;
 
 	public readonly maxPlayersCount = 4;
 	public backgroundImage: ImageType = 'players-creation-page';
@@ -40,9 +41,13 @@ export class PlayersPageComponent implements OnInit {
 		this.playersService
 			.getAsync(this.userId)
 			.subscribe((players: IPlayer[]) => {
-				this.players = players;
+				this.players = players.filter(p => p.profile?.role === PlayerRole.Hero);
 				if (players.length > 0) {
 					this.currentPlayer = players[0];
+				}
+				if (players.some(p => p.profile?.role === PlayerRole.Monster)) {
+					console.log('passing here?')
+					this.isDungeonMaster = true; // TODO retrieve DM role another way
 				}
 				this.isLoading = false;
 			});

@@ -7,10 +7,10 @@ import { Location } from '@angular/common';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from "@angular/material/icon";
 import { MatSelectModule } from '@angular/material/select';
-import { BehaviorSubject, Observable, Subscription, map } from 'rxjs';
-import { CampaignType, ICampaign, ICampaignPayload, ICreatableCampaign, IPlayer, IUserDto } from '../../../models';
-import { AvailableDungeonMastersService, AvailablePlayersService, CampaignsService, PlayersService } from '../../../services';
+import { Observable, map } from 'rxjs';
 import { BackArrowComponent, ImageType, PageBackgroundImageComponent, PageWrapperComponent } from '../../../components';
+import { ICampaign, ICampaignPayload, ICreatableCampaign, IPlayer, IUserDto } from '../../../models';
+import { AvailableDungeonMastersService, AvailablePlayersService, CampaignsService, PlayersService } from '../../../services';
 import { getBackgroundImage } from '../helpers';
 
 @Component({
@@ -76,7 +76,12 @@ export class CampaignCreationPageComponent implements OnInit {
 		this.playersService.getByIdAsync(this.userId, this.playerId).subscribe(player => this.currentPlayer = player);
 
 		this.users$ = this.availableDungeonMastersService.getAsync();
-		this.players$ = this.availablePlayersService.getAsync();
+
+		this.players$ = this.availablePlayersService
+			.getAsync()
+			.pipe(
+				map(players => players.filter(p => p.id !== this.playerId && p.campaignId === null))
+			);
 			
 		this.routeData = this.location.getState() as ICampaignCreationPageRouteData;
 		if (!this.routeData.creatableCampaign) {

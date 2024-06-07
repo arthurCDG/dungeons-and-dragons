@@ -66,8 +66,8 @@ export interface IProfile {
 	gender: PlayerGender;
 	imageUrl?: string | null;
 	class: Class;
-	species: Species;
 	role: PlayerRole;
+	species: Species;
 }
 
 export interface ITurnOrder {

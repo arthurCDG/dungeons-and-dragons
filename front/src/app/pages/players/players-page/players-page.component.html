@@ -19,6 +19,12 @@
 						@for (player of players; track player.id) {
 							<app-player-card [player]="player" [isSelected]="isSelected(player)" (playerSelected)="onPlayerSelected(player)" />
 						}
+						@if (isDungeonMaster) {
+							<div>
+								<p>Vous êtes également maître du donjon sur une campagne.</p>
+								<p>TODO : créer un composant dédié propre avec lien de navigation</p>
+							</div>
+						}
 						@if (players.length < maxPlayersCount) {
 							<div class="main-button-wrapper">
 								<a [routerLink]="['new']" class="link-button base-button nav-button welcome-link">Créer un nouveau joueur</a>
