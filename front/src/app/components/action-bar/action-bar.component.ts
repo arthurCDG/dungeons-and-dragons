@@ -90,6 +90,7 @@ export class ActionBarComponent implements OnInit, OnChanges {
 	private setCurrentPlayer(currentPlayer: ICurrentPlayerDto) {
 		this.currentPlayer = currentPlayer.player;
 
+		// Ugly patch to redirect to player's turn page if user has several players in adventure
 		if (this.currentPlayer.userId === this.userId) {
 			this.router.navigateByUrl(
 				`users/${this.userId}/players/${this.currentPlayer.id}/campaigns/${this.campaignId}/adventures/${this.adventureId}`
