@@ -43,6 +43,18 @@ export class ActionBarComponent implements OnInit, OnChanges {
 
 		this.canOpenDoor = this.selectedSquare?.isDoor && this.isAdjacentPosition(this.selectedSquare?.position);
 		this.canMeleeAttack = this.selectedSquare?.player && this.isAdjacentPosition(this.selectedSquare?.position);
+
+		this.gameFlowService
+			.getCurrentPlayer(this.adventureId)
+			.subscribe((currentPlayer: ICurrentPlayerDto) => {
+				this.currentPlayer = currentPlayer.player;
+
+				if (this.currentPlayer.userId === this.userId) {
+					this.router.navigateByUrl(
+						`users/${this.userId}/players/${this.currentPlayer.id}/campaigns/${this.campaignId}/adventures/${this.adventureId}`
+					);
+				}
+			});
 	}
 
 	ngOnChanges(): void {
@@ -82,7 +94,7 @@ export class ActionBarComponent implements OnInit, OnChanges {
 			.setNextCurrentPlayer(this.adventureId)
 			.subscribe((currentPlayer: ICurrentPlayerDto) => {
 				this.currentPlayer = currentPlayer.player;
-				
+
 				if (this.currentPlayer.userId === this.userId) {
 					this.router.navigateByUrl(
 						`users/${this.userId}/players/${this.currentPlayer.id}/campaigns/${this.campaignId}/adventures/${this.adventureId}`

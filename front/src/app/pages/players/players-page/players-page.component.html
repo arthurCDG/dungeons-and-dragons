@@ -20,6 +20,7 @@
 							<app-player-card [player]="player" [isSelected]="isSelected(player)" (playerSelected)="onPlayerSelected(player)" />
 						}
 						@if (isDungeonMaster) {
+							<!-- TODO ajouter un composant dédié qui reprend le modèle de app-player-card -->
 							<div>
 								<p>Vous êtes également maître du donjon sur une campagne.</p>
 								<p>TODO : créer un composant dédié propre avec lien de navigation</p>

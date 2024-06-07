@@ -103,7 +103,7 @@ export class AdventurePageComponent implements OnInit {
 			.getCurrentPlayer(this.adventureId)
 			.subscribe((currentPlayer: ICurrentPlayerDto) => {
 				if (currentPlayer.player?.id === this.userPlayer?.id) {
-					this.currentPlayer = currentPlayer.player;	
+					this.currentPlayer = currentPlayer.player;
 				}
 			});
 	}
