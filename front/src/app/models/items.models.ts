@@ -6,8 +6,8 @@ export interface IStoredItem {
 	isDiscarded: boolean;
 	heroId: number;
 	monsterId: number;
-	artefactId: number;
-	artefact: IArtefact;
+	artifactId: number;
+	artifact: IArtifact;
 	potionId: number;
 	potion: IPotion;
 	spellId: number;
@@ -26,16 +26,16 @@ export interface IItem {
     level: number;
 };
 
-export interface IArtefact extends IItem {
+export interface IArtifact extends IItem {
 	discardAfterUsage: boolean;
 	castDieToDiscardAfterUsage: boolean;
-	effects: IArtefactEffect[];
+	effects: IArtifactEffect[];
 };
 
-export interface IArtefactEffect {
+export interface IArtifactEffect {
 	id: number;
-	artefactId: number;
-	effect: ArtefactEffectType;
+	artifactId: number;
+	effect: ArtifactEffectType;
 };
 
 export interface IChestTrap extends IItem {
@@ -99,7 +99,7 @@ export interface IWeaponSuperAttack {
 	losesWeaponIfStarDieReturnsStar?: boolean;
 };
 
-export enum ArtefactEffectType {
+export enum ArtifactEffectType {
 	IncreaseHeroLifePointsBy1,
     IncreaseHeroLifePointsBy2,
     IncreaseHeroLifePointsBy3,

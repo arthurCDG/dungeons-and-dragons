@@ -1,7 +1,7 @@
 export interface IDieAssociation {
 	id: number;
 	dieType: DieType;
-	artefactId?: number;
+	artifactId?: number;
 	chestTrapId?: number;
 	potionId?: number;
 	spellId?: number;
