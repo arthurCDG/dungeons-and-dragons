@@ -4,19 +4,19 @@
 
 /* HEROES */
 
-.regdar {
+.warrior {
 	background-image: url('./../../../../assets/players/heroes/fighter-male.png');
 }
 
-.jozian {
+.cleric {
 	background-image: url('./../../../../assets/players/heroes/paladin-male.png');
 }
 
-.lidda {
+.rogue {
 	background-image: url('./../../../../assets/players/heroes/rogue-female.png');
 }
 
-.mialye {
+.wizard {
 	background-image: url('./../../../../assets/players/heroes/wizzard-female.png');
 }
 

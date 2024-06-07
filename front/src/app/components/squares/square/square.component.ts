@@ -40,6 +40,9 @@ export class SquareComponent implements OnInit, OnChanges {
 		this.tileStyle = `type-${randomNumber}`;
 
 		this.player = this.square.player;
+		if (this.player) {
+			console.log('this.player', this.player);
+		}
 
 		this.activatedRoute.params.subscribe(params => this.playerId = Number(params['playerId']));
 	}
