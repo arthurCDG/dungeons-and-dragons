@@ -2,8 +2,8 @@ import { CommonModule } from '@angular/common';
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ICurrentPlayerDto, IPosition, ISquare } from '../../../app/models';
-import { IAttackPayload, IPlayer } from '../../models/players.models';
 import { AttacksService, GameFlowService } from '../../../app/services';
+import { IAttackPayload, IPlayer } from '../../models/players.models';
 
 @Component({
   selector: 'app-action-bar',
@@ -46,15 +46,7 @@ export class ActionBarComponent implements OnInit, OnChanges {
 
 		this.gameFlowService
 			.getCurrentPlayer(this.adventureId)
-			.subscribe((currentPlayer: ICurrentPlayerDto) => {
-				this.currentPlayer = currentPlayer.player;
-
-				if (this.currentPlayer.userId === this.userId) {
-					this.router.navigateByUrl(
-						`users/${this.userId}/players/${this.currentPlayer.id}/campaigns/${this.campaignId}/adventures/${this.adventureId}`
-					);
-				}
-			});
+			.subscribe((currentPlayer: ICurrentPlayerDto) => this.setCurrentPlayer(currentPlayer));
 	}
 
 	ngOnChanges(): void {
@@ -92,15 +84,17 @@ export class ActionBarComponent implements OnInit, OnChanges {
 	private setNextCurrentPlayer(): void {
 		this.gameFlowService
 			.setNextCurrentPlayer(this.adventureId)
-			.subscribe((currentPlayer: ICurrentPlayerDto) => {
-				this.currentPlayer = currentPlayer.player;
+			.subscribe((currentPlayer: ICurrentPlayerDto) => this.setCurrentPlayer(currentPlayer));
+	}
 
-				if (this.currentPlayer.userId === this.userId) {
-					this.router.navigateByUrl(
-						`users/${this.userId}/players/${this.currentPlayer.id}/campaigns/${this.campaignId}/adventures/${this.adventureId}`
-					);
-				}
-			});
+	private setCurrentPlayer(currentPlayer: ICurrentPlayerDto) {
+		this.currentPlayer = currentPlayer.player;
+
+		if (this.currentPlayer.userId === this.userId) {
+			this.router.navigateByUrl(
+				`users/${this.userId}/players/${this.currentPlayer.id}/campaigns/${this.campaignId}/adventures/${this.adventureId}`
+			);
+		}
 	}
 
 	private isAdjacentPosition = (targetPosition: IPosition): boolean => {
