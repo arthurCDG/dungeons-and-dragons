@@ -1,30 +1,27 @@
 ﻿using dnd_domain.Campaigns.Adventures;
-using dnd_infra.Campaigns.Adventures.Rooms.Squares.DALs;
+using dnd_domain.Campaigns.Adventures.Rooms.Squares;
+using dnd_domain.Players.Repositories;
 using dnd_infra.Campaigns.Adventures.Rooms;
+using dnd_infra.Campaigns.Adventures.Rooms.Squares.DALs;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using dnd_domain.Players.Repositories;
-using dnd_domain.Campaigns.Adventures.Rooms.Squares;
-using Microsoft.Data;
 using System.Transactions;
 
 namespace dnd_infra.Campaigns.Adventures;
 
-internal sealed class AdventuresRepository : IAdventuresRepository
+internal sealed class AdventuresRepository
+(
+    GlobalDbContext context,
+    ISquaresRepository squaresRepository,
+    IPlayersRepository playersRepository
+) : IAdventuresRepository
 {
-    private readonly GlobalDbContext _context;
-    private readonly ISquaresRepository _squaresRepository;
-    private readonly IPlayersRepository _playersRepository;
-
-    public AdventuresRepository(GlobalDbContext context, ISquaresRepository squaresRepository, IPlayersRepository playersRepository)
-    {
-        _context = context ?? throw new ArgumentNullException(nameof(context));
-        _squaresRepository = squaresRepository ?? throw new ArgumentNullException(nameof(squaresRepository));
-        _playersRepository = playersRepository ?? throw new ArgumentNullException(nameof(playersRepository));
-    }
+    private readonly GlobalDbContext _context = context;
+    private readonly ISquaresRepository _squaresRepository = squaresRepository;
+    private readonly IPlayersRepository _playersRepository = playersRepository;
 
     public Task<Adventure> GetByIdAsync(int id)
         => _context.Adventures
@@ -34,13 +31,14 @@ internal sealed class AdventuresRepository : IAdventuresRepository
             .Include(a => a.Rooms)
                 .ThenInclude(r => r.Squares)
                     .ThenInclude(s => s.Trap)
+            .AsSplitQuery()
             .Where(a => a.Id == id)
             .Select(a => a.ToDomain())
             .SingleAsync();
 
     public async Task<Adventure> StartAsync(int campaignId, AdventureType adventureType)
     {
-        AdventureDal adventure = await SeedAdventureAsync(campaignId, adventureType); // Type should be retrieved from campaign in a helper or factory
+        AdventureDal adventure = await SeedAdventureAsync(campaignId, adventureType);
 
         adventure.StartsAt = DateTimeOffset.UtcNow;
         await _context.SaveChangesAsync();

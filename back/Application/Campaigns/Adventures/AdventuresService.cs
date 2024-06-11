@@ -3,14 +3,9 @@ using System.Threading.Tasks;
 
 namespace dnd_application.Campaigns.Adventures;
 
-internal sealed class AdventuresService : IAdventuresService
+internal sealed class AdventuresService(IAdventuresRepository adventuresRepository) : IAdventuresService
 {
-    private readonly IAdventuresRepository _adventuresRepository;
-
-    public AdventuresService(IAdventuresRepository adventuresRepository)
-    {
-        _adventuresRepository = adventuresRepository ?? throw new System.ArgumentNullException(nameof(adventuresRepository));
-    }
+    private readonly IAdventuresRepository _adventuresRepository = adventuresRepository;
 
     public Task<Adventure> GetByIdAsync(int id)
         => _adventuresRepository.GetByIdAsync(id);

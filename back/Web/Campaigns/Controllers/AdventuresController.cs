@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
-using System;
 using System.Threading.Tasks;
 
 namespace dungeons_and_dragons.Campaigns.Controllers;
@@ -17,18 +16,12 @@ namespace dungeons_and_dragons.Campaigns.Controllers;
 [ApiExplorerSettings(IgnoreApi = false)]
 [ApiController, Route(Route)]
 [EnableCors]
-public class AdventuresController : ControllerBase
+public class AdventuresController(IAdventuresService adventuresService, AdventureDtoMapper adventureDtoMapper) : ControllerBase
 {
     public const string Route = "api/campaigns/{campaignId}/adventures";
 
-    private readonly IAdventuresService _adventuresService;
-    private readonly AdventureDtoMapper _adventureDtoMapper;
-
-    public AdventuresController(IAdventuresService adventuresService, AdventureDtoMapper adventureDtoMapper)
-    {
-        _adventuresService = adventuresService ?? throw new ArgumentNullException(nameof(adventuresService));
-        _adventureDtoMapper = adventureDtoMapper ?? throw new ArgumentNullException(nameof(adventureDtoMapper));
-    }
+    private readonly IAdventuresService _adventuresService = adventuresService;
+    private readonly AdventureDtoMapper _adventureDtoMapper = adventureDtoMapper;
 
     [HttpGet("{id}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
