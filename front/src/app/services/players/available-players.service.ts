@@ -13,7 +13,7 @@ export class AvailablePlayersService {
 	}
 
 	public markAsAvailableAsync(playerId: number): Observable<void> {
-		return this.httpClient.post<void>(`${DEV_BACKEND_URL}/api/available-players`, { playerId });
+		return this.httpClient.post<void>(`${DEV_BACKEND_URL}/api/available-players`, playerId);
 	}
 
 	public markAsUnavailableAsync(playerId: number): Observable<void> {

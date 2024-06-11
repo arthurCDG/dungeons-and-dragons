@@ -23,6 +23,7 @@ export interface IPlayer {
 	id: number;
 	userId?: number;
 	campaignId: number;
+	isAvailable: boolean;
 	isDead: boolean;
 	squareId?: number;
 	square: ISquare;

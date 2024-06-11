@@ -13,7 +13,7 @@ export class AvailableDungeonMastersService {
 	}
 
 	public markAsAvailableAsync(userId: number): Observable<void> {
-		return this.httpClient.post<void>(`${DEV_BACKEND_URL}/api/available-dungeon-masters`, { userId });
+		return this.httpClient.post<void>(`${DEV_BACKEND_URL}/api/available-dungeon-masters`, userId);
 	}
 
 	public markAsUnavailableAsync(userId: number): Observable<void> {

@@ -22,8 +22,9 @@ internal sealed class UserDal
         => new()
         {
             Id = Id,
-            PictureUrl = PictureUrl,
+            IsAvailable = IsAvailable,
             Name = Name,
+            PictureUrl = PictureUrl,
             Players = Players.ConvertAll(p => p.ToDomain())
         };
 }

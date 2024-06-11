@@ -51,7 +51,19 @@
 			</p>
 		</div>
 	</div>
-	<a	class="link-button base-button"	[routerLink]="[player.id, 'campaigns']">
-		<span>Jouer avec {{ player.profile?.name }}</span>
-	</a>
+	<div class="player-card-buttons">
+		@if (!player.isAvailable) {
+			<button	class="base-button" (click)="togglePlayerAvailability()">
+				<span>Se déclarer disponible</span>
+			</button>
+		}
+		@if (player.isAvailable && player.campaignId === null) {
+			<button	class="base-button" (click)="togglePlayerAvailability()">
+				<span>Se déclarer indisponible</span>
+			</button>
+		}
+		<a	class="link-button base-button"	[routerLink]="[player.id, 'campaigns']">
+			<span>Jouer avec {{ player.profile?.name }}</span>
+		</a>
+	</div>
 </div>

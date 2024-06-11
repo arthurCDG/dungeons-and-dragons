@@ -7,10 +7,11 @@ export interface IAuthentifiedUser {
 
 export interface IUserDto {
 	id: number;
-    name: string;
-    pictureUrl?: string;
-    players: IPlayer[];
-	token: string;
+	isAvailable: boolean;
+	isDungeonMaster: boolean;
+	name: string;
+	pictureUrl?: string;
+	players: IPlayer[];
 }
 
 export interface IUserPayload {

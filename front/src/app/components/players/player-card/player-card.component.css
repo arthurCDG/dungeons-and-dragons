@@ -31,3 +31,9 @@
 .player-logo {
 	width: 30px;
 }
+
+.player-card-buttons {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
