@@ -3,7 +3,7 @@ import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ICurrentPlayerDto, IPosition, ISquare } from '../../../app/models';
 import { AttacksService, GameFlowService } from '../../../app/services';
-import { IAttackPayload, IPlayer } from '../../models/players.models';
+import { AttackType, IAttackPayload, IPlayer } from '../../models/players.models';
 
 @Component({
   selector: 'app-action-bar',
@@ -54,16 +54,9 @@ export class ActionBarComponent implements OnInit, OnChanges {
 		this.canMeleeAttack = this.selectedSquare?.player && this.isAdjacentPosition(this.selectedSquare?.position);
 	}
 
-	public onMeleeAttackAsync(): void {
-		const playerId = this.playerId;
-		const attack: IAttackPayload = { meleeAttack: 2 }; // Test - TODO remove
-
-		this.attacksService.attackPlayerAsync(playerId, attack).subscribe(() => console.log('attacked'));
-	}
-
-	public onRangeAttackAsync(): void {
-		// TODO
-	}
+	public onMeleeAttackAsync = (): void => this.attackAsync(AttackType.Melee);
+	public onRangedAttackAsync = (): void => this.attackAsync(AttackType.Ranged);
+	public onSpellAttackAsync = (): void => this.attackAsync(AttackType.Spell);
 
 	public onHealAsync(): void {
 		// TODO
@@ -102,4 +95,18 @@ export class ActionBarComponent implements OnInit, OnChanges {
 		const currentPosition = this.userPlayer.square.position;
 		return	Math.abs(currentPosition.x - targetPosition.x) + Math.abs(currentPosition.y - targetPosition.y) <= 1
 	};
+
+	private attackAsync(attackType: AttackType) {
+		if (!this.selectedSquare?.player || !this.currentPlayer?.id) {
+			return;
+		}
+
+		const payload: IAttackPayload = {
+			attackerId: this.currentPlayer.id,
+			receiverId: this.selectedSquare.player.id,
+			type: attackType
+		};
+
+		this.attacksService.attackPlayerAsync(payload).subscribe(() => console.log('attacked'));
+	}
 }

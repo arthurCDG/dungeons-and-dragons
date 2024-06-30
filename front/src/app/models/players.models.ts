@@ -79,10 +79,10 @@ export interface ITurnOrder {
 
 export interface IActions {
 	remainingFootSteps: number;
-    remainingAttacks: number;
-    remainingHeals: number;
-    remainingChestSearch: number;
-    remainingTrapSearch: number;
+	remainingAttacks: number;
+	remainingHeals: number;
+	remainingChestSearch: number;
+	remainingTrapSearch: number;
 	heroId?: number;
 	monsterId?: number;
 }
@@ -90,8 +90,9 @@ export interface IActions {
 /* Payloads */
 
 export interface IAttackPayload {
-	meleeAttack?: number;
-	rangeAttack?: number;
+	attackerId: number;
+	receiverId: number;
+	type: AttackType
 }
 
 export interface IPlayerCreationPayload {
@@ -104,52 +105,59 @@ export interface IPlayerCreationPayload {
 /* Enums */
 
 export enum Class {
-    None = 0,
-    Warrior,
-    Necromant,
-    Healer,
-    Fighter,
-    Cleric,
-    Paladin,
-    Rogue,
-    Wizard,
-    Archer,
-    Druid,
-    Bard,
-    Soldier,
-    Thief,
-    PackLeader,
-    MonstersKing
+	None = 0,
+	Warrior,
+	Necromant,
+	Healer,
+	Fighter,
+	Cleric,
+	Paladin,
+	Rogue,
+	Wizard,
+	Archer,
+	Druid,
+	Bard,
+	Soldier,
+	Thief,
+	PackLeader,
+	MonstersKing
 };
 
 export enum Species {
-    None = 0,
-    Human,
-    Elf,
-    HalfElf,
-    Halfling,
-    Dwarf,
-    BugBear,
-    CarrionCrawler,
-    Goblin,
-    Ghost,
-    Gnoll,
-    Lich,
-    Medusa,
-    Ogre,
-    Skeleton,
-    Troll
+	None = 0,
+	Human,
+	Elf,
+	HalfElf,
+	Halfling,
+	Dwarf,
+	BugBear,
+	CarrionCrawler,
+	Goblin,
+	Ghost,
+	Gnoll,
+	Lich,
+	Medusa,
+	Ogre,
+	Skeleton,
+	Troll
 };
 
 export enum PlayerGender {
 	None = 0,
-    Male,
-    Female,
-    NonBinary
+	Male,
+	Female,
+	NonBinary
 }
 
 export enum PlayerRole {
 	None = 0,
-    Hero = 1,
-    Monster = 2
+	Hero = 1,
+	Monster = 2
+}
+
+export enum AttackType {
+	None = 0,
+	Melee = 1,
+	Ranged = 2,
+	Spell = 3
 }

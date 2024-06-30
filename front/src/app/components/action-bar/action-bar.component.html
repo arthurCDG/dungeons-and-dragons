@@ -10,7 +10,15 @@
 			</button>
 
 			<button
-				(click)="onRangeAttackAsync()"
+				(click)="onRangedAttackAsync()"
+				class="base-button"
+				[disabled]="!currentPlayer.attributes?.attackCount"
+			>
+				Attaquer à distance
+			</button>
+
+			<button
+				(click)="onSpellAttackAsync()"
 				class="base-button"
 				[disabled]="!currentPlayer.attributes?.attackCount"
 			>

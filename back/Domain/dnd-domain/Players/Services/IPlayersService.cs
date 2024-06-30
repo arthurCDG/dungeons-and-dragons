@@ -9,6 +9,5 @@ public interface IPlayersService
 {
     Task<List<Player>> GetAsync(int campaignId);
     Task<Player> GetByIdAsync(int id);
-    Task<Player> AttackAsync(int id, AttackPayload attackPayload);
     Task<Player> UpdateAsync(int id, PlayerPayload playerPayload);
 }

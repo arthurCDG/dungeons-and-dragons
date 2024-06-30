@@ -22,9 +22,6 @@ internal sealed class PlayersService : IPlayersService
     public Task<Player> GetByIdAsync(int id)
     => _playersRepository.GetByIdAsync(id);
 
-    public Task<Player> AttackAsync(int id, AttackPayload attackPayload)
-        => _playersRepository.AttackAsync(id, attackPayload);
-
     public Task<Player> UpdateAsync(int id, PlayerPayload playerPayload)
         => _playersRepository.UpdateAsync(id, playerPayload);
 }

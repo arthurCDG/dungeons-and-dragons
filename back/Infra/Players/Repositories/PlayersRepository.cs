@@ -73,27 +73,6 @@ internal sealed class PlayersRepository(GlobalDbContext context, PlayersFactory 
         => _context.Players.Where(p => playerIds.Contains(p.Id))
                            .AllAsync(p => p.CampaignId == null && p.IsAvailable);
 
-    public async Task<Player> AttackAsync(int id, AttackPayload attack)
-    {
-        PlayerDal player = await _context.Players
-            .Include(p => p.Attributes)
-            .SingleAsync(h => h.Id == id);
-
-        int lostLifePoints = ComputeLostLifePoints(attack, player.Attributes!.Shield);
-
-        player.Attributes.LifePoints -= lostLifePoints;
-
-        if (player.Attributes.LifePoints <= 0)
-        {
-            player.Attributes.LifePoints = 0;
-            player.IsDead = true;
-        }
-
-        await _context.SaveChangesAsync();
-
-        return player.ToDomain();
-    }
-
     public Task SeedMonstersAsync(int campaignId, int adventureId)
         => _playersFactory.ForgeMonstersFromAdventureAsync(campaignId, adventureId);
 
@@ -123,17 +102,5 @@ internal sealed class PlayersRepository(GlobalDbContext context, PlayersFactory 
         dal.Attributes.FootSteps = playerPayload.FootSteps ?? dal.Attributes.FootSteps;
         dal.Attributes.Shield = playerPayload.Shield ?? dal.Attributes.Shield;
         dal.Profile.ImageUrl = playerPayload.ImageUrl ?? dal.Profile.ImageUrl;
-    }
-
-    private static int ComputeLostLifePoints(AttackPayload attack, int shield)
-    {
-        if (attack.MeleeAttack is not null)
-        {
-            return Math.Abs(shield - attack.MeleeAttack ?? 0);
-        }
-        else
-        {
-            return attack.RangeAttack ?? 0;
-        }
     }
 }

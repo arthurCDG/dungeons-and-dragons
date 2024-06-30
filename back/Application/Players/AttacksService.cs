@@ -1,20 +1,22 @@
 ﻿using dnd_domain.Players.Models;
 using dnd_domain.Players.Payloads;
 using dnd_domain.Players.Repositories;
-using System;
 using System.Threading.Tasks;
 
 namespace dnd_application.Players;
 
-internal sealed class AttacksService : IAttacksService
+internal sealed class AttacksService(IAttacksRepository attacksRepository) : IAttacksService
 {
-    private readonly IPlayersRepository _playersRepository;
+    private readonly IAttacksRepository _attacksRepository = attacksRepository;
 
-    public AttacksService(IPlayersRepository playersRepository)
+    public async Task<Player> AttackPlayerAsync(AttackPayload attackPyload)
     {
-        _playersRepository = playersRepository ?? throw new ArgumentNullException(nameof(playersRepository));
-    }
+        // TODO add attacksValidationService
+        // Check if attacker and defender playerIds exist
+        // Check if defender's already dead
+        // Check if attacker's attributes attackCount is >= 1
+        // Check if attacker has a matching weapon or spell for his attack type
 
-    public Task<Player> AttackPlayerAsync(int playerId, AttackPayload attackPyload)
-        => _playersRepository.AttackAsync(playerId, attackPyload);
+        return await _attacksRepository.AttackAsync(attackPyload);
+    }
 }

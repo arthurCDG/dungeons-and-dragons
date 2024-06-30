@@ -18,6 +18,4 @@ public interface IPlayersRepository
 
     Task CreateDungeonMasterAsync(int campaignId, int UserId, PlayerCreationPayload playerCreationPayload);
     Task SeedMonstersAsync(int campaignId, int adventureId);
-
-    Task<Player> AttackAsync(int id, AttackPayload attack);
 }
