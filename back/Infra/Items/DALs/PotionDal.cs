@@ -6,8 +6,6 @@ namespace dnd_infra.Items.DALs;
 
 internal sealed class PotionDal : ItemDal
 {
-    public List<PotionEffectDal> Effects { get; set; } = new();
-
     public Potion ToDomain()
         => new()
         {
@@ -17,7 +15,6 @@ internal sealed class PotionDal : ItemDal
             ImageUrl = ImageUrl,
             Level = Level,
             Name = Name,
-            DiscardAfterUsage = DiscardAfterUsage,
             Effects = Effects.Select(e => e.ToDomain()).ToList()
         };
 }

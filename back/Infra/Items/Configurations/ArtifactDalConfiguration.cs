@@ -13,8 +13,8 @@ internal sealed class ArtifactDalConfiguration : IEntityTypeConfiguration<Artifa
         builder.HasKey(artifact => artifact.Id);
 
         builder.HasMany<StoredItemDal>()
-            .WithOne(storedItem => storedItem.Artifact)
-            .HasForeignKey(storedItem => storedItem.ArtifactId)
-            .OnDelete(DeleteBehavior.Restrict);
+               .WithOne(storedItem => storedItem.Artifact)
+               .HasForeignKey(storedItem => storedItem.ArtifactId)
+               .OnDelete(DeleteBehavior.Cascade);
     }
 }

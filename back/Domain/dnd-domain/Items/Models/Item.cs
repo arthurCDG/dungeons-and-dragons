@@ -1,4 +1,5 @@
 ﻿using dnd_domain.Items.Enums;
+using System.Collections.Generic;
 
 namespace dnd_domain.Items.Models;
 
@@ -6,13 +7,11 @@ public abstract class Item
 {
     public int Id { get; set; }
     public int AdventureId { get; set; }
-    public string Name { get; set; } = null!;
-    public string Description { get; set; } = string.Empty;
-    public string Explanation { get; set; } = string.Empty;
-    public string ImageUrl { get; set; } = string.Empty;
+    public required string Description { get; set; }
+    public required string Explanation { get; set; }
+    public string? ImageUrl { get; set; }
     public int Level { get; set; }
+    public string Name { get; set; } = null!;
 
-    public bool? DiscardAfterUsage { get; set; }
-    public bool? CastDieToDiscardAfterUsage { get; set; }
-    public StarDieEffectType? StarDieEffect { get; set; }
+    public List<Effect> Effects { get; set; } = new();
 }

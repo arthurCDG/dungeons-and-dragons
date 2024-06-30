@@ -14,21 +14,17 @@ internal sealed class WeaponDalConfiguration : IEntityTypeConfiguration<WeaponDa
 
         builder.HasKey(weapon => weapon.Id);
 
-        builder.Property(weapon => weapon.Type).HasConversion(new EnumToStringConverter<WeaponType>());
+        builder.Property(weapon => weapon.Type)
+               .HasConversion(new EnumToStringConverter<WeaponType>());
 
         builder.HasMany<StoredItemDal>()
-            .WithOne(storedItem => storedItem.Weapon)
-            .HasForeignKey(storedItem => storedItem.WeaponId)
-            .OnDelete(DeleteBehavior.Restrict);
+               .WithOne(storedItem => storedItem.Weapon)
+               .HasForeignKey(storedItem => storedItem.WeaponId)
+               .OnDelete(DeleteBehavior.Cascade);
 
         builder.HasOne<WeaponSuperAttackDal>()
-            .WithOne()
-            .HasForeignKey<WeaponSuperAttackDal>(weaponSuperAttack => weaponSuperAttack.WeaponId)
-            .OnDelete(DeleteBehavior.Restrict);
-
-        builder.HasMany(weapon => weapon.Effects)
-            .WithOne()
-            .HasForeignKey(weaponEffect => weaponEffect.WeaponId)
-            .OnDelete(DeleteBehavior.Restrict);
+               .WithOne()
+               .HasForeignKey<WeaponSuperAttackDal>(weaponSuperAttack => weaponSuperAttack.WeaponId)
+               .OnDelete(DeleteBehavior.Cascade);
     }
 }

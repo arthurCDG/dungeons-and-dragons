@@ -53,6 +53,7 @@ public enum EffectType
 
     // Potion effects
 
+    DecreaseMonsterLifePoints,
     DecreaseMonsterShieldUntilNextDMTurn,
     DecreaseAllMonstersShieldsUntilNextDMTurn,
     DismissesNextTurnOfMonster,
@@ -64,6 +65,7 @@ public enum EffectType
     ReviveHeroWith4LPAnd4MP,
     RequiresHeroToBeNearBy,
     DoubleWeaponStrengthForNextAttack,
+    RelaunchAttack,
 
     // Star die effects 
 
@@ -87,5 +89,8 @@ public enum EffectType
     ProtectsHeroAgainstParalysisWhenUsed,
     IgnoresMonsterShield,
     Costs2ActionPoints,
-    IncreasesHeroLifePointsBy1AgainstGnolls
+    IncreasesHeroLifePointsBy1AgainstGnolls,
+
+    // Other
+    DiscardAfterUsage
 }

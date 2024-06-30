@@ -1,8 +1,6 @@
-﻿using dnd_domain.Items.Enums;
-using dnd_domain.Items.Models;
-using dnd_infra.Dice;
+﻿using dnd_domain.Items.Models;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace dnd_infra.Items.DALs;
 
@@ -10,20 +8,22 @@ internal sealed class WeaponSuperAttackDal
 {
     public int Id { get; set; }
     public int WeaponId { get; set; }
-    public WeaponSuperAttackType Type { get; set; }
+    public required int MaximumDamage { get; set; }
+    public required int MinimumDamage { get; set; }
 
-    public List<DieAssociationDal>? Dice { get; set; }
-    public bool? LosesWeaponAfterSuperAttack { get; set; }
-    public bool? LosesWeaponIfStarDieReturnsStar { get; set; }
+    [Comment("This property defines how many times per turn can someone use a superAttack")]
+    public int MaxSuperAttackCount { get; set; } = 1;
+
+    public List<EffectDal> Effects { get; set; } = new();
 
     public WeaponSuperAttack ToDomain()
         => new()
         {
             Id = Id,
             WeaponId = WeaponId,
-            Type = Type,
-            LosesWeaponAfterSuperAttack = LosesWeaponAfterSuperAttack,
-            LosesWeaponIfStarDieReturnsStar = LosesWeaponIfStarDieReturnsStar,
-            Dice = Dice?.Select(d => d.ToDomain())?.ToList()
+            MaximumDamage = MaximumDamage,
+            MinimumDamage = MinimumDamage,
+            Effects = Effects.ConvertAll(e => e.ToDomain()),
+            MaxSuperAttackCount = MaxSuperAttackCount
         };
 }

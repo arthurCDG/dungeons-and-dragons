@@ -1,8 +1,6 @@
-﻿using dnd_domain.Items.Enums;
-using dnd_infra.Items.DALs;
+﻿using dnd_infra.Items.DALs;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace dnd_infra.Items.Configurations;
 
@@ -14,7 +12,9 @@ internal sealed class WeaponSuperAttackDalConfiguration : IEntityTypeConfigurati
 
         builder.HasKey(weaponSuperAttack => weaponSuperAttack.Id);
 
-        builder.Property(weaponSuperAttack => weaponSuperAttack.Type).HasConversion(new EnumToStringConverter<WeaponSuperAttackType>());
-
+        builder.HasMany(wsa => wsa.Effects)
+               .WithOne()
+               .HasForeignKey(e => e.WeaponSuperAttackId)
+               .OnDelete(DeleteBehavior.Cascade);
     }
 }

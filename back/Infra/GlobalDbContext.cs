@@ -2,7 +2,6 @@
 using dnd_infra.Campaigns.Adventures;
 using dnd_infra.Campaigns.Adventures.Rooms;
 using dnd_infra.Campaigns.Adventures.Rooms.Squares.DALs;
-using dnd_infra.Dice;
 using dnd_infra.GameFlow.DALs;
 using dnd_infra.Items.DALs;
 using dnd_infra.Players.DALs;
@@ -37,8 +36,6 @@ internal sealed class GlobalDbContext : DbContext
 
     public DbSet<UserDal> Users { get; set; }
     public DbSet<PlayerDal> Players { get; set; }
-
-    public DbSet<DieAssociationDal> DieAssociations { get; set; }
 
     public DbSet<TurnOrderDal> TurnOrders { get; set; }
     public DbSet<CurrentPlayerDal> CurrentPlayers { get; set; }

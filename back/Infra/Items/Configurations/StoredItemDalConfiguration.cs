@@ -14,8 +14,8 @@ internal sealed class StoredItemDalConfiguration : IEntityTypeConfiguration<Stor
         builder.HasKey(storedItem => storedItem.Id);
 
         builder.HasOne<PlayerDal>()
-            .WithMany(hero => hero.StoredItems)
-            .HasForeignKey(storedItem => storedItem.PlayerId)
-            .OnDelete(DeleteBehavior.Restrict);
+               .WithMany(hero => hero.StoredItems)
+               .HasForeignKey(storedItem => storedItem.PlayerId)
+               .OnDelete(DeleteBehavior.Cascade);
     }
 }

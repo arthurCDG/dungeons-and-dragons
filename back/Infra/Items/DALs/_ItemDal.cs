@@ -1,17 +1,15 @@
-﻿using dnd_domain.Items.Enums;
+﻿using System.Collections.Generic;
 
 namespace dnd_infra.Items.DALs;
 
-public abstract class ItemDal
+internal abstract class ItemDal
 {
     public int Id { get; set; }
-    public string Name { get; set; } = null!;
-    public string Description { get; set; } = string.Empty;
-    public string Explanation { get; set; } = string.Empty;
-    public string ImageUrl { get; set; } = string.Empty;
-    public int Level { get; set; }
+    public required string Description { get; set; }
+    public required string Explanation { get; set; }
+    public string? ImageUrl { get; set; }
+    public required int Level { get; set; }
+    public required string Name { get; set; }
 
-    public bool? DiscardAfterUsage { get; set; }
-    public bool? CastDieToDiscardAfterUsage { get; set; }
-    public StarDieEffectType? StarDieEffect { get; set; }
+    public List<EffectDal> Effects { get; set; } = new();
 }

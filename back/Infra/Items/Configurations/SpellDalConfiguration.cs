@@ -14,11 +14,12 @@ internal sealed class SpellDalConfiguration : IEntityTypeConfiguration<SpellDal>
 
         builder.HasKey(spell => spell.Id);
 
-        builder.Property(spell => spell.Type).HasConversion(new EnumToStringConverter<SpellType>());
+        builder.Property(spell => spell.Type)
+               .HasConversion(new EnumToStringConverter<SpellType>());
 
         builder.HasMany<StoredItemDal>()
-            .WithOne(storedItem => storedItem.Spell)
-            .HasForeignKey(storedItem => storedItem.SpellId)
-            .OnDelete(DeleteBehavior.Restrict);
+               .WithOne(storedItem => storedItem.Spell)
+               .HasForeignKey(storedItem => storedItem.SpellId)
+               .OnDelete(DeleteBehavior.Cascade);
     }
 }
