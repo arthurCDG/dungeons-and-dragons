@@ -1,9 +1,8 @@
-﻿using dnd_infra.Items.DALs;
-using dnd_infra.Players.DALs;
+﻿using dnd_infra.Players.DALs;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace dnd_infra.Items.Configurations;
+namespace dnd_infra.Items;
 
 internal sealed class StoredItemDalConfiguration : IEntityTypeConfiguration<StoredItemDal>
 {

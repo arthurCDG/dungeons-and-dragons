@@ -3,7 +3,7 @@ using dnd_infra.Campaigns.Adventures;
 using dnd_infra.Campaigns.Adventures.Rooms;
 using dnd_infra.Campaigns.Adventures.Rooms.Squares.DALs;
 using dnd_infra.GameFlow.DALs;
-using dnd_infra.Items.DALs;
+using dnd_infra.Items;
 using dnd_infra.Players.DALs;
 using dnd_infra.Users;
 using Microsoft.EntityFrameworkCore;
@@ -28,11 +28,6 @@ internal sealed class GlobalDbContext : DbContext
     }
 
     public DbSet<StoredItemDal> StoredItems { get; set; }
-    public DbSet<ArtifactDal> Artifacts { get; set; }
-    public DbSet<ChestTrapDal> ChestTraps { get; set; }
-    public DbSet<PotionDal> Potions { get; set; }
-    public DbSet<WeaponDal> Weapons { get; set; }
-    public DbSet<SpellDal> Spells { get; set; }
 
     public DbSet<UserDal> Users { get; set; }
     public DbSet<PlayerDal> Players { get; set; }

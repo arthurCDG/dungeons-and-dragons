@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace dnd_domain.Items.Repositories;
 
-public interface IChestItemsRepository
+public interface IStoredItemsRepository
 {
-    Task<StoredItem> GetAsync();
+    Task<StoredItem> GetAsync(int playerId);
 }

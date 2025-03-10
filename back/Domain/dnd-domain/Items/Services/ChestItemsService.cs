@@ -1,19 +1,12 @@
 ﻿using dnd_domain.Items.Models;
 using dnd_domain.Items.Repositories;
-using System;
 using System.Threading.Tasks;
 
 namespace dnd_domain.Items.Services;
 
-internal class ChestItemsService : IChestItemsService
+internal class ChestItemsService(IStoredItemsRepository storedItemsRepository) : IChestItemsService
 {
-    private readonly IChestItemsRepository _chestItemsRepository;
+    private readonly IStoredItemsRepository _storedItemsRepository = storedItemsRepository;
 
-    public ChestItemsService(IChestItemsRepository chestItemsRepository)
-    {
-        _chestItemsRepository = chestItemsRepository ?? throw new ArgumentNullException(nameof(chestItemsRepository));
-    }
-
-    public Task<StoredItem> GetAsync()
-        => _chestItemsRepository.GetAsync();
+    public Task<StoredItem> GetAsync(int playerId) => _storedItemsRepository.GetAsync(playerId);
 }

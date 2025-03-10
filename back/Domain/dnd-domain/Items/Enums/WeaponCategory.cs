@@ -1,6 +1,6 @@
 ﻿namespace dnd_domain.Items.Enums;
 
-public enum WeaponType
+public enum WeaponCategory
 {
     LightMeleeWeapon,
     MediumMeleeWeapon,

@@ -1,10 +1,11 @@
 ﻿using dnd_domain.Campaigns.Adventures;
+using dnd_domain.Items.Store;
 using dnd_domain.Players.Enums;
 using dnd_domain.Players.Payloads;
 using dnd_infra.Campaigns;
 using dnd_infra.Campaigns.Adventures;
 using dnd_infra.Campaigns.Adventures.Rooms.Squares.DALs;
-using dnd_infra.Items.DALs;
+using dnd_infra.Items;
 using dnd_infra.Players.DALs;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -14,30 +15,21 @@ using System.Threading.Tasks;
 
 namespace dnd_infra.Players.Repositories;
 
-internal sealed class PlayersFactory
+internal sealed class PlayersFactory(GlobalDbContext globalDbContext)
 {
-    private readonly GlobalDbContext _context;
-
-    public PlayersFactory(GlobalDbContext globalDbContext)
-    {
-        _context = globalDbContext ?? throw new ArgumentNullException(nameof(globalDbContext));
-    }
+    private readonly GlobalDbContext _context = globalDbContext;
 
     /// <summary>
     /// TODO ref this method to forge custom players in the future with all payload properties.
     /// </summary>
-    public async Task<PlayerDal> ForgePlayerAsync(int userId, PlayerCreationPayload payload)
+    public static PlayerDal ForgePlayer(int userId, PlayerCreationPayload payload)
     {
-        List<ArtifactDal> artifacts = await _context.Artifacts.ToListAsync();
-        List<SpellDal> spells = await _context.Spells.ToListAsync();
-        List<WeaponDal> weapons = await _context.Weapons.ToListAsync();
-
         return payload.Class switch
         {
-            Class.Warrior => ForgeWarrior(userId, payload, weapons),
-            Class.Rogue => ForgeRogue(userId, payload, artifacts, weapons),
-            Class.Cleric => ForgeCleric(userId, payload, spells, weapons),
-            Class.Wizard => ForgeWizard(userId, payload, spells, weapons),
+            Class.Warrior => ForgeWarrior(userId, payload),
+            Class.Rogue => ForgeRogue(userId, payload),
+            Class.Cleric => ForgeCleric(userId, payload),
+            Class.Wizard => ForgeWizard(userId, payload),
             _ => throw new InvalidOperationException($"Unknown player class: {payload.Class}.")
         };
     }
@@ -59,23 +51,17 @@ internal sealed class PlayersFactory
         AdventureDal adventure = campaign.Adventures.Single(a => a.Id == adventureId);
         List<SquareDal> squares = adventure.Rooms.SelectMany(r => r.Squares).ToList();
 
-        List<WeaponDal> weapons = await _context.Weapons.ToListAsync();
-        List<PlayerDal> monsters = new();
-
-        switch (adventure.Type)
+        List<PlayerDal> monsters = adventure.Type switch
         {
-            case AdventureType.GoblinBandits:
-                monsters = ForgeGoblinBanditsAdventureMonsters(dungeonMasterId, weapons, squares);
-                break;
-            default:
-                throw new InvalidOperationException($"Unknown adventure type: {adventure.Type}.");
-        }
+            AdventureType.GoblinBandits => ForgeGoblinBanditsAdventureMonsters(dungeonMasterId, squares),
+            _ => throw new InvalidOperationException($"Unknown adventure type: {adventure.Type}."),
+        };
 
         campaign.Players.AddRange(monsters);
         await _context.SaveChangesAsync();
     }
 
-    private static PlayerDal ForgeWarrior(int userId, PlayerCreationPayload payload, List<WeaponDal> weapons)
+    private static PlayerDal ForgeWarrior(int userId, PlayerCreationPayload payload)
         => new()
         {
             Profile = new PlayerProfileDal
@@ -98,18 +84,18 @@ internal sealed class PlayersFactory
                 MaxChestSearchCount = 1,
                 MaxTrapSearchCount = 0
             },
-            StoredItems = new List<StoredItemDal>
-            {
+            StoredItems =
+            [
                 new StoredItemDal
                 {
-                    WeaponId = weapons.Single(w => w.Name == "Epée large").Id,
+                    ItemId = WeaponsStore.LargeSword.Id,
                     IsEquiped = true
                 }
-            },
+            ],
             UserId = userId
         };
 
-    private static PlayerDal ForgeRogue(int userId, PlayerCreationPayload payload, List<ArtifactDal> artifacts, List<WeaponDal> weapons)
+    private static PlayerDal ForgeRogue(int userId, PlayerCreationPayload payload)
         => new()
         {
             Profile = new PlayerProfileDal
@@ -132,23 +118,23 @@ internal sealed class PlayersFactory
                 MaxChestSearchCount = 2,
                 MaxTrapSearchCount = 1
             },
-            StoredItems = new List<StoredItemDal>
-            {
+            StoredItems =
+            [
                 new StoredItemDal
                 {
-                    WeaponId = weapons.Single(w => w.Name == "Dague de lancer équilibrée").Id,
+                    ItemId = WeaponsStore.BalancedThrowingDagger.Id,
                     IsEquiped = true
                 },
                 new StoredItemDal
                 {
-                    ArtifactId = artifacts.Single(a => a.Name == "Amulette de Yondalla").Id,
+                    ItemId = ArtifactsStore.AmuletOfYondalla.Id,
                     IsEquiped = true
                 }
-            },
+            ],
             UserId = userId
         };
 
-    private static PlayerDal ForgeCleric(int userId, PlayerCreationPayload payload, List<SpellDal> spells, List<WeaponDal> weapons)
+    private static PlayerDal ForgeCleric(int userId, PlayerCreationPayload payload)
         => new()
         {
             Profile = new PlayerProfileDal
@@ -171,23 +157,23 @@ internal sealed class PlayersFactory
                 MaxChestSearchCount = 1,
                 MaxTrapSearchCount = 0
             },
-            StoredItems = new List<StoredItemDal>
-            {
+            StoredItems =
+            [
                 new StoredItemDal
                 {
-                    WeaponId = weapons.Single(w => w.Name == "Arbalète de la foi").Id,
+                    ItemId = WeaponsStore.CrossbowOfFaith.Id,
                     IsEquiped = true
                 },
                 new StoredItemDal
                 {
-                    SpellId = spells.Single(a => a.Name == "Restauration suprême").Id,
+                    ItemId = SpellsStore.SupremeRestoration.Id,
                     IsEquiped = true
                 }
-            },
+            ],
             UserId = userId
         };
 
-    private static PlayerDal ForgeWizard(int userId, PlayerCreationPayload payload, List<SpellDal> spells, List<WeaponDal> weapons)
+    private static PlayerDal ForgeWizard(int userId, PlayerCreationPayload payload)
         => new()
         {
             Profile = new PlayerProfileDal
@@ -210,25 +196,25 @@ internal sealed class PlayersFactory
                 MaxChestSearchCount = 1,
                 MaxTrapSearchCount = 0,
             },
-            StoredItems = new List<StoredItemDal>
-            {
+            StoredItems =
+            [
                 new StoredItemDal
                 {
-                    WeaponId = weapons.Single(w => w.Name == "Arc court des anciens").Id,
+                    ItemId = WeaponsStore.AncientShortBow.Id,
                     IsEquiped = true
                 },
                 new StoredItemDal
                 {
-                    SpellId = spells.Single(a => a.Name == "Projectile magique").Id,
+                    ItemId = SpellsStore.MagicProjectile.Id,
                     IsEquiped = true
                 }
-            },
+            ],
             UserId = userId
         };
 
-    private static List<PlayerDal> ForgeGoblinBanditsAdventureMonsters(int dungeonMasterId, List<WeaponDal> weapons, List<SquareDal> squares)
-        => new()
-        {
+    private static List<PlayerDal> ForgeGoblinBanditsAdventureMonsters(int dungeonMasterId, List<SquareDal> squares)
+        =>
+        [
             new PlayerDal
             {
                 UserId = dungeonMasterId,
@@ -253,14 +239,14 @@ internal sealed class PlayersFactory
                     MaxTrapSearchCount = 0,
                 },
                 SquareId = squares.Single(s => s.Position.X == 10 && s.Position.Y == 19).Id,
-                StoredItems = new List<StoredItemDal>
-                {
+                StoredItems =
+                [
                     new StoredItemDal
                     {
-                        WeaponId = weapons.Single(w => w.Name == "Fléau d'armes fangeux").Id,
+                        ItemId = WeaponsStore.MuddyScourge.Id,
                         IsEquiped = true
                     }
-                }
+                ]
             },
             new PlayerDal
             {
@@ -286,14 +272,14 @@ internal sealed class PlayersFactory
                     MaxTrapSearchCount = 0,
                 },
                 SquareId = squares.Single(s => s.Position.X == 8 && s.Position.Y == 2).Id,
-                StoredItems = new List<StoredItemDal>
-                {
+                StoredItems =
+                [
                     new StoredItemDal
                     {
-                        WeaponId = weapons.Single(w => w.Name == "Fléau d'armes fangeux").Id,
+                        ItemId = WeaponsStore.MuddyScourge.Id,
                         IsEquiped = true
                     }
-                }
+                ]
             },
             new PlayerDal
             {
@@ -319,14 +305,14 @@ internal sealed class PlayersFactory
                     MaxTrapSearchCount = 0,
                 },
                 SquareId = squares.Single(s => s.Position.X == 11 && s.Position.Y == 4).Id,
-                StoredItems = new List<StoredItemDal>
-                {
+                StoredItems =
+                [
                     new StoredItemDal
                     {
-                        WeaponId = weapons.Single(w => w.Name == "Fléau d'armes fangeux").Id,
+                        ItemId = WeaponsStore.MuddyScourge.Id,
                         IsEquiped = true
                     }
-                }
+                ]
             },
             new PlayerDal
             {
@@ -336,7 +322,7 @@ internal sealed class PlayersFactory
                     Name = "Guburk",
                     Species = Species.Goblin,
                     ImageUrl = "",
-                    Gender = PlayerGender.Male,               
+                    Gender = PlayerGender.Male,
                     Role = PlayerRole.Monster,
                     Class = Class.Thief
                 },
@@ -352,14 +338,14 @@ internal sealed class PlayersFactory
                     MaxTrapSearchCount = 0,
                 },
                 SquareId = squares.Single(s => s.Position.X == 6 && s.Position.Y == 13).Id,
-                StoredItems = new List<StoredItemDal>
-                {
+                StoredItems =
+                [
                     new StoredItemDal
                     {
-                        WeaponId = weapons.Single(w => w.Name == "Fléau d'armes fangeux").Id,
+                        ItemId = WeaponsStore.MuddyScourge.Id,
                         IsEquiped = true
                     }
-                }
+                ]
             },
             new PlayerDal
             {
@@ -385,14 +371,14 @@ internal sealed class PlayersFactory
                     MaxTrapSearchCount = 0,
                 },
                 SquareId = squares.Single(s => s.Position.X == 7 && s.Position.Y == 16).Id,
-                StoredItems = new List<StoredItemDal>
-                {
+                StoredItems =
+                [
                     new StoredItemDal
                     {
-                        WeaponId = weapons.Single(w => w.Name == "Fléau d'armes fangeux").Id,
+                        ItemId = WeaponsStore.MuddyScourge.Id,
                         IsEquiped = true
                     }
-                }
+                ]
             },
             new PlayerDal
             {
@@ -418,14 +404,14 @@ internal sealed class PlayersFactory
                     MaxTrapSearchCount = 0,
                 },
                 SquareId = squares.Single(s => s.Position.X == 2 && s.Position.Y == 17).Id,
-                StoredItems = new List<StoredItemDal>
-                {
+                StoredItems =
+                [
                     new StoredItemDal
                     {
-                        WeaponId = weapons.Single(w => w.Name == "Fléau d'armes fangeux").Id,
+                        ItemId = WeaponsStore.MuddyScourge.Id,
                         IsEquiped = true
                     }
-                }
+                ]
             }
-        };
+        ];
 }

@@ -38,13 +38,13 @@ internal sealed class PlayersRepository(GlobalDbContext context, PlayersFactory 
              .Include(p => p.Square)
                 .ThenInclude(s => s.Position)
             .FirstAsync(p => p.Id == id);
-    
+
         return player.ToDomain();
     }
 
     public async Task<Player> CreateAsync(int userId, PlayerCreationPayload playerCreationPayload)
     {
-        PlayerDal player = await _playersFactory.ForgePlayerAsync(userId, playerCreationPayload);
+        PlayerDal player = PlayersFactory.ForgePlayer(userId, playerCreationPayload);
 
         _context.Players.Add(player);
         await _context.SaveChangesAsync();
