@@ -64,7 +64,7 @@ export class ActionBarComponent implements OnInit, OnChanges {
 	}
 
 	public onSearchAsync(): void {
-		// TODO
+		// TODO - log a message to say that player X just retrieved item Y from chest ?
 		this.chestItemsService.get(this.playerId).subscribe((item) => console.log(item));
 	}
 
@@ -109,6 +109,7 @@ export class ActionBarComponent implements OnInit, OnChanges {
 			type: attackType
 		};
 
+		// TODO - add message to say that player X has attacked player Y and dealt Z damage
 		this.attacksService.attackPlayerAsync(payload).subscribe(() => console.log('attacked'));
 	}
 }
