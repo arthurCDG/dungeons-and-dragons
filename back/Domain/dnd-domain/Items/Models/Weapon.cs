@@ -1,9 +1,7 @@
-﻿using dnd_domain.Items.Enums;
-
-namespace dnd_domain.Items.Models;
+﻿namespace dnd_domain.Items.Models;
 
 public class Weapon : Item
 {
+    public required WeaponAttributes Attributes { get; set; }
     public WeaponSuperAttack? SuperAttack { get; set; }
-    public WeaponType Type { get; set; } = new();
 }

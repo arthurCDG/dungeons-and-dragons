@@ -1,7 +1,7 @@
 ﻿using dnd_domain.Players.Models;
 using dnd_infra.Campaigns.Adventures.Rooms.Squares.DALs;
 using dnd_infra.GameFlow.DALs;
-using dnd_infra.Items.DALs;
+using dnd_infra.Items;
 using System.Collections.Generic;
 
 namespace dnd_infra.Players.DALs;
@@ -21,7 +21,7 @@ internal sealed class PlayerDal
     public PlayerAttributesDal? Attributes { get; set; }
     public TurnOrderDal? TurnOrder { get; set; }
 
-    public List<StoredItemDal> StoredItems { get; set; } = new();
+    public List<StoredItemDal> StoredItems { get; set; } = [];
 
     public Player ToDomain()
         =>  new()
