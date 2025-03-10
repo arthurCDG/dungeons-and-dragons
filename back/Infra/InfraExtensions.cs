@@ -2,12 +2,14 @@
 using dnd_domain.Campaigns.Adventures;
 using dnd_domain.Campaigns.Adventures.Rooms.Squares;
 using dnd_domain.GameFlow.Repositories;
+using dnd_domain.Items.Repositories;
 using dnd_domain.Players.Repositories;
 using dnd_domain.Users;
 using dnd_infra.Campaigns;
 using dnd_infra.Campaigns.Adventures;
 using dnd_infra.Campaigns.Adventures.Rooms.Squares.Repositories;
 using dnd_infra.GameFlow.Repositories;
+using dnd_infra.Items;
 using dnd_infra.Players.Repositories;
 using dnd_infra.Users;
 using Microsoft.Extensions.DependencyInjection;
@@ -31,6 +33,8 @@ public static class InfraExtensions
                 .AddScoped<IAvailablePlayersRepository, AvailablePlayersRepository>()
                 .AddScoped<IAvailableUsersRepository, AvailableUsersRepository>()
                 .AddScoped<PlayersFactory>();
+
+        services.AddScoped<IStoredItemsRepository, StoredItemsRepository>();
 
         services.AddScoped<ITurnFlowRepository, TurnFlowRepository>();
     }
