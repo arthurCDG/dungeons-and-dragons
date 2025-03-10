@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ICurrentPlayerDto, IPosition, ISquare } from '../../../app/models';
-import { AttacksService, GameFlowService } from '../../../app/services';
+import { AttacksService, ChestItemsService, GameFlowService } from '../../../app/services';
 import { AttackType, IAttackPayload, IPlayer } from '../../models/players.models';
 
 @Component({
@@ -11,7 +11,7 @@ import { AttackType, IAttackPayload, IPlayer } from '../../models/players.models
   imports: [CommonModule],
   templateUrl: './action-bar.component.html',
   styleUrls: ['./action-bar.component.css'],
-  providers: [AttacksService, GameFlowService]
+  providers: [AttacksService, ChestItemsService, GameFlowService]
 })
 export class ActionBarComponent implements OnInit, OnChanges {
 	@Input() public selectedSquare?: ISquare;
@@ -29,6 +29,7 @@ export class ActionBarComponent implements OnInit, OnChanges {
 	constructor(
 		private readonly attacksService: AttacksService,
 		private readonly gameFlowService: GameFlowService,
+		private readonly chestItemsService: ChestItemsService,
 		private readonly activatedRoute: ActivatedRoute,
 		private readonly router: Router
 	) {}
@@ -64,6 +65,7 @@ export class ActionBarComponent implements OnInit, OnChanges {
 
 	public onSearchAsync(): void {
 		// TODO
+		this.chestItemsService.get(this.playerId).subscribe((item) => console.log(item));
 	}
 
 	public onOpenDoorAsync(): void {

@@ -6,6 +6,7 @@ export * from './creatable-adventures.service';
 export * from './creatable-campaigns.service';
 export * from './events';
 export * from './game-flow.service';
+export * from './items';
 export * from './players';
 export * from './square-movement.service';
 export * from './squares.service';
