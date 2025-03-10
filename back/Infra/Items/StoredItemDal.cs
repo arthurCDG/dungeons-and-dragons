@@ -6,7 +6,7 @@ internal sealed class StoredItemDal
 {
     public int Id { get; set; }
     public bool IsEquiped { get; set; } = false;
-    public required string ItemId { get; set; }
+    public required Item Item { get; set; }
     public int PlayerId { get; set; }
 
     public StoredItem ToDomain()
@@ -14,7 +14,7 @@ internal sealed class StoredItemDal
         {
             Id = Id,
             IsEquiped = IsEquiped,
-            ItemId = ItemId,
+            Item = Item,
             PlayerId = PlayerId
         };
 }

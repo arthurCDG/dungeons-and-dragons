@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace dnd_domain.Items.Services;
 
-internal class ChestItemsService(IStoredItemsRepository storedItemsRepository) : IChestItemsService
+internal sealed class ChestItemsService(IStoredItemsRepository storedItemsRepository) : IChestItemsService
 {
     private readonly IStoredItemsRepository _storedItemsRepository = storedItemsRepository;
 
