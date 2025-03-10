@@ -8,5 +8,4 @@ public class WeaponSuperAttack
     public required int MaximumDamage { get; set; }
     public int MaxSuperAttackCount { get; set; } = 1;
     public required int MinimumDamage { get; set; }
-
 }

@@ -25,13 +25,13 @@ internal class StoredItemsRepository(GlobalDbContext context) : IStoredItemsRepo
         }
         int campaignId = player.CampaignId.Value;
 
-        List<PlayerDal> players = await _context.Players.Include(p => p.StoredItems)
-                                                        .Where(p => p.CampaignId == campaignId)
-                                                        .ToListAsync();
+        List<PlayerDal> playersFromCampaign = await _context.Players.Include(p => p.StoredItems)
+                                                                    .Where(p => p.CampaignId == campaignId)
+                                                                    .ToListAsync();
 
-        HashSet<string> storedItemIds = players.SelectMany(p => p.StoredItems)
-                                               .Select(si => si.ItemId)
-                                               .ToHashSet();
+        HashSet<string> storedItemIds = playersFromCampaign.SelectMany(p => p.StoredItems)
+                                                           .Select(si => si.Item.Id)
+                                                           .ToHashSet();
 
         List<Item> availableItems = ItemsStore.GetAvailableItems(storedItemIds);
 
@@ -40,7 +40,7 @@ internal class StoredItemsRepository(GlobalDbContext context) : IStoredItemsRepo
         StoredItemDal storedItemDal = new()
         {
             PlayerId = playerId,
-            ItemId = availableItems[randomIndex].Id
+            Item = availableItems[randomIndex]
         };
 
         _context.StoredItems.Add(storedItemDal);
