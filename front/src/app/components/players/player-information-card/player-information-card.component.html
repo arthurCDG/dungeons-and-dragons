@@ -15,18 +15,7 @@
 
 <!-- INVENTORY -->
 <div id="inventory-content">
-	@for (item of player.storedItems; track item.id) {
-		@if (item.weapon) {
-			<p>{{ item.weapon.name }}</p>
-		}
-		@if (item.spell) {
-			<p>{{ item.spell.name }}</p>
-		}
-		@if (item.potion) {
-			<p>{{ item.potion.name }}</p>
-		}
-		@if (item.artifact) {
-			<p>{{ item.artifact.name }}</p>
-		}
+	@for (storedItem of player.storedItems; track storedItem.item.id) {
+		<p>{{ storedItem.item.name }}</p>
 	}
 </div>

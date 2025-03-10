@@ -1,341 +1,180 @@
-import { IDieAssociation } from './dice.models';
 
 export interface IStoredItem {
 	id: number;
 	isEquiped: boolean;
-	isDiscarded: boolean;
-	heroId: number;
-	monsterId: number;
-	artifactId: number;
-	artifact: IArtifact;
-	potionId: number;
-	potion: IPotion;
-	spellId: number;
-	spell: ISpell;
-	weaponId: number;
-	weapon: IWeapon;
+	item: IItem;
+	playerId: number;
 };
 
 export interface IItem {
-	id: number;
-    campaignId: number;
-    name: string;
-    cescription: string;
-    explanation: string;
-    imageUrl: string;
-    level: number;
+	id: string;
+	description: string;
+	effects: IEffect[];
+	explanation: string;
+	isUnique: boolean;
+	level: number;
+	name: string;
+	type: ItemType;
 };
 
-export interface IArtifact extends IItem {
-	discardAfterUsage: boolean;
-	castDieToDiscardAfterUsage: boolean;
-	effects: IArtifactEffect[];
-};
-
-export interface IArtifactEffect {
-	id: number;
-	artifactId: number;
-	effect: ArtifactEffectType;
-};
-
-export interface IChestTrap extends IItem {
-	effects: IChestTrapEffect[];
-};
-
-export interface IChestTrapEffect {
-	id: number;
-	chestTrapId: number;
-	effect: ChestTrapEffectType;
-};
-
-export interface IPotion extends IItem {
-	discardAfterUsage: boolean;
-	effects: IPotionEffect[];
-};
-
-export interface IPotionEffect {
-	id: number;
-	potionId: number;
-	effect: PotionEffectType;
-};
-
-export interface ISpell extends IItem {
-	manaCost: number;
-	type: SpellType;
-	isMeleeSpell: boolean;
-	isDistantSpell: boolean;
-	dice: IDieAssociation[];
-	effects: ISpellEffect[];
-	starDieEffect?: StarDieEffectType;
-};
-
-export interface ISpellEffect {
-	id: number;
-	spellId: number;
-	effect: SpellEffectType;
-};
-
-export interface IWeapon extends IItem {
-	weaponType: WeaponType;
-	dice: IDieAssociation[];
-	effects: IWeaponEffect[];
-	canRerollOneDie?: boolean;
-	superAttack?: IWeaponSuperAttack;
-	starDieEffect?: StarDieEffectType;
-};
-
-export interface IWeaponEffect {
-	id: number;
-	weaponId: number;
-	effect: WeaponEffectType;
-};
-
-export interface IWeaponSuperAttack {
-	id: number;
-	weaponId: number;
-	weaponSuperAttackType: WeaponSuperAttackType;
-	dice?: IDieAssociation[];
-	losesWeaponAfterSuperAttack?: boolean;
-	losesWeaponIfStarDieReturnsStar?: boolean;
-};
-
-export enum ArtifactEffectType {
-	IncreaseHeroLifePointsBy1,
-    IncreaseHeroLifePointsBy2,
-    IncreaseHeroLifePointsBy3,
-    IncreaseHeroLifePointsBy4,
-    IncreaseHeroLifePointsBy5,
-
-    DecreaseHeroLifePointsBy1,
-    DecreaseHeroLifePointsBy2,
-    DecreaseHeroLifePointsBy3,
-    DecreaseHeroLifePointsBy4,
-    DecreaseHeroLifePointsBy5,
-
-    IncreaseHeroManaPointsBy1,
-    IncreaseHeroManaPointsBy2,
-    IncreaseHeroManaPointsBy3,
-    IncreaseHeroManaPointsBy4,
-    IncreaseHeroManaPointsBy5,
-
-    DecreaseHeroManaPointsBy1,
-    DecreaseHeroManaPointsBy2,
-    DecreaseHeroManaPointsBy3,
-    DecreaseHeroManaPointsBy4,
-    DecreaseHeroManaPointsBy5,
-
-    IncreaseHeroShieldBy1,
-    IncreaseHeroShieldBy2,
-    IncreaseHeroShieldBy3,
-
-    DecreaseHeroShieldBy1,
-    DecreaseHeroShieldBy2,
-    DecreaseHeroShieldBy3,
-
-    IncreaseHeroStorageBy1,
-    IncreaseHeroStorageBy2,
-    IncreaseHeroStorageBy3,
-
-    DecreaseHeroStorageBy1,
-    DecreaseHeroStorageBy2,
-    DecreaseHeroStorageBy3,
-
-    IncreaseHeroFootStepsBy1,
-    IncreaseHeroFootStepsBy2,
-    IncreaseHeroFootStepsBy3,
-
-    DecreaseHeroFootStepsBy1,
-    DecreaseHeroFootStepsBy2,
-    DecreaseHeroFootStepsBy3,
-    
-    AttackReflectsBackToAttacker,
-    AttackReflectsBackToAnotherHero,
-    AttackReflectsBackToRandomTarget,
-
-    CanDiscardChestItemToPickAnotherOneOneTime,
-    CanDiscardChestItemToPickAnotherOneTwoTimes,
-    CanDiscardChestItemToPickAnotherOneThreeTimes,
-    PicksTwoOutOfFourChestItems,
-    NotAffectedByTrapsWhilePickingChestItems,
-
-    RerollDice,
-    RevealRoomTraps,
-    NotAffectedByTraps,
-    CanInvokeHeroNearBy,
-    CanCastTrapFinderDie,
-    DismissAllAttacks,
-    IsUndetectableInNextRound,
-};
-
-export enum ChestTrapEffectType {
-	DecreaseAllCreaturesLifePointsBy1,
-    DecreaseAllCreaturesLifePointsBy2,
-    DecreaseAllCreaturesLifePointsBy3,
-
-    IncreaseAllMonstersLifePointsBy1,
-    IncreaseAllMonstersLifePointsBy2,
-    IncreaseAllMonstersLifePointsBy3,
-
-    DecreaseHeroLifePointsBy1,
-    DecreaseHeroLifePointsBy2,
-    DecreaseHeroLifePointsBy3,
-    DecreaseHeroLifePointsBy4,
-    DecreaseHeroLifePointsBy5,
-
-    DecreaseRandomMonsterLifePointsBy1,
-    DecreaseRandomMonsterLifePointsBy2,
-    DecreaseRandomMonsterLifePointsBy3,
-
-    DecreaseHeroManaPointsBy1,
-    DecreaseHeroManaPointsBy2,
-    DecreaseHeroManaPointsBy3,
-    DecreaseHeroManaPointsBy4,
-    DecreaseHeroManaPointsBy5,
-
-    DecreaseHeroNearByLifePointsBy1,
-    DecreaseHeroNearByLifePointsBy2,
-    DecreaseHeroNearByLifePointsBy3,
-
-    Lose5LifePointsOrRandomHeroLoses3LifePoints,
-    ReviveLastDeadMonster,
-    SkipNextTurn,
-    AttackRandomHeroNearBy,
-    MoveToRandomHero,
-    DoesNotAffectLivingCreatures,
-    DoesNotAffectUndeads,
-    DoesNotAffectHeroes,
-    DoesNotAffectMonsters
+export interface IEffect {
+	amount?: number | undefined;
+	effect: EffectType;
+	probability: number;
 }
 
-export enum PotionEffectType {
-	IncreaseHeroLifePointsBy1,
-    IncreaseHeroLifePointsBy2,
-    IncreaseHeroLifePointsBy3,
-    IncreaseHeroLifePointsBy4,
-    IncreaseHeroLifePointsBy5,
+export enum EffectType
+{
+	None = 0,
 
-    IncreaseAllHeroesLifePointsBy1,
-    IncreaseAllHeroesLifePointsBy2,
-    IncreaseAllHeroesLifePointsBy3,
-    IncreaseAllHeroesLifePointsBy4,
-    IncreaseAllHeroesLifePointsBy5,
+	// Artifact effects
+	IncreaseLifePoints,
+	DecreaseLifePoints,
+	IncreaseManaPoints,
+	DecreaseManaPoints,
+	IncreaseShield,
+	DecreaseShield,
+	IncreaseDamage,
+	DecreaseDamage,
+	IncreaseStorage,
+	DecreaseStorage,
+	IncreaseFootSteps,
+	DecreaseFootSteps,
 
-    IncreaseHeroManaPointsBy1,
-    IncreaseHeroManaPointsBy2,
-    IncreaseHeroManaPointsBy3,
-    IncreaseHeroManaPointsBy4,
-    IncreaseHeroManaPointsBy5,
+	AttackReflectsBackToAttacker,
+	AttackReflectsBackToAnotherHero,
+	AttackReflectsBackToRandomTarget,
 
-    DecreaseMonsterLifePointsBy1,
-    DecreaseMonsterLifePointsBy2,
-    DecreaseMonsterLifePointsBy3,
-    DecreaseMonsterLifePointsBy4,
-    DecreaseMonsterLifePointsBy5,
+	CanDiscardChestItemToPickAnotherOne,
+	PicksTwoOutOfFourChestItems,
+	NotAffectedByTrapsWhilePickingChestItems,
 
-    DecreaseMonsterShieldUntilNextDMTurnBy1,
-    DecreaseMonsterShieldUntilNextDMTurnBy2,
-    DecreaseMonsterShieldUntilNextDMTurnBy3,
+	RevealRoomTraps,
+	NotAffectedByTraps,
+	CanInvokeHeroNearBy,
+	CanCastTrapFinderDie,
+	DismissAllAttacks,
+	IsUndetectableInNextRound,
 
-    DecreaseAllMonstersShieldsUntilNextDMTurnBy1,
-    DecreaseAllMonstersShieldsUntilNextDMTurnBy2,
-    DecreaseAllMonstersShieldsUntilNextDMTurnBy3,
+	// Chest trap effects
 
-    DismissesNextTurnOfMonster,
-    DismissesNextTurnOfAllMonsters,
-    MoveMonsterToChosenSquare,
+	DecreaseAllPlayersLifePoints,
+	IncreaseAllMonstersLifePoints,
+	DecreaseHeroLifePoints,
+	DecreaseRandomMonsterLifePoints,
+	DecreaseHeroManaPoints,
+	DecreaseHeroNearByLifePoints,
+	Lose5LifePointsOrRandomHeroLoses3LifePoints,
+	ReviveLastDeadMonster,
+	SkipNextTurn,
+	AttackRandomHeroNearBy,
+	MoveToRandomHero,
+	DoesNotAffectLivingCreatures,
+	DoesNotAffectUndeads,
+	DoesNotAffectHeroes,
+	DoesNotAffectMonsters,
 
-    IncreaseHeroFootStepsBy1,
-    IncreaseHeroFootStepsBy2,
-    IncreaseHeroFootStepsBy3,
-    IncreaseHeroFootStepsBy4,
-    IncreaseHeroFootStepsBy5,
+	// Potion effects
 
-    IncreaseAllHeroesFootStepsBy1,
-    IncreaseAllHeroesFootStepsBy2,
-    IncreaseAllHeroesFootStepsBy3,
-    IncreaseAllHeroesFootStepsBy4,
-    IncreaseAllHeroesFootStepsBy5,
+	DecreaseMonsterLifePoints,
+	DecreaseMonsterShieldUntilNextDMTurn,
+	DecreaseAllMonstersShieldsUntilNextDMTurn,
+	DismissesNextTurnOfMonster,
+	DismissesNextTurnOfAllMonsters,
+	MoveMonsterToChosenSquare,
+	IncreaseAllHeroesFootSteps,
+	HeroCanAttackImmediatly,
+	HeroCanDismissTrapEffect,
+	ReviveHeroWith4LPAnd4MP,
+	RequiresHeroToBeNearBy,
+	DoubleWeaponStrengthForNextAttack,
+	RelaunchAttack,
 
-    HeroCanAttackImmediatly,
-    HeroCanDismissTrapEffect,
-    
-    ReviveHeroWith4LPAnd4MP,
+	// Star die effects 
 
-    RequiresHeroToBeNearBy,
+	IncreaseAllHeroesLifePoints,
+	AttackedMonsterPassesHisNextTurn,
+	IgnoreMonsterShield,
+	NoDamageCaused,
+	DoubleHeroAttack,
+	DoubleAllHeroesAttacks,
+	MoveUndeadToAnySquareInTheRoom,
 
-    DoubleWeaponStrengthForNextAttack,
+	// Spell effect
 
-    RerollLastCastDie
+	ReviveAnHeroWith4LifePointsAnd4ManaPoints,
+	IncreaseHeroLifePoints,
+	MoveMonsterInChosenDirectionByHisNumberOfSteps,
+	AllHeroesCanMakeOneStepFreely,
+	ProtectsAllHeroesAgainstSpellsAndRangedWeaponsUntilNextDMTurn,
+
+	// Weapon effects
+	ProtectsHeroAgainstParalysisWhenUsed,
+	IgnoresMonsterShield,
+	Costs2ActionPoints,
+	IncreasesHeroLifePointsBy1AgainstGnolls,
+
+	// Other
+	DiscardAfterUsage
+}
+
+export enum ItemType
+{
+	None = 0,
+	Artifact = 1,
+	Potion = 2,
+	Spell = 3,
+	Weapon = 4
+}
+
+export interface IArtifact extends IItem {};
+export interface IChestTrap extends IItem {};
+export interface IPotion extends IItem {};
+
+export interface ISpell extends IItem {
+	attributes: ISpellAttributes;
 };
+
+export interface ISpellAttributes {
+	id: number;
+	isMeleeSpellOnly: boolean;
+	manaCost: number;
+	maximumDamage: number;
+	minimumDamage: number;
+	spellId: number;
+	spellType: SpellType;
+}
 
 export enum SpellType {
 	Heal,
-    Revive,
-    Attack,
-    Support
+	Revive,
+	Attack,
+	Support
 };
 
-export enum StarDieEffectType {
-	IncreaseHeroLifePointsBy1,
-    IncreaseHeroLifePointsBy2,
-    IncreaseHeroLifePointsBy3,
-
-    IncreaseAllHeroesLifePointsBy1,
-    IncreaseAllHeroesLifePointsBy2,
-    IncreaseAllHeroesLifePointsBy3,
-
-    DecreaseHeroLifePointsBy1,
-    DecreaseHeroLifePointsBy2,
-    DecreaseHeroLifePointsBy3,
-
-    IncreaseHeroManaPointsBy1,
-    IncreaseHeroManaPointsBy2,
-    IncreaseHeroManaPointsBy3,
-
-    DecreaseHeroManaPointsBy1,
-    DecreaseHeroManaPointsBy2,
-    DecreaseHeroManaPointsBy3,
-
-    AttackedMonsterPassesHisNextTurn,
-    IgnoreMonsterShield,
-    NoDamageCaused,
-    DoubleHeroAttack,
-    DoubleAllHeroesAttacks,
-    MoveUndeadToAnySquareInTheRoom,
-    HeroCanNoLongerRerollDice
+export interface IWeapon extends IItem {
+	superAttack?: IWeaponSuperAttack;
+	attributes: IWeaponAttributes;
 };
 
-export enum SpellEffectType {
-	ReviveAnHeroWith4LifePointsAnd4ManaPoints,
-    IncreaseHeroLifePointsBy1,
-    IncreaseHeroLifePointsBy2,
-    IncreaseHeroLifePointsBy3,
-    IncreaseAllHeroesLifePointsBy1,
-    IncreaseAllHeroesLifePointsBy2,
-    IncreaseAllHeroesLifePointsBy3,
-    MoveMonsterInChosenDirectionByHisNumberOfSteps,
-    AllHeroesCanMakeOneStepFreely,
-    ProtectsAllHeroesAgainstSpellsAndRangedWeaponsUntilNextDMTurn
+export interface IWeaponSuperAttack {
+	effects: IEffect[];
+	maximumDamage: number;
+	maxSuperAttackCount: number;
+	minimumDamage: number;
 };
 
-export enum WeaponEffectType {
-	ProtectsHeroAgainstParalysisWhenUsed,
-    IgnoresMonsterShield,
-    Costs2ActionPoints,
-    IncreasesHeroLifePointsBy1AgainstGnolls,
-    RerollDiceAndSumUpResults
-};
+export interface IWeaponAttributes {
+	category: WeaponCategory;
+	maximumDamage: number;
+	minimumDamage: number;
+}
 
-export enum WeaponType {
+export enum WeaponCategory
+{
 	LightMeleeWeapon,
-    MediumMeleeWeapon,
-    HeavyMeleeWeapon,
-    RangedWeapon,
-    Staff
-};
-
-export enum WeaponSuperAttackType {
-	CastDice3TimesAndSumUpResult,
-    CastDice2TimesAndSumUpResult,
-    CastDice
-};
+	MediumMeleeWeapon,
+	HeavyMeleeWeapon,
+	RangedWeapon,
+	Staff
+}
