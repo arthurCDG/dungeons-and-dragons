@@ -1,4 +1,5 @@
 ﻿using dnd_domain.Items.Models;
+using dnd_domain.Items.Store;
 
 namespace dnd_infra.Items;
 
@@ -6,7 +7,7 @@ internal sealed class StoredItemDal
 {
     public int Id { get; set; }
     public bool IsEquiped { get; set; } = false;
-    public required Item Item { get; set; }
+    public required string ItemId { get; set; }
     public int PlayerId { get; set; }
 
     public StoredItem ToDomain()
@@ -14,7 +15,7 @@ internal sealed class StoredItemDal
         {
             Id = Id,
             IsEquiped = IsEquiped,
-            Item = Item,
+            Item = ItemsStore.GetItemFromId(ItemId),
             PlayerId = PlayerId
         };
 }

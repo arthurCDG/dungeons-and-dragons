@@ -88,7 +88,7 @@ internal sealed class PlayersFactory(GlobalDbContext globalDbContext)
             [
                 new StoredItemDal
                 {
-                    Item = WeaponsStore.LargeSword,
+                    ItemId = WeaponsStore.LargeSword.Id,
                     IsEquiped = true
                 }
             ],
@@ -122,12 +122,12 @@ internal sealed class PlayersFactory(GlobalDbContext globalDbContext)
             [
                 new StoredItemDal
                 {
-                    Item = WeaponsStore.BalancedThrowingDagger,
+                    ItemId = WeaponsStore.BalancedThrowingDagger.Id,
                     IsEquiped = true
                 },
                 new StoredItemDal
                 {
-                    Item = ArtifactsStore.AmuletOfYondalla,
+                    ItemId = ArtifactsStore.AmuletOfYondalla.Id,
                     IsEquiped = true
                 }
             ],
@@ -161,12 +161,12 @@ internal sealed class PlayersFactory(GlobalDbContext globalDbContext)
             [
                 new StoredItemDal
                 {
-                    Item = WeaponsStore.CrossbowOfFaith,
+                    ItemId = WeaponsStore.CrossbowOfFaith.Id,
                     IsEquiped = true
                 },
                 new StoredItemDal
                 {
-                    Item = SpellsStore.SupremeRestoration,
+                    ItemId = SpellsStore.SupremeRestoration.Id,
                     IsEquiped = true
                 }
             ],
@@ -200,12 +200,12 @@ internal sealed class PlayersFactory(GlobalDbContext globalDbContext)
             [
                 new StoredItemDal
                 {
-                    Item = WeaponsStore.AncientShortBow,
+                    ItemId = WeaponsStore.AncientShortBow.Id,
                     IsEquiped = true
                 },
                 new StoredItemDal
                 {
-                    Item = SpellsStore.MagicProjectile,
+                    ItemId = SpellsStore.MagicProjectile.Id,
                     IsEquiped = true
                 }
             ],
@@ -243,7 +243,7 @@ internal sealed class PlayersFactory(GlobalDbContext globalDbContext)
                 [
                     new StoredItemDal
                     {
-                        Item = WeaponsStore.MuddyScourge,
+                        ItemId = WeaponsStore.MuddyScourge.Id,
                         IsEquiped = true
                     }
                 ]
@@ -276,7 +276,7 @@ internal sealed class PlayersFactory(GlobalDbContext globalDbContext)
                 [
                     new StoredItemDal
                     {
-                        Item = WeaponsStore.MuddyScourge,
+                        ItemId = WeaponsStore.MuddyScourge.Id,
                         IsEquiped = true
                     }
                 ]
@@ -309,7 +309,7 @@ internal sealed class PlayersFactory(GlobalDbContext globalDbContext)
                 [
                     new StoredItemDal
                     {
-                        Item = WeaponsStore.MuddyScourge,
+                        ItemId = WeaponsStore.MuddyScourge.Id,
                         IsEquiped = true
                     }
                 ]
@@ -342,7 +342,7 @@ internal sealed class PlayersFactory(GlobalDbContext globalDbContext)
                 [
                     new StoredItemDal
                     {
-                        Item = WeaponsStore.MuddyScourge,
+                        ItemId = WeaponsStore.MuddyScourge.Id,
                         IsEquiped = true
                     }
                 ]
@@ -375,7 +375,7 @@ internal sealed class PlayersFactory(GlobalDbContext globalDbContext)
                 [
                     new StoredItemDal
                     {
-                        Item = WeaponsStore.MuddyScourge,
+                        ItemId = WeaponsStore.MuddyScourge.Id,
                         IsEquiped = true
                     }
                 ]
@@ -408,7 +408,7 @@ internal sealed class PlayersFactory(GlobalDbContext globalDbContext)
                 [
                     new StoredItemDal
                     {
-                        Item = WeaponsStore.MuddyScourge,
+                        ItemId = WeaponsStore.MuddyScourge.Id,
                         IsEquiped = true
                     }
                 ]

@@ -30,7 +30,7 @@ internal class StoredItemsRepository(GlobalDbContext context) : IStoredItemsRepo
                                                                     .ToListAsync();
 
         HashSet<string> storedItemIds = playersFromCampaign.SelectMany(p => p.StoredItems)
-                                                           .Select(si => si.Item.Id)
+                                                           .Select(si => si.ItemId)
                                                            .ToHashSet();
 
         List<Item> availableItems = ItemsStore.GetAvailableItems(storedItemIds);
@@ -40,7 +40,7 @@ internal class StoredItemsRepository(GlobalDbContext context) : IStoredItemsRepo
         StoredItemDal storedItemDal = new()
         {
             PlayerId = playerId,
-            Item = availableItems[randomIndex]
+            ItemId = availableItems[randomIndex].Id
         };
 
         _context.StoredItems.Add(storedItemDal);

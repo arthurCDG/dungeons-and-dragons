@@ -1,5 +1,6 @@
 ﻿using dnd_domain.Items.Enums;
 using dnd_domain.Items.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -11,6 +12,13 @@ public static class ItemsStore
     {
         return Items.Where(i => !i.IsUnique || !itemIds.Contains(i.Id))
                     .ToList();
+    }
+
+    public static Item GetItemFromId(string id)
+    {
+        Item? item = Items.FirstOrDefault(i => i.Id == id);
+
+        return item ?? throw new Exception("No item with this identifier was found.");
     }
 
     private static IReadOnlyCollection<Item> Items =>
