@@ -15,25 +15,24 @@ import { AdventuresService, GameFlowService, PlayersService, SquaresService } fr
 import { getBackgroundImageForAdventure } from '../campaigns';
 
 @Component({
-	selector: 'app-adventure-page',
-	standalone: true,
-	imports: [
-		CommonModule,
-		RouterModule,
-		ActionBarComponent,
-		SquareComponent,
-		PageWrapperComponent,
-		LoadingSpinnerComponent,
-		PageBackgroundImageComponent
-	],
-	templateUrl: './adventure-page.component.html',
-	styleUrls: ['./adventure-page.component.css'],
-	providers: [
-		AdventuresService,
-		PlayersService,
-		GameFlowService,
-		SquaresService
-	]
+    selector: 'app-adventure-page',
+    imports: [
+        CommonModule,
+        RouterModule,
+        ActionBarComponent,
+        SquareComponent,
+        PageWrapperComponent,
+        LoadingSpinnerComponent,
+        PageBackgroundImageComponent
+    ],
+    templateUrl: './adventure-page.component.html',
+    styleUrls: ['./adventure-page.component.css'],
+    providers: [
+        AdventuresService,
+        PlayersService,
+        GameFlowService,
+        SquaresService
+    ]
 })
 export class AdventurePageComponent implements OnInit {
 	public adventure: IAdventure;

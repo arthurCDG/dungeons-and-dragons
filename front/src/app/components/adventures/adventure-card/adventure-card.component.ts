@@ -4,11 +4,10 @@ import { RouterModule } from '@angular/router';
 import { IAdventure } from 'src/app/models';
 
 @Component({
-  selector: 'app-adventure-card',
-  standalone: true,
-  imports: [CommonModule, RouterModule],
-  templateUrl: './adventure-card.component.html',
-  styleUrls: ['./adventure-card.component.css']
+    selector: 'app-adventure-card',
+    imports: [CommonModule, RouterModule],
+    templateUrl: './adventure-card.component.html',
+    styleUrls: ['./adventure-card.component.css']
 })
 export class AdventureCardComponent implements OnInit {
 	@Input() adventure: IAdventure

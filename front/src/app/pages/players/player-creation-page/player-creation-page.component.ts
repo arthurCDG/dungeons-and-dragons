@@ -20,25 +20,24 @@ import { CreatablePlayersService, PlayersService } from '../../../services';
 import { IFormRadioInput } from './models';
 
 @Component({
-	selector: 'app-player-creation-page',
-	standalone: true,
-	imports: [
-		CommonModule,
-		SelectedPlayerComponent,
-		PageWrapperComponent,
-		PageBackgroundImageComponent,
-		BackArrowComponent,
-		ToastMessageComponent,
-		LoadingSpinnerComponent,
-		ReactiveFormsModule,
-		MatStepperModule
-	],
-	templateUrl: './player-creation-page.component.html',
-	styleUrls: ['./player-creation-page.component.css'],
-	providers: [
-		PlayersService,
-		CreatablePlayersService
-	]
+    selector: 'app-player-creation-page',
+    imports: [
+        CommonModule,
+        SelectedPlayerComponent,
+        PageWrapperComponent,
+        PageBackgroundImageComponent,
+        BackArrowComponent,
+        ToastMessageComponent,
+        LoadingSpinnerComponent,
+        ReactiveFormsModule,
+        MatStepperModule
+    ],
+    templateUrl: './player-creation-page.component.html',
+    styleUrls: ['./player-creation-page.component.css'],
+    providers: [
+        PlayersService,
+        CreatablePlayersService
+    ]
 })
 export class PlayerCreationPageComponent implements OnInit {
 	private userId: number;

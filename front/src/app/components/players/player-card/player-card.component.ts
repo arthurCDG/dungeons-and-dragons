@@ -7,12 +7,11 @@ import { Class, IPlayer, PlayerGender, Species } from '../../../models';
 import { AvailablePlayersService } from '../../../services';
 
 @Component({
-	selector: 'app-player-card',
-	standalone: true,
-	imports: [CommonModule, RouterModule],
-	templateUrl: './player-card.component.html',
-	styleUrls: ['./player-card.component.css'],
-	providers: [AvailablePlayersService]
+    selector: 'app-player-card',
+    imports: [CommonModule, RouterModule],
+    templateUrl: './player-card.component.html',
+    styleUrls: ['./player-card.component.css'],
+    providers: [AvailablePlayersService]
 })
 export class PlayerCardComponent {
 	@Input({ required: true}) public player: IPlayer;

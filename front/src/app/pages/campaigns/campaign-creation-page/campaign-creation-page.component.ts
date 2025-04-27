@@ -14,26 +14,25 @@ import { AvailableDungeonMastersService, AvailablePlayersService, CampaignsServi
 import { getBackgroundImageForCampaign } from '../helpers';
 
 @Component({
-	selector: 'app-campaign-creation-page',
-	standalone: true,
-	imports: [
-		CommonModule,
-		ReactiveFormsModule,
-		MatSelectModule,
-		MatFormFieldModule,
-		MatIconModule,
-		BackArrowComponent,
-		PageWrapperComponent,
-		PageBackgroundImageComponent
-	],
-	templateUrl: './campaign-creation-page.component.html',
-	styleUrls: ['./campaign-creation-page.component.css'],
-	providers: [
-		CampaignsService,
-		AvailableDungeonMastersService,
-		AvailablePlayersService,
-		PlayersService
-	]
+    selector: 'app-campaign-creation-page',
+    imports: [
+        CommonModule,
+        ReactiveFormsModule,
+        MatSelectModule,
+        MatFormFieldModule,
+        MatIconModule,
+        BackArrowComponent,
+        PageWrapperComponent,
+        PageBackgroundImageComponent
+    ],
+    templateUrl: './campaign-creation-page.component.html',
+    styleUrls: ['./campaign-creation-page.component.css'],
+    providers: [
+        CampaignsService,
+        AvailableDungeonMastersService,
+        AvailablePlayersService,
+        PlayersService
+    ]
 })
 export class CampaignCreationPageComponent implements OnInit {
 	public selectedCampaign?: ICreatableCampaign | null = null;

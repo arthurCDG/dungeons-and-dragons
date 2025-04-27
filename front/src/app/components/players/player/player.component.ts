@@ -3,11 +3,10 @@ import { CommonModule } from '@angular/common';
 import { IPlayer } from 'src/app/models';
 
 @Component({
-  selector: 'app-player',
-  standalone: true,
-  imports: [CommonModule],
-  templateUrl: './player.component.html',
-  styleUrls: ['./player.component.css']
+    selector: 'app-player',
+    imports: [CommonModule],
+    templateUrl: './player.component.html',
+    styleUrls: ['./player.component.css']
 })
 export class PlayerComponent implements OnInit, OnChanges {
 	@Input() player: IPlayer;

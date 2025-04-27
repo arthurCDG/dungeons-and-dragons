@@ -9,12 +9,11 @@ import { DecorativeElementComponent } from '../decorative-element/decorative-ele
 import { InteractiveElementComponent } from '../interactive-element/interactive-element.component';
 
 @Component({
-  selector: 'app-square',
-  standalone: true,
-  imports: [CommonModule, PlayerComponent, InteractiveElementComponent, DecorativeElementComponent],
-  templateUrl: './square.component.html',
-  styleUrls: ['./square.component.css'],
-  providers: [SquaresService, SquareMovementService]
+    selector: 'app-square',
+    imports: [CommonModule, PlayerComponent, InteractiveElementComponent, DecorativeElementComponent],
+    templateUrl: './square.component.html',
+    styleUrls: ['./square.component.css'],
+    providers: [SquaresService, SquareMovementService]
 })
 export class SquareComponent implements OnInit, OnChanges {
 	@Input() square: ISquare;

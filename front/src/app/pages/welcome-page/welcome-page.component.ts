@@ -4,12 +4,11 @@ import { AuthService } from '../../services';
 import { RouterModule } from '@angular/router';
 
 @Component({
-  selector: 'app-welcome-page',
-  standalone: true,
-  imports: [CommonModule, RouterModule],
-  templateUrl: './welcome-page.component.html',
-  styleUrls: ['./welcome-page.component.css'],
-  providers: [AuthService]
+    selector: 'app-welcome-page',
+    imports: [CommonModule, RouterModule],
+    templateUrl: './welcome-page.component.html',
+    styleUrls: ['./welcome-page.component.css'],
+    providers: [AuthService]
 })
 export class WelcomePageComponent {
 	public isLoggedIn: boolean = false;

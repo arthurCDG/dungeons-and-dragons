@@ -11,20 +11,19 @@ import { confirmPasswordValidator } from '../validators/confirm-password.validat
 import { BackArrowComponent, ToastMessageComponent, PageBackgroundImageComponent, ImageType, PageWrapperComponent } from '../../../../app/components';
 
 @Component({
-  selector: 'app-sign-up',
-  standalone: true,
-  imports: [
-	CommonModule,
-	ReactiveFormsModule,
-	RouterModule,
-	ToastMessageComponent,
-	BackArrowComponent,
-	PageWrapperComponent,
-	PageBackgroundImageComponent
-],
-  templateUrl: './sign-up.component.html',
-  styleUrls: ['./../styles/authentication.component.css'],
-  providers: [AuthService, UsersService]
+    selector: 'app-sign-up',
+    imports: [
+        CommonModule,
+        ReactiveFormsModule,
+        RouterModule,
+        ToastMessageComponent,
+        BackArrowComponent,
+        PageWrapperComponent,
+        PageBackgroundImageComponent
+    ],
+    templateUrl: './sign-up.component.html',
+    styleUrls: ['./../styles/authentication.component.css'],
+    providers: [AuthService, UsersService]
 })
 export class SignupComponent {
 	public httpError: HttpErrorResponse | null = null;

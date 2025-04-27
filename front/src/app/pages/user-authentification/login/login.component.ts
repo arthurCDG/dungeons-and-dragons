@@ -10,20 +10,19 @@ import { AuthService, EventsService } from '../../../services';
 import { BackArrowComponent, ToastMessageComponent, PageBackgroundImageComponent, ImageType, PageWrapperComponent } from '../../../../app/components';
 
 @Component({
-  selector: 'app-login',
-  standalone: true,
-  imports: [
-	CommonModule,
-	ReactiveFormsModule,
-	RouterModule,
-	ToastMessageComponent,
-	BackArrowComponent,
-	PageWrapperComponent,
-	PageBackgroundImageComponent
-],
-  templateUrl: './login.component.html',
-  styleUrls: ['./../styles/authentication.component.css'],
-  providers: [AuthService]
+    selector: 'app-login',
+    imports: [
+        CommonModule,
+        ReactiveFormsModule,
+        RouterModule,
+        ToastMessageComponent,
+        BackArrowComponent,
+        PageWrapperComponent,
+        PageBackgroundImageComponent
+    ],
+    templateUrl: './login.component.html',
+    styleUrls: ['./../styles/authentication.component.css'],
+    providers: [AuthService]
 })
 export class LoginComponent {
 	public httpError: HttpErrorResponse | null = null;

@@ -7,12 +7,11 @@ import { AttackType, IAttackPayload, IPlayer } from '../../models/players.models
 import { AdventureLogService } from '../adventure-log/adventure-log.service';
 
 @Component({
-  selector: 'app-action-bar',
-  standalone: true,
-  imports: [CommonModule],
-  templateUrl: './action-bar.component.html',
-  styleUrls: ['./action-bar.component.css'],
-  providers: [AttacksService, ChestItemsService, GameFlowService]
+    selector: 'app-action-bar',
+    imports: [CommonModule],
+    templateUrl: './action-bar.component.html',
+    styleUrls: ['./action-bar.component.css'],
+    providers: [AttacksService, ChestItemsService, GameFlowService]
 })
 export class ActionBarComponent implements OnInit, OnChanges {
 	@Input() public selectedSquare?: ISquare;

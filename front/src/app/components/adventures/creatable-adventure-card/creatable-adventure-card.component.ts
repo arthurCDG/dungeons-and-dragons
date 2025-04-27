@@ -5,12 +5,11 @@ import { AdventuresService } from '../../../services';
 import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-creatable-adventure-card',
-  standalone: true,
-  imports: [CommonModule, RouterModule],
-  templateUrl: './creatable-adventure-card.component.html',
-  styleUrls: ['./creatable-adventure-card.component.css'],
-  providers: [AdventuresService]
+    selector: 'app-creatable-adventure-card',
+    imports: [CommonModule, RouterModule],
+    templateUrl: './creatable-adventure-card.component.html',
+    styleUrls: ['./creatable-adventure-card.component.css'],
+    providers: [AdventuresService]
 })
 export class CreatableAdventureCardComponent implements OnInit {
 	 @Input() creatableAdventure: ICreatableAdventure;

@@ -8,26 +8,25 @@ import { AdventureCardComponent, BackArrowComponent, CreatableAdventureCardCompo
 import { getBackgroundImageForCampaign } from '../helpers';
 
 @Component({
-  selector: 'app-campaigns-page',
-  standalone: true,
-  imports: [
-	CommonModule,
-	RouterModule,
-	CreatableAdventureCardComponent,
-	AdventureCardComponent,
-	BackArrowComponent,
-	EmptyStateBodyComponent,
-	PageBackgroundImageComponent,
-	PageWrapperComponent,
-	LoadingSpinnerComponent
-],
-  templateUrl: './main-campaign-page.component.html',
-  styleUrls: ['./main-campaign-page.component.css'],
-  providers: [
-	CampaignsService,
-	AdventuresService,
-	CreatableAdventuresService
-  ]
+    selector: 'app-campaigns-page',
+    imports: [
+        CommonModule,
+        RouterModule,
+        CreatableAdventureCardComponent,
+        AdventureCardComponent,
+        BackArrowComponent,
+        EmptyStateBodyComponent,
+        PageBackgroundImageComponent,
+        PageWrapperComponent,
+        LoadingSpinnerComponent
+    ],
+    templateUrl: './main-campaign-page.component.html',
+    styleUrls: ['./main-campaign-page.component.css'],
+    providers: [
+        CampaignsService,
+        AdventuresService,
+        CreatableAdventuresService
+    ]
 })
 export class MainCampaignPageComponent implements OnInit {
 	constructor(

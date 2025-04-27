@@ -8,18 +8,17 @@ import { CampaignsService, CreatableCampaignsService } from '../../../services';
 import { BackArrowComponent, CampaignCardComponent, CreatableCampaignCardComponent, ImageType, PageBackgroundImageComponent, PageWrapperComponent } from '../../../components';
 
 @Component({
-	selector: 'app-campaigns-page',
-	standalone: true,
-	imports: [
-		CommonModule,
-		CampaignCardComponent,
-		CreatableCampaignCardComponent,
-		PageBackgroundImageComponent,
-		PageWrapperComponent,
-		BackArrowComponent
-	],
-	templateUrl: './campaigns-page.component.html',
-	providers: [CampaignsService, CreatableCampaignsService]
+    selector: 'app-campaigns-page',
+    imports: [
+        CommonModule,
+        CampaignCardComponent,
+        CreatableCampaignCardComponent,
+        PageBackgroundImageComponent,
+        PageWrapperComponent,
+        BackArrowComponent
+    ],
+    templateUrl: './campaigns-page.component.html',
+    providers: [CampaignsService, CreatableCampaignsService]
 })
 export class CampaignsPageComponent implements OnInit {
 	public campaigns$: Observable<ICampaign[]>;

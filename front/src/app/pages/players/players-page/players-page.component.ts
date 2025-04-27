@@ -16,25 +16,24 @@ import { IPlayer, IUserDto, PlayerRole } from '../../../models';
 import { AvailableDungeonMastersService, PlayersService, UsersService } from '../../../services';
 
 @Component({
-	selector: 'app-players-page',
-	standalone: true,
-	imports: [
-		CommonModule,
-		RouterModule,
-		PlayerCardComponent,
-		BackArrowComponent,
-		SelectedPlayerComponent,
-		PageWrapperComponent,
-		PageBackgroundImageComponent,
-		LoadingSpinnerComponent
-	],
-	templateUrl: './players-page.component.html',
-	styleUrls: ['./players-page.component.css'],
-	providers: [
-		PlayersService,
-		UsersService,
-		AvailableDungeonMastersService
-	]
+    selector: 'app-players-page',
+    imports: [
+        CommonModule,
+        RouterModule,
+        PlayerCardComponent,
+        BackArrowComponent,
+        SelectedPlayerComponent,
+        PageWrapperComponent,
+        PageBackgroundImageComponent,
+        LoadingSpinnerComponent
+    ],
+    templateUrl: './players-page.component.html',
+    styleUrls: ['./players-page.component.css'],
+    providers: [
+        PlayersService,
+        UsersService,
+        AvailableDungeonMastersService
+    ]
 })
 export class PlayersPageComponent implements OnInit {
 	public players: IPlayer[]

@@ -2,11 +2,10 @@ import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 
 @Component({
-  selector: 'app-decorative-element',
-  standalone: true,
-  imports: [CommonModule],
-  templateUrl: './decorative-element.component.html',
-  styleUrls: ['./decorative-element.component.css']
+    selector: 'app-decorative-element',
+    imports: [CommonModule],
+    templateUrl: './decorative-element.component.html',
+    styleUrls: ['./decorative-element.component.css']
 })
 export class DecorativeElementComponent {
 	@Input() decorativeElement: DecorativeElementType

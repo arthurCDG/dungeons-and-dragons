@@ -5,12 +5,11 @@ import { Subscription, filter } from 'rxjs';
 import { AuthService, EventsService } from '../../services';
 
 @Component({
-  selector: 'app-header',
-  standalone: true,
-  imports: [CommonModule, RouterModule],
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css'],
-  providers: [AuthService]
+    selector: 'app-header',
+    imports: [CommonModule, RouterModule],
+    templateUrl: './header.component.html',
+    styleUrls: ['./header.component.css'],
+    providers: [AuthService]
 })
 export class HeaderComponent implements OnInit {
 	public isLoggedIn = false;
