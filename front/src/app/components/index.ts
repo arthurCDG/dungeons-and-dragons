@@ -1,4 +1,5 @@
 export * from './adventures';
+export * from './adventure-log';
 export * from './action-bar';
 export * from './back-arrow';
 export * from './backgrounds';

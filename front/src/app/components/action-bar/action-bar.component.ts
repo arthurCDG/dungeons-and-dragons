@@ -1,9 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnChanges, OnInit } from '@angular/core';
+import { Component, inject, Input, OnChanges, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ICurrentPlayerDto, IPosition, ISquare } from '../../../app/models';
+import { ICurrentPlayerDto, IPosition, ISquare, IStoredItem } from '../../../app/models';
 import { AttacksService, ChestItemsService, GameFlowService } from '../../../app/services';
 import { AttackType, IAttackPayload, IPlayer } from '../../models/players.models';
+import { AdventureLogService } from '../adventure-log/adventure-log.service';
 
 @Component({
   selector: 'app-action-bar',
@@ -25,6 +26,8 @@ export class ActionBarComponent implements OnInit, OnChanges {
 	private playerId: number;
 	private adventureId: number;
 	private campaignId: number;
+
+	logService = inject(AdventureLogService);
 
 	constructor(
 		private readonly attacksService: AttacksService,
@@ -64,8 +67,8 @@ export class ActionBarComponent implements OnInit, OnChanges {
 	}
 
 	public onSearchAsync(): void {
-		// TODO - log a message to say that player X just retrieved item Y from chest ?
-		this.chestItemsService.get(this.playerId).subscribe((item) => console.log(item));
+		this.chestItemsService.get(this.playerId)
+							  .subscribe((storedItem: IStoredItem) => this.logService.addLog(`player X retrieved the following item: ${storedItem.item.name}`));
 	}
 
 	public onOpenDoorAsync(): void {
@@ -110,6 +113,6 @@ export class ActionBarComponent implements OnInit, OnChanges {
 		};
 
 		// TODO - add message to say that player X has attacked player Y and dealt Z damage
-		this.attacksService.attackPlayerAsync(payload).subscribe(() => console.log('attacked'));
+		this.attacksService.attackPlayerAsync(payload).subscribe(() => this.logService.addLog(`player X dealt Y damagad to player Z (retrieve info from response)`));
 	}
 }
