@@ -4,6 +4,7 @@ import { ActivatedRoute, RouterModule } from '@angular/router';
 
 import {
 	ActionBarComponent,
+	AdventureLogComponent,
 	ImageType,
 	LoadingSpinnerComponent,
 	PageBackgroundImageComponent,
@@ -17,13 +18,14 @@ import { getBackgroundImageForAdventure } from '../campaigns';
 @Component({
     selector: 'app-adventure-page',
     imports: [
-        CommonModule,
-        RouterModule,
         ActionBarComponent,
-        SquareComponent,
-        PageWrapperComponent,
+		AdventureLogComponent,
+        CommonModule,
         LoadingSpinnerComponent,
-        PageBackgroundImageComponent
+        PageWrapperComponent,
+		PageBackgroundImageComponent,
+        RouterModule,
+        SquareComponent,
     ],
     templateUrl: './adventure-page.component.html',
     styleUrls: ['./adventure-page.component.css'],
