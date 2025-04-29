@@ -15,10 +15,10 @@ internal sealed class GlobalDbContext : DbContext
 {
     public GlobalDbContext(DbContextOptions<GlobalDbContext> options) : base(options) { }
 
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    protected override void OnConfiguring(DbContextOptionsBuilder builder)
     {
-        base.OnConfiguring(optionsBuilder);
-        optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=DungeonsDragons;Trusted_Connection=True;MultipleActiveResultSets=true");
+        base.OnConfiguring(builder);
+        builder.UseNpgsql("User ID =appuser;Password=#JTK664qNtCsjsLp;Server=localhost;Port=5432;Database=dungeonsdragons;");
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)

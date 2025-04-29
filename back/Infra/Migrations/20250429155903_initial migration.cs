@@ -1,12 +1,13 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
 namespace dnd_infra.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialMigration : Migration
+    public partial class initialmigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -31,15 +32,15 @@ namespace dnd_infra.Migrations
                 schema: "Users",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    IsAvailable = table.Column<bool>(type: "bit", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(55)", maxLength: 55, nullable: false),
-                    PasswordHash = table.Column<byte[]>(type: "varbinary(255)", maxLength: 255, nullable: false),
-                    PasswordResetToken = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
-                    PasswordSalt = table.Column<byte[]>(type: "varbinary(255)", maxLength: 255, nullable: false),
-                    PictureUrl = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
-                    ResetTokenExpirationDate = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true)
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    IsAvailable = table.Column<bool>(type: "boolean", nullable: false),
+                    Name = table.Column<string>(type: "character varying(55)", maxLength: 55, nullable: false),
+                    PasswordHash = table.Column<byte[]>(type: "bytea", maxLength: 255, nullable: false),
+                    PasswordResetToken = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: true),
+                    PasswordSalt = table.Column<byte[]>(type: "bytea", maxLength: 255, nullable: false),
+                    PictureUrl = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: true),
+                    ResetTokenExpirationDate = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -51,14 +52,14 @@ namespace dnd_infra.Migrations
                 schema: "Campaigns",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
-                    StartsAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
-                    Type = table.Column<int>(type: "int", nullable: false),
-                    DungeonMasterId = table.Column<int>(type: "int", nullable: true),
-                    EndsAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true)
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Description = table.Column<string>(type: "text", nullable: false),
+                    Name = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
+                    StartsAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
+                    Type = table.Column<int>(type: "integer", nullable: false),
+                    DungeonMasterId = table.Column<int>(type: "integer", nullable: true),
+                    EndsAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -77,13 +78,13 @@ namespace dnd_infra.Migrations
                 schema: "Campaigns",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    CampaignId = table.Column<int>(type: "int", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Type = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    StartsAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
-                    EndsAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true)
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    CampaignId = table.Column<int>(type: "integer", nullable: false),
+                    Name = table.Column<string>(type: "text", nullable: false),
+                    Type = table.Column<string>(type: "text", nullable: false),
+                    StartsAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
+                    EndsAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -102,10 +103,10 @@ namespace dnd_infra.Migrations
                 schema: "Campaigns",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    AdventureId = table.Column<int>(type: "int", nullable: false),
-                    IsStartRoom = table.Column<bool>(type: "bit", nullable: true)
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    AdventureId = table.Column<int>(type: "integer", nullable: false),
+                    IsStartRoom = table.Column<bool>(type: "boolean", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -124,19 +125,19 @@ namespace dnd_infra.Migrations
                 schema: "Campaigns",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    RoomId = table.Column<int>(type: "int", nullable: false),
-                    HasTopWall = table.Column<bool>(type: "bit", nullable: true),
-                    HasRightWall = table.Column<bool>(type: "bit", nullable: true),
-                    HasBottomWall = table.Column<bool>(type: "bit", nullable: true),
-                    HasLeftWall = table.Column<bool>(type: "bit", nullable: true),
-                    HasLockedChest = table.Column<bool>(type: "bit", nullable: true),
-                    HasOpenedChest = table.Column<bool>(type: "bit", nullable: true),
-                    HasPillar = table.Column<bool>(type: "bit", nullable: true),
-                    ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IsDisabled = table.Column<bool>(type: "bit", nullable: true),
-                    IsDoor = table.Column<bool>(type: "bit", nullable: true)
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    RoomId = table.Column<int>(type: "integer", nullable: false),
+                    HasTopWall = table.Column<bool>(type: "boolean", nullable: true),
+                    HasRightWall = table.Column<bool>(type: "boolean", nullable: true),
+                    HasBottomWall = table.Column<bool>(type: "boolean", nullable: true),
+                    HasLeftWall = table.Column<bool>(type: "boolean", nullable: true),
+                    HasLockedChest = table.Column<bool>(type: "boolean", nullable: true),
+                    HasOpenedChest = table.Column<bool>(type: "boolean", nullable: true),
+                    HasPillar = table.Column<bool>(type: "boolean", nullable: true),
+                    ImageUrl = table.Column<string>(type: "text", nullable: true),
+                    IsDisabled = table.Column<bool>(type: "boolean", nullable: true),
+                    IsDoor = table.Column<bool>(type: "boolean", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -155,13 +156,13 @@ namespace dnd_infra.Migrations
                 schema: "Players",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    CampaignId = table.Column<int>(type: "int", nullable: true),
-                    IsAvailable = table.Column<bool>(type: "bit", nullable: false),
-                    IsDead = table.Column<bool>(type: "bit", nullable: false),
-                    SquareId = table.Column<int>(type: "int", nullable: true),
-                    UserId = table.Column<int>(type: "int", nullable: true)
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    CampaignId = table.Column<int>(type: "integer", nullable: true),
+                    IsAvailable = table.Column<bool>(type: "boolean", nullable: false),
+                    IsDead = table.Column<bool>(type: "boolean", nullable: false),
+                    SquareId = table.Column<int>(type: "integer", nullable: true),
+                    UserId = table.Column<int>(type: "integer", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -194,11 +195,11 @@ namespace dnd_infra.Migrations
                 schema: "Campaigns",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    SquareId = table.Column<int>(type: "int", nullable: false),
-                    X = table.Column<int>(type: "int", nullable: false),
-                    Y = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    SquareId = table.Column<int>(type: "integer", nullable: false),
+                    X = table.Column<int>(type: "integer", nullable: false),
+                    Y = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -217,10 +218,10 @@ namespace dnd_infra.Migrations
                 schema: "Campaigns",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    SquareId = table.Column<int>(type: "int", nullable: false),
-                    Type = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    SquareId = table.Column<int>(type: "integer", nullable: false),
+                    Type = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -239,10 +240,10 @@ namespace dnd_infra.Migrations
                 schema: "GameFlow",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    AdventureId = table.Column<int>(type: "int", nullable: false),
-                    PlayerId = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    AdventureId = table.Column<int>(type: "integer", nullable: false),
+                    PlayerId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -268,17 +269,17 @@ namespace dnd_infra.Migrations
                 schema: "Players",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    PlayerId = table.Column<int>(type: "int", nullable: false),
-                    LifePoints = table.Column<int>(type: "int", nullable: false),
-                    ManaPoints = table.Column<int>(type: "int", nullable: false),
-                    FootSteps = table.Column<int>(type: "int", nullable: false),
-                    Shield = table.Column<int>(type: "int", nullable: false),
-                    AttackCount = table.Column<int>(type: "int", nullable: false),
-                    HealCount = table.Column<int>(type: "int", nullable: false),
-                    ChestSearchCount = table.Column<int>(type: "int", nullable: false),
-                    TrapSearchCount = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    PlayerId = table.Column<int>(type: "integer", nullable: false),
+                    LifePoints = table.Column<int>(type: "integer", nullable: false),
+                    ManaPoints = table.Column<int>(type: "integer", nullable: false),
+                    FootSteps = table.Column<int>(type: "integer", nullable: false),
+                    Shield = table.Column<int>(type: "integer", nullable: false),
+                    AttackCount = table.Column<int>(type: "integer", nullable: false),
+                    HealCount = table.Column<int>(type: "integer", nullable: false),
+                    ChestSearchCount = table.Column<int>(type: "integer", nullable: false),
+                    TrapSearchCount = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -297,17 +298,17 @@ namespace dnd_infra.Migrations
                 schema: "Players",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    PlayerId = table.Column<int>(type: "int", nullable: false),
-                    MaxLifePoints = table.Column<int>(type: "int", nullable: false),
-                    MaxManaPoints = table.Column<int>(type: "int", nullable: false),
-                    MaxFootSteps = table.Column<int>(type: "int", nullable: false),
-                    MaxShield = table.Column<int>(type: "int", nullable: false),
-                    MaxAttackCount = table.Column<int>(type: "int", nullable: false),
-                    MaxHealCount = table.Column<int>(type: "int", nullable: false),
-                    MaxChestSearchCount = table.Column<int>(type: "int", nullable: false),
-                    MaxTrapSearchCount = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    PlayerId = table.Column<int>(type: "integer", nullable: false),
+                    MaxLifePoints = table.Column<int>(type: "integer", nullable: false),
+                    MaxManaPoints = table.Column<int>(type: "integer", nullable: false),
+                    MaxFootSteps = table.Column<int>(type: "integer", nullable: false),
+                    MaxShield = table.Column<int>(type: "integer", nullable: false),
+                    MaxAttackCount = table.Column<int>(type: "integer", nullable: false),
+                    MaxHealCount = table.Column<int>(type: "integer", nullable: false),
+                    MaxChestSearchCount = table.Column<int>(type: "integer", nullable: false),
+                    MaxTrapSearchCount = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -326,15 +327,15 @@ namespace dnd_infra.Migrations
                 schema: "Players",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    PlayerId = table.Column<int>(type: "int", nullable: false),
-                    Class = table.Column<string>(type: "nvarchar(55)", maxLength: 55, nullable: false),
-                    Gender = table.Column<string>(type: "nvarchar(55)", maxLength: 55, nullable: false),
-                    ImageUrl = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
-                    Name = table.Column<string>(type: "nvarchar(55)", maxLength: 55, nullable: false),
-                    Species = table.Column<string>(type: "nvarchar(55)", maxLength: 55, nullable: false),
-                    Role = table.Column<string>(type: "nvarchar(55)", maxLength: 55, nullable: false)
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    PlayerId = table.Column<int>(type: "integer", nullable: false),
+                    Class = table.Column<string>(type: "character varying(55)", maxLength: 55, nullable: false),
+                    Gender = table.Column<string>(type: "character varying(55)", maxLength: 55, nullable: false),
+                    ImageUrl = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: true),
+                    Name = table.Column<string>(type: "character varying(55)", maxLength: 55, nullable: false),
+                    Species = table.Column<string>(type: "character varying(55)", maxLength: 55, nullable: false),
+                    Role = table.Column<string>(type: "character varying(55)", maxLength: 55, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -353,11 +354,11 @@ namespace dnd_infra.Migrations
                 schema: "Items",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    IsEquiped = table.Column<bool>(type: "bit", nullable: false),
-                    ItemId = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    PlayerId = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    IsEquiped = table.Column<bool>(type: "boolean", nullable: false),
+                    ItemId = table.Column<string>(type: "text", nullable: false),
+                    PlayerId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -376,11 +377,11 @@ namespace dnd_infra.Migrations
                 schema: "GameFlow",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    PlayerId = table.Column<int>(type: "int", nullable: false),
-                    AdventureId = table.Column<int>(type: "int", nullable: false),
-                    Order = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    PlayerId = table.Column<int>(type: "integer", nullable: false),
+                    AdventureId = table.Column<int>(type: "integer", nullable: false),
+                    Order = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -458,8 +459,7 @@ namespace dnd_infra.Migrations
                 schema: "Players",
                 table: "Players",
                 column: "SquareId",
-                unique: true,
-                filter: "[SquareId] IS NOT NULL");
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Players_UserId",

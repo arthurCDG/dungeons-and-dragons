@@ -20,7 +20,8 @@ public static class InfraExtensions
 {
     public static void AddInfraExtensions(this IServiceCollection services)
     {
-        services.AddDbContext<GlobalDbContext>();
+        services.AddEntityFrameworkNpgsql()
+                .AddDbContext<GlobalDbContext>();
 
         services.AddScoped<ICampaignsRepository, CampaignsRepository>()
                 .AddScoped<IAdventuresRepository, AdventuresRepository>()
