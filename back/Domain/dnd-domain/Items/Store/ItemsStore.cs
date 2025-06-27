@@ -2,25 +2,27 @@
 using dnd_domain.Items.Models;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using dnd_domain.Players.Enums;
 
 namespace dnd_domain.Items.Store;
 
 public static class ItemsStore
 {
-    public static List<Item> GetAvailableItems(HashSet<string> itemIds)
+    public static List<Item> GetAvailableItems(HashSet<string> alreadyStoredItemIds)
     {
-        return Items.Where(i => !i.IsUnique || !itemIds.Contains(i.Id))
+        return Items.Where(i => !i.IsUnique || !alreadyStoredItemIds.Contains(i.Id))
                     .ToList();
     }
 
-    public static Item GetItemFromId(string id)
+    public static Item GetItem(string id)
     {
         Item? item = Items.FirstOrDefault(i => i.Id == id);
 
         return item ?? throw new Exception("No item with this identifier was found.");
     }
-
+    
     private static IReadOnlyCollection<Item> Items =>
     [
         .. ArtifactsStore.Items,

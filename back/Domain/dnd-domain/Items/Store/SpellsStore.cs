@@ -6,7 +6,7 @@ namespace dnd_domain.Items.Store;
 
 public static class SpellsStore
 {
-    public static IReadOnlyCollection<Item> Items =>
+    public static IReadOnlyCollection<Spell> Items =>
     [
         BurningHands,
         MagicProjectile,

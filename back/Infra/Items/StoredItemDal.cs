@@ -15,7 +15,7 @@ internal sealed class StoredItemDal
         {
             Id = Id,
             IsEquiped = IsEquiped,
-            Item = ItemsStore.GetItemFromId(ItemId),
+            Item = ItemsStore.GetItem(ItemId),
             PlayerId = PlayerId
         };
 }

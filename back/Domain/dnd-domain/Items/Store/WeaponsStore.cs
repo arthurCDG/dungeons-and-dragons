@@ -6,7 +6,7 @@ namespace dnd_domain.Items.Store;
 
 public static class WeaponsStore
 {
-    public static IReadOnlyCollection<Item> Items =>
+    public static IReadOnlyCollection<Weapon> Items =>
     [
         AmbushCrossbow,
         AncientShortBow,

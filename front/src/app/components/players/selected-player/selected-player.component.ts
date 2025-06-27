@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Class, Species } from '../../../models';
 
+// TODO : delete this component?
 @Component({
     selector: 'app-selected-player',
     imports: [CommonModule],

@@ -6,7 +6,7 @@ namespace dnd_domain.Items.Store;
 
 public static class ArtifactsStore
 {
-    public static IReadOnlyCollection<Item> Items =>
+    public static IReadOnlyCollection<Artifact> Items =>
     [
         AmuletOfOlidammara,
         AmuletOfYondalla,

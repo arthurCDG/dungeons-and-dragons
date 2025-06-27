@@ -11,7 +11,6 @@ import {
 	LoadingSpinnerComponent,
 	PageBackgroundImageComponent,
 	PageWrapperComponent,
-	SelectedPlayerComponent,
 	ToastMessageComponent
 } from '../../../components';
 import { getLokalisedClassName, getLokalisedGenderName, getLokalisedSpeciesName } from '../../../helpers';
@@ -23,7 +22,6 @@ import { IFormRadioInput } from './models';
     selector: 'app-player-creation-page',
     imports: [
         CommonModule,
-        SelectedPlayerComponent,
         PageWrapperComponent,
         PageBackgroundImageComponent,
         BackArrowComponent,

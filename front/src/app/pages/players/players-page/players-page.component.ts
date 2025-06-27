@@ -10,7 +10,6 @@ import {
 	PageBackgroundImageComponent,
 	PageWrapperComponent,
 	PlayerCardComponent,
-	SelectedPlayerComponent
 } from '../../../components';
 import { IPlayer, IUserDto, PlayerRole } from '../../../models';
 import { AvailableDungeonMastersService, PlayersService, UsersService } from '../../../services';
@@ -22,7 +21,6 @@ import { AvailableDungeonMastersService, PlayersService, UsersService } from '..
         RouterModule,
         PlayerCardComponent,
         BackArrowComponent,
-        SelectedPlayerComponent,
         PageWrapperComponent,
         PageBackgroundImageComponent,
         LoadingSpinnerComponent
