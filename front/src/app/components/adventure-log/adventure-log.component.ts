@@ -1,9 +1,10 @@
-import { Component, inject, Input, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Component, inject, OnInit } from '@angular/core';
 import { AdventureLogService } from './adventure-log.service';
 
 @Component({
     selector: 'app-adventure-log',
-    imports: [],
+    imports: [CommonModule],
     providers: [AdventureLogService],
     templateUrl: './adventure-log.component.html',
     styleUrl: './adventure-log.component.css'
