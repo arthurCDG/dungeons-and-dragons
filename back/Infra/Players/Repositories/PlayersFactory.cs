@@ -1,4 +1,8 @@
-﻿using dnd_domain.Campaigns.Adventures;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using dnd_domain.Campaigns.Adventures;
 using dnd_domain.Items.Store;
 using dnd_domain.Players.Enums;
 using dnd_domain.Players.Payloads;
@@ -8,17 +12,11 @@ using dnd_infra.Campaigns.Adventures.Rooms.Squares.DALs;
 using dnd_infra.Items;
 using dnd_infra.Players.DALs;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace dnd_infra.Players.Repositories;
 
-internal sealed class PlayersFactory(GlobalDbContext globalDbContext)
+internal sealed class PlayersFactory(GlobalDbContext context)
 {
-    private readonly GlobalDbContext _context = globalDbContext;
-
     /// <summary>
     /// TODO ref this method to forge custom players in the future with all payload properties.
     /// </summary>
@@ -36,7 +34,7 @@ internal sealed class PlayersFactory(GlobalDbContext globalDbContext)
 
     public async Task ForgeMonstersFromAdventureAsync(int campaignId, int adventureId)
     {
-        CampaignDal campaign = await _context.Campaigns
+        CampaignDal campaign = await context.Campaigns
             .Include(c => c.Players)
             .Include(c => c.Adventures)
                 .ThenInclude(a => a.Rooms)
@@ -58,7 +56,7 @@ internal sealed class PlayersFactory(GlobalDbContext globalDbContext)
         };
 
         campaign.Players.AddRange(monsters);
-        await _context.SaveChangesAsync();
+        await context.SaveChangesAsync();
     }
 
     private static PlayerDal ForgeWarrior(int userId, PlayerCreationPayload payload)
@@ -73,6 +71,7 @@ internal sealed class PlayersFactory(GlobalDbContext globalDbContext)
                 Gender = payload.Gender,
                 Role = PlayerRole.Hero
             },
+            Attributes = new PlayerAttributesDal(),
             MaxAttributes = new PlayerMaxAttributesDal
             {
                 MaxLifePoints = 8,
@@ -107,6 +106,7 @@ internal sealed class PlayersFactory(GlobalDbContext globalDbContext)
                 Gender = payload.Gender,
                 Role = PlayerRole.Hero
             },
+            Attributes = new PlayerAttributesDal(),
             MaxAttributes = new PlayerMaxAttributesDal
             {
                 MaxLifePoints = 5,
@@ -146,6 +146,7 @@ internal sealed class PlayersFactory(GlobalDbContext globalDbContext)
                 Gender = payload.Gender,
                 Role = PlayerRole.Hero
             },
+            Attributes = new PlayerAttributesDal(),
             MaxAttributes = new PlayerMaxAttributesDal
             {
                 MaxLifePoints = 5,
@@ -185,6 +186,7 @@ internal sealed class PlayersFactory(GlobalDbContext globalDbContext)
                 Gender = payload.Gender,
                 Role = PlayerRole.Hero
             },
+            Attributes = new PlayerAttributesDal(),
             MaxAttributes = new PlayerMaxAttributesDal
             {
                 MaxLifePoints = 5,
@@ -227,6 +229,7 @@ internal sealed class PlayersFactory(GlobalDbContext globalDbContext)
                     Role = PlayerRole.Monster,
                     Class = Class.Thief
                 },
+                Attributes = new PlayerAttributesDal(),
                 MaxAttributes = new PlayerMaxAttributesDal
                 {
                     MaxLifePoints = 4,
@@ -260,6 +263,7 @@ internal sealed class PlayersFactory(GlobalDbContext globalDbContext)
                     Role = PlayerRole.Monster,
                     Class = Class.Thief
                 },
+                Attributes = new PlayerAttributesDal(),
                 MaxAttributes = new PlayerMaxAttributesDal
                 {
                     MaxLifePoints = 4,
@@ -293,6 +297,7 @@ internal sealed class PlayersFactory(GlobalDbContext globalDbContext)
                     Role = PlayerRole.Monster,
                     Class = Class.Thief
                 },
+                Attributes = new PlayerAttributesDal(),
                 MaxAttributes = new PlayerMaxAttributesDal
                 {
                     MaxLifePoints = 4,
@@ -326,6 +331,7 @@ internal sealed class PlayersFactory(GlobalDbContext globalDbContext)
                     Role = PlayerRole.Monster,
                     Class = Class.Thief
                 },
+                Attributes = new PlayerAttributesDal(),
                 MaxAttributes = new PlayerMaxAttributesDal
                 {
                     MaxLifePoints = 4,
@@ -359,6 +365,7 @@ internal sealed class PlayersFactory(GlobalDbContext globalDbContext)
                     Role = PlayerRole.Monster,
                     Class = Class.Thief
                 },
+                Attributes = new PlayerAttributesDal(),
                 MaxAttributes = new PlayerMaxAttributesDal
                 {
                     MaxLifePoints = 4,
@@ -392,6 +399,7 @@ internal sealed class PlayersFactory(GlobalDbContext globalDbContext)
                     Role = PlayerRole.Monster,
                     Class = Class.Thief
                 },
+                Attributes = new PlayerAttributesDal(),
                 MaxAttributes = new PlayerMaxAttributesDal
                 {
                     MaxLifePoints = 4,
