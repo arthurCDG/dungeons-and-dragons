@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { DEV_BACKEND_URL } from '../_api.urls';
 import { ICreatablePlayer } from '../../models';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class CreatablePlayersService {
 	constructor(private readonly httpClient: HttpClient) {}
 

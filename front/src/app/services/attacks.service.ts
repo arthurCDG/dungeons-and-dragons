@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { IAttackPayload, IPlayer } from '../models/players.models';
 import { ATTACK_SERVICE_URL, DEV_BACKEND_URL } from './_api.urls';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class AttacksService {
 
 	constructor(private readonly httpClient: HttpClient) {}

@@ -1,14 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Router, RouterModule } from '@angular/router';
-import { HttpErrorResponse } from '@angular/common/http';
-import { catchError, shareReplay } from 'rxjs';
+import { RouterModule } from '@angular/router';
 
-import { IAuthentifiedUser, IUserPayload } from '../../../models/users.models';
-import { AuthService, EventsService, UsersService } from '../../../services';
+import { IUserPayload } from '../../../models/users.models';
 import { confirmPasswordValidator } from '../validators/confirm-password.validator';
 import { BackArrowComponent, ToastMessageComponent, PageBackgroundImageComponent, ImageType, PageWrapperComponent } from '../../../../app/components';
+import { SessionStore } from '../../../stores';
 
 @Component({
     selector: 'app-sign-up',
@@ -22,11 +20,10 @@ import { BackArrowComponent, ToastMessageComponent, PageBackgroundImageComponent
         PageBackgroundImageComponent
     ],
     templateUrl: './sign-up.component.html',
-    styleUrls: ['./../styles/authentication.component.css'],
-    providers: [AuthService, UsersService]
+	styleUrls: ['./../styles/authentication.component.css']
 })
 export class SignupComponent {
-	public httpError: HttpErrorResponse | null = null;
+	protected readonly sessionStore = inject(SessionStore);
 	public backgroundImage: ImageType = 'signup-login-page';
 
 	usernameCtrl = this.fb.control('', [Validators.required, Validators.minLength(3)]);
@@ -40,10 +37,7 @@ export class SignupComponent {
 	});
 	
 	constructor(
-		private readonly fb: FormBuilder,
-		private readonly authService: AuthService,
-		private readonly router: Router,
-		private readonly eventsService: EventsService
+		private readonly fb: FormBuilder
 	) {}
 
 	public signup(): void {
@@ -52,20 +46,6 @@ export class SignupComponent {
 			password: this.passwordCtrl.value!
 		};
 
-		this.authService.signupAsync(userPayload)
-			.pipe(
-				shareReplay(),
-				catchError(error => {
-					this.httpError = error;
-					throw error;
-				})
-			)
-			.subscribe((authentifiedUser: IAuthentifiedUser | null) => {
-				if (authentifiedUser) {
-					this.authService.doLoginUser(authentifiedUser);
-					this.eventsService.send('IS_LOGGED_IN');
-					this.router.navigate(['users', authentifiedUser.userId, 'players']);
-				}
-			});
+		void this.sessionStore.signup(userPayload);
 	}
 }

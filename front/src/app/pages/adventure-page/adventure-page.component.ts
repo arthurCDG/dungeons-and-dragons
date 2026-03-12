@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, RouterModule } from '@angular/router';
+import { Component, DestroyRef, OnInit, inject } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { ActivatedRoute } from '@angular/router';
 
 import {
 	ActionBarComponent,
@@ -11,9 +12,7 @@ import {
 	PageWrapperComponent,
 	SquareComponent
 } from '../../components';
-import { IAdventure, ICurrentPlayerDto, IPlayer, ISquare } from '../../models';
-import { AdventuresService, GameFlowService, PlayersService, SquaresService } from '../../services';
-import { getBackgroundImageForAdventure } from '../campaigns';
+import { AdventureStore } from '../../stores';
 
 @Component({
     selector: 'app-adventure-page',
@@ -24,91 +23,27 @@ import { getBackgroundImageForAdventure } from '../campaigns';
         LoadingSpinnerComponent,
         PageWrapperComponent,
 		PageBackgroundImageComponent,
-        RouterModule,
         SquareComponent,
     ],
     templateUrl: './adventure-page.component.html',
     styleUrls: ['./adventure-page.component.css'],
-    providers: [
-        AdventuresService,
-        PlayersService,
-        GameFlowService,
-        SquaresService
-    ]
+    providers: [AdventureStore]
 })
 export class AdventurePageComponent implements OnInit {
-	public adventure: IAdventure;
-	public squares: ISquare[];
-	public squaredIdThatNeedsToReload: number;
-	public selectedSquaredId?: number;
-	public selectedSquare?: ISquare;
-	public userPlayer: IPlayer;
-	public currentPlayer: IPlayer;
-	public isLoading = true;
-	public backgroundImage: ImageType = 'campaigns-page'; // TODO modify for campaign background or other
-	
-	private campaignId: number;
-	private adventureId: number;
-	private userId: number;
-	private playerId: number;
-
-	constructor(
-		private readonly playersService: PlayersService,
-		private readonly adventuresService: AdventuresService,
-		private readonly gameFlowService: GameFlowService,
-		private readonly activatedRoute: ActivatedRoute,
-		private readonly squaresService: SquaresService
-	) { }
+	public readonly adventureStore = inject(AdventureStore);
+	private readonly activatedRoute = inject(ActivatedRoute);
+	private readonly destroyRef = inject(DestroyRef);
 
 	ngOnInit(): void {
-		this.activatedRoute.params.subscribe(params => {
-			this.campaignId = Number(params['campaignId']);
-			this.adventureId = Number(params['adventureId']);
-			this.userId = Number(params['userId']);
-			this.playerId = Number(params['playerId']);
-		});
-
-		this.adventuresService
-			.getByIdAsync(this.campaignId, this.adventureId)
-			.subscribe((adventure: IAdventure) => {
-				this.adventure = adventure;
-				this.backgroundImage = getBackgroundImageForAdventure(adventure.type);
-				this.squares = adventure.squares;
-			});
-
-		this.getUserPlayer();
-		this.getCurrentPlayer();
-
-		this.isLoading = false;
-	}
-
-	onSquareChanged(formerSquaredId: number): void {
-		this.squaredIdThatNeedsToReload = formerSquaredId;
-
-		this.squaresService
-			.getByIdAsync(formerSquaredId)
-			.subscribe((square: ISquare) => this.userPlayer =  { ...this.userPlayer, square });
-	}
-
-	onSquareSelected(squareId: number): void {
-		this.selectedSquaredId = squareId;
-		this.selectedSquare = this.squares.find(s => s.id === this.selectedSquaredId);
-	}
-
-	private getUserPlayer(): void {
-		this.playersService
-			.getByIdAsync(this.userId, this.playerId)
-			.subscribe((userPlayer: IPlayer) => this.userPlayer = userPlayer);
-	}
-
-	private getCurrentPlayer(): void {
-		this.gameFlowService
-			.getCurrentPlayer(this.adventureId)
-			.subscribe((currentPlayer: ICurrentPlayerDto) => {
-				if (currentPlayer.player?.id === this.userPlayer?.id) {
-					this.currentPlayer = currentPlayer.player;
-				}
+		this.activatedRoute.params
+			.pipe(takeUntilDestroyed(this.destroyRef))
+			.subscribe(params => {
+				void this.adventureStore.load({
+					campaignId: Number(params['campaignId']),
+					adventureId: Number(params['adventureId']),
+					userId: Number(params['userId']),
+					playerId: Number(params['playerId'])
+				});
 			});
 	}
-
 }

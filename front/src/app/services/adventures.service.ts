@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { AdventureType, IAdventure } from '../models/campaign.models';
 import { ADVENTURES_URL, CAMPAIGNS_URL, DEV_BACKEND_URL } from './_api.urls';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class AdventuresService {
 
 	constructor(private readonly httpClient: HttpClient) {}

@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { DEV_BACKEND_URL } from '../_api.urls';
 import { IUserDto } from '../../models';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class AvailableDungeonMastersService {
 	constructor(private readonly httpClient: HttpClient) {}
 

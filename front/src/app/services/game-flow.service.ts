@@ -6,7 +6,7 @@ import { DEV_BACKEND_URL } from './_api.urls';
 
 const BASE_URL = `${DEV_BACKEND_URL}/services/adventures`;
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class GameFlowService {
 
 	constructor(private readonly httpClient: HttpClient) {}

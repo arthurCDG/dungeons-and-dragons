@@ -11,9 +11,9 @@
 	(click)="onSquareClicked()"
 >
 	<div [class.is-disabled]="square.isDisabled"></div>
-	<div [class.selected]="selected === true">
-		@if (player) {
-			<app-player [player]="player"></app-player>
+	<div [class.selected]="isSelected">
+		@if (square.player) {
+			<app-player [player]="square.player"></app-player>
 		}
 		@if (square.isDoor) {
 			<app-interactive-element [interactiveElement]="'door'"></app-interactive-element>

@@ -2,8 +2,8 @@
 	<div class="home-text">
 		<h1 class="home-title">Dungeons and Dragons</h1>
 
-		@if (isLoggedIn) {
-			<a [routerLink]="'/users/' + userId + '/players'" class="link-button base-button nav-button welcome-link">
+		@if (sessionStore.isAuthenticated()) {
+			<a [routerLink]="sessionStore.playersRoute()" class="link-button base-button nav-button welcome-link">
 				Mes joueurs
 			</a>
 		}

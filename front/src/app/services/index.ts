@@ -4,7 +4,6 @@ export * from './auth.service';
 export * from './campaigns.service';
 export * from './creatable-adventures.service';
 export * from './creatable-campaigns.service';
-export * from './events';
 export * from './game-flow.service';
 export * from './items';
 export * from './players';

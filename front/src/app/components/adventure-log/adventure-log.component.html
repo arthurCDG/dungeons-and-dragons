@@ -1,6 +1,6 @@
 <div>
 	<h1>Journal de l'aventure</h1>
-	<div *ngFor="let log of logs">
+	@for (log of adventureStore.logs(); track $index) {
 		<span>{{ log }}</span>
-	</div>
+	}
 </div>

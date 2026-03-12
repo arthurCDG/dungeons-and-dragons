@@ -1,13 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { HttpErrorResponse } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
-import { Router, RouterModule } from '@angular/router';
+import { RouterModule } from '@angular/router';
 
-import { catchError, shareReplay } from 'rxjs';
-import { IAuthentifiedUser, ILoginPayload } from '../../../models';
-import { AuthService, EventsService } from '../../../services';
+import { ILoginPayload } from '../../../models';
 import { BackArrowComponent, ToastMessageComponent, PageBackgroundImageComponent, ImageType, PageWrapperComponent } from '../../../../app/components';
+import { SessionStore } from '../../../stores';
 
 @Component({
     selector: 'app-login',
@@ -21,11 +19,10 @@ import { BackArrowComponent, ToastMessageComponent, PageBackgroundImageComponent
         PageBackgroundImageComponent
     ],
     templateUrl: './login.component.html',
-    styleUrls: ['./../styles/authentication.component.css'],
-    providers: [AuthService]
+	styleUrls: ['./../styles/authentication.component.css']
 })
 export class LoginComponent {
-	public httpError: HttpErrorResponse | null = null;
+	protected readonly sessionStore = inject(SessionStore);
 	public backgroundImage: ImageType = 'signup-login-page';
 
 	usernameCtrl = this.fb.control('');
@@ -37,10 +34,7 @@ export class LoginComponent {
 	});
 	
 	constructor(
-		private readonly fb: FormBuilder,
-		private readonly authService: AuthService,
-		private readonly router: Router,
-		private readonly eventsService: EventsService
+		private readonly fb: FormBuilder
 	) { }
 
 	public login(): void {
@@ -49,20 +43,6 @@ export class LoginComponent {
 			password: this.passwordCtrl.value!
 		};
 
-		this.authService.loginAsync(loginPayload)
-			.pipe(
-				shareReplay(),
-				catchError(error => {
-					this.httpError = error;
-					throw error;
-				}))
-			.subscribe((authentifiedUser: IAuthentifiedUser | null) => {
-				if (authentifiedUser)
-				{
-					this.authService.doLoginUser(authentifiedUser);
-					this.eventsService.send('IS_LOGGED_IN');
-					this.router.navigate(['users', authentifiedUser.userId, 'players']);
-				}
-			})
+		void this.sessionStore.login(loginPayload);
 	}
 }

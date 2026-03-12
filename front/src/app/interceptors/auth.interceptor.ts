@@ -1,11 +1,17 @@
 import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from "@angular/common/http";
-import { Injectable } from "@angular/core";
+import { Injectable, Injector } from "@angular/core";
+import { Router } from "@angular/router";
 import { Observable, catchError, throwError } from "rxjs";
 import { AuthService } from "../services";
+import { SessionStore } from "../stores";
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
-	constructor(private readonly authService: AuthService) { }
+	constructor(
+		private readonly authService: AuthService,
+		private readonly injector: Injector,
+		private readonly router: Router
+	) { }
 
 	public intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 		if (request.url.includes('/services/auth')) {
@@ -18,7 +24,9 @@ export class AuthInterceptor implements HttpInterceptor {
 
 		return next.handle(request).pipe(catchError(error => {
 			if (error.status === 401) {
-				this.authService.doLogoutAndRedirectToLogin();
+				this.authService.clearSession();
+				this.injector.get(SessionStore).clearSessionState();
+				void this.router.navigate(['/login']);
 			}
 			return throwError(error);
 		}));

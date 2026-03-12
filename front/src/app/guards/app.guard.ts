@@ -1,21 +1,14 @@
-import { Injectable } from "@angular/core";
-import { CanActivate, Router } from "@angular/router";
-import { AuthService } from "../services";
-import { Observable, tap } from "rxjs";
+import { inject } from '@angular/core';
+import { CanActivateFn, Router } from '@angular/router';
 
-@Injectable({
-  providedIn: 'root'
-})
-export class AppGuard implements CanActivate {
-	constructor(private authService: AuthService, private router: Router) { }
+import { SessionStore } from '../stores';
 
-	canActivate(): Observable<boolean> {
-		return this.authService.isLoggedIn$().pipe(
-			tap(isLoggedIn => {
-				if (!isLoggedIn) {
-					this.router.navigate(['login']);
-				}
-			})
-		);
+export const appGuard: CanActivateFn = () => {
+	const sessionStore = inject(SessionStore);
+
+	if (sessionStore.isAuthenticated()) {
+		return true;
 	}
-}
+
+	return inject(Router).createUrlTree(['/login']);
+};

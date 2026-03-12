@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { DEV_BACKEND_URL, SQUARE_MOVEMENT_URL } from './_api.urls';
 import { IMovement, IMovementRequestPayload } from '../models/campaign.models';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class SquareMovementService {
 
 	constructor(private readonly httpClient: HttpClient) {}

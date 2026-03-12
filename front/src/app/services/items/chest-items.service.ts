@@ -6,7 +6,7 @@ import { DEV_BACKEND_URL } from './../_api.urls';
 
 const BASE_URL = `${DEV_BACKEND_URL}/services/chest-items`;
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class ChestItemsService {
 
 	constructor(private readonly httpClient: HttpClient) {}

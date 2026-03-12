@@ -1,10 +1,10 @@
 <div class="action-bar">
-	@if (currentPlayer && userId === currentPlayer.userId) {
+	@if (adventureStore.isUserTurn() && adventureStore.currentPlayer(); as currentPlayer) {
 		<div class="action-bar-buttons">
 			<button
 				(click)="onMeleeAttackAsync()"
 				class="base-button"
-				[disabled]="!currentPlayer.attributes?.attackCount"
+				[disabled]="!currentPlayer.attributes?.attackCount || !adventureStore.canMeleeAttack()"
 			>
 				Attaquer au corps à corps
 			</button>
@@ -12,7 +12,7 @@
 			<button
 				(click)="onRangedAttackAsync()"
 				class="base-button"
-				[disabled]="!currentPlayer.attributes?.attackCount"
+				[disabled]="!currentPlayer.attributes?.attackCount || !adventureStore.canAttackTarget()"
 			>
 				Attaquer à distance
 			</button>
@@ -20,7 +20,7 @@
 			<button
 				(click)="onSpellAttackAsync()"
 				class="base-button"
-				[disabled]="!currentPlayer.attributes?.attackCount"
+				[disabled]="!currentPlayer.attributes?.attackCount || !adventureStore.canAttackTarget()"
 			>
 				Attaquer à distance
 			</button>
@@ -41,7 +41,7 @@
 				Fouiller le coffre
 			</button>
 
-			@if (canOpenDoor) {
+			@if (adventureStore.canOpenDoor()) {
 				<button (click)="onOpenDoorAsync()" class="base-button">Ouvrir la porte</button>
 			}
 
@@ -52,7 +52,7 @@
 		<p>En attendant que le joueur en cours finisse son tour, vous pouvez regarder votre inventaire.</p>
 	}
 
-	@if (currentPlayer) {
+	@if (adventureStore.currentPlayer(); as currentPlayer) {
 		<div class="current-player-card">
 			<p class=white-description>Joueur en cours : {{ currentPlayer.profile?.name }}</p>
 		</div>

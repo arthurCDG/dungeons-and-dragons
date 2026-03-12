@@ -1,23 +1,17 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { IAuthentifiedUser, ILoginPayload, IUserPayload } from '../models/users.models';
 import { DEV_BACKEND_URL } from './_api.urls';
 
 const API_URL: string = 'services/auth';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class AuthService {
-	private readonly JWT_TOKEN = 'JWT_TOKEN';
-	private readonly USER_ID = 'USER_ID';
+	private readonly jwtTokenKey = 'JWT_TOKEN';
+	private readonly userIdKey = 'USER_ID';
 
-	public INITIAL_PATH = ''; // TODO change ?
-
-	constructor(
-		private readonly httpClient: HttpClient,
-		private readonly router: Router
-	) {}
+	constructor(private readonly httpClient: HttpClient) {}
 
 	public signupAsync = (userPayload: IUserPayload): Observable<IAuthentifiedUser | null> =>
 		this.httpClient.post<IAuthentifiedUser | null>(`${DEV_BACKEND_URL}/${API_URL}/signup`, userPayload);
@@ -25,35 +19,32 @@ export class AuthService {
 	public loginAsync = (loginPayload: ILoginPayload): Observable<IAuthentifiedUser | null> =>
 		this.httpClient.post<IAuthentifiedUser | null>(`${DEV_BACKEND_URL}/${API_URL}/login`, loginPayload);
 
-	public isLoggedIn$(): Observable<boolean> {
-		return this.getToken() ? of(true) : of(false);
-	}
-
-	public doLoginUser = (authentifiedUser: IAuthentifiedUser): void => {
-		localStorage.setItem(this.JWT_TOKEN, authentifiedUser.token);
-		localStorage.setItem(this.USER_ID, authentifiedUser.userId.toString());
+	public storeSession(authentifiedUser: IAuthentifiedUser): void {
+		localStorage.setItem(this.jwtTokenKey, authentifiedUser.token);
+		localStorage.setItem(this.userIdKey, authentifiedUser.userId.toString());
 	}
 	
-	public doLogoutUser = (): void => {
-		localStorage.removeItem(this.JWT_TOKEN);
-		localStorage.removeItem(this.USER_ID);
+	public clearSession(): void {
+		localStorage.removeItem(this.jwtTokenKey);
+		localStorage.removeItem(this.userIdKey);
 	}
 
-	public doLogoutAndRedirectToLogin = (): void => {
-		this.doLogoutUser();
-		this.router.navigate(['/login']);
-	}
+	public readStoredSession(): StoredSession {
+		const token = localStorage.getItem(this.jwtTokenKey);
+		const userId = localStorage.getItem(this.userIdKey);
 
-	public getCurrentUserId(): Observable<number | null> {
-		const userId: string | null = this.getLocalUserId();
-		
-		if (userId) {
-			return of(Number.parseInt(userId));
-		} else {
-			return of(null);
-		}
+		return {
+			token,
+			userId: userId === null ? null : Number.parseInt(userId, 10)
+		};
 	}
 	
-	public getToken = (): string | null => localStorage.getItem(this.JWT_TOKEN);
-	public getLocalUserId = (): string | null => localStorage.getItem(this.USER_ID);
+	public getToken(): string | null {
+		return localStorage.getItem(this.jwtTokenKey);
+	}
+}
+
+export interface StoredSession {
+	token: string | null;
+	userId: number | null;
 }

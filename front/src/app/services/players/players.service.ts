@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { IPlayer, IPlayerCreationPayload } from '../../models';
 import { DEV_BACKEND_URL } from '../_api.urls';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class PlayersService {
 	constructor(private readonly httpClient: HttpClient) {}
 

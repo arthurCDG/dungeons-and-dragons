@@ -5,7 +5,7 @@ import { IPlayer } from '../models/players.models';
 import { DEV_BACKEND_URL, SQUARES_URL } from './_api.urls';
 import { ISquare } from '../models/campaign.models';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class SquaresService {
 
 	constructor(private readonly httpClient: HttpClient) {}

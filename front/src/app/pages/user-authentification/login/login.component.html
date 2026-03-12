@@ -30,7 +30,7 @@
 					<button class="form-element" type="submit">Se connecter</button>
 				</form>
 				
-				@if (httpError) {
+				@if (sessionStore.authError(); as httpError) {
 					<app-toast-message [httpError]="httpError"></app-toast-message>
 				}
 				

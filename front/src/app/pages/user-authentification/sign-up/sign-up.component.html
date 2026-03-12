@@ -57,7 +57,7 @@
 					<button class="form-element" type="submit">Enregistrer</button>
 				</form>
 
-				@if (httpError) {
+				@if (sessionStore.authError(); as httpError) {
 					<app-toast-message [httpError]="httpError"></app-toast-message>
 				}
 				

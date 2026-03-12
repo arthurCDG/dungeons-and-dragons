@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { ICampaign, ICampaignPayload } from '../models/campaign.models';
 import { PLAYERS_URL, CAMPAIGNS_URL, DEV_BACKEND_URL } from './_api.urls';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class CampaignsService {
 	constructor(private readonly httpClient: HttpClient) {}
 

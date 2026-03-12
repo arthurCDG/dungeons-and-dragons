@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, DestroyRef, OnInit, inject } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -7,11 +8,9 @@ import { Location } from '@angular/common';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from "@angular/material/icon";
 import { MatSelectModule } from '@angular/material/select';
-import { Observable, map } from 'rxjs';
-import { BackArrowComponent, ImageType, PageBackgroundImageComponent, PageWrapperComponent } from '../../../components';
-import { ICampaign, ICampaignPayload, ICreatableCampaign, IPlayer, IUserDto } from '../../../models';
-import { AvailableDungeonMastersService, AvailablePlayersService, CampaignsService, PlayersService } from '../../../services';
-import { getBackgroundImageForCampaign } from '../helpers';
+import { BackArrowComponent, PageBackgroundImageComponent, PageWrapperComponent } from '../../../components';
+import { ICampaignPayload, ICreatableCampaign, IPlayer, IUserDto } from '../../../models';
+import { CampaignCreationStore } from '../../../stores';
 
 @Component({
     selector: 'app-campaign-creation-page',
@@ -27,27 +26,15 @@ import { getBackgroundImageForCampaign } from '../helpers';
     ],
     templateUrl: './campaign-creation-page.component.html',
     styleUrls: ['./campaign-creation-page.component.css'],
-    providers: [
-        CampaignsService,
-        AvailableDungeonMastersService,
-        AvailablePlayersService,
-        PlayersService
-    ]
+    providers: [CampaignCreationStore]
 })
 export class CampaignCreationPageComponent implements OnInit {
-	public selectedCampaign?: ICreatableCampaign | null = null;
-	public currentPlayer?: IPlayer | null = null;
-	public isLoading: boolean = true;
-
-	public backgroundImage: ImageType = 'campaigns-page';
-
-	public users$: Observable<IUserDto[]>;
-	public players$: Observable<IPlayer[]>;
-	public chosenPlayers: Map<number, IPlayer> = new Map<number, IPlayer>();
-	
-	private userId: number;
-	private playerId: number;
-	private routeData: ICampaignCreationPageRouteData;
+	public readonly campaignCreationStore = inject(CampaignCreationStore);
+	private readonly activatedRoute = inject(ActivatedRoute);
+	private readonly destroyRef = inject(DestroyRef);
+	private readonly fb = inject(FormBuilder);
+	private readonly router = inject(Router);
+	private readonly location = inject(Location);
 
 	dungeonMasterCtrl = this.fb.control<IUserDto | null>(null);
 	heroesCtrl = this.fb.record<IPlayer | null>({});
@@ -56,48 +43,40 @@ export class CampaignCreationPageComponent implements OnInit {
 		heroes: this.heroesCtrl
 	});
 
-	constructor(
-		private readonly fb: FormBuilder,
-		private readonly campaignsService: CampaignsService,
-		private readonly playersService: PlayersService,
-		private readonly availableDungeonMastersService: AvailableDungeonMastersService,
-		private readonly availablePlayersService: AvailablePlayersService,
-		private readonly router: Router,
-		private readonly activatedRoute: ActivatedRoute,
-		private readonly location: Location
-	) { }
-
 	ngOnInit(): void {
-		this.activatedRoute.params.subscribe(params => {
-			this.playerId = Number(params['playerId']);
-			this.userId = Number(params['userId']);
-		});
-		this.playersService.getByIdAsync(this.userId, this.playerId).subscribe(player => this.currentPlayer = player);
+		const routeData = this.location.getState() as ICampaignCreationPageRouteData;
 
-		this.users$ = this.availableDungeonMastersService.getAsync();
-
-		this.players$ = this.availablePlayersService
-			.getAsync()
-			.pipe(
-				map(players => players.filter(p => p.id !== this.playerId && p.campaignId === null))
-			);
-			
-		this.routeData = this.location.getState() as ICampaignCreationPageRouteData;
-		if (!this.routeData.creatableCampaign) {
+		if (!routeData.creatableCampaign) {
 			this.router.navigate(['..'], { relativeTo: this.activatedRoute });
-		}
-		
-		this.selectedCampaign = this.routeData.creatableCampaign;
-		this.backgroundImage = getBackgroundImageForCampaign(this.selectedCampaign.type);
-		for (let i = 0; i < this.selectedCampaign.maxPlayers; i++) {
-			this.heroesCtrl.addControl(`hero_${i}`, this.fb.control<IPlayer | null>(null))
+			return;
 		}
 
-		this.isLoading = false;
+		for (let i = 0; i < routeData.creatableCampaign.maxPlayers - 1; i++) {
+			this.heroesCtrl.addControl(`hero_${i}`, this.fb.control<IPlayer | null>(null));
+		}
+
+		this.activatedRoute.params
+			.pipe(takeUntilDestroyed(this.destroyRef))
+			.subscribe(params => {
+				void this.campaignCreationStore.load(
+					{
+						playerId: Number(params['playerId']),
+						userId: Number(params['userId'])
+					},
+					routeData.creatableCampaign
+				);
+			});
 	}
 
 	onSubmit(): void {
-		const playerIds: number[] = [this.playerId];
+		const currentPlayer = this.campaignCreationStore.currentPlayer();
+		const selectedCampaign = this.campaignCreationStore.selectedCampaign();
+
+		if (currentPlayer === null || selectedCampaign === null) {
+			return;
+		}
+
+		const playerIds: number[] = [currentPlayer.id];
 		for (let heroField in this.heroesCtrl.controls) {
 			if (this.heroesCtrl.controls[heroField].value) {
 				playerIds.push(this.heroesCtrl.controls[heroField].value!.id);
@@ -105,18 +84,12 @@ export class CampaignCreationPageComponent implements OnInit {
 		}
 
 		const payload: ICampaignPayload = {
-			type: this.selectedCampaign!.type,
+			type: selectedCampaign.type,
 			playerIds,
 			dungeonMasterUserId: this.dungeonMasterCtrl.value?.id
 		};
 
-		this.campaignsService
-			.postAsync(payload)
-			.subscribe((campaign: ICampaign) => this.router.navigate(['..', campaign.id], { relativeTo: this.activatedRoute }));
-	}
-
-	public onPlayerSelect(player: IPlayer): void {
-		this.chosenPlayers.set(player.id, player);
+		void this.campaignCreationStore.createCampaign(payload);
 	}
 
 	public deleteHeroesControlValue(event: Event, index: number): void {
@@ -127,6 +100,16 @@ export class CampaignCreationPageComponent implements OnInit {
 	public deleteDungeonMasterValue(event: Event): void {
 		event.stopPropagation();
 		this.dungeonMasterCtrl.setValue(null);
+	}
+
+	public isPlayerSelectedElsewhere(playerId: number, currentIndex: number): boolean {
+		return Object.entries(this.heroesCtrl.controls).some(([controlName, control]) => {
+			if (controlName === `hero_${currentIndex}`) {
+				return false;
+			}
+
+			return control.value?.id === playerId;
+		});
 	}
 }
 

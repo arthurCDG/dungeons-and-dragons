@@ -1,6 +1,6 @@
 <div
 	class="player-card"
-	[class.selected]="isSelected"
+	[class.selected]="playersStore.selectedPlayerId() === player.id"
 	(click)="onPlayerCardClick()"	
 >
 	<div class="player-information">
@@ -53,12 +53,12 @@
 	</div>
 	<div class="player-card-buttons">
 		@if (!player.isAvailable) {
-			<button	class="base-button" (click)="togglePlayerAvailability()">
+			<button	class="base-button" (click)="onTogglePlayerAvailability($event)">
 				<span>Se déclarer disponible</span>
 			</button>
 		}
 		@if (player.isAvailable && player.campaignId === null) {
-			<button	class="base-button" (click)="togglePlayerAvailability()">
+			<button	class="base-button" (click)="onTogglePlayerAvailability($event)">
 				<span>Se déclarer indisponible</span>
 			</button>
 		}

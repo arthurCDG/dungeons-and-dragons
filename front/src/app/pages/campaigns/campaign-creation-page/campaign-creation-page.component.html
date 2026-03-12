@@ -1,15 +1,15 @@
-<app-page-background-image [image]="backgroundImage" />
+<app-page-background-image [image]="campaignCreationStore.backgroundImage()" />
 
-@if (!isLoading) {
+@if (!campaignCreationStore.isLoading()) {
 	<app-page-wrapper>
 		<app-back-arrow link=".." text="Retour vers les campagnes"></app-back-arrow>
 
 		<div class="page-centered-description-wrapper">
-			<h1 class="white-title">{{ selectedCampaign?.name }}</h1>
+			<h1 class="white-title">{{ campaignCreationStore.selectedCampaign()?.name }}</h1>
 		</div>
 
 		<!-- FORM -->
-		@if (selectedCampaign) {
+		@if (campaignCreationStore.selectedCampaign(); as selectedCampaign) {
 			<form (ngSubmit)="onSubmit()" [formGroup]="campaignCreationForm" class="form-content">
 				
 				<h2 class="white-title form-title">Choix des héros pour la campagne</h2>
@@ -18,7 +18,7 @@
 					<div class="form-element">
 						<h3 class="white-description">Héro 1</h3>
 						<span class="white-description">Vous même</span>
-						<span class="white-description">({{ currentPlayer?.profile?.name }})</span>
+						<span class="white-description">({{ campaignCreationStore.currentPlayer()?.profile?.name }})</span>
 					</div>
 
 					@for (_ of [].constructor(selectedCampaign.maxPlayers - 1); let playerIndex = $index; track playerIndex) {
@@ -31,9 +31,9 @@
 									aria-label="Select a player"
 									class="form-input creatable-players-list"
 								>
-									@for (player of players$ | async; track player.id) {
-										@if (!chosenPlayers.has(player.id)) {
-											<mat-option [value]="player" (click)="onPlayerSelect(player)">
+									@for (player of campaignCreationStore.availablePlayers(); track player.id) {
+										@if (!isPlayerSelectedElsewhere(player.id, playerIndex)) {
+											<mat-option [value]="player">
 												{{ player.profile?.name }}
 											</mat-option>
 										}
@@ -67,7 +67,7 @@
 						<mat-form-field class="form-input">
 							<mat-label class="form-label">Choisir le maître du donjon</mat-label>
 							<mat-select formControlName="dungeonMaster" aria-label="Select a user" class="form-input creatable-players-list">
-								@for (user of users$ | async; track user.id) {
+									@for (user of campaignCreationStore.availableUsers(); track user.id) {
 									<mat-option [value]="user">
 										{{ user.name }}
 									</mat-option>
@@ -86,7 +86,7 @@
 				</div>
 			
 				<div class="main-button-wrapper">
-					<button class="form-input base-button" type="submit" [disabled]="campaignCreationForm.invalid">
+					<button class="form-input base-button" type="submit" [disabled]="campaignCreationForm.invalid || campaignCreationStore.isSubmitting()">
 						Créer la campagne
 					</button>
 				</div>

@@ -1,37 +1,42 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { PlayersPageComponent } from './pages/players/players-page/players-page.component';
-import { MainCampaignPageComponent } from './pages/campaigns/main-campaign-page/main-campaign-page.component';
-import { AdventurePageComponent } from './pages/adventure-page/adventure-page.component';
-import { PlayerCreationPageComponent } from './pages/players/player-creation-page/player-creation-page.component';
-import { CampaignCreationPageComponent } from './pages/campaigns/campaign-creation-page/campaign-creation-page.component';
-import { WelcomePageComponent } from './pages/welcome-page/welcome-page.component';
-import { CampaignsPageComponent } from './pages/campaigns/campaigns-page/campaigns-page.component';
-import { SignupComponent } from './pages/user-authentification/sign-up/sign-up.component';
-import { LoginComponent } from './pages/user-authentification/login/login.component';
+import { Routes } from '@angular/router';
 
-const routes: Routes = [
+import { appGuard } from './guards/app.guard';
+import { authGuard } from './guards/auth.guard';
+import { AdventurePageComponent } from './pages/adventure-page/adventure-page.component';
+import { CampaignCreationPageComponent } from './pages/campaigns/campaign-creation-page/campaign-creation-page.component';
+import { CampaignsPageComponent } from './pages/campaigns/campaigns-page/campaigns-page.component';
+import { MainCampaignPageComponent } from './pages/campaigns/main-campaign-page/main-campaign-page.component';
+import { PlayerCreationPageComponent } from './pages/players/player-creation-page/player-creation-page.component';
+import { PlayersPageComponent } from './pages/players/players-page/players-page.component';
+import { LoginComponent } from './pages/user-authentification/login/login.component';
+import { SignupComponent } from './pages/user-authentification/sign-up/sign-up.component';
+import { WelcomePageComponent } from './pages/welcome-page/welcome-page.component';
+
+export const routes: Routes = [
 	{
 		path: '',
 		component: WelcomePageComponent
 	},
 	{
 		path: 'login',
-		component: LoginComponent
+		component: LoginComponent,
+		canActivate: [authGuard]
 	},
 	{
 		path: 'signup',
-		component: SignupComponent
+		component: SignupComponent,
+		canActivate: [authGuard]
 	},
 	{
 		path: 'users/:userId/players',
+		canActivate: [appGuard],
 		children: [
 			{
 				path: '',
 				component: PlayersPageComponent,
 			},
 			{
-				path:'new',
+				path: 'new',
 				component: PlayerCreationPageComponent
 			},
 			{
@@ -46,7 +51,7 @@ const routes: Routes = [
 						component: CampaignCreationPageComponent
 					},
 					{
-						path:':campaignId',
+						path: ':campaignId',
 						children: [
 							{
 								path: '',
@@ -54,7 +59,7 @@ const routes: Routes = [
 							},
 							{
 								path: 'adventures/:adventureId',
-									component: AdventurePageComponent
+								component: AdventurePageComponent
 							}
 						]
 					}
@@ -63,9 +68,3 @@ const routes: Routes = [
 		]
 	}
 ];
-
-@NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
-})
-export class AppRoutingModule { }

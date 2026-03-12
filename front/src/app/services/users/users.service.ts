@@ -6,7 +6,7 @@ import { DEV_BACKEND_URL } from '../_api.urls';
 
 const API_URL: string = 'api/users';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class UsersService {
 	constructor(private readonly httpClient: HttpClient) {}
 

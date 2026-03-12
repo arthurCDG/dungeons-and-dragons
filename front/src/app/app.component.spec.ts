@@ -6,10 +6,8 @@ describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
+        AppComponent,
         RouterTestingModule
-      ],
-      declarations: [
-        AppComponent
       ],
     }).compileComponents();
   });
@@ -26,10 +24,10 @@ describe('AppComponent', () => {
     expect(app.title).toEqual('dnd-front');
   });
 
-  it('should render title', () => {
+  it('should render the application shell', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.content span')?.textContent).toContain('dnd-front app is running!');
+    expect(compiled.querySelector('app-header')).not.toBeNull();
   });
 });
